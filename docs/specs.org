@@ -22,6 +22,9 @@
      - Display gift images
      - Work offline (after initial page load)
    - Sign-up / login to save to gift history
+   - Respond to gift
+     - TBD
+     - Notify owner
 
 ** Account management
    - Sign-up

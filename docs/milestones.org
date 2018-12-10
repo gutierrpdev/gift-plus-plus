@@ -1,4 +1,4 @@
-* Milestones [1/10]
+* Milestones [1/11]
 ** DONE Initial project setup ~(0.5 days)~ [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -59,6 +59,12 @@
      - Work offline
    - [ ] View received gifts
      - Work offline
+
+** TODO Respond to gifts ~(3 days)~ [0/3] <2019-04-26 Fri>
+   DEADLINE: <2019-04-26 Fri>
+   - [ ] Record / Enter a response (TBD)
+   - [ ] Notify about response
+   - [ ] View response
 
 ** TODO Skinned app ~(?? days)~ [0/3] <2019-04-26 Fri>
    DEADLINE: <2019-04-26 Fri>

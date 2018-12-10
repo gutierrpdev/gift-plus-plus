@@ -1,4 +1,4 @@
 * GIFT
   - [[file:docs/core-concepts.org::*Concepts][Concepts]]
-  - [[file:docs/specs.org::*Fuctional%20Requirements][Fuctional Requirements]]
+  - [[file:docs/specs.org::*Fuctional%20Requirements][Functional Requirements]]
   - [[file:docs/milestones.org::*Milestones][Milestones]]
