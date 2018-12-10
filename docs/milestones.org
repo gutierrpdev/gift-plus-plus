@@ -1,0 +1,76 @@
+* Milestones [0/10]
+** TODO Initial project setup ~(0.5)~ [0/2]
+   DEADLINE: <2018-12-14 Fri>
+   - [ ] Repository setup
+   - [ ] Basic outline docs
+
+** TODO Initial data model ~(0.5)~ [0/2]
+   DEADLINE: <2018-12-14 Fri>
+   - [ ] Explainer doc of core concepts
+   - [ ] Type definitions for core concepts
+
+** TODO Initial api set-up ~(3)~ [0/3]
+   DEADLINE: <2019-01-11 Fri>
+   - [ ] Project sub-structure for api code
+   - [ ] Simple rest-ish API to serve the data model
+   - [ ] Configure staging server
+   - [ ] CI to deploy to staging
+
+** TODO Initial app set-up ~(1)~ [0/2]
+   DEADLINE: <2019-01-14 Mon>
+   - [ ] Placeholder app with config
+   - [ ] CI to deploy to staging
+
+** TODO Initial gift receiving (unskinned) ~(4)~ [0/5]
+   DEADLINE: <2019-02-01 Fri>
+   - [ ] Visit unique url for gift
+   - [ ] Load gift data from api
+   - [ ] Load gift media
+   - [ ] Display multiple gift parts
+     - Text
+     - Images
+     - Audio
+   - [ ] Work offline after first load
+
+** TODO Initial gift creation (unskinned) ~(8)~ [0/6]
+   DEADLINE: <2019-03-01 Fri>
+   - [ ] Work offline
+   - [ ] Create multiple gift parts
+     - Text
+     - Images
+     - Audio
+   - [ ] Upload media whenever / and as efficiently as possible
+   - [ ] Save to API
+   - [ ] No auth -- save as anonymous user
+   - [ ] Share via links
+     - SMS
+     - Email
+     - WhatsApp
+
+** TODO Account management (unskinned) ~(5)~ [0/7]
+   DEADLINE: <2019-03-22 Fri>
+   - [ ] Sign-up
+   - [ ] Login
+   - [ ] Logout
+     - Work offline
+   - [ ] Create account / login after creating gift to own it
+   - [ ] Create account / login after receiving gift to save in history
+   - [ ] View created gifts
+     - Work offline
+   - [ ] View received gifts
+     - Work offline
+
+** TODO Skinned app ~(??)~ [0/3]
+   DEADLINE: <2019-04-26 Fri>
+   - [ ] Gift receiving
+   - [ ] Gift creation
+   - [ ] Account management
+
+** TODO Production set up ~(2)~ [0/1]
+   DEADLINE: <2019-05-03 Fri>
+   - [ ] Configure production servers
+   - [ ] CI to deploy to production
+
+** TODO Analytics ~(??)~ [0/1]
+   DEADLINE: <2019-05-03 Fri>
+   - [ ] TBD

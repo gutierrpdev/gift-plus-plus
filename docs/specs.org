@@ -1,0 +1,40 @@
+* Fuctional Requirements
+** Create a gift
+   - Determine museum (just hardcoded initially)
+   - Playback audio
+   - Enter text
+   - Take photo
+   - Record audio
+   - Add multiple parts
+   - Work offline (online when determining museum / downloading assets)
+     - Cache static assets
+     - Store data locally
+   - Save gift
+     - Prompt to create account / sign-in if not already done so
+     - Feedback about need to have internet connection
+     - Feedback about progress
+
+** Receive a gift
+   - Open unique url for gift
+   - Experience gift
+     - Static content varies based on museum associated with the gift
+     - Playback gift audio
+     - Display gift images
+     - Work offline (after initial page load)
+   - Sign-up / login to save to gift history
+
+** Account management
+   - Sign-up
+     - Enter name / email / password
+   - Login
+   - Logout
+   - Change name
+   - Change email
+   - Change password
+
+** Dashboard
+   - View created gifts
+   - View received (opened) gifts (gift history)
+
+** Metrics / Analytics
+   - TBD
