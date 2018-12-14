@@ -1,13 +1,13 @@
-* Milestones [1/11]
+* Milestones [2/11]
 ** DONE Initial project setup ~(0.5 days)~ [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
    - [X] Basic outline docs
 
-** TODO Initial data model ~(0.5 days)~ [1/2] <2018-12-14 Fri>
-   DEADLINE: <2018-12-14 Fri>
+** DONE Initial data model ~(0.5 days)~ [2/2] <2018-12-14 Fri>
+   CLOSED: [2018-12-14 Fri 14:45] DEADLINE: <2018-12-14 Fri>
    - [X] Explainer doc of core concepts
-   - [ ] Type definitions for core concepts
+   - [X] Type definitions for core concepts
 
 ** TODO Initial api set-up ~(3 days)~ [0/3] <2019-01-11 Fri>
    DEADLINE: <2019-01-11 Fri>
