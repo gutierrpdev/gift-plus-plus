@@ -16,9 +16,10 @@
    - [ ] Configure staging server
    - [ ] CI to deploy to staging
 
-** TODO Initial app set-up ~(1 day)~ [0/2] <2019-01-14 Mon>
+** TODO Initial app set-up ~(1 day)~ [1/3] <2019-01-14 Mon>
    DEADLINE: <2019-01-14 Mon>
-   - [ ] Placeholder app with config
+   - [X] Placeholder app
+   - [ ] Config
    - [ ] CI to deploy to staging
 
 ** TODO Initial gift receiving (unskinned) ~(4 days)~ [0/5] <2019-02-01 Fri>
@@ -80,3 +81,4 @@
 ** TODO Analytics ~(?? days)~ [0/1] <2019-05-03 Fri>
    DEADLINE: <2019-05-03 Fri>
    - [ ] TBD
+   - [ ] MRL???

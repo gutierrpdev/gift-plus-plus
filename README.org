@@ -2,3 +2,4 @@
   - [[file:docs/core-concepts.org::*Concepts][Concepts]]
   - [[file:docs/specs.org::*Fuctional%20Requirements][Functional Requirements]]
   - [[file:docs/milestones.org::*Milestones][Milestones]]
+  - [[file:docs/device-targets.org::*Desktop][Targeted Devices]]
