@@ -15,15 +15,3 @@ services:
         source: ./postgres-schema
         target: /docker-entrypoint-initdb.d
         read_only: true
-
-  api:
-    image: postgrest/postgrest
-    ports:
-      - "3100:3000"
-    environment:
-      PGRST_DB_URI: postgres://gift:gift@postgres:5432/gift
-      PGRST_DB_SCHEMA: api
-      PGRST_DB_ANON_ROLE: api
-      PGRST_JWT_SECRET: some-really-amazing-super-secret-random-thingy
-    depends_on:
-      - postgres

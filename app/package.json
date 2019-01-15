@@ -1,6 +1,9 @@
 {
   "name": "gift-app",
   "version": "0.1.0",
+  "repository": "git@gitlab.com:blasttheory/gift.git",
+  "author": "Michael Kane <michael@blasttheory.co.uk>",
+  "license": "UNLICENSED",
   "private": true,
   "dependencies": {
     "@types/jest": "23.3.10",

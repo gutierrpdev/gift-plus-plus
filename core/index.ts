@@ -1,13 +1,16 @@
+export interface GiftPart {
+  note: string,
+  photoUrl: string,
+  audioUrl: string,
+}
+
+
 export interface Gift {
   kind: 'Gift',
   id: string,
   museumId: string,
   to: string,
-  parts: Array<{
-    note: string,
-    photoUrl: string,
-    audioUrl: string,
-  }>,
+  parts: GiftPart[],
 }
 
 
