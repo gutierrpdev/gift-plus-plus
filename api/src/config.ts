@@ -39,6 +39,7 @@ export interface Config {
   environment: string;
   host: string;
   port: number;
+  sqlUri: string;
 }
 
 
@@ -46,6 +47,7 @@ export const config: Config = {
   environment: readAsString('ENVIRONMENT'),
   host: readAsString('HOST'),
   port: readAsInt('PORT'),
+  sqlUri: readAsString('SQL_URI'),
 };
 
 // =====================================================================

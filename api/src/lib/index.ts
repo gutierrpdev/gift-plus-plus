@@ -1,4 +1,9 @@
-export interface Config {}
+import * as Knex from 'knex';
+import { GiftService } from './services/gift';
+
+export interface Config {
+  sqlUri: string;
+}
 
 export class Lib {
 
@@ -10,8 +15,11 @@ export class Lib {
    * Create a new Library
    */
   public static async create(config: Config): Promise<Lib> {
-    const lib = new Lib();
-    return lib;
+    const db = Knex({
+      client: 'postgres',
+      connection: config.sqlUri,
+    });
+    return new Lib(db);
   }
 
 
@@ -19,11 +27,19 @@ export class Lib {
   // Instance
   // ========
 
+  public gift: GiftService;
+
   /**
    * Private constructor
    */
-  private constructor() {}
+  private constructor(
+    private db: Knex,
+  ) {
+    this.gift = new GiftService(db);
+  }
 
 
-  public async close(): Promise<void> {} // tslint:disable-line no-empty
+  public async close(): Promise<void> {
+    await this.db.destroy();
+  }
 }
