@@ -8,12 +8,7 @@ export interface Config {
 }
 
 
-interface ApiContext {
-  lib: Lib;
-}
-
-
-class Api extends JsonApi<{}, ApiContext> {
+class Api extends JsonApi<Api.StateT, Api.CustomT> {
 
   // ======
   // Static
@@ -46,5 +41,13 @@ class Api extends JsonApi<{}, ApiContext> {
   }
 }
 
+
+declare namespace Api {
+  interface StateT extends JsonApi.StateT {}
+
+  interface CustomT extends JsonApi.CustomT {
+    lib: Lib;
+  }
+}
 
 export { Api };

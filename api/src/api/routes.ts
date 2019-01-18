@@ -1,11 +1,10 @@
 import * as Router from 'koa-router';
+import { Api } from  './';
 
-export const router = new Router();
+export type ApiRouter = Router<Api.StateT, Api.CustomT>;
 
-router.get(
-  '/ping',
+export const router: ApiRouter = new Router();
 
-  async (ctx) => {
-    ctx.body = { pong: true };
-  },
-);
+router.get('/ping', async (ctx) => {
+  ctx.body = { pong: true };
+});

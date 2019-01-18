@@ -18,7 +18,7 @@ import { getLogger, Logger } from './logging';
  * - A `UUID` is generated for each request, and added to the state at `requestId`
  * - We always output JSON by default
  */
-class JsonApi<StateT, CustomT> extends Koa<StateT & JsonApi.State, CustomT & JsonApi.Context> {
+class JsonApi<StateT, CustomT> extends Koa<JsonApi.StateT & StateT, JsonApi.CustomT & CustomT> {
 
   /**
    * Create a new api.
@@ -131,12 +131,12 @@ declare namespace JsonApi {
   }
 
   // Extra bits we add to the (app global) Koa.Context
-  interface Context {
+  interface CustomT {
     logger: Logger;
   }
 
   // Extra bits we add to the (per-request) Koa.Context.State
-  interface State {
+  interface StateT {
     requestId: string;
   }
 }
