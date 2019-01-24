@@ -1,17 +1,35 @@
 import * as Knex from 'knex';
 
+
+type Id = string;
+type MuseumId = Id;
+type AccountId = Id;
+type GiftId = Id;
+type PhotoUrl = string;
+type AudioRecordingUrl = string;
+
 interface Gift {
-  id: string;
-  to: string;
+  id: GiftId;
+  museumId: MuseumId;
+  accountId: AccountId;
+  senderName: string;
+  recipientName: string;
+  recipientGreeting: AudioRecordingUrl;
   parts: GiftPart[];
 }
 
 interface GiftPart {
-  photo: string;
-  recording: string;
+  photo: PhotoUrl;
+  note: AudioRecordingUrl;
+  clue: string;
 }
 
 
+/**
+ * TODO
+ *
+ *
+ */
 export class GiftService {
 
   constructor(
@@ -33,10 +51,9 @@ export class GiftService {
 
     await this.db('gift').insert({
       id: gift.id,
-      payload: {
-        to: gift.to,
-        parts: gift.parts,
-      },
+      museumId: gift.museumId,
+      accountId: gift.accountId,
+      payload: gift,
     });
 
     return { kind: 'Success' };
@@ -48,7 +65,7 @@ export class GiftService {
    *
    * @param id
    */
-  public async findById(id: string): Promise<Gift | null> {
+  public async findById(id: GiftId): Promise<Gift | null> {
     return this.findByIds([id]).then((gifts) => gifts.length === 0 ? null : gifts[0]);
   }
 
@@ -62,7 +79,7 @@ export class GiftService {
    *
    * @param ids
    */
-  public async findByIds(ids: [string]): Promise<Gift[]> {
+  public async findByIds(ids: [GiftId]): Promise<Gift[]> {
     // TODO: UUID validation
     const rows: GiftTableRow[] = await this.db('gift').whereIn('id', ids);
     return rows.map(tableRowToGift);
@@ -84,18 +101,29 @@ type CountQueryResult = [ { count: string } ];
 
 interface GiftTableRow {
   id: string;
-  payload: {
-    to: string;
-    parts: GiftPart[];
-  };
+  museum_id: string;
+  account_id: string;
+  sender_name: string;
+  recipient_name: string;
+  recipient_greeting: string;
+  parts: GiftPart[];
   created_at: Date;
 }
 
-
 function tableRowToGift(row: GiftTableRow): Gift {
+  // TODO: Should we validate the gift structure and integrity? Ensure the
+  // payload is always the right shape and matches the table ids etc? Throw an
+  // error if not to avoid hard to trace bugs.
+  //
+  // Gifts are intended to be immutable, so this shouldn't be neccessary. But it
+  // could be an issue if we have a programmer / operational mistake.
   return {
     id: row.id,
-    to: row.payload.to,
-    parts: row.payload.parts,
+    museumId: row.museum_id,
+    accountId: row.account_id,
+    senderName: row.sender_name,
+    recipientName: row.recipient_name,
+    recipientGreeting: row.recipient_greeting,
+    parts: row.parts,
   };
 }

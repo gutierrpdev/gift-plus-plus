@@ -9,10 +9,10 @@
    - [X] Explainer doc of core concepts
    - [X] Type definitions for core concepts
 
-** TODO Initial api set-up ~(3 days)~ [0/3] <2019-01-11 Fri>
+** TODO Initial api set-up ~(3 days)~ [2/4] <2019-01-11 Fri>
    DEADLINE: <2019-01-11 Fri>
-   - [ ] Project sub-structure for api code
-   - [ ] Simple rest-ish API to serve the data model
+   - [X] Project sub-structure for api code
+   - [X] Simple rest-ish API to serve the data model
    - [ ] Configure staging server
    - [ ] CI to deploy to staging
 
