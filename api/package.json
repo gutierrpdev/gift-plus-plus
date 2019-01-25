@@ -13,6 +13,7 @@
     "start": "ts-node ./dist/main"
   },
   "devDependencies": {
+    "@types/co-body": "^0.0.3",
     "@types/debug": "^0.0.31",
     "@types/dotenv": "^6.1.0",
     "@types/knex": "^0.15.1",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "ajv": "^6.7.0",
+    "co-body": "^6.0.0",
     "debug": "^4.1.1",
     "dotenv": "^6.2.0",
     "knex": "^0.16.3",

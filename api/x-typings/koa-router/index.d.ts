@@ -44,7 +44,9 @@ declare namespace Router {
     strict?: boolean;
   }
 
-  export interface IRouterContext extends Koa.Context {
+  export type IRouterContext = IRouterCustomT & Koa.Context;
+
+  export interface IRouterCustomT {
     /**
      * url params
      */
@@ -56,11 +58,11 @@ declare namespace Router {
   }
 
   export interface IMiddleware<StateT = any, CustomT = {}> {
-    (ctx: Koa.ParameterizedContext<StateT, IRouterContext & CustomT>, next: () => Promise<any>): any;
+    (ctx: Koa.ParameterizedContext<StateT, IRouterCustomT & CustomT>, next: () => Promise<any>): any;
   }
 
   export interface IParamMiddleware<StateT = any, CustomT = {}> {
-    (param: string, ctx: Koa.ParameterizedContext<StateT, IRouterContext & CustomT>, next: () => Promise<any>): any;
+    (param: string, ctx: Koa.ParameterizedContext<StateT, IRouterCustomT & CustomT>, next: () => Promise<any>): any;
   }
 
   export interface IRouterAllowedMethodsOptions {

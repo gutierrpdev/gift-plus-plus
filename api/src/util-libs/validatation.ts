@@ -1,6 +1,7 @@
 import * as Ajv from 'ajv';
 import * as Router from 'koa-router';
 import * as _ from 'lodash';
+import * as parse from 'co-body';
 
 
 // TODO: Cleanup
@@ -104,6 +105,31 @@ export function checkUrl<P1, P2, P3, P4, P5>(
   >;
 }
 
+
+
+/**
+ * UNSAFE: We trust that the given schema does indeed only validate objects of
+ * the given type T.  The caller MUST ensure that's the case.
+ */
+export async function checkBody<T>(ctx: Router.IRouterContext, schema: {}): Promise<T> {
+  const data = await parse(ctx);
+
+  // Trim strings
+  Object.keys(data).forEach((k) => {
+    if (typeof data[k] === 'string') {
+      data[k] = data[k].trim();
+    }
+  });
+
+  // (ajv) Validate the body against our schema
+  const valid = bodyAjv.validate(schema, data);
+
+  // (koa) Abort if invalid
+  if (!valid) ctx.throw(400, { error: bodyAjv.errorsText(null, { dataVar: 'body' }) });
+
+  // (unsafe)
+  return data as T;
+}
 
 
 // -------
