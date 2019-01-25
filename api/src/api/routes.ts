@@ -1,10 +1,7 @@
 import * as Router from 'koa-router';
-import { validateParams } from '../util-libs/validatation';
+import { checkUrl } from '../util-libs/validatation';
 
 import { Api } from './';
-
-import * as Ajv from 'ajv';
-
 
 export type ApiRouter = Router<Api.StateT, Api.CustomT>;
 
@@ -17,13 +14,13 @@ router.get('/ping', async (ctx) => {
 
 
 router.get('/gift/:giftId', async (ctx) => {
-  const { giftId } = validateParams<{
-    giftId: string,
-  }>({
-    giftId: { type: 'string', format: 'uuid' },
-  }, ctx);
+  const { giftId } = checkUrl(ctx, 'giftId');
+  const gift = await ctx.lib.gift.findById(giftId);
 
-  ctx.body = {
-    giftId,
-  };
+  if (!gift) {
+    ctx.throw(404);
+    return;
+  }
+
+  ctx.body = gift;
 });

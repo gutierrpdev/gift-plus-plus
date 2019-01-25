@@ -19,6 +19,7 @@
     "@types/koa": "^2.0.48",
     "@types/koa-json": "^2.0.18",
     "@types/koa-router": "./x-typings/koa-router",
+    "@types/lodash": "^4.14.120",
     "@types/statuses": "^1.5.0",
     "@types/uuid": "^3.4.4",
     "ts-node": "^7.0.1",
@@ -33,6 +34,7 @@
     "koa": "^2.6.2",
     "koa-json": "^2.0.2",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "pg": "^7.8.0",
     "statuses": "^1.5.0",
     "uuid": "^3.3.2"

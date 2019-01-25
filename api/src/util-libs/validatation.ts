@@ -1,12 +1,15 @@
 import * as Ajv from 'ajv';
+import * as Router from 'koa-router';
+import * as _ from 'lodash';
+
+
+// TODO: Cleanup
+// TODO: Abstract out Domain Stuff
+// TODO: Separate parsing stuff from koa stuff -- compose them seperately
+// TODO: Write a simple koa router with this stuff included
+
 
 const paramAjv = new Ajv({
-  coerceTypes: true,
-  allErrors: true,
-  removeAdditional: true,
-});
-
-const queryAjv = new Ajv({
   coerceTypes: true,
   allErrors: true,
   removeAdditional: true,
@@ -18,103 +21,96 @@ const bodyAjv = new Ajv({
 });
 
 
-interface ParamSchema {
-  [paramName: string]: {
-    type: string;
-    [opts: string]: any;
+
+/**
+ * Known params available for use in urls and querys and their corresponding ajv
+ * schema definitions to validate against.
+ *
+ * NOTE: This must correspond with `ParamTypeMap`
+ * TODO: Allow this to be passed in.
+ */
+const paramSchema = {
+  giftId: { type: 'string',  format: 'uuid' },
+  accountId: { type: 'string',  format: 'uuid' },
+  museumId: { type: 'string',  format: 'uuid' },
+};
+
+
+/**
+ * Known params available for use in urls and querys and their corresponding
+ * types.
+ *
+ * NOTE: This must correspond with `paramSchema`
+ * TODO: Derive from paramSchema.
+ */
+interface ParamTypeMap {
+  giftId: string;
+  accountId: string;
+  museumId: string;
+}
+
+type Param = Keys<ParamTypeMap>;
+type MaybeParam<P> = P extends Param ? P : never;
+
+
+/**
+ * Check that the request url contains the given parameters and that they are
+ * valid according to the pre-defined spec (see `paramSchema`, e.g. giftId
+ * should be a uuid).
+ *
+ * If invalid, aborts the request with a 404. Else returns an oject containing
+ * the params coerced to their correct type.
+ *
+ * E.g. checkUrl(ctx, 'giftId') => { giftId: string }
+ *
+ * @param ctx - A koa-router context containing ctx.params to validate
+ * @param p{N} - A `Param` which is required to appear in the ctx.params. We
+ *               currently support up to 5 params.
+ */
+export function checkUrl<P1, P2, P3, P4, P5>(
+  ctx: Router.IRouterContext,
+  p1?: MaybeParam<P1>,
+  p2?: MaybeParam<P2>,
+  p3?: MaybeParam<P3>,
+  p4?: MaybeParam<P4>,
+  p5?: MaybeParam<P5>,
+): Pick<
+  ParamTypeMap,
+  MaybeParam<P1> | MaybeParam<P2> | MaybeParam<P3> | MaybeParam<P4> | MaybeParam<P5>
+> {
+  // Clone given ctx.params to avoid mutating them. (This shallow clone is fine
+  // as ctx.params has string values.)
+  const urlParams = Object.assign({}, ctx.params);
+
+  // The requied url parameters passed in as arguments (filering undefined ones)
+  const requiredParamNames = [p1, p2, p3, p4, p5].filter((p) => !!p) as Param[];
+
+  const ajvSchema = {
+    properties: _.pick(paramSchema, requiredParamNames),
+    required: requiredParamNames,
   };
-}
 
-export function validateParams<T>(
-  schema: ParamSchema,
-  ctx: any,
-): T {
-  const valid = paramAjv.validate(
-    {
-      properties: schema,
-      required: Object.keys(schema),
-    },
-    ctx.params,
-  );
+  // (ajv) Validate the paramaters against our schema
+  const valid = paramAjv.validate(ajvSchema, urlParams);
 
-  if (!valid) ctx.throw(400, { error: paramAjv.errorsText() });
-  return ctx.params as T;
+  // (koa) Abort if invalid
+  if (!valid) ctx.throw(404, { error: paramAjv.errorsText(null, { dataVar: 'url' }) });
+
+  // (unsafe) urlParams should now have been validated as having the correct
+  // structure and been coerced to the correct types.
+  return urlParams as Pick<
+    ParamTypeMap,
+    MaybeParam<P1> | MaybeParam<P2> | MaybeParam<P3> | MaybeParam<P4> | MaybeParam<P5>
+  >;
 }
 
 
-// const valid = ajv.validate({
-//   properties: {
-//     id: { type: 'number' },
-//     hi: { type: 'boolean' },
-//   },
-//   required: ['id', 'hi'],
-// }, ctx.params);
 
+// -------
+// Helpers
+// -------
 
-
-// type PropertyNamesUnion<T> = { [K in keyof T]: K }[keyof T];
-// type PropertyNamesList<T> = [keyof T];
-
-// interface ValidParams {
-//   id: string;
-//   num: number;
-// }
-
-// type VList = PropertyNamesList<ValidParams>;
-// type VUnion = PropertyNamesUnion<ValidParams>;
-
-
-// function v<ParamNames extends VList>(...parameterNames: ParamNames): { [P in VUnion]: ValidParams[P]; } {
-//   throw new Error('Oh Dear');
-// }
-
-// const omg = v('id');
-
-// function validate1<P1 extends keyof ValidParams>(p1: P1): Record<P1, ValidParams[P1]> {
-//   throw new Error('Oh Dear');
-// }
-
-// function validate2<
-//   P1 extends keyof ValidParams
-// , P2 extends keyof ValidParams
-//   >(p1: P1, p2: P2): Record<P1, ValidParams[P1]> & Record<P2, ValidParams[P2]> {
-//   throw new Error('Oh Dear');
-// }
-
-// function validate3<
-//   P1 extends keyof ValidParams
-// , P2 extends keyof ValidParams
-// , P3 extends keyof ValidParams
-//   >(p1: P1, p2: P2, p3: P3): Record<P1, ValidParams[P1]> & Record<P2, ValidParams[P2]> & Record<P3, ValidParams[P3]>{
-//     throw new Error('Oh Dear');
-//   }
-
-// function assertNever(x: any): never {
-//   throw new Error('AssertNever');
-// }
-
-
-// type Keys<T> = { [K in keyof T]: K }[keyof T];
-
-// interface UrlParamTypes {
-//   giftId: string;
-//   limit: number;
-// }
-
-// type UrlParam = Keys<UrlParamTypes>
-
-// type R<P extends UrlParam> = Record<P, UrlParamTypes[P]>
-
-
-// type Validate1<P1 extends UrlParam> = (p1: P1) => R<P1>;
-
-// type Validate2<
-//   P1 extends UrlParam,
-//   P2 extends UrlParam,
-//   > = (p1: P1, p2: P2) => R<P1> & R<P2>;
-
-// type Validate3<
-//   P1 extends UrlParam,
-//   P2 extends UrlParam,
-//   P3 extends UrlParam,
-//   > = (p1: P1, p2: P2, p3: P3) => R<P1> & R<P2> & R<P3>;
+/**
+ * Union type of all the literal keys in T
+ */
+type Keys<T> = { [K in keyof T]: K }[keyof T];
