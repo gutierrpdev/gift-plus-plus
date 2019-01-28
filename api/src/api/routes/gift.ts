@@ -1,8 +1,7 @@
-import * as Router from 'koa-router';
 import { checkUrl, checkBody } from '../../util-libs/validatation';
-import { ApiRouter } from './';
+import { ApiRouter } from './router';
 
-export const router: ApiRouter = new Router();
+export const router = new ApiRouter();
 
 
 // TODO: DO NOT TRUST URLS PASSED IN. We should have some kind of temp asset id

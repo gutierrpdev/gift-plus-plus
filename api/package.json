@@ -10,7 +10,7 @@
     "build": "rm -rf dist; tsc",
     "lint": "tslint -p tsconfig.json --format verbose",
     "repl": "ts-node ./src/repl",
-    "start": "ts-node ./dist/main"
+    "start": "ts-node ./src/main"
   },
   "devDependencies": {
     "@types/co-body": "^0.0.3",
