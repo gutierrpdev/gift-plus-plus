@@ -10,7 +10,9 @@
     "build": "rm -rf dist; tsc",
     "lint": "tslint -p tsconfig.json --format verbose",
     "repl": "ts-node ./src/repl",
-    "start": "ts-node ./src/main"
+    "start": "ts-node ./src/main",
+    "test": "mocha --require ts-node/register \"test/**/*.ts\"",
+    "test-watch": "mocha --require ts-node/register \"test/**/*.ts\" --watch --watch-extensions ts --bail"
   },
   "devDependencies": {
     "@types/co-body": "^0.0.3",
@@ -21,8 +23,12 @@
     "@types/koa-json": "^2.0.18",
     "@types/koa-router": "./x-typings/koa-router",
     "@types/lodash": "^4.14.120",
+    "@types/mocha": "^5.2.5",
     "@types/statuses": "^1.5.0",
+    "@types/supertest": "^2.0.7",
     "@types/uuid": "^3.4.4",
+    "mocha": "^5.2.0",
+    "supertest": "^3.4.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.1",
     "typescript": "^3.2.2"
