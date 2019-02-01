@@ -1,4 +1,5 @@
 import { Server } from 'http';
+import * as should from 'should';
 import * as request from 'supertest';
 import * as uuidv5 from 'uuid/v5';
 
@@ -36,8 +37,7 @@ describe('/gift', () => {
         .send(testGiftData)
         .expect(201);
 
-      // TODO: should / chai
-      // body.should.match(testGiftData);
+      should(body).match(testGiftData);
     });
 
     it('should refuse to create another gift with the same id', async () => {
@@ -55,8 +55,7 @@ describe('/gift', () => {
         .get(`/gift/${testGiftData.id}`)
         .expect(200);
 
-      // TODO: should / chai
-      // body.should.match(testGiftData);
+      should(body).match(testGiftData);
     });
   });
 });

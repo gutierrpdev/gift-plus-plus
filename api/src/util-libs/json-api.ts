@@ -99,7 +99,7 @@ class JsonApi<StateT, CustomT> extends Koa<JsonApi.StateT & StateT, JsonApi.Cust
 
         // Log any 500 errors
         if (ctx.status >= 500) {
-          logger.error(err, `${ctx.requestId} Request Error`);
+          logger.error(err, `${ctx.state.requestId} Request Error`);
         }
       }
     });

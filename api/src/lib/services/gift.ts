@@ -51,9 +51,12 @@ export class GiftService {
 
     await this.db('gift').insert({
       id: gift.id,
-      museumId: gift.museumId,
-      accountId: gift.accountId,
-      payload: gift,
+      museum_id: gift.museumId,
+      account_id: gift.accountId,
+      sender_name: gift.senderName,
+      recipient_name: gift.recipientName,
+      recipient_greeting: gift.recipientGreeting,
+      parts: JSON.stringify(gift.parts),
     });
 
     return { kind: 'Success' };
