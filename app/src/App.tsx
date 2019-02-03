@@ -1,32 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import styled from 'styled-components/macro';
 
-import Welcome from './screens/Welcome';
+const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: teal;
+`;
 
+const Heading = styled.h1`
+  font-size: 6vw;
+  color: white;
+  animation: shake infinite 1s linear;
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Welcome onStartPressed={() => {}} />
-        </header>
-      </div>
-    );
+  @keyframes shake {
+    0% { transform: translateY(0px); }
+    25% { transform: translateY(5px); }
+    75% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
   }
-}
+`;
+
+const Spinner = styled.div`
+  font-size: 30vmin;
+  animation: spin infinite 2s linear;
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`;
+
+const App: React.FC = () => (
+  <Container>
+    <Heading>🚧 Under Construction 🚧</Heading>
+    <Spinner>👷</Spinner>
+  </Container>
+);
 
 export default App;
