@@ -8,7 +8,7 @@
   "dependencies": {
     "@types/jest": "^23.3.13",
     "@types/node": "^10.12.21",
-    "@types/react": "^16.8.1",
+    "@types/react": "^16.7.22",
     "@types/react-dom": "^16.0.11",
     "@types/styled-components": "^4.1.6",
     "@types/uuid": "^3.4.4",
@@ -48,8 +48,6 @@
     "@types/storybook__addon-info": "^3.4.3",
     "@types/storybook__addon-links": "^3.3.3",
     "@types/storybook__react": "^4.0.0",
-    "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "8.0.4",
-    "react-docgen-typescript-webpack-plugin": "^1.1.0"
+    "babel-loader": "8.0.4"
   }
 }
