@@ -11,8 +11,8 @@ stages:
 
 
 variables:
-  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_SHA
-  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_SHA
+  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_SHORT_SHA
+  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_SHORT_SHA
 
 
 before_script:
@@ -28,26 +28,24 @@ build-frontend:
     - docker push $STORYBOOK_IMAGE
 
 
-# deploy-to-staging:
-#   stage: deploy
-#   image: alpine
-#   before_script:
-#     - apk --no-cache add openssh-client
-#   script:
-#     - echo "Deploying to staging... [TODO]"
-#     - echo "$DEPLOY_KEY" > deploy-key
-#     - chmod 600 deploy-key
-#     - mkdir ~/.ssh
-#     - chmod 700 ~/.ssh
-#     - ssh-keyscan -H api.staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-#     - ssh -i deploy-key root@api.staging.gift.blasttheory.com -C sudo rkt fetch --insecure-options=image docker://$CONTAINER_LATEST_IMAGE
-#     - scp -i deploy-key ./server/staging/configuration.nix root@api.staging.gift.blasttheory.com:/etc/nixos/configuration.nix
-#     - ssh -i deploy-key root@api.staging.gift.blasttheory.com -C nixos-rebuild switch
-#     - ssh -i deploy-key root@api.staging.gift.blasttheory.com -C systemctl restart gift-api
-#   environment:
-#     name: staging
-#   only:
-#     - master
+deploy-to-staging:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk --no-cache add openssh-client
+  script:
+    - echo "Deploying to staging..."
+    - echo "$STAGING_DEPLOY_KEY" > deploy-key
+    - chmod 600 deploy-key
+    - mkdir ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE
+  environment:
+    name: staging
+  only:
+    - master
 
 # deploy-to-production:
 #   stage: deploy
