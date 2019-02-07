@@ -1,25 +1,29 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import { Gift } from '../domain';
+import GlobalStyles from '../themes/global';
+import Panel from '../components/Panel';
+import ScreenHeader from '../components/ScreenHeader';
+import PanelTitle from '../components/PanelTitle';
+import PanelPrompt from '../components/PanelPrompt';
+import { Button, Buttons } from '../components/Button';
 
 interface Props {
   gift: Gift,
 };
 
-const SlideUpText = styled.p`
-  animation-duration: 1s;
-  animation-name: slideup;
-
-  @keyframes slideup {
-    from { margin-top: 100%; }
-    to { margin-top: 0%; }
-  }
-`;
-
 const ReceiveGift: React.FC<Props> = ({ gift }: Props) => (
   <>
-    <h1>Here is your gift from {gift.senderName}!</h1>
-    <SlideUpText>omg</SlideUpText>
+    <GlobalStyles />
+    <ScreenHeader gift={gift} title={"Brighton & Hove Museum"} />
+    <Panel>
+      {/* <Overlay /> */}
+      <PanelTitle>Part 1</PanelTitle>
+      <PanelPrompt background_image={'https://picsum.photos/600/600/?image=666'} text={"lorem ipsum"}></PanelPrompt>
+      <Buttons>
+        <Button>Show Clue</Button>
+        <Button>OK</Button>
+      </Buttons>
+    </Panel>
   </>
 );
 
