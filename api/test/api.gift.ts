@@ -8,6 +8,7 @@ import { prepareComponents, shutdownComponents } from './index';
 
 const testGiftData = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
+  kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The sender name',

@@ -2,9 +2,11 @@ begin;
 
 create extension if not exists pgcrypto;
 
+create type gift_kind as enum ('MuseumGift', 'PersonalGift');
 
 create table if not exists gift
   ( id uuid primary key
+  , kind gift_kind not null
   , museum_id uuid not null
   , account_id uuid not null
   , sender_name text not null

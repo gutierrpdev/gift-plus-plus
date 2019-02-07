@@ -1,4 +1,5 @@
 import * as Knex from 'knex';
+import { assertNever } from '../../api/routes/gift';
 
 
 type Id = string;
@@ -10,6 +11,7 @@ type AudioRecordingUrl = string;
 
 interface Gift {
   id: GiftId;
+  kind: 'MuseumGift' | 'PersonalGift';
   museumId: MuseumId;
   accountId: AccountId;
   senderName: string;
@@ -51,6 +53,7 @@ export class GiftService {
 
     await this.db('gift').insert({
       id: gift.id,
+      kind: gift.kind,
       museum_id: gift.museumId,
       account_id: gift.accountId,
       sender_name: gift.senderName,
@@ -104,6 +107,7 @@ type CountQueryResult = [ { count: string } ];
 
 interface GiftTableRow {
   id: string;
+  kind: 'MuseumGift' | 'PersonalGift';
   museum_id: string;
   account_id: string;
   sender_name: string;
@@ -120,8 +124,10 @@ function tableRowToGift(row: GiftTableRow): Gift {
   //
   // Gifts are intended to be immutable, so this shouldn't be neccessary. But it
   // could be an issue if we have a programmer / operational mistake.
+
   return {
     id: row.id,
+    kind: row.kind,
     museumId: row.museum_id,
     accountId: row.account_id,
     senderName: row.sender_name,

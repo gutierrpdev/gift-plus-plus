@@ -9,6 +9,7 @@ export const router = new ApiRouter();
 
 interface CreateGiftRequest {
   id: string;
+  kind: 'MuseumGift' | 'PersonalGift';
   museumId: string;
   accountId: string;
   senderName: string;
@@ -24,6 +25,7 @@ interface CreateGiftRequest {
 const createGiftSchema = {
   properties: {
     id: { type: 'string', format: 'uuid' },
+    kind: { type: 'string', enum: ['MuseumGift', 'PersonalGift'] },
     museumId: { type: 'string', format: 'uuid' },
     accountId: { type: 'string', format: 'uuid' },
     senderName: { type: 'string', minLength: 1 },
@@ -45,6 +47,7 @@ const createGiftSchema = {
   },
   required: [
     'id',
+    'kind',
     'museumId',
     'accountId',
     'senderName',

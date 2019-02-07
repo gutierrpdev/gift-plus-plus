@@ -19,6 +19,7 @@ export interface GiftPart {
 
 export interface Gift {
   id: GiftId;
+  kind: 'MuseumGift' | 'PersonalGift';
   museumId: MuseumId;
   accountId: AccountId;
   senderName: string;

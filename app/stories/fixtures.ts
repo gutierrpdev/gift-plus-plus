@@ -3,6 +3,7 @@ import uuidv5 from 'uuid/v5';
 
 export const giftThreeParts = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
+  kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
