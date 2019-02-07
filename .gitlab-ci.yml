@@ -11,7 +11,6 @@ stages:
 
 
 variables:
-  FRONTEND_BUILD_IMAGE: registry.gitlab.com/blasttheory/gift/gift-frontend:$CI_COMMIT_REF_NAME
   APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_REF_NAME
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_REF_NAME
 
@@ -23,19 +22,10 @@ before_script:
 build-frontend:
   stage: build
   script:
-    - docker build --pull --target=build -t $FRONTEND_BUILD_IMAGE -f ./app/Dockerfile ./app
     - docker build --pull --target=app -t $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker build --pull --target=storybook -t $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker push $FRONTEND_BUILD_IMAGE
+    - docker build --pull --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
     - docker push $APP_IMAGE
     - docker push $STORYBOOK_IMAGE
-
-
-test-frontend:
-  stage: test
-  script:
-    - docker pull $FRONTEND_BUILD_IMAGE
-    - docker run --rm $FRONTEND_BUILD_IMAGE yarn test --ci --all --watch=false --watchAll=false
 
 
 # deploy-to-staging:

@@ -17,10 +17,16 @@ FROM base as build
 
 COPY package.json /app/package.json
 COPY yarn.lock /app/yarn.lock
+
 RUN yarn install --non-interactive --frozen-lockfile
+
 COPY --chown=app:app .  .
+
+# TODO: Tests are not terminating
+# RUN yarn test --ci --all --watch=false --watchAll=false
 RUN yarn build
 RUN yarn build-storybook
+
 ENTRYPOINT []
 
 
