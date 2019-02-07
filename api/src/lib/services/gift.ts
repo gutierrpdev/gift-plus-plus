@@ -1,5 +1,4 @@
 import * as Knex from 'knex';
-import { assertNever } from '../../api/routes/gift';
 
 
 type Id = string;
@@ -45,7 +44,7 @@ export class GiftService {
    * @param gift
    */
   public async create(gift: Gift): Promise<GiftCreateResult> {
-    // TODO: Transaction, UUID validation
+    // TODO: Transaction
     const [{ count }]: CountQueryResult = await this.db('gift').where({ id: gift.id }).count();
     if (count !== '0') {
       return { kind: 'IdAlreadyExists' };
@@ -86,7 +85,6 @@ export class GiftService {
    * @param ids
    */
   public async findByIds(ids: [GiftId]): Promise<Gift[]> {
-    // TODO: UUID validation
     const rows: GiftTableRow[] = await this.db('gift').whereIn('id', ids);
     return rows.map(tableRowToGift);
   }
