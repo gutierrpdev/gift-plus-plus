@@ -11,8 +11,8 @@ stages:
 
 
 variables:
-  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_REF_NAME
-  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_REF_NAME
+  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_SHA
+  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_SHA
 
 
 before_script:
