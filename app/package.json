@@ -19,10 +19,11 @@
   "scripts": {
     "typecheck": "yarn tsc",
     "lint": "yarn tslint --project ./tsconfig.json",
-    "start-app": "yarn parcel ./src/index.html -p 8000",
+    "start-app": "yarn cleanup; yarn parcel ./src/index.html -p 8000",
     "start-storybook": "start-storybook -p 9000 -s public",
-    "build-app": "yarn parcel build ./src/index.html",
-    "build-storybook": "build-storybook -s public"
+    "build-app": "yarn cleanup; yarn parcel build ./src/index.html",
+    "build-storybook": "build-storybook -s public",
+    "cleanup": "rm -rf .cache dist"
   },
   "browserslist": [
     ">0.2%",

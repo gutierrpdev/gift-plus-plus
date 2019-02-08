@@ -22,8 +22,10 @@ RUN yarn install --non-interactive --frozen-lockfile
 
 COPY --chown=app:app .  .
 
-# TODO: Tests are not terminating
-# RUN yarn test --ci --all --watch=false --watchAll=false
+ARG NODE_ENV=development
+
+RUN yarn typecheck
+RUN yarn lint
 RUN yarn build-app
 RUN yarn build-storybook
 

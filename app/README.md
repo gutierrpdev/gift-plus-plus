@@ -28,6 +28,12 @@ too lame.
 Runs the typechecker. If the code doesn't typecheck correctly it will fail in
 CI.
 
+### `yarn cleanup`
+
+This is automatically run before the parcel steps. It removes the parcel cache
+and build folder. It's a bit lame but prevents wasting time when you can't work
+out why changes to your environment variables aren't getting picked up...
+
 ## Development flow
 
 Make sure your code always lints and typechecks correctly. Because we want a
