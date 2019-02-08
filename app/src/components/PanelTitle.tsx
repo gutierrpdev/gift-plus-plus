@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 const PanelTitle = styled.h1`
   font-size: 3vw;

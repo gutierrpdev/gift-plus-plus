@@ -24,7 +24,7 @@ COPY --chown=app:app .  .
 
 # TODO: Tests are not terminating
 # RUN yarn test --ci --all --watch=false --watchAll=false
-RUN yarn build
+RUN yarn build-app
 RUN yarn build-storybook
 
 ENTRYPOINT []
@@ -35,7 +35,7 @@ ENTRYPOINT []
 # =================
 
 FROM nginx:1.15-alpine as app
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 
 

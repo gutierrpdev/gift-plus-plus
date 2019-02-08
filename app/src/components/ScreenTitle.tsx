@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 const ScreenTitle = styled.h1`
   font-size: 6vw;

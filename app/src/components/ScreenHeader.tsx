@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import ScreenTitle from './ScreenTitle'
 import ScreenSubTitle from './ScreenSubTitle'

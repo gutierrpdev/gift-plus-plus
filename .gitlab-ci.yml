@@ -41,7 +41,6 @@ build-frontend:
       - master
     changes:
       - .gitlab-ci.yml
-      - app/*
       - app/**/*
 
 
@@ -66,5 +65,4 @@ deploy-to-staging:
       - master
     changes:
       - .gitlab-ci.yml
-      - app/*
       - app/**/*
