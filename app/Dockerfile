@@ -34,17 +34,15 @@ ENTRYPOINT []
 # APP RELEASE STAGE
 # =================
 
-FROM nginx:1.15 as app
+FROM nginx:1.15-alpine as app
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
 
 
 # =======================
 # STORYBOOK RELEASE STAGE
 # =======================
 
-FROM nginx:1.15 as storybook
+FROM nginx:1.15-alpine as storybook
 COPY --from=build /app/storybook-static /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
