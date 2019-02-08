@@ -5,7 +5,8 @@ import { linkTo } from '@storybook/addon-links';
 
 import ScreenTitle from '../src/components/ScreenTitle';
 import GiftPile from '../src/components/GiftPile';
-import { GiftPart, GiftParts } from '../src/components/GiftPart';
+import GiftPartWrapper from '../src/components/GiftPartWrapper';
+import GiftPartsManager from '../src/components/GiftPartsManager';
 import PanelPrompt from '../src/components/PanelPrompt';
 import { Button } from '../src/components/Button';
 
@@ -36,17 +37,7 @@ storiesOf('Components', module)
 .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
 .add('Gift Pile', () => <GiftPile gifts={[giftThreeParts, giftThreeParts, giftThreeParts]}>GiftPile</GiftPile>)
 .add('Gift Parts', () =>
-  <GiftParts>
-    <GiftPart>
-      1
-    </GiftPart>
-    <GiftPart>
-      2
-    </GiftPart>
-    <GiftPart>
-      3
-    </GiftPart>
-  </GiftParts>
+  <GiftPartsManager gifts={[giftThreeParts, giftThreeParts, giftThreeParts]} />
 )
 .add('Panel Prompt - just text', () => <div style={greyBG}><PanelPrompt text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt></div>)
 .add('Panel Prompt - with image', () => <PanelPrompt background_image='https://picsum.photos/600/600/?image=676' text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt>)
