@@ -1,13 +1,13 @@
 image: docker:stable
 services:
-- docker:dind
+  - docker:dind
 
 
 stages:
-- build
-- test
-- release
-- deploy
+  - build
+  - test
+  - release
+  - deploy
 
 
 variables:
@@ -26,6 +26,11 @@ build-frontend:
     - docker build --pull --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
     - docker push $APP_IMAGE
     - docker push $STORYBOOK_IMAGE
+  only:
+    refs:
+      - master
+    changes:
+      - app/*
 
 
 deploy-to-staging:
@@ -45,26 +50,7 @@ deploy-to-staging:
   environment:
     name: staging
   only:
-    - master
-
-# deploy-to-production:
-#   stage: deploy
-#   image: alpine
-#   before_script:
-#     - apk --no-cache add openssh-client
-#   script:
-#     - echo "Deploying to production... [TODO]"
-#     - echo "$DEPLOY_KEY" > deploy-key
-#     - chmod 600 deploy-key
-#     - mkdir ~/.ssh
-#     - chmod 700 ~/.ssh
-#     - ssh-keyscan -H api.gift.blasttheory.com >> ~/.ssh/known_hosts
-#     - ssh -i deploy-key root@api.gift.blasttheory.com -C sudo rkt fetch --insecure-options=image docker://$CONTAINER_RELEASE_IMAGE
-#     - scp -i deploy-key ./server/production/configuration.nix root@api.gift.blasttheory.com:/etc/nixos/configuration.nix
-#     - ssh -i deploy-key root@api.gift.blasttheory.com -C nixos-rebuild switch
-#     - ssh -i deploy-key root@api.gift.blasttheory.com -C systemctl restart gift-api
-#   environment:
-#     name: production
-#   only:
-#     - master
-#   when: manual
+    refs:
+      - master
+    changes:
+      - app/*
