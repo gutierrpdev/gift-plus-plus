@@ -13,8 +13,8 @@ const Button = styled.button`
   text-align: center;
   /* border: 1px solid red; */
   color: white;
-  flex-grow: 1;
-  flex-basis: 0;
+  /* flex-grow: 1; */
+  /* flex-basis: 0; */
 `;
 
 export {

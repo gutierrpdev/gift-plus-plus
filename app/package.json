@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.8.0",
     "@types/styled-components": "^4.1.8",
     "@types/uuid": "^3.4.4",
+    "disable-scroll": "^0.4.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-scripts": "^2.1.3",

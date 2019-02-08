@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro';
 
+import PanelManager from './PanelManager';
+
 const StyledPanel = styled.div`
   position: relative;
   height: 100vh;
@@ -22,8 +24,30 @@ const StyledPanel = styled.div`
   }
 `;
 
-export default class Panel extends React.PureComponent {
+export interface PanelProps {
+  panelManager?: PanelManager;
+};
+
+export interface PanelState {
+};
+
+export default class Panel extends React.PureComponent<PanelProps, PanelState> {
+
+  panelManager?:PanelManager = this.props.panelManager;
+  // panelManager?: PanelManager;
+
+  // Go to the next panel
+  nextPanel() {
+    // Inform the panel managee to go to the next panel
+    console.log(this.panelManager);
+  }
+
+  // setManager = (panelManager:PanelManager) => {
+  //   this.panelManager = panelManager;
+  // }
+
   render() {
+    console.log(this);
     return (
       <StyledPanel>{this.props.children}</StyledPanel>
     )
