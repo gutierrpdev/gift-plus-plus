@@ -21,13 +21,9 @@ build-frontend:
   services:
     - docker:dind
   script:
-    # Pull previous containers to benefit from layer caching
-    - docker pull $APP_IMAGE:latest || true
-    - docker pull $STORYBOOK_IMAGE:latest || true
-
     # Build the projects
-    - docker build --pull --cache-from $APP_IMAGE:latest --target=app -t $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker build --pull --cache-from $STORYBOOK_IMAGE:latest --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
+    - docker build --pull --target=app --tag $APP_IMAGE -f ./app/Dockerfile ./app
+    - docker build --pull --target=storybook --tag $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
 
     # Push new images to registry
     - docker tag $APP_IMAGE $APP_IMAGE:$CI_COMMIT_SHORT_SHA
@@ -35,7 +31,7 @@ build-frontend:
     - docker push $APP_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker push $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
 
-    # Mark the images for release (should be done only after tests have passed)
+    # Tag the images for release (should be done only after tests have passed)
     - docker tag $APP_IMAGE $APP_IMAGE:latest
     - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:latest
     - docker push $APP_IMAGE:latest
@@ -44,7 +40,9 @@ build-frontend:
     refs:
       - master
     changes:
+      - .gitlab-ci.yml
       - app/*
+      - app/**/*
 
 
 deploy-to-staging:
@@ -59,12 +57,14 @@ deploy-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
   environment:
     name: staging
   only:
     refs:
       - master
     changes:
+      - .gitlab-ci.yml
       - app/*
+      - app/**/*
