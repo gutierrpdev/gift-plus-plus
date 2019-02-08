@@ -1,7 +1,4 @@
 image: docker:stable
-services:
-  - docker:dind
-
 
 stages:
   - build
@@ -11,8 +8,8 @@ stages:
 
 
 variables:
-  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app:$CI_COMMIT_SHORT_SHA
-  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook:$CI_COMMIT_SHORT_SHA
+  APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app
+  STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
 
 
 before_script:
@@ -21,11 +18,21 @@ before_script:
 
 build-frontend:
   stage: build
+  services:
+    - docker:dind
   script:
-    - docker build --pull --target=app -t $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker build --pull --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
-    - docker push $APP_IMAGE
-    - docker push $STORYBOOK_IMAGE
+    # Pull previous containers to benefit from layer caching
+    - docker pull $APP_IMAGE:latest || true
+    - docker pull $STORYBOOK_IMAGE:latest || true
+    # Build the projects
+    - docker build --pull --cache-from $APP_IMAGE:latest --target=app -t $APP_IMAGE -f ./app/Dockerfile ./app
+    - docker build --pull --cache-from $STORYBOOK_IMAGE:latest --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
+    # Push new images to registry
+    - docker push $APP_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
+    # Mark the images for release (should be done only after tests have passed)
+    - docker push $APP_IMAGE:latest
+    - docker push $STORYBOOK_IMAGE:latest
   only:
     refs:
       - master
