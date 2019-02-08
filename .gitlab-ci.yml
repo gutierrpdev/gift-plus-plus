@@ -57,8 +57,8 @@ deploy-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE:$CI_SHORT_SHA
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE:$CI_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
   environment:
     name: staging
   only:
