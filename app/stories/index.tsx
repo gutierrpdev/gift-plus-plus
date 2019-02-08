@@ -29,15 +29,22 @@ storiesOf('Receiving', module)
   .add('Remotely', () => <h1>TODO</h1>)
 ;
 
+// Some reusable parts
 const greyBG = {
   backgroundColor: 'grey',
 }
+const threeGifts = [giftThreeParts, giftThreeParts, giftThreeParts];
 
 storiesOf('Components', module)
 .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
-.add('Gift Pile', () => <GiftPile gifts={[giftThreeParts, giftThreeParts, giftThreeParts]}>GiftPile</GiftPile>)
+.add('Gift Pile', () => <GiftPile gifts={threeGifts}>GiftPile</GiftPile>)
 .add('Gift Parts', () =>
-  <GiftPartsManager gifts={[giftThreeParts, giftThreeParts, giftThreeParts]} />
+  // <GiftPartsManager gifts={threeGifts} />
+  <GiftPartsManager gifts={threeGifts}>
+    <GiftPartWrapper></GiftPartWrapper>
+    <GiftPartWrapper></GiftPartWrapper>
+    <GiftPartWrapper></GiftPartWrapper>
+  </GiftPartsManager>
 )
 .add('Panel Prompt - just text', () => <div style={greyBG}><PanelPrompt text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt></div>)
 .add('Panel Prompt - with image', () => <PanelPrompt background_image='https://picsum.photos/600/600/?image=676' text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt>)
