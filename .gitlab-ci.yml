@@ -24,13 +24,20 @@ build-frontend:
     # Pull previous containers to benefit from layer caching
     - docker pull $APP_IMAGE:latest || true
     - docker pull $STORYBOOK_IMAGE:latest || true
+
     # Build the projects
     - docker build --pull --cache-from $APP_IMAGE:latest --target=app -t $APP_IMAGE -f ./app/Dockerfile ./app
     - docker build --pull --cache-from $STORYBOOK_IMAGE:latest --target=storybook -t $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
+
     # Push new images to registry
+    - docker tag $APP_IMAGE $APP_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker push $APP_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker push $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
+
     # Mark the images for release (should be done only after tests have passed)
+    - docker tag $APP_IMAGE $APP_IMAGE:latest
+    - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:latest
     - docker push $APP_IMAGE:latest
     - docker push $STORYBOOK_IMAGE:latest
   only:
