@@ -1,6 +1,7 @@
+import React from 'react'
 import styled from 'styled-components/macro';
 
-const Panel = styled.div`
+const StyledPanel = styled.div`
   position: relative;
   height: 100vh;
   padding: 5vw 5vw;
@@ -21,4 +22,10 @@ const Panel = styled.div`
   }
 `;
 
-export default Panel;
+export default class Panel extends React.PureComponent {
+  render() {
+    return (
+      <StyledPanel>{this.props.children}</StyledPanel>
+    )
+  }
+}
