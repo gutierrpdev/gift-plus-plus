@@ -8,8 +8,8 @@ import ScreenTitle from '../src/components/ScreenTitle';
 import GiftPile from '../src/components/GiftPile';
 import GiftPartWrapper from '../src/components/GiftPartWrapper';
 import GiftPartsManager from '../src/components/GiftPartsManager';
-import Panel from '../src/components/Panel';
-import PanelManager from '../src/components/PanelManager';
+/* import Panel from '../src/components/Panel'; */
+/* import PanelManager from '../src/components/PanelManager'; */
 import PanelPrompt from '../src/components/PanelPrompt';
 import { Button } from '../src/components/Button';
 
@@ -19,14 +19,13 @@ import CreateGift from '../src/screens/CreateGift';
 import Home from '../src/screens/Home';
 
 // Panels
-import simplePanel from '../src/components/panels/test/SimplePanel';
+/* import SimplePanel from '../src/components/panels/test/SimplePanel'; */
 
 // Test
 import TestPanelManager from '../stories/test/TestPanelManager';
 
 // Data
 import { giftThreeParts } from './fixtures';
-import SimplePanel from '../src/components/panels/test/SimplePanel';
 
 
 storiesOf('Home', module)
@@ -74,7 +73,7 @@ storiesOf('Components', module)
   ))
   .add('Button with text', () => (
     <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>
-  )
+  ))
 ;
 
 

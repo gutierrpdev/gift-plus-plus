@@ -12,7 +12,7 @@ export default class TestPanelManager extends PanelManager {
 
         <Panel
           panelManager={this}
-          ref={(ref) => { this.addPanel(ref); }}
+          ref={(ref) => { this.addPanel(ref!); }}
         >
           Panel 1
           <Button onClick={this.nextPanel}>Next</Button>
@@ -20,7 +20,7 @@ export default class TestPanelManager extends PanelManager {
 
         <Panel
           panelManager={this}
-          ref={(ref) => { this.addPanel(ref); }}
+          ref={(ref) => { this.addPanel(ref!); }}
         >
           Panel 2
           <Button onClick={this.previousPanel}>Back</Button>
