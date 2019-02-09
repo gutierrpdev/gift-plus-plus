@@ -22,10 +22,11 @@ build-frontend:
     - docker:dind
   variables:
     NODE_ENV: staging
+    BABEL_ENV: production
   script:
     # Build the projects
-    - docker build --pull --build-arg NODE_ENV --target=app --tag $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker build --pull --build-arg NODE_ENV --target=storybook --tag $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
+    - docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=app --tag $APP_IMAGE -f ./app/Dockerfile ./app
+    - docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=storybook --tag $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
 
     # Push new images to registry
     - docker tag $APP_IMAGE $APP_IMAGE:$CI_COMMIT_SHORT_SHA

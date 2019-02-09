@@ -23,6 +23,7 @@ RUN yarn install --non-interactive --frozen-lockfile
 COPY --chown=app:app .  .
 
 ARG NODE_ENV=development
+ARG BABEL_ENV=development
 
 RUN yarn typecheck
 RUN yarn lint
