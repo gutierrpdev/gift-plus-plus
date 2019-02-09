@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import { Button } from '../../src/components/Button';
 import Panel from '../../src/components/Panel';
@@ -6,7 +6,7 @@ import PanelManager from '../../src/components/PanelManager';
 
 export default class TestPanelManager extends PanelManager {
 
-  render() {
+  public render() {
     return (
       <PanelManager>
 
@@ -26,6 +26,6 @@ export default class TestPanelManager extends PanelManager {
           <Button onClick={this.previousPanel}>Back</Button>
         </Panel>
       </PanelManager>
-    )
+    );
   }
 }

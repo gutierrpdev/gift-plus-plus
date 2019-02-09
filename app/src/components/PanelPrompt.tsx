@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface CircleProps {
-  background_image?: string,
+  backgroundImage?: string;
 }
 
 const Circle = styled.div<CircleProps>`
-  background-image: url(${props => props.background_image});
+  background-image: url(${(props) => props.backgroundImage});
   background-position: center;
   background-size: cover;
   height: 100%;
@@ -21,17 +21,17 @@ const Circle = styled.div<CircleProps>`
   margin: 0 auto;
   text-align: center;
   position: relative;
-`
+`;
 
 interface Props {
-  background_image?: string;
+  backgroundImage?: string;
   text: string;
-};
+}
 
-const PanelPrompt: React.FC<Props> = ({ text, background_image }: Props) => (
-  <Circle background_image={background_image}>
+const PanelPrompt: React.FC<Props> = ({ text, backgroundImage }: Props) => (
+  <Circle backgroundImage={backgroundImage}>
     {text}
   </Circle>
-)
+);
 
 export default PanelPrompt;

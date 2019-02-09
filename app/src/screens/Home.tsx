@@ -3,7 +3,7 @@ import ScreenTitle from '../components/ScreenTitle';
 import GlobalStyles from '../themes/global';
 
 interface Props {
-};
+}
 
 const Home: React.FC<Props> = ({}: Props) => (
   <>

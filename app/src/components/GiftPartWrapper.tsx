@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 /**
@@ -11,27 +11,27 @@ const StyledGiftPart = styled.div`
   &.active {
     border:1px solid red;
   }
-`
+`;
 export default class GiftPartWrapper extends React.Component {
 
-  state = {
-    active: false
+  public state = {
+    active: false,
   };
 
-  handleClick = () => {
+  public handleClick = () => {
     console.log('The wrapper was clicked.');
     this.setState({
-      active: true
+      active: true,
     });
   }
 
-  render() {
-    const activeClass:string = (this.state.active ? 'active' : '');
+  public render() {
+    const activeClass: string = (this.state.active ? 'active' : '');
     console.log(activeClass);
     return (
       <StyledGiftPart className={activeClass} onClick={this.handleClick}>
         11
       </StyledGiftPart>
-    )
+    );
   }
 }

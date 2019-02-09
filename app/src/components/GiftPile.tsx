@@ -1,21 +1,25 @@
 import * as React from 'react';
-//import styled from 'styled-components';
+// import styled from 'styled-components';
 import { Gift } from '../domain';
 
 interface Props {
-  gifts: Gift[],
-};
+  gifts: Gift[];
+}
 
-const GiftPile: React.FC<Props> = ({ gifts }: Props) => (
-  <>
-    {gifts.map((gift, index) => (
-      <div key={index}>
+const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
+  const giftElms = gifts.map((gift, index) => (
+    <div key={index}>
       <p>{gift.senderName}</p>
       <img src={gift.parts[0].photo} />
-      </div>
-    ))}
-  </>
-);
+    </div>
+  ));
+
+  return (
+    <>
+      {giftElms}
+    </>
+  );
+};
 
 export default GiftPile;
 

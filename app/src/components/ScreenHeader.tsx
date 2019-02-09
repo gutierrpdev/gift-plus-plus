@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ScreenTitle from './ScreenTitle'
-import ScreenSubTitle from './ScreenSubTitle'
+import ScreenTitle from './ScreenTitle';
+import ScreenSubTitle from './ScreenSubTitle';
 import { Gift } from '../domain';
 
 interface ScreenHeaderProps {
   gift: Gift;
-  title: string,
+  title: string;
 }
 
 const ScreenHeaderMarkup: React.FC<ScreenHeaderProps> = ({ gift, title }: ScreenHeaderProps) => (
@@ -15,7 +15,7 @@ const ScreenHeaderMarkup: React.FC<ScreenHeaderProps> = ({ gift, title }: Screen
     <ScreenTitle>Gift from {gift.senderName}</ScreenTitle>
     <ScreenSubTitle>{title}</ScreenSubTitle>
   </div>
-)
+);
 
 const ScreenHeader = styled(ScreenHeaderMarkup)`
 `;

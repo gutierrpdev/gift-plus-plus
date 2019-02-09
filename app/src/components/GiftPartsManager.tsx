@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import GiftPartWrapper from './GiftPartWrapper';
 import { Gift } from '../domain';
@@ -20,18 +20,18 @@ export interface GiftPartsManagerProps {
 
 interface GiftPartsManagerState {
   activeGiftPart: {null: GiftPartWrapper};
-};
+}
 
 export default class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
-  handleClick = () => {
+  public handleClick = () => {
     console.log(this.state);
     console.log('The mamager was clicked.');
   }
 
-  render() {
+  public render() {
     // console.log(this.props.gifts);
-    this.props.gifts.map(function (gift) {
+    this.props.gifts.map((gift) => {
       return console.log(gift);
     });
     // {this.props.gifts}
@@ -39,6 +39,6 @@ export default class GiftPartsManager extends React.PureComponent<GiftPartsManag
       <StyledGiftPartsManager onClick={this.handleClick}>
         {this.props.children}
       </StyledGiftPartsManager>
-    )
+    );
   }
 }

@@ -8,17 +8,17 @@ import PanelPrompt from '../components/PanelPrompt';
 import { Button, Buttons } from '../components/Button';
 
 interface Props {
-  gift: Gift,
-};
+  gift: Gift;
+}
 
 const ReceiveGift: React.FC<Props> = ({ gift }: Props) => (
   <>
     <GlobalStyles />
-    <ScreenHeader gift={gift} title={"Brighton & Hove Museum"} />
+    <ScreenHeader gift={gift} title={'Brighton & Hove Museum'} />
     <Panel>
       {/* <Overlay /> */}
       <PanelTitle>Part 1</PanelTitle>
-      <PanelPrompt background_image={'https://picsum.photos/600/600/?image=666'} text={"lorem ipsum"}></PanelPrompt>
+      <PanelPrompt backgroundImage={'https://picsum.photos/600/600/?image=666'} text={'lorem ipsum'} />
       <Buttons>
         <Button>Show Clue</Button>
         <Button>OK</Button>

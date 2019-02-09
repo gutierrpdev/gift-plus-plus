@@ -19,5 +19,5 @@ const Button = styled.button`
 
 export {
   Button,
-  Buttons
-}
+  Buttons,
+};

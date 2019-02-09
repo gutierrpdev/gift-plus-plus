@@ -19,14 +19,15 @@ import CreateGift from '../src/screens/CreateGift';
 import Home from '../src/screens/Home';
 
 // Panels
-import simplePanel from  '../src/components/panels/test/SimplePanel';
+import simplePanel from '../src/components/panels/test/SimplePanel';
 
 // Test
-import TestPanelManager from  '../stories/test/TestPanelManager';
+import TestPanelManager from '../stories/test/TestPanelManager';
 
 // Data
 import { giftThreeParts } from './fixtures';
 import SimplePanel from '../src/components/panels/test/SimplePanel';
+
 
 storiesOf('Home', module)
   .add('Home', () => <Home />)
@@ -44,28 +45,38 @@ storiesOf('Receiving', module)
 // Some reusable parts
 const greyBG = {
   backgroundColor: 'grey',
-}
+};
 const threeGifts = [giftThreeParts, giftThreeParts, giftThreeParts];
 
-storiesOf('Components', module)
-.add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
-.add('Gift Pile', () => <GiftPile gifts={threeGifts}>GiftPile</GiftPile>)
-.add('Gift Parts', () =>
-  // <GiftPartsManager gifts={threeGifts} />
-  <GiftPartsManager gifts={threeGifts}>
-    <GiftPartWrapper></GiftPartWrapper>
-    <GiftPartWrapper></GiftPartWrapper>
-    <GiftPartWrapper></GiftPartWrapper>
-  </GiftPartsManager>
-)
-.add('Panel Prompt - just text', () => <div style={greyBG}><PanelPrompt text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt></div>)
-.add('Panel Prompt - with image', () => <PanelPrompt background_image='https://picsum.photos/600/600/?image=676' text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'}></PanelPrompt>)
-.add('Panel Test2', () =>
-  <TestPanelManager />
-)
+// tslint:disable-next-line
+const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
 
-.add('Button with text', () => <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>)
+storiesOf('Components', module)
+  .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
+  .add('Gift Pile', () => <GiftPile gifts={threeGifts}>GiftPile</GiftPile>)
+  .add('Gift Parts', () => (
+    <GiftPartsManager gifts={threeGifts}>
+      <GiftPartWrapper />
+      <GiftPartWrapper />
+      <GiftPartWrapper />
+    </GiftPartsManager>
+  ))
+  .add('Panel Prompt - just text', () => (
+    <div style={greyBG}>
+      <PanelPrompt text={longText} />
+    </div>
+  ))
+  .add('Panel Prompt - with image', () => (
+    <PanelPrompt backgroundImage='https://picsum.photos/600/600/?image=676' text={longText} />
+  ))
+  .add('Panel Test2', () => (
+    <TestPanelManager />
+  ))
+  .add('Button with text', () => (
+    <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>
+  )
 ;
+
 
 storiesOf('Components/Test Examples', module)
   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)

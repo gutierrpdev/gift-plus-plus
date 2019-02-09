@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components/macro';
 // import disableScroll from 'disable-scroll';
@@ -10,21 +10,21 @@ import Panel from './Panel';
  */
 const StyledPanelManager = styled.div`
   /* border: 1px solid orange; */
-`
+`;
 
 interface PanelManagerProps {
   // panels: Panel[];
-};
+}
 
 interface PanelManagerState {
-  activePanel: Panel,
-};
+  activePanel: Panel;
+}
 
 export default class PanelManager extends React.PureComponent<PanelManagerProps, PanelManagerState> {
 
-  panels:Panel[] = []; //this.props.panels; // The panels
+  public panels: Panel[] = []; // this.props.panels; // The panels
 
-  constructor(props: PanelManagerProps){
+  constructor(props: PanelManagerProps) {
     super(props);
 
     // this.panels = this.props.panels;
@@ -36,17 +36,17 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
     // console.log(this.panels);
   }
 
-  handleClick = () => {
+  public handleClick = () => {
     console.log('The wrapper was clicked.');
   }
 
-  addPanel(panel: Panel) {
+  public addPanel(panel: Panel) {
 
     // set as first if it is
     if (!this.panels.length) {
       this.setState({
         activePanel: panel,
-      })
+      });
     }
 
     // Add to the stack
@@ -55,7 +55,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
   }
 
   // Go to the previous panel in the list
-  previousPanel = () => {
+  public previousPanel = () => {
 
     const panel = this.getPreviousPanel();
 
@@ -75,7 +75,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
           top: element.offsetTop,
           left: 0,
           behavior: 'smooth',
-        })
+        });
       }
 
       // disableScroll.on();
@@ -83,7 +83,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
 
   }
 
-  getPreviousPanel() {
+  public getPreviousPanel() {
 
     // current index
     const currentIndex = this.panels.indexOf(this.state.activePanel);
@@ -91,7 +91,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
     if (currentIndex === 0) {
       return null; // todo
     } else {
-      return this.panels[currentIndex -1];
+      return this.panels[currentIndex - 1];
     }
 
   }
@@ -99,7 +99,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
 
 
   // Go to the next panel in the list
-  nextPanel = () => {
+  public nextPanel = () => {
 
     const panel = this.getNextPanel();
 
@@ -119,7 +119,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
           top: element.offsetTop,
           left: 0,
           behavior: 'smooth',
-        })
+        });
       }
 
       // disableScroll.on();
@@ -127,25 +127,25 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
 
   }
 
-  getNextPanel() {
+  public getNextPanel() {
     // current index
     const currentIndex = this.panels.indexOf(this.state.activePanel);
 
-    if (currentIndex == this.panels.length) {
+    if (currentIndex === this.panels.length) {
       return null; // todo
     } else {
-      return this.panels[currentIndex +1];
+      return this.panels[currentIndex + 1];
     }
 
   }
 
-  render() {
+  public render() {
     // disableScroll.on();
     console.log(this.panels);
     return (
       <StyledPanelManager>
         {this.props.children}
       </StyledPanelManager>
-    )
+    );
   }
 }

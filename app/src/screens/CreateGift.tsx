@@ -3,7 +3,7 @@ import ScreenTitle from '../components/ScreenTitle';
 import GlobalStyles from '../themes/global';
 
 interface Props {
-};
+}
 
 const CreateGift: React.FC<Props> = ({  }: Props) => (
   <>
