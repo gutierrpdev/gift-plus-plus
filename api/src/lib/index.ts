@@ -1,4 +1,5 @@
 import * as Knex from 'knex';
+import { prepareDb } from './db';
 import { GiftService } from './services/gift';
 
 export interface Config {
@@ -15,10 +16,7 @@ export class Lib {
    * Create a new Library
    */
   public static async create(config: Config): Promise<Lib> {
-    const db = Knex({
-      client: 'postgres',
-      connection: config.sqlUri,
-    });
+    const db = await prepareDb(config.sqlUri);
     return new Lib(db);
   }
 

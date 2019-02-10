@@ -45,8 +45,9 @@ export class GiftService {
    */
   public async create(gift: Gift): Promise<GiftCreateResult> {
     // TODO: Transaction
-    const [{ count }]: CountQueryResult = await this.db('gift').where({ id: gift.id }).count();
-    if (count !== '0') {
+    const [{ count }]: CountQueryResult = await this.db('gift').where({ id: gift.id }).count('id as count');
+
+    if (count !== 0) {
       return { kind: 'IdAlreadyExists' };
     }
 
@@ -101,7 +102,7 @@ type GiftCreateResult =
 ;
 
 
-type CountQueryResult = [ { count: string } ];
+type CountQueryResult = [ { count: number } ];
 
 interface GiftTableRow {
   id: string;
@@ -111,7 +112,7 @@ interface GiftTableRow {
   sender_name: string;
   recipient_name: string;
   recipient_greeting: string;
-  parts: GiftPart[];
+  parts: GiftPart[] | string[];
   created_at: Date;
 }
 
@@ -131,6 +132,6 @@ function tableRowToGift(row: GiftTableRow): Gift {
     senderName: row.sender_name,
     recipientName: row.recipient_name,
     recipientGreeting: row.recipient_greeting,
-    parts: row.parts,
+    parts: (typeof row.parts === 'string') ? JSON.parse(row.parts) : row.parts,
   };
 }

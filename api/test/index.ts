@@ -1,11 +1,22 @@
 import { Server } from 'http';
 import { Api } from '../src/api';
 import { Lib } from '../src/lib';
-import { config } from '../src/config';
+
+// TEMP: Hardcode a test config
+const config = {
+  sqlUri: 'sqlite3://:memory:',
+};
 
 // Singleton store of all components we've started that need to be shutdown.
 type ShutdownableComponent = Api | Lib | Server;
 const runningComponents: ShutdownableComponent[] = [];
+
+// Return type of prepareComponents
+interface PreparedComponents {
+  api: Api;
+  lib: Lib;
+  server: Server;
+}
 
 /**
  * Prepare system components
@@ -13,9 +24,9 @@ const runningComponents: ShutdownableComponent[] = [];
  * Helper function to instansiate the components we use in the system
  * (similar to what main.ts does).
  *
- * @returns { api, lib, server } An object with the prepared components
+ * @returns An object with the prepared components
  */
-export async function prepareComponents() {
+export async function prepareComponents(): Promise<PreparedComponents> {
   const lib = await Lib.create(config);
   runningComponents.push(lib);
 
@@ -29,11 +40,6 @@ export async function prepareComponents() {
   });
   runningComponents.push(server);
 
-  // Hack: Clear the DB
-  // TODO: Put this somewhere nicer.
-  // TODO: UnHack
-  await Promise.all(['gift'].map((t) => (lib as any).db(t).truncate()));
-
   return {
     api,
     lib,
@@ -44,6 +50,6 @@ export async function prepareComponents() {
 /**
  * Shutdown the currently running compoents
  */
-export async function shutdownComponents() {
+export async function shutdownComponents(): Promise<void> {
   runningComponents.forEach((c) => c.close());
 }
