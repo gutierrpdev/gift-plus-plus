@@ -10,8 +10,8 @@ services:
       POSTGRES_DB: gift
       POSTGRES_USER: gift
       POSTGRES_PASSWORD: gift
-    volumes:
-      - type: bind
-        source: ./postgres-schema
-        target: /docker-entrypoint-initdb.d
-        read_only: true
+    # volumes:
+    #   - type: bind
+    #     source: ./postgres-schema
+    #     target: /docker-entrypoint-initdb.d
+    #     read_only: true

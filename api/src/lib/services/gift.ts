@@ -112,7 +112,7 @@ interface GiftTableRow {
   sender_name: string;
   recipient_name: string;
   recipient_greeting: string;
-  parts: GiftPart[] | string[];
+  parts: string;
   created_at: Date;
 }
 
@@ -132,6 +132,6 @@ function tableRowToGift(row: GiftTableRow): Gift {
     senderName: row.sender_name,
     recipientName: row.recipient_name,
     recipientGreeting: row.recipient_greeting,
-    parts: (typeof row.parts === 'string') ? JSON.parse(row.parts) : row.parts,
+    parts: JSON.parse(row.parts),
   };
 }
