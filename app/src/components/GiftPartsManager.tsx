@@ -6,6 +6,7 @@ import { Gift } from '../domain';
 /**
  * Holds and manages visual Gift Parts
  * Controls behaviours of the parts when clicked/made active
+ * Gifts are passed in as an array, e.g. after loading from API
  */
 
 const StyledGiftPartsManager = styled.div`
@@ -19,25 +20,51 @@ export interface GiftPartsManagerProps {
 }
 
 interface GiftPartsManagerState {
-  activeGiftPart: {null: GiftPartWrapper};
+  activeGiftPart?: GiftPartWrapper;
 }
 
 export default class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
-  public handleClick = () => {
-    console.log(this.state);
-    console.log('The mamager was clicked.');
+  // todo not sure we need this, should be child?
+  // public handleClick = (giftPartWrapper: GiftPartWrapper) => {
+  //   console.log(this);
+  //   console.log('The manager was clicked.');
+  // }
+
+  public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
+    // console.log(active);
+    // Record the active gift
+    this.setState({
+      activeGiftPart: active,
+    })
   }
 
   public render() {
-    // console.log(this.props.gifts);
-    this.props.gifts.map((gift) => {
-      return console.log(gift);
-    });
-    // {this.props.gifts}
+    console.log('render');
     return (
-      <StyledGiftPartsManager onClick={this.handleClick}>
-        {this.props.children}
+      <StyledGiftPartsManager>
+        {this.props.gifts.map((gift, index) => {
+
+          console.log({index});
+
+          let active: boolean = false;
+          if (this.state && this.state.activeGiftPart) {
+            active = (gift === this.state.activeGiftPart.props.gift);
+          }
+
+          console.log({active});
+
+          return (
+            <GiftPartWrapper
+              giftPartManager={this}
+              key={index}
+              gift={gift}
+              index={index}
+              active={false}
+              // onClick={this.handleClick(ref)}
+            />
+          )
+        }, this)}
       </StyledGiftPartsManager>
     );
   }

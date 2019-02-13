@@ -5,6 +5,7 @@ import { linkTo } from '@storybook/addon-links';
 
 // Components
 import ScreenTitle from '../src/components/ScreenTitle';
+import ScreenHeader from '../src/components/ScreenHeader';
 import GiftPile from '../src/components/GiftPile';
 import GiftPartWrapper from '../src/components/GiftPartWrapper';
 import GiftPartsManager from '../src/components/GiftPartsManager';
@@ -25,7 +26,7 @@ import Home from '../src/screens/Home';
 import TestPanelManager from '../stories/test/TestPanelManager';
 
 // Data
-import { giftThreeParts } from './fixtures';
+import { giftThreeParts, giftTwoParts } from './fixtures';
 
 
 storiesOf('Home', module)
@@ -45,20 +46,19 @@ storiesOf('Receiving', module)
 const greyBG = {
   backgroundColor: 'grey',
 };
-const threeGifts = [giftThreeParts, giftThreeParts, giftThreeParts];
+const twoGifts = [giftThreeParts, giftTwoParts];
 
 // tslint:disable-next-line
 const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
-  .add('Gift Pile', () => <GiftPile gifts={threeGifts}>GiftPile</GiftPile>)
+  .add('Screen Header', () => (
+    <ScreenHeader gift={giftTwoParts} title={'title'} />
+  ))
+  .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
   .add('Gift Parts', () => (
-    <GiftPartsManager gifts={threeGifts}>
-      <GiftPartWrapper />
-      <GiftPartWrapper />
-      <GiftPartWrapper />
-    </GiftPartsManager>
+    <GiftPartsManager gifts={twoGifts} />
   ))
   .add('Panel Prompt - just text', () => (
     <div style={greyBG}>
@@ -68,7 +68,7 @@ storiesOf('Components', module)
   .add('Panel Prompt - with image', () => (
     <PanelPrompt backgroundImage='https://picsum.photos/600/600/?image=676' text={longText} />
   ))
-  .add('Panel Test2', () => (
+  .add('Panel Manager', () => (
     <TestPanelManager />
   ))
   .add('Button with text', () => (
