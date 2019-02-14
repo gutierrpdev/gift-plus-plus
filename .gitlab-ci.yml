@@ -9,8 +9,8 @@ stages:
 variables:
   APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
-  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/test
-  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/release
+  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api-test
+  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
