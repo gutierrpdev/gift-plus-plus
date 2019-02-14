@@ -39,7 +39,6 @@ export default class Panel extends React.PureComponent<PanelProps, PanelState> {
   // Go to the next panel
   public nextPanel() {
     // Inform the panel managee to go to the next panel
-    console.log(this.panelManager);
   }
 
   // setManager = (panelManager:PanelManager) => {
@@ -47,7 +46,6 @@ export default class Panel extends React.PureComponent<PanelProps, PanelState> {
   // }
 
   public render() {
-    console.log(this);
     return (
       <StyledPanel>{this.props.children}</StyledPanel>
     );

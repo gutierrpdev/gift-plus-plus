@@ -38,7 +38,7 @@ const GlobalStyles = createGlobalStyle`
 
 const NoScroll = createGlobalStyle`
   body {
-    /* overflow: hidden; */
+    overflow: hidden;
   }
 `;
 
@@ -47,9 +47,9 @@ const global = {
     title: {
       family: "'Playfair Display', serif;",
       bold: 700,
-    }
-  }
-}
+    },
+  },
+};
 
 
 export {

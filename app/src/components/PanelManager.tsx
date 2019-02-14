@@ -34,7 +34,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
   }
 
   public handleClick = () => {
-    console.log('The wrapper was clicked.');
   }
 
   public addPanel(panel: Panel) {
@@ -131,7 +130,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
   }
 
   public render() {
-    console.log(this.panels);
     return (
       <StyledPanelManager>
         {this.props.children}

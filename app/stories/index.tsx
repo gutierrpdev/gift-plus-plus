@@ -20,9 +20,6 @@ import ReceiveGift from '../src/screens/ReceiveGift';
 import CreateGift from '../src/screens/CreateGift';
 import Home from '../src/screens/Home';
 
-// Panels
-/* import SimplePanel from '../src/components/panels/test/SimplePanel'; */
-
 // Test
 import TestPanelManager from '../stories/test/TestPanelManager';
 

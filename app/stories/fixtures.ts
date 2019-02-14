@@ -1,8 +1,6 @@
 import uuidv5 from 'uuid/v5';
 import { Gift } from '../src/domain';
 
-const image =  require('../src/assets/test.png');
-
 export const giftThreeParts: Gift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
   kind: 'PersonalGift',
@@ -13,17 +11,17 @@ export const giftThreeParts: Gift = {
   recipientGreeting: 'https://todo.com/todo',
   parts: [
     {
-      photo: image,
+      photo: require('../src/assets/test.png'),
       note: 'https://todo.com/todo',
       clue: 'Part 1 clue',
     },
     {
-      photo: image,
+      photo: require('../src/assets/test.png'),
       note: 'https://todo.com/todo',
       clue: 'Part 2 clue',
     },
     {
-      photo: image,
+      photo: require('../src/assets/test.png'),
       note: 'https://todo.com/todo',
       clue: 'Part 3 clue',
     },

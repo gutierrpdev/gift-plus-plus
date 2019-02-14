@@ -28,66 +28,46 @@ interface GiftPartsManagerState {
 
 export default class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
-  // public state = {
-  //   // activeGiftPart: null,
-  //   // giftPartWrappers: [],
-  // };
-
-  // todo not sure we need this, should be child?
-  // public handleClick = () => {
-  //   console.log(this);
-  //   // console.log('The manager was clicked.');
-  // }
-
+  // Set the active part and update the state
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
     // Record the active gift
     this.setState({
       activeGiftPart: active.props.giftPart,
-    })
+    });
   }
 
-  // public storeGiftPartWrapper( wrapper: GiftPartWrapper) {
-  //   const wrappers = this.state.giftPartWrappers;
-  //   // wrappers.push(wrapper);
-  //   this.setState({
-  //     giftPartWrapper: wrappers;
-  //   })
-  // }
+  // Render the parts
+  public renderParts() {
+    return (
+      this.props.gift.parts.map((giftPart, index) => {
+        // Set the status of the wrapper to define how it displays
+        let status: GiftPartWrapperStatus = GiftPartWrapperStatus.Idle;
+
+        if (this.state && this.state.activeGiftPart) {
+          if (giftPart === this.state.activeGiftPart) {
+            status = GiftPartWrapperStatus.Open;
+          } else {
+            status = GiftPartWrapperStatus.Closed;
+          }
+        }
+
+        return (
+          <GiftPartWrapper
+            giftPartManager={this}
+            key={index}
+            giftPart={giftPart}
+            index={index}
+            status={status}
+          />
+        );
+      })
+    );
+  }
 
   public render() {
-    console.log('render');
     return (
       <StyledGiftPartsManager>
-        {this.props.gift.parts.map((giftPart, index) => {
-
-          console.log({index});
-
-          let status: GiftPartWrapperStatus = GiftPartWrapperStatus.Idle;
-
-          let active: boolean = false;
-          if (this.state && this.state.activeGiftPart) {
-            console.log({giftPart});
-            console.log(this.state.activeGiftPart);
-            if (giftPart === this.state.activeGiftPart) {
-              status = GiftPartWrapperStatus.Open;
-            } else {
-              status = GiftPartWrapperStatus.Closed;
-            }
-          }
-
-          console.log({active});
-
-          return (
-            <GiftPartWrapper
-              giftPartManager={this}
-              key={index}
-              giftPart={giftPart}
-              index={index}
-              status={status}
-              //onClick={this.handleClick()}
-            />
-          )
-        }, this)}
+        {this.renderParts()}
       </StyledGiftPartsManager>
     );
   }

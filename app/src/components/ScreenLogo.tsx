@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Load the svg
-const Logo = require("../assets/svg/gift.svg") as string;
-
 const StyledScreenLogo = styled.div`
   text-align: center;
   img {
@@ -12,11 +9,11 @@ const StyledScreenLogo = styled.div`
 `;
 
 export default class ScreenLogo extends React.PureComponent {
-  render() {
+  public render() {
     return (
       <StyledScreenLogo>
-        <img src={Logo} />
+        <img src={require('../assets/svg/gift.svg')} />
       </StyledScreenLogo>
-    )
+    );
   }
 }
