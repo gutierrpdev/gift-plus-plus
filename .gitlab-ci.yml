@@ -9,8 +9,8 @@ stages:
 variables:
   APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
-  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/test
-  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/release
+  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api-test
+  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -63,8 +63,8 @@ deploy-frontend-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-app --image $APP_IMAGE:$CI_COMMIT_SHORT_SHA
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift-storybook --image $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app --image $APP_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_storybook --image $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
   environment:
     name: staging
   only:
@@ -100,6 +100,7 @@ build-backend:
       - .gitlab-ci.yml
       - api/**/*
 
+
 lint-backend:
   stage: test
   services:
@@ -113,6 +114,7 @@ lint-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+
 
 test-backend:
   stage: test
@@ -142,3 +144,26 @@ release-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+
+
+deploy-backend-to-staging:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk --no-cache add openssh-client
+  script:
+    - echo "Deploying to staging..."
+    - echo "$STAGING_DEPLOY_KEY" > deploy-key
+    - chmod 600 deploy-key
+    - mkdir ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+  environment:
+    name: staging
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - app/**/*
