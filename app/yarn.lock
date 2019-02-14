@@ -3714,13 +3714,6 @@ dir-glob@^2.0.0:
   dependencies:
     path-type "^3.0.0"
 
-disable-scroll@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/disable-scroll/-/disable-scroll-0.4.1.tgz#67e20c012a9cdaf235df171cecc2cc121a30f881"
-  integrity sha512-qkPLSZD3XpuiyM4YnVBgW9LwoaraI0GTvf+kLYRBvmNAKsjzUJr+ci8qwPKUp88BRBmEj3CtYzr0udytwRqpIA==
-  dependencies:
-    scrollingelement "^1.5.2"
-
 doctrine@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
@@ -8071,11 +8064,6 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
-
-scrollingelement@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/scrollingelement/-/scrollingelement-1.5.2.tgz#b63b71114d864e3671ca1e854ea1f93af61f107e"
-  integrity sha1-tjtxEU2GTjZxyh6FTqH5OvYfEH4=
 
 semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
   version "5.6.0"

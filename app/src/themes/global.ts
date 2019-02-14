@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   // Fonts
   @import url('https://fonts.googleapis.com/css?family=Nunito');
-  @import url('https://fonts.googleapis.com/css?family=Playfair+Display:700');
+  @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
   // Reset
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -36,13 +36,24 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+const NoScroll = createGlobalStyle`
+  body {
+    /* overflow: hidden; */
+  }
+`;
+
 const global = {
   fonts: {
-    title : "'Playfair Display', serif;",
+    title: {
+      family: "'Playfair Display', serif;",
+      bold: 700,
+    }
   }
 }
 
-export default GlobalStyles;
+
 export {
+  GlobalStyles,
+  NoScroll,
   global,
 };

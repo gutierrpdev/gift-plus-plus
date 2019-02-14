@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-// import disableScroll from 'disable-scroll';
 
 import Panel from './Panel';
 
 /**
  * Manages panels
  */
-const StyledPanelManager = styled.div`
-  /* border: 1px solid orange; */
+const StyledPanelManager = styled.div<PanelManagerProps>`
 `;
 
 interface PanelManagerProps {
-  // panels: Panel[];
 }
 
 interface PanelManagerState {
@@ -66,8 +63,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
         activePanel: panel,
       });
 
-      // disableScroll.off();
-
       // Scroll the panel into view
       const element = ReactDOM.findDOMNode(panel) as HTMLElement;
       if (element) {
@@ -78,7 +73,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
         });
       }
 
-      // disableScroll.on();
     }
 
   }
@@ -110,8 +104,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
         activePanel: panel,
       });
 
-      // disableScroll.off();
-
       // Scroll the panel into view
       const element = ReactDOM.findDOMNode(panel) as HTMLElement;
       if (element) {
@@ -122,7 +114,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
         });
       }
 
-      // disableScroll.on();
     }
 
   }
@@ -140,7 +131,6 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
   }
 
   public render() {
-    // disableScroll.on();
     console.log(this.panels);
     return (
       <StyledPanelManager>

@@ -7,12 +7,13 @@ import { linkTo } from '@storybook/addon-links';
 import ScreenTitle from '../src/components/ScreenTitle';
 import ScreenHeader from '../src/components/ScreenHeader';
 import GiftPile from '../src/components/GiftPile';
-import GiftPartWrapper from '../src/components/GiftPartWrapper';
+// import GiftPartWrapper from '../src/components/GiftPartWrapper';
 import GiftPartsManager from '../src/components/GiftPartsManager';
 /* import Panel from '../src/components/Panel'; */
 /* import PanelManager from '../src/components/PanelManager'; */
 import PanelPrompt from '../src/components/PanelPrompt';
 import { Button } from '../src/components/Button';
+import ScreenManager from '../src/components/ScreenManager';
 
 // Screens
 import ReceiveGift from '../src/screens/ReceiveGift';
@@ -38,7 +39,9 @@ storiesOf('Creating', module)
 ;
 
 storiesOf('Receiving', module)
-  .add('At museum', () => <ReceiveGift gift={giftThreeParts} />)
+  .add('At museum', () => (
+    <ReceiveGift gift={giftThreeParts} museumName={'Brighton & Hove Museum'} />
+  ))
   .add('Remotely', () => <h1>TODO</h1>)
 ;
 
@@ -58,16 +61,18 @@ storiesOf('Components', module)
   ))
   .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
   .add('Gift Parts', () => (
-    <GiftPartsManager gifts={twoGifts} />
+    <ScreenManager>
+      <GiftPartsManager gift={giftThreeParts} />
+    </ScreenManager>
   ))
   .add('Panel Prompt - just text', () => (
     <div style={greyBG}>
       <PanelPrompt text={longText} />
     </div>
   ))
-  .add('Panel Prompt - with image', () => (
-    <PanelPrompt backgroundImage='https://picsum.photos/600/600/?image=676' text={longText} />
-  ))
+  // .add('Panel Prompt - with image', () => (
+  //   <PanelPrompt backgroundImage='https://picsum.photos/600/600/?image=676' text={longText} />
+  // ))
   .add('Panel Manager', () => (
     <TestPanelManager />
   ))
@@ -75,7 +80,6 @@ storiesOf('Components', module)
     <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>
   ))
 ;
-
 
 storiesOf('Components/Test Examples', module)
   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)

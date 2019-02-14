@@ -1,30 +1,24 @@
 import React from 'react';
 import { Gift } from '../domain';
-import GlobalStyles from '../themes/global';
-import Panel from '../components/Panel';
+import { GlobalStyles, NoScroll } from '../themes/global';
+import ScreenManager from '../components/ScreenManager';
 import ScreenHeader from '../components/ScreenHeader';
-import PanelTitle from '../components/PanelTitle';
-import PanelPrompt from '../components/PanelPrompt';
-import { Button, Buttons } from '../components/Button';
+import GiftPartsManager from '../components/GiftPartsManager';
 
 interface Props {
   gift: Gift;
+  museumName: string;
 }
 
-const ReceiveGift: React.FC<Props> = ({ gift }: Props) => (
-  <>
+const ReceiveGift: React.FC<Props> = ({ gift, museumName }: Props) => (
+  <ScreenManager>
     <GlobalStyles />
-    <ScreenHeader gift={gift} title={'Brighton & Hove Museum'} />
-    <Panel>
-      {/* <Overlay /> */}
-      <PanelTitle>Part 1</PanelTitle>
-      <PanelPrompt backgroundImage={'https://picsum.photos/600/600/?image=666'} text={'lorem ipsum'} />
-      <Buttons>
-        <Button>Show Clue</Button>
-        <Button>OK</Button>
-      </Buttons>
-    </Panel>
-  </>
+    <NoScroll />
+
+    <ScreenHeader gift={gift} title={museumName} />
+
+    <GiftPartsManager gift={gift} />
+  </ScreenManager>
 );
 
 export default ReceiveGift;

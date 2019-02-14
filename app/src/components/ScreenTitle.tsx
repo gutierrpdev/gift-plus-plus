@@ -7,7 +7,8 @@ const ScreenTitle = styled.h1`
   margin: 0;
   line-height: 1;
   text-align: center;
-  font-family: ${global.fonts.title};
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
 `;
 
 export default ScreenTitle;

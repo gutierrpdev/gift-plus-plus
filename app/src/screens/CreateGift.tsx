@@ -1,6 +1,6 @@
 import React from 'react';
 import ScreenTitle from '../components/ScreenTitle';
-import GlobalStyles from '../themes/global';
+import { GlobalStyles, NoScroll } from '../themes/global';
 
 interface Props {
 }
@@ -8,6 +8,7 @@ interface Props {
 const CreateGift: React.FC<Props> = ({  }: Props) => (
   <>
     <GlobalStyles />
+    <NoScroll />
     <ScreenTitle>Create Gift</ScreenTitle>
   </>
 );

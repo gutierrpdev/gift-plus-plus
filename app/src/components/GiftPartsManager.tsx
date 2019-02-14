@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import GiftPartWrapper from './GiftPartWrapper';
-import { Gift } from '../domain';
+import { Gift, GiftPart } from '../domain';
+import { GiftPartWrapperStatus } from './GiftPartWrapper';
 
 /**
  * Holds and manages visual Gift Parts
@@ -10,46 +11,68 @@ import { Gift } from '../domain';
  */
 
 const StyledGiftPartsManager = styled.div`
-  border: 1px solid green;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
 `;
 
 export interface GiftPartsManagerProps {
-  gifts: Gift[];
+  gift: Gift;
 }
 
 interface GiftPartsManagerState {
-  activeGiftPart?: GiftPartWrapper;
+  activeGiftPart?: GiftPart;
+  giftPartWrappers?: GiftPartWrapper[];
 }
 
 export default class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
+  // public state = {
+  //   // activeGiftPart: null,
+  //   // giftPartWrappers: [],
+  // };
+
   // todo not sure we need this, should be child?
-  // public handleClick = (giftPartWrapper: GiftPartWrapper) => {
+  // public handleClick = () => {
   //   console.log(this);
-  //   console.log('The manager was clicked.');
+  //   // console.log('The manager was clicked.');
   // }
 
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
-    // console.log(active);
     // Record the active gift
     this.setState({
-      activeGiftPart: active,
+      activeGiftPart: active.props.giftPart,
     })
   }
+
+  // public storeGiftPartWrapper( wrapper: GiftPartWrapper) {
+  //   const wrappers = this.state.giftPartWrappers;
+  //   // wrappers.push(wrapper);
+  //   this.setState({
+  //     giftPartWrapper: wrappers;
+  //   })
+  // }
 
   public render() {
     console.log('render');
     return (
       <StyledGiftPartsManager>
-        {this.props.gifts.map((gift, index) => {
+        {this.props.gift.parts.map((giftPart, index) => {
 
           console.log({index});
 
+          let status: GiftPartWrapperStatus = GiftPartWrapperStatus.Idle;
+
           let active: boolean = false;
           if (this.state && this.state.activeGiftPart) {
-            active = (gift === this.state.activeGiftPart.props.gift);
+            console.log({giftPart});
+            console.log(this.state.activeGiftPart);
+            if (giftPart === this.state.activeGiftPart) {
+              status = GiftPartWrapperStatus.Open;
+            } else {
+              status = GiftPartWrapperStatus.Closed;
+            }
           }
 
           console.log({active});
@@ -58,10 +81,10 @@ export default class GiftPartsManager extends React.PureComponent<GiftPartsManag
             <GiftPartWrapper
               giftPartManager={this}
               key={index}
-              gift={gift}
+              giftPart={giftPart}
               index={index}
-              active={false}
-              // onClick={this.handleClick(ref)}
+              status={status}
+              //onClick={this.handleClick()}
             />
           )
         }, this)}
