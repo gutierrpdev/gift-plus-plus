@@ -71,6 +71,8 @@ export default class GiftPartWrapper extends React.Component<Props, State> {
           </Panel>
         </PanelManager>
       );
+    } else {
+      return '';
     }
   }
 
