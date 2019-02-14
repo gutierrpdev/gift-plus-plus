@@ -6,15 +6,19 @@ stages:
   - release
   - deploy
 
-
 variables:
   APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
-
+  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/test
+  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/release
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
 
+
+# ========
+# FRONTEND
+# ========
 
 build-frontend:
   stage: build
@@ -47,7 +51,7 @@ build-frontend:
       - app/**/*
 
 
-deploy-to-staging:
+deploy-frontend-to-staging:
   stage: deploy
   image: alpine
   before_script:
@@ -69,3 +73,66 @@ deploy-to-staging:
     changes:
       - .gitlab-ci.yml
       - app/**/*
+
+
+# =======
+# BACKEND
+# =======
+
+build-backend:
+  stage: build
+  services:
+    - docker:dind
+  script:
+    # Build the projects
+    - docker build --pull --target=build --tag $API_TEST_IMAGE -f ./api/Dockerfile ./api
+    - docker build --pull --target=release --tag $API_RELEASE_IMAGE -f ./api/Dockerfile ./api
+
+    # Push new images to registry
+    - docker tag $API_TEST_IMAGE $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $API_RELEASE_IMAGE $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $APP_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $APP_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - api/**/*
+
+lint-backend:
+  stage: test
+  script:
+    - docker pull $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker run --rm $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA yarn lint
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - api/**/*
+
+test-backend:
+  stage: test
+  script:
+    - docker pull $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker run --rm $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA yarn test
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - api/**/*
+
+release-backend:
+  stage: release
+  script:
+    - docker pull $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA $API_RELEASE_IMAGE:latest
+    - docker push $API_RELEASE_IMAGE:latest
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - api/**/*
