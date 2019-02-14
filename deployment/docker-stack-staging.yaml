@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  traefik:
+  proxy:
     image: traefik
     command: --web \
       --docker \
@@ -10,10 +10,12 @@ services:
       --logLevel=DEBUG
     ports:
       - '80:80'
+      - '443:443'
       - '8080:8080'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/traefik.toml
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './traefik.toml:/traefik.toml'
+      - 'proxy-data:/data'
 
   app:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest
@@ -63,3 +65,4 @@ services:
 
 volumes:
    db-data:
+   proxy-data:
