@@ -9,8 +9,8 @@ stages:
 variables:
   APP_IMAGE: registry.gitlab.com/blasttheory/gift/gift-app
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
-  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api-test
-  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api
+  API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/test
+  API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api/release
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -91,8 +91,8 @@ build-backend:
     # Push new images to registry
     - docker tag $API_TEST_IMAGE $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker tag $API_RELEASE_IMAGE $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker push $APP_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker push $APP_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
   only:
     refs:
       - master
