@@ -102,6 +102,8 @@ build-backend:
 
 lint-backend:
   stage: test
+  services:
+    - docker:dind
   script:
     - docker pull $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker run --rm $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA yarn lint
@@ -114,6 +116,8 @@ lint-backend:
 
 test-backend:
   stage: test
+  services:
+    - docker:dind
   script:
     - docker pull $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker run --rm $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA yarn test
@@ -126,6 +130,8 @@ test-backend:
 
 release-backend:
   stage: release
+  services:
+    - docker:dind
   script:
     - docker pull $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
     - docker tag $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA $API_RELEASE_IMAGE:latest
