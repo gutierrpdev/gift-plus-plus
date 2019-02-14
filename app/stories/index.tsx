@@ -7,10 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import ScreenTitle from '../src/components/ScreenTitle';
 import ScreenHeader from '../src/components/ScreenHeader';
 import GiftPile from '../src/components/GiftPile';
-// import GiftPartWrapper from '../src/components/GiftPartWrapper';
 import GiftPartsManager from '../src/components/GiftPartsManager';
-/* import Panel from '../src/components/Panel'; */
-/* import PanelManager from '../src/components/PanelManager'; */
 import PanelPrompt from '../src/components/PanelPrompt';
 import { Button } from '../src/components/Button';
 import ScreenManager from '../src/components/ScreenManager';
@@ -19,9 +16,6 @@ import ScreenManager from '../src/components/ScreenManager';
 import ReceiveGift from '../src/screens/ReceiveGift';
 import CreateGift from '../src/screens/CreateGift';
 import Home from '../src/screens/Home';
-
-// Test
-import TestPanelManager from '../stories/test/TestPanelManager';
 
 // Data
 import { giftThreeParts, giftTwoParts } from './fixtures';
@@ -70,9 +64,6 @@ storiesOf('Components', module)
   // .add('Panel Prompt - with image', () => (
   //   <PanelPrompt backgroundImage='https://picsum.photos/600/600/?image=676' text={longText} />
   // ))
-  .add('Panel Manager', () => (
-    <TestPanelManager />
-  ))
   .add('Button with text', () => (
     <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>
   ))

@@ -81,7 +81,7 @@ export default class GiftPartWrapper extends React.Component<Props, State> {
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
 
         <GiftPartTitle>Part {this.props.index + 1}</GiftPartTitle>
-
+        {[this.props.status]}
         {this.renderPanels()}
 
       </StyledGiftPart>
