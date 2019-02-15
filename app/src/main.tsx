@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
-import { ReceiveGift } from './screens/receive-gift';
+import { ReceiveGift } from './screens/receive-gift-wip';
 
 /*
  * NOTE: We use `children` in Routes rather than the `component` prop for the

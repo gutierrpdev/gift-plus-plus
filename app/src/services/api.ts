@@ -14,7 +14,6 @@ export class Api {
    *
    */
   public async getGift(giftId: string): Promise<{}> {
-    console.log('getGift called');
     const url = `${this.apiUrl}/gift/${giftId}`;
     await fetch(url);
     await new Promise((res) => setTimeout(res, 1000));

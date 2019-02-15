@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { api } from '../services';
+import React from 'react';
+import { Gift } from '../domain';
+import { GlobalStyles, NoScroll } from '../themes/global';
+import { ScreenManager } from '../components/screen-manager';
+import { ScreenHeader } from '../components/screen-header';
+import { GiftPartsManager } from '../components/gift-parts-manager';
 
-interface State {
-  gift?: {};
+interface Props {
+  gift: Gift;
+  museumName: string;
 }
 
-export const ReceiveGift: React.FC = () => {
+export const ReceiveGift: React.FC<Props> = ({ gift, museumName }: Props) => (
+  <ScreenManager>
+    <GlobalStyles />
+    <NoScroll />
 
-  const [state, setState] = useState<State>({});
-  useEffect(
-    () => {
-      api.getGift('some-gift-id').then((apiResult) => {
-        setState({ gift: apiResult });
-      });
-    },
-    [],
-  );
+    <ScreenHeader gift={gift} title={museumName} />
 
-  if (state.gift) {
-    return <h1>Something</h1>;
-  } else {
-    return <h1>Nothing</h1>;
-  }
-};
+    <GiftPartsManager gift={gift} />
+  </ScreenManager>
+);

@@ -16,9 +16,9 @@ import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer } from '../src/components/audio-player';
 
 // Screens
-import ReceiveGift from '../src/screens/receive-gift';
-import CreateGift from '../src/screens/create-gift';
-import Home from '../src/screens/home';
+import { ReceiveGift } from '../src/screens/receive-gift';
+import { CreateGift } from '../src/screens/create-gift';
+import { Home } from '../src/screens/home';
 
 // Data
 import { giftThreeParts, giftTwoParts } from './fixtures';
