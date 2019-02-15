@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { GiftPart } from '../domain';
 import { global } from '../themes/global';
 import GiftPartsManager from './GiftPartsManager';
-// import PanelManager from '../components/PanelManager';
-// import Panel from '../components/Panel';
-// import PanelPrompt from '../components/PanelPrompt';
-// import { Buttons, Button } from '../components/Button';
+import PanelManager from '../components/PanelManager';
+import Panel from '../components/Panel';
+import PanelPrompt from '../components/PanelPrompt';
+import { Buttons, Button } from '../components/Button';
 import AudioPlayer from '../components/AudioPlayer';
 
 // Gift Part Title
@@ -80,9 +80,17 @@ const StyledGiftPart = styled.div<Props>`
 
 export default class GiftPartWrapper extends React.Component<Props, State> {
 
+  public panelManager: PanelManager | null = null;
+
   // Inform the wrapper, todo this should be handled by the parent on click
   public handleClick = () => {
     this.props.giftPartManager.setActiveGiftPartWrapper(this);
+  }
+
+  public nextPanel = () => {
+    if (this.panelManager) {
+      this.panelManager.nextPanel();
+    }
   }
 
   public renderPanels() {
@@ -92,23 +100,38 @@ export default class GiftPartWrapper extends React.Component<Props, State> {
     if (show) {
 
       return (
-        <AudioPlayer
-          text={'One thing before you start...'}
-          src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
-        />
+        <PanelManager
+          ref={(ref) => { this.panelManager = ref; }}
+        >
+
+          <Panel>
+            <AudioPlayer
+                text={'One thing before you start...'}
+                src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+            />
+            <Buttons>
+              <Button onClick={this.nextPanel}>OK</Button>
+            </Buttons>
+          </Panel>
+
+          <Panel>
+            <PanelPrompt text={'lorem ipsum'} />
+              <Buttons>
+                <Button>Show Clue</Button>
+                <Button onClick={this.nextPanel}>OK</Button>
+              </Buttons>
+          </Panel>
+
+          <Panel>
+            <PanelPrompt text={'Cool man'} />
+              <Buttons>
+                <Button onClick={this.nextPanel}>OK</Button>
+              </Buttons>
+          </Panel>
+
+        </PanelManager>
       );
 
-      // return (
-      //   <PanelManager>
-      //     <Panel>
-      //       <PanelPrompt text={'lorem ipsum'} />
-      //       <Buttons>
-      //         <Button>Show Clue</Button>
-      //         <Button>OK</Button>
-      //       </Buttons>
-      //     </Panel>
-      //   </PanelManager>
-      // );
     } else {
       return '';
     }

@@ -4,6 +4,7 @@ const Buttons = styled.div`
   /* border: 1px solid red; */
   display: flex;
   margin: 20px 0 0;
+  align-items: stretch;
 `;
 
 const Button = styled.button`
@@ -13,8 +14,9 @@ const Button = styled.button`
   text-align: center;
   /* border: 1px solid red; */
   color: white;
-  /* flex-grow: 1; */
-  /* flex-basis: 0; */
+  flex-grow: 1;
+  flex-basis: 0;
+  background-color: transparent;
 `;
 
 export {
