@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { api } from '../services';
 
-export const ReceiveGift: React.FC = () => (
-  <>
-    <h1>Receive Gift</h1>
-    <p>TODO!!!</p>
-  </>
-);
+interface State {
+  gift?: {};
+}
+
+export const ReceiveGift: React.FC = () => {
+
+  const [state, setState] = useState<State>({});
+  useEffect(
+    () => {
+      api.getGift('some-gift-id').then((apiResult) => {
+        setState({ gift: apiResult });
+      });
+    },
+    [],
+  );
+
+  if (state.gift) {
+    return <h1>Something</h1>;
+  } else {
+    return <h1>Nothing</h1>;
+  }
+};
