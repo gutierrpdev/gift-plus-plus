@@ -166,4 +166,4 @@ deploy-backend-to-staging:
       - master
     changes:
       - .gitlab-ci.yml
-      - app/**/*
+      - api/**/*

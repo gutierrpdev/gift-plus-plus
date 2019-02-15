@@ -3,7 +3,7 @@ version: '3.7'
 services:
   proxy:
     image: traefik
-    command: --web \
+    command: --api \
       --docker \
       --docker.swarmmode \
       --docker.watch \
