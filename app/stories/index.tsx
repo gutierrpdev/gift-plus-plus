@@ -11,6 +11,7 @@ import GiftPartsManager from '../src/components/GiftPartsManager';
 import PanelPrompt from '../src/components/PanelPrompt';
 import { Button } from '../src/components/Button';
 import ScreenManager from '../src/components/ScreenManager';
+import AudioPlayer from '../src/components/AudioPlayer';
 
 // Screens
 import ReceiveGift from '../src/screens/ReceiveGift';
@@ -66,6 +67,12 @@ storiesOf('Components', module)
   // ))
   .add('Button with text', () => (
     <div style={greyBG}><Button onClick={action('clicked')}>Hello Button</Button></div>
+  ))
+  .add('Audio player', () => (
+    <AudioPlayer
+      text={'Lorem ipsum'}
+      src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+    />
   ))
 ;
 
