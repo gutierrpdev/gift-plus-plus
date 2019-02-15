@@ -1,4 +1,4 @@
-* Milestones [3/11]
+* Milestones [4/11]
 ** DONE Initial project setup ~(0.5 days)~ [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -9,12 +9,12 @@
    - [X] Explainer doc of core concepts
    - [X] Type definitions for core concepts
 
-** TODO Initial api set-up ~(3 days)~ [2/4] <2019-01-11 Fri>
-   DEADLINE: <2019-01-11 Fri>
+** DONE Initial api set-up ~(3 days)~ [4/4] <2019-01-11 Fri>
+   CLOSED: [2019-02-14 Thu 17:13] DEADLINE: <2019-01-11 Fri>
    - [X] Project sub-structure for api code
    - [X] Simple rest-ish API to serve the data model
-   - [ ] Configure staging server
-   - [ ] CI to deploy to staging
+   - [X] Configure staging server
+   - [X] CI to deploy to staging
 
 ** DONE Initial app set-up ~(1 day)~ [3/3] <2019-01-14 Mon>
    CLOSED: [2019-02-14 Thu 10:23] DEADLINE: <2019-01-14 Mon>
