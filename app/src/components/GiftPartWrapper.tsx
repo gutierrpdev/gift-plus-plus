@@ -15,7 +15,7 @@ const GiftPartTitle = styled.div<Props>`
   text-align: center;
   font-family: ${global.fonts.title.family};
   color: white;
-  font-size: '1em';
+  font-size: 3vw;
   display: flex;
   /* flex: 1; */
   /* align-items: flex-start;
@@ -73,7 +73,7 @@ const StyledGiftPart = styled.div<Props>`
     props.status === GiftPartWrapperStatus.Closed && `
     flex-grow: 0;
     justify-content: center;
-    height: 40px;
+    height: 10vw;
   `}
 
 `;

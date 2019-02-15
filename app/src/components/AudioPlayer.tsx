@@ -17,8 +17,8 @@ const AudioPlayerStyles = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10vw 5vw;
   border-radius: 50%;
-  height: ${global.components.circle.width}px;
-  width: ${global.components.circle.width}px;
+  height: ${global.components.circle.width};
+  width: ${global.components.circle.width};
   margin: 0 auto;
 `;
 
@@ -43,19 +43,19 @@ const baseButton = styled.div`
 `;
 
 const SkipBack = styled(baseButton)`
-  width: 40px;
-  height: 40px;
+  width: 10vw;
+  height: 10vw;
 `;
 
 const SkipForward = styled(baseButton)`
-  width: 40px;
-  height: 40px;
+  width: 10vw;
+  height: 10vw;
 `;
 
 const Play = styled(baseButton)`
-  width: 60px;
-  height: 60px;
-  margin: 0 10px;
+  width: 17vw;
+  height: 17vw;
+  margin: 0 5vw;
 `;
 
 interface Props {

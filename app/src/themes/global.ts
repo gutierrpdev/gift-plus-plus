@@ -53,7 +53,7 @@ const global = {
   },
   components: {
     circle : {
-      width: 250,
+      width: '65vmin',
     },
   },
 };

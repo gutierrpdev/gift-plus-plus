@@ -13,8 +13,8 @@ const Circle = styled.div<CircleProps>`
   border-radius: 50%;
   border: 2px dashed white;
   overflow: hidden;
-  height: ${global.components.circle.width}px;
-  width: ${global.components.circle.width}px;
+  height: ${global.components.circle.width};
+  width: ${global.components.circle.width};
   padding: 20px;
   color: white;
   margin: 0 auto;

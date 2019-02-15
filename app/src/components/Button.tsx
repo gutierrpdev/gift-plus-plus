@@ -11,9 +11,9 @@ const Buttons = styled.div`
 
 const Button = styled.button`
   font-family: ${global.fonts.title.family};
-  font-size: 1.6rem;
+  font-size: 6vw;
   margin: 0;
-  padding: 10px;
+  padding: 4vw;
   line-height: 1;
   text-align: center;
   font-style: italic;

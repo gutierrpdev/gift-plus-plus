@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const PanelText = styled.div`
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 5vw;
   font-weight: 300;
 `;
 
