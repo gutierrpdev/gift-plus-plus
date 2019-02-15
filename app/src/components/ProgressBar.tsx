@@ -5,7 +5,6 @@ const ProgressBarInner = styled.div<Props>`
   background-color: white;
   width: ${(props) => props.percentage}%;
   height: 100%;
-  border-radius: 15px;
 `;
 
 const StyledProgressBar = styled.div`
@@ -13,6 +12,7 @@ const StyledProgressBar = styled.div`
   height: 2vw;
   width: 100%;
   border-radius: 15px;
+  overflow: hidden;
 `;
 
 interface Props {
