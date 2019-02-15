@@ -4,21 +4,21 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 // Components
-import { ScreenTitle } from '../src/components/screenTitle';
-import { ScreenHeader } from '../src/components/screenHeader';
-import { GiftPile } from '../src/components/giftPile';
-import { GiftPartsManager } from '../src/components/giftPartsManager';
-// import GiftPartWrapper from '../src/components/GiftPartWrapper';
+import { ScreenTitle } from '../src/components/screen-title';
+import { ScreenHeader } from '../src/components/screen-header';
+import { GiftPile } from '../src/components/gift-pile';
+import { GiftPartsManager } from '../src/components/gift-parts-manager';
+// import GiftPartWrapper from '../src/components/gift-part-wrapper';
 import { Panel } from '../src/components/panel';
-import { PanelPrompt } from '../src/components/panelPrompt';
+import { PanelPrompt } from '../src/components/panel-prompt';
 import { Button, Buttons } from '../src/components/buttons';
-import { ScreenManager } from '../src/components/screenManager';
-import { AudioPlayer } from '../src/components/audioPlayer';
+import { ScreenManager } from '../src/components/screen-manager';
+import { AudioPlayer } from '../src/components/audio-player';
 
 // Screens
-import ReceiveGift from '../src/screens/ReceiveGift';
-import CreateGift from '../src/screens/CreateGift';
-import Home from '../src/screens/Home';
+import ReceiveGift from '../src/screens/receive-gift';
+import CreateGift from '../src/screens/create-gift';
+import Home from '../src/screens/home';
 
 // Data
 import { giftThreeParts, giftTwoParts } from './fixtures';

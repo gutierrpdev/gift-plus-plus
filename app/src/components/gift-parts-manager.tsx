@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { GiftPartWrapper } from './giftPartWrapper';
+import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
 import { Gift, GiftPart } from '../domain';
-import { GiftPartWrapperStatus } from './giftPartWrapper';
 
 /**
  * Holds and manages visual Gift Parts

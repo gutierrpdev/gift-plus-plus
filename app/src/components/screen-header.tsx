@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ScreenTitle } from './screenTitle';
-import { ScreenSubTitle } from './screenSubTitle';
-import { ScreenLogo } from './screenLogo';
+import { ScreenTitle } from './screen-title';
+import { ScreenSubTitle } from './screen-sub-title';
+import { ScreenLogo } from './screen-logo';
 import { Gift } from '../domain';
 
 interface ScreenHeaderProps {

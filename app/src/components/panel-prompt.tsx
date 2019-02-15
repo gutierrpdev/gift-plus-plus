@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
-import { PanelText } from './panelText';
+import { PanelText } from './panel-text';
 
 const Circle = styled.div`
   box-sizing: border-box;

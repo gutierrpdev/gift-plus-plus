@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PanelManager } from './panelManager';
+import { PanelManager } from './panel-manager';
 
 const StyledPanel = styled.div<Props>`
   display: ${(props) => props.visible === false ? 'none' : 'block'};

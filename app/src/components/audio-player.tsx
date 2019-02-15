@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
-import { ProgressBar } from './progressBar';
-import { PanelText } from './panelText';
+import { ProgressBar } from './progress-bar';
+import { PanelText } from './panel-text';
 
 /**
  * Audio Player

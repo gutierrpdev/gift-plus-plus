@@ -5,6 +5,7 @@
   ],
   "rules": {
     "curly": [true, "ignore-same-line"],
+    "file-name-casing": [true, "kebab-case"],
     "interface-name": [true, "never-prefix"],
     "max-classes-per-file": [true, 1, "exclude-class-expressions"],
     "no-consecutive-blank-lines": false,

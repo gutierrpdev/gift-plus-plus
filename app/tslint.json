@@ -7,6 +7,7 @@
   "jsRules": {},
   "rules": {
     "curly": [true, "ignore-same-line"],
+    "file-name-casing": [true, "kebab-case"],
     "interface-name": [true, "never-prefix"],
     "jsx-wrap-multiline": true,
     "max-classes-per-file": [true, 1, "exclude-class-expressions"],

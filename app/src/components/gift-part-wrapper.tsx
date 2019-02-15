@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 import { GiftPart } from '../domain';
 import { global } from '../themes/global';
-import { GiftPartsManager } from './giftPartsManager';
-import { PanelManager } from './panelManager';
+import { GiftPartsManager } from './gift-parts-manager';
+import { PanelManager } from './panel-manager';
 import { Panel } from './panel';
-import { PanelPrompt } from './panelPrompt';
+import { PanelPrompt } from './panel-prompt';
 import { Buttons, Button } from './buttons';
-import { AudioPlayer } from './audioPlayer';
+import { AudioPlayer } from './audio-player';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
