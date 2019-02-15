@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vh;
@@ -35,11 +35,40 @@ const Spinner = styled.div`
   }
 `;
 
-const App: React.FC = () => (
+
+const Home: React.FC = () => (
   <Container>
     <Heading>🚧 Under Construction 🚧</Heading>
     <Spinner>👷</Spinner>
+    <Link to='/gift'>Receive Gift</Link>
   </Container>
+);
+
+
+const ReceiveGift: React.FC = () => (
+  <>
+    <h1>ReceiveGift</h1>
+    <Link to='/'>Home</Link>
+  </>
+);
+
+
+const NotFound: React.FC = () => (
+  <>
+    <h1>Sorry, we couldn't find that page</h1>
+    <p>TODO!!!</p>
+  </>
+);
+
+
+const App: React.FC = () => (
+  <Router>
+    <Switch>
+      <Route exact={true} path='/' component={Home} />
+      <Route path='/gift' component={ReceiveGift} />
+      <Route component={NotFound} />
+    </Switch>
+  </Router>
 );
 
 export default App;
