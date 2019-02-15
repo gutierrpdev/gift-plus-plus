@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../themes/global';
+
 import ProgressBar from '../components/ProgressBar';
+import PanelText from '../components/PanelText';
 
 /**
  * Audio Player
@@ -14,15 +17,9 @@ const AudioPlayerStyles = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10vw 5vw;
   border-radius: 50%;
-  height: 250px;
-  width: 250px;
+  height: ${global.components.circle.width}px;
+  width: ${global.components.circle.width}px;
   margin: 0 auto;
-`;
-
-const TextArea = styled.div`
-  text-align: center;
-  height: 70px;
-  font-size: 1.4rem;
 `;
 
 const Controls = styled.div`
@@ -244,7 +241,7 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
             {incompatibilityMessage}
           </audio>
 
-        <TextArea>{this.props.text}</TextArea>
+        <PanelText>{this.props.text}</PanelText>
         <ProgressBar percentage={this.state.playbackPercentage} />
         <Controls>
           <SkipBack onClick={this.skipBackward}>

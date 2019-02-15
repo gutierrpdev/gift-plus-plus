@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../themes/global';
+
+import PanelText from '../components/PanelText';
+
 interface CircleProps {
 }
 
 const Circle = styled.div<CircleProps>`
-  height: 100%;
-  width: 100%;
+  box-sizing: border-box;
   border-radius: 50%;
   border: 2px dashed white;
   overflow: hidden;
-  height: 150px;
-  width: 150px;
-  padding: 50px;
+  height: ${global.components.circle.width}px;
+  width: ${global.components.circle.width}px;
+  padding: 20px;
   color: white;
   margin: 0 auto;
   text-align: center;
@@ -25,7 +28,7 @@ interface Props {
 
 const PanelPrompt: React.FC<Props> = ({ text }: Props) => (
   <Circle>
-    {text}
+    <PanelText>{text}</PanelText>
   </Circle>
 );
 

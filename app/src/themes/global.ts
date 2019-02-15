@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   // Fonts
-  @import url('https://fonts.googleapis.com/css?family=Nunito');
+  @import url('https://fonts.googleapis.com/css?family=Nunito:300,400');
   @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
   // Reset
   html, body, div, span, applet, object, iframe,
@@ -24,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    line-height: 1.2;
   }
   input[type="button" i], input[type="submit" i], input[type="reset" i],
   input[type="file" i]::-webkit-file-upload-button, button {
@@ -47,6 +48,11 @@ const global = {
     title: {
       family: "'Playfair Display', serif;",
       bold: 700,
+    },
+  },
+  components: {
+    circle : {
+      width: 250,
     },
   },
 };
