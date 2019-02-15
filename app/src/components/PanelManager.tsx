@@ -1,24 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Panel from './Panel';
+import { Panel } from './panel';
 
 /**
  * Manages panels
  */
-const StyledPanelManager = styled.div<PanelManagerProps>`
+const StyledPanelManager = styled.div`
   width: 100%;
 `;
 
-interface PanelManagerProps {
-}
-
-interface PanelManagerState {
-  // activePanel: Panel;
+interface State {
   activePanelIndex: number;
 }
 
-export default class PanelManager extends React.PureComponent<PanelManagerProps, PanelManagerState> {
+class PanelManager extends React.PureComponent<{}, State> {
 
   public state = {
     activePanelIndex: 0,
@@ -60,3 +56,7 @@ export default class PanelManager extends React.PureComponent<PanelManagerProps,
     );
   }
 }
+
+export {
+  PanelManager,
+};

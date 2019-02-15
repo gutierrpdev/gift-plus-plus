@@ -8,7 +8,7 @@ const StyledScreenLogo = styled.div`
   }
 `;
 
-export default class ScreenLogo extends React.PureComponent {
+class ScreenLogo extends React.PureComponent {
   public render() {
     return (
       <StyledScreenLogo>
@@ -17,3 +17,7 @@ export default class ScreenLogo extends React.PureComponent {
     );
   }
 }
+
+export {
+  ScreenLogo,
+};

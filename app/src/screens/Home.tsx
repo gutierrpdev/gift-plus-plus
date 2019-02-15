@@ -1,5 +1,5 @@
 import React from 'react';
-import ScreenTitle from '../components/ScreenTitle';
+import { ScreenTitle } from '../components/screenTitle';
 import { GlobalStyles } from '../themes/global';
 
 interface Props {

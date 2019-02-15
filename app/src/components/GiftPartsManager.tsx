@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import GiftPartWrapper from './GiftPartWrapper';
+import { GiftPartWrapper } from './giftPartWrapper';
 import { Gift, GiftPart } from '../domain';
-import { GiftPartWrapperStatus } from './GiftPartWrapper';
+import { GiftPartWrapperStatus } from './giftPartWrapper';
 
 /**
  * Holds and manages visual Gift Parts
@@ -26,7 +26,7 @@ interface GiftPartsManagerState {
   giftPartWrappers?: GiftPartWrapper[];
 }
 
-export default class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
+class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
   // Set the active part and update the state
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
@@ -72,3 +72,7 @@ export default class GiftPartsManager extends React.PureComponent<GiftPartsManag
     );
   }
 }
+
+export {
+  GiftPartsManager,
+};

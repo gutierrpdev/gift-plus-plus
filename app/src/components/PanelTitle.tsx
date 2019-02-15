@@ -9,4 +9,6 @@ const PanelTitle = styled.h1`
   position: relative;
 `;
 
-export default PanelTitle;
+export {
+  PanelTitle,
+};

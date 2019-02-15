@@ -11,4 +11,6 @@ const ScreenTitle = styled.h1`
   font-weight: ${global.fonts.title.bold};
 `;
 
-export default ScreenTitle;
+export {
+  ScreenTitle,
+};

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ScreenTitle from './ScreenTitle';
-import ScreenSubTitle from './ScreenSubTitle';
-import ScreenLogo from './ScreenLogo';
+import { ScreenTitle } from './screenTitle';
+import { ScreenSubTitle } from './screenSubTitle';
+import { ScreenLogo } from './screenLogo';
 import { Gift } from '../domain';
 
 interface ScreenHeaderProps {
@@ -18,4 +18,6 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({ gift, title }: ScreenHeader
   </div>
 );
 
-export default ScreenHeader;
+export {
+  ScreenHeader,
+};

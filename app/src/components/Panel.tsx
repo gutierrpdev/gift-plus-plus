@@ -1,18 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PanelManager from './PanelManager';
+import { PanelManager } from './panelManager';
 
 const StyledPanel = styled.div<Props>`
   display: ${(props) => props.visible === false ? 'none' : 'block'};
   overflow: hidden;
-  /* height: 100vh; */
-  /* padding: 5vw 5vw; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
-  /* margin: 0 auto; */
-  /* text-align: center; */
 `;
 
 export interface Props {
@@ -20,10 +13,7 @@ export interface Props {
   visible?: boolean;
 }
 
-export interface PanelState {
-}
-
-export default class Panel extends React.PureComponent<Props, PanelState> {
+class Panel extends React.PureComponent<Props, {}> {
 
   public static defaultProps = {
     visible: true,
@@ -47,3 +37,7 @@ export default class Panel extends React.PureComponent<Props, PanelState> {
     );
   }
 }
+
+export {
+  Panel,
+};

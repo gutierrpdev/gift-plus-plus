@@ -2,13 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import { PanelText } from './panelText';
 
-import PanelText from '../components/PanelText';
-
-interface CircleProps {
-}
-
-const Circle = styled.div<CircleProps>`
+const Circle = styled.div`
   box-sizing: border-box;
   border-radius: 50%;
   border: 2px dashed white;
@@ -35,4 +31,6 @@ const PanelPrompt: React.FC<Props> = ({ text }: Props) => (
   </Circle>
 );
 
-export default PanelPrompt;
+export {
+  PanelPrompt,
+};

@@ -10,4 +10,6 @@ const Overlay = styled.div`
   pointer-events: none;
 `;
 
-export default Overlay;
+export {
+  Overlay,
+};

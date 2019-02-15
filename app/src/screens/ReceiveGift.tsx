@@ -1,9 +1,9 @@
 import React from 'react';
 import { Gift } from '../domain';
 import { GlobalStyles, NoScroll } from '../themes/global';
-import ScreenManager from '../components/ScreenManager';
-import ScreenHeader from '../components/ScreenHeader';
-import GiftPartsManager from '../components/GiftPartsManager';
+import {ScreenManager } from '../components/screenManager';
+import { ScreenHeader } from '../components/screenHeader';
+import { GiftPartsManager } from '../components/giftPartsManager';
 
 interface Props {
   gift: Gift;

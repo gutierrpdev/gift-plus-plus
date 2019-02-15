@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 import { GiftPart } from '../domain';
 import { global } from '../themes/global';
-import GiftPartsManager from './GiftPartsManager';
-import PanelManager from '../components/PanelManager';
-import Panel from '../components/Panel';
-import PanelPrompt from '../components/PanelPrompt';
-import { Buttons, Button } from '../components/Button';
-import AudioPlayer from '../components/AudioPlayer';
+import { GiftPartsManager } from './giftPartsManager';
+import { PanelManager } from './panelManager';
+import { Panel } from './panel';
+import { PanelPrompt } from './panelPrompt';
+import { Buttons, Button } from './buttons';
+import { AudioPlayer } from './audioPlayer';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
@@ -17,9 +17,6 @@ const GiftPartTitle = styled.div<Props>`
   color: white;
   font-size: 3vw;
   display: flex;
-  /* flex: 1; */
-  /* align-items: flex-start;
-  justify-content: center; */
   margin: 0 auto;
 
   // Open
@@ -41,9 +38,6 @@ export interface Props {
   index: number;
   status: GiftPartWrapperStatus;
   onClick?: (giftPartWrapper: any) => void;
-}
-
-interface State {
 }
 
 const StyledGiftPart = styled.div<Props>`
@@ -78,7 +72,7 @@ const StyledGiftPart = styled.div<Props>`
 
 `;
 
-export default class GiftPartWrapper extends React.Component<Props, State> {
+class GiftPartWrapper extends React.Component<Props, {}> {
 
   public panelManager: PanelManager | null = null;
 
@@ -148,3 +142,7 @@ export default class GiftPartWrapper extends React.Component<Props, State> {
     );
   }
 }
+
+export {
+  GiftPartWrapper,
+};

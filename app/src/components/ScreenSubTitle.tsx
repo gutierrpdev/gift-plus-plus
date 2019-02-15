@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
-const ScreenTitle = styled.h1`
+const ScreenSubTitle = styled.h1`
   font-size: 3vw;
   margin: 0 0 20px;
   text-align: center;
@@ -10,4 +10,6 @@ const ScreenTitle = styled.h1`
   font-weight: ${global.fonts.title.bold};
 `;
 
-export default ScreenTitle;
+export {
+  ScreenSubTitle,
+};

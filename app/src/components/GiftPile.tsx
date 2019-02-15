@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import styled from 'styled-components';
 import { Gift } from '../domain';
 
 interface Props {
@@ -21,14 +20,6 @@ const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
   );
 };
 
-export default GiftPile;
-
-
-// export default class GiftPile extends React.Component<any, any> {
-// export class GiftPile extends React.Component<Props, State> (
-
-//   public render() {
-//     return (
-//   }
-
-// }
+export {
+  GiftPile,
+};

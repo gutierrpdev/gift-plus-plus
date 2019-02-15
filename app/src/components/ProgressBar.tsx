@@ -18,7 +18,7 @@ const StyledProgressBar = styled.div`
 interface Props {
   percentage: number;
 }
-export default class ProgressBar extends React.PureComponent<Props, {}> {
+class ProgressBar extends React.PureComponent<Props, {}> {
 
   public render() {
 
@@ -30,3 +30,7 @@ export default class ProgressBar extends React.PureComponent<Props, {}> {
   }
 
 }
+
+export {
+  ProgressBar,
+};

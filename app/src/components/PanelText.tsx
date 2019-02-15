@@ -6,4 +6,6 @@ const PanelText = styled.div`
   font-weight: 300;
 `;
 
-export default PanelText;
+export {
+  PanelText,
+};

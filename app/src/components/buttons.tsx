@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { global } from '../themes/global';
 
 const Buttons = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   margin: 20px 0 0;
   align-items: stretch;
@@ -17,7 +16,6 @@ const Button = styled.button`
   line-height: 1;
   text-align: center;
   font-style: italic;
-  /* border: 1px solid red; */
   color: white;
   flex-grow: 1;
   flex-basis: 0;

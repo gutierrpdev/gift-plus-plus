@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
-import ProgressBar from '../components/ProgressBar';
-import PanelText from '../components/PanelText';
+import { ProgressBar } from './progressBar';
+import { PanelText } from './panelText';
 
 /**
  * Audio Player
@@ -34,7 +34,7 @@ const Controls = styled.div`
 `;
 
 // == Buttons ==
-// Base button has active state, etc.
+// Base button has active state
 const baseButton = styled.div`
   opacity: 0.8;
   &:active {
@@ -69,9 +69,8 @@ interface State {
   playbackPercentage: number;
 }
 
-export default class AudioPlayer extends React.PureComponent<Props, State> {
+class AudioPlayer extends React.PureComponent<Props, State> {
 
-  private static progressUpdateInterval: 500;
   private static skipForwardSeconds: number = 5;
   private static skipBackwardSeconds: number = 5;
 
@@ -81,7 +80,6 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
   };
 
   private audio: HTMLAudioElement | null = new Audio(); // Our audio player
-  private intervalId: any;
 
   constructor(props: Props) {
     super(props);
@@ -94,17 +92,25 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
         if (this.audio) {
           // Update the UI
           this.setPlaybackPercentage(this.audio.duration);
-          // Clear the UI updater
-          this.clearPlaybackUpdate();
         }
       });
+
     }
 
   }
 
-  public componentWillUnmount() {
-    // Clear out update interval
-    this.clearPlaybackUpdate();
+  public componentDidMount() {
+
+    // Hookup the progress bar to the audio position change
+    if (this.audio) {
+      this.audio.addEventListener('timeupdate', () => {
+      // add code here to update the handle position
+      if (this.audio) {
+        this.setPlaybackPercentage(this.audio.currentTime);
+      }
+    });
+    }
+
   }
 
   public setPlaybackPercentage(currentTime: number) {
@@ -127,28 +133,6 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
 
   }
 
-  public setupPlaybackUpdate() {
-    // As there is no call back from the audio player we need to use a timer
-    // Setup the timer to check for play progress
-    this.intervalId = setInterval(() => {
-      if (this.audio) {
-
-        if (!this.audio.paused) {
-
-          this.setPlaybackPercentage(this.audio.currentTime);
-
-        }
-      }
-    }, AudioPlayer.progressUpdateInterval);
-  }
-
-  // Clears the interval
-  public clearPlaybackUpdate = () => {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
   public togglePlay = () => {
 
     // Bail if no audio
@@ -157,14 +141,12 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
     }
 
     if (this.audio.paused && this.audio.src) {
-      this.setupPlaybackUpdate();
       this.audio.play();
       this.setState({
         isPlaying: true,
       });
     } else if (!this.audio.paused) {
       this.audio.pause();
-      this.clearPlaybackUpdate();
       this.setState({
         isPlaying: false,
       });
@@ -262,3 +244,7 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
     );
   }
 }
+
+export {
+  AudioPlayer,
+};

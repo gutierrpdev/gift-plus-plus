@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 // Arranges the elements on the screen, using flex
-
 const ScreenManager = styled.div`
   height: 100vh;
   width: 100vw;
@@ -11,4 +10,6 @@ const ScreenManager = styled.div`
   justify-content: flex-start;
 `;
 
-export default ScreenManager;
+export {
+  ScreenManager,
+};
