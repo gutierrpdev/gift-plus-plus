@@ -22,6 +22,10 @@ const AudioPlayerStyles = styled.div`
   margin: 0 auto;
 `;
 
+const AudioPanelText = styled(PanelText)`
+  height: 70px;
+`;
+
 const Controls = styled.div`
   display: flex;
   justify-content: center;
@@ -241,7 +245,7 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
             {incompatibilityMessage}
           </audio>
 
-        <PanelText>{this.props.text}</PanelText>
+        <AudioPanelText>{this.props.text}</AudioPanelText>
         <ProgressBar percentage={this.state.playbackPercentage} />
         <Controls>
           <SkipBack onClick={this.skipBackward}>

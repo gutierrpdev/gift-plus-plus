@@ -20,6 +20,9 @@ const Circle = styled.div<CircleProps>`
   margin: 0 auto;
   text-align: center;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 interface Props {

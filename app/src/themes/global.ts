@@ -34,6 +34,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Nunito', sans-serif;
     color: black;
+    -webkit-font-smoothing: antialiased;
   }
 `;
 

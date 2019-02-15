@@ -47,7 +47,7 @@ const twoGifts = [giftThreeParts, giftTwoParts];
 // const bgImage = require('../src/assets/test.png');
 
 // tslint:disable-next-line
-const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
+// const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
@@ -66,7 +66,7 @@ storiesOf('Components', module)
   ))
   .add('Panel Prompt - just text', () => (
     <div style={greyBG}>
-      <PanelPrompt text={longText} />
+      <PanelPrompt text={'This text is quite long really, and a bit more, and a third line'} />
     </div>
   ))
   .add('Panel', () => (
