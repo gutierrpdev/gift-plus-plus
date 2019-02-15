@@ -26,11 +26,6 @@ const TextArea = styled.div`
   font-size: 1.4rem;
 `;
 
-const Slider = styled.div`
-  height: 1px;
-  background-color: black;
-`;
-
 const Controls = styled.div`
   display: flex;
   justify-content: center;
@@ -83,8 +78,6 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
   public state = {
     isPlaying: false,
     playbackPercentage: 0,
-    // currentTime: 0,
-    // duration: 0,
   };
 
   private audio: HTMLAudioElement | null = new Audio(); // Our audio player
@@ -98,27 +91,19 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
     this.intervalId = setInterval(() => {
       if (this.audio) {
 
-        const currentTime = this.audio.currentTime;
-        // console.log({currentTime});
-        const duration = this.audio.duration;
-        // console.log({duration});
-
-        // Calculate the percentage of playback
-        let playbackPerc = 0;
-        if (duration) { // Avoid div by zero
-          playbackPerc = Math.round((currentTime / duration) * 100);
-        }
-
-        // const barWidth = this.bar.offsetWidth - 20
-        // const left = (barWidth * currentTime) / duration || 0
         if (!this.audio.paused) {
-          // console.log({playbackPerc});
+
+          const currentTime = this.audio.currentTime;
+          const duration = this.audio.duration;
+
+          // Calculate the percentage of playback
+          let playbackPerc = 0;
+          if (duration) { // Avoid div by zero
+            playbackPerc = Math.round((currentTime / duration) * 100);
+          }
+
           this.setState({
             playbackPercentage: playbackPerc,
-            // currentTime,
-            // duration,
-            // barWidth,
-            // dragLeft: left,
           });
         }
       }
@@ -142,12 +127,12 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
       this.setState({
         isPlaying: true,
       });
-      } else if (!this.audio.paused) {
+    } else if (!this.audio.paused) {
       this.audio.pause();
       this.setState({
         isPlaying: false,
       });
-      }
+    }
   }
 
   public addHeadingZero(num: number) {
@@ -160,7 +145,7 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
     // <audio> accepts string preload value
     const preload = this.props.preload ? 'auto' : 'none';
     const { children } = this.props;
-    const { currentTime, duration, isPlaying } = this.state;
+    const { isPlaying } = this.state;
     const playButtonImg = isPlaying ?
       require('../assets/svg/button-audio-pause.svg') :
       require('../assets/svg/button-audio-play.svg');
@@ -171,19 +156,6 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
         Your browser does not support the <code>audio</code> element.
       </p>
     );
-
-    // Calc playback
-    const currentTimeMin = Math.floor(currentTime / 60);
-    const currentTimeSec = Math.floor(currentTime % 60);
-    const durationMin = Math.floor(duration / 60);
-    const durationSec = Math.floor(duration % 60);
-
-    const currentTimeMinStr = this.addHeadingZero(currentTimeMin);
-    const currentTimeSecStr = this.addHeadingZero(currentTimeSec);
-    const durationMinStr = this.addHeadingZero(durationMin);
-    const durationSecStr = this.addHeadingZero(durationSec);
-
-    // console.log(this.state.playbackPercentage);
 
     return (
       <AudioPlayerStyles>
@@ -201,7 +173,6 @@ export default class AudioPlayer extends React.PureComponent<Props, State> {
 
         <TextArea>{this.props.text}</TextArea>
         <ProgressBar percentage={this.state.playbackPercentage} />
-        {/* <Slider /> */}
         <Controls>
           <SkipBack>
             <img src={require('../assets/svg/button-audio-back.svg')} />
