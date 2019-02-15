@@ -42,8 +42,9 @@ services:
     depends_on:
       - db
     environment:
-      ENVIRONMENT: staging
-      SQL_URI: postgresql://gift:gift@db/gift
+      ENVIRONMENT: 'staging'
+      SQL_URI: 'postgresql://gift:gift@db/gift'
+      FRONTEND_ORIGIN: 'https://staging.gift.blasttheory.com'
     deploy:
       replicas: 1
       labels:

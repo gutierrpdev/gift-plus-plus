@@ -40,6 +40,7 @@ export interface Config {
   host: string;
   port: number;
   sqlUri: string;
+  frontendOrigin: string;
 }
 
 
@@ -48,6 +49,7 @@ export const config: Config = {
   host: readAsString('HOST'),
   port: readAsInt('PORT'),
   sqlUri: readAsString('SQL_URI'),
+  frontendOrigin: readAsString('FRONTEND_ORIGIN'),
 };
 
 // =====================================================================

@@ -1,3 +1,4 @@
+import * as cors from '@koa/cors';
 import { JsonApi } from '../util-libs/json-api';
 import { Lib } from '../lib';
 import { router } from './routes';
@@ -5,6 +6,7 @@ import { router } from './routes';
 
 export interface Config {
   lib: Lib;
+  frontendOrigin: string;
 }
 
 
@@ -18,7 +20,7 @@ class Api extends JsonApi<Api.StateT, Api.CustomT> {
    * Create a new API
    */
   public static async create(config: Config): Promise<Api> {
-    const api = new Api(config.lib);
+    const api = new Api(config);
     return api;
   }
 
@@ -30,10 +32,18 @@ class Api extends JsonApi<Api.StateT, Api.CustomT> {
   /**
    * Private constructor
    */
-  private constructor(lib: Lib) {
+  private constructor(config: Config) {
     super({ name: 'api' });
 
-    this.context.lib = lib;
+    this.context.lib = config.lib;
+
+    // Enable CORS
+    this.use(cors({
+      origin: config.frontendOrigin,
+      keepHeadersOnError: false,
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+      maxAge: 60 * 60 * 24,
+    }));
 
     // Attach our routes
     this.use(router.routes());

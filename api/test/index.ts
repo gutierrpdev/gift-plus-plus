@@ -5,6 +5,7 @@ import { Lib } from '../src/lib';
 // TEMP: Hardcode a test config
 const config = {
   sqlUri: 'sqlite3://:memory:',
+  frontendOrigin: '*',
 };
 
 // Singleton store of all components we've started that need to be shutdown.
@@ -30,7 +31,7 @@ export async function prepareComponents(): Promise<PreparedComponents> {
   const lib = await Lib.create(config);
   runningComponents.push(lib);
 
-  const api = await Api.create({ lib });
+  const api = await Api.create({ lib, frontendOrigin: config.frontendOrigin });
   runningComponents.push(api);
 
   const server: Server = await new Promise((res, rej) => {
