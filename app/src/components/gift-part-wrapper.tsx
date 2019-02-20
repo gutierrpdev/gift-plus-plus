@@ -49,6 +49,7 @@ const StyledGiftPart = styled.div<Props>`
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
+  overflow: hidden;
 
   // Idle
   ${(props: Props) =>
@@ -67,7 +68,7 @@ const StyledGiftPart = styled.div<Props>`
     props.status === GiftPartWrapperStatus.Closed && `
     flex-grow: 0;
     justify-content: center;
-    height: 10vw;
+    min-height: 10vw;
   `}
 
 `;
