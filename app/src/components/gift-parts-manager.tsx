@@ -18,6 +18,7 @@ const StyledGiftPartsManager = styled.div`
 
 export interface GiftPartsManagerProps {
   gift: Gift;
+  onClick?: () => void;
 }
 
 interface GiftPartsManagerState {
@@ -33,6 +34,10 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     this.setState({
       activeGiftPart: active.props.giftPart,
     });
+
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
   }
 
   // Render the parts

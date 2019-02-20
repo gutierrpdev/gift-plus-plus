@@ -5,7 +5,7 @@ import { linkTo } from '@storybook/addon-links';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
-import { ScreenHeader } from '../src/components/screen-header';
+import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
 import { GiftPile } from '../src/components/gift-pile';
 import { GiftPartsManager } from '../src/components/gift-parts-manager';
 // import GiftPartWrapper from '../src/components/gift-part-wrapper';
@@ -69,7 +69,12 @@ const bgImg = {
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
   .add('Screen Header', () => (
-    <ScreenHeader gift={giftTwoParts} title={'title'} />
+    <div>
+      <p>Big header</p>
+      <ScreenHeader gift={giftTwoParts} title={'title'} size={ScreenHeaderSize.Big} />
+      <p>Small header</p>
+      <ScreenHeader gift={giftTwoParts} title={'title'} size={ScreenHeaderSize.Small} />
+    </div>
   ))
   .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
   // .add('Gift Part', () => (

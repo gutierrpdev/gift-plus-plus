@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const StyledScreenLogo = styled.div`
   text-align: center;
+  margin: 0 0 2vw;
   img {
-    max-width: 150px;
+    max-width: 27vw;
   }
 `;
 
