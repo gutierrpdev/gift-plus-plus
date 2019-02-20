@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
-
 import { ProgressBar } from './progress-bar';
 import { PanelText } from './panel-text';
+import { PanelRound } from './panel-round';
 
 /**
  * Audio Player
@@ -14,12 +13,7 @@ const AudioPlayerStyles = styled.div`
   box-sizing: border-box;
   display: 'flex';
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
   padding: 10vw 5vw;
-  border-radius: 50%;
-  height: ${global.components.circle.width};
-  width: ${global.components.circle.width};
-  margin: 0 auto;
 `;
 
 const AudioPanelText = styled(PanelText)`
@@ -218,33 +212,35 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     );
 
     return (
-      <AudioPlayerStyles>
-          <audio
-            src={this.props.src}
-            controls={false}
-            title={'Play'}
-            loop={false}
-            autoPlay={false}
-            preload={preload}
-            ref={(ref) => { this.audio = ref; }}
-          >
-            {incompatibilityMessage}
-          </audio>
+      <PanelRound darkBackground={true} dottedBorder={false}>
+        <AudioPlayerStyles>
+            <audio
+              src={this.props.src}
+              controls={false}
+              title={'Play'}
+              loop={false}
+              autoPlay={false}
+              preload={preload}
+              ref={(ref) => { this.audio = ref; }}
+            >
+              {incompatibilityMessage}
+            </audio>
 
-        <AudioPanelText>{this.props.text}</AudioPanelText>
-        <ProgressBar percentage={this.state.playbackPercentage} />
-        <Controls>
-          <SkipBack onClick={this.skipBackward}>
-            <img src={require('../assets/svg/button-audio-back.svg')} />
-          </SkipBack>
-          <Play onClick={this.togglePlay} >
-            <img src={playButtonImg} />
-          </Play>
-          <SkipForward onClick={this.skipForward}>
-            <img src={require('../assets/svg/button-audio-forward.svg')} />
-          </SkipForward>
-        </Controls>
-      </AudioPlayerStyles>
+          <AudioPanelText>{this.props.text}</AudioPanelText>
+          <ProgressBar percentage={this.state.playbackPercentage} />
+          <Controls>
+            <SkipBack onClick={this.skipBackward}>
+              <img src={require('../assets/svg/button-audio-back.svg')} />
+            </SkipBack>
+            <Play onClick={this.togglePlay} >
+              <img src={playButtonImg} />
+            </Play>
+            <SkipForward onClick={this.skipForward}>
+              <img src={require('../assets/svg/button-audio-forward.svg')} />
+            </SkipForward>
+          </Controls>
+        </AudioPlayerStyles>
+      </PanelRound>
     );
   }
 }

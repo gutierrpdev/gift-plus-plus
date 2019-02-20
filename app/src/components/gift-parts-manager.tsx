@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
+import { Overlay } from './overlay';
 import { Gift, GiftPart } from '../domain';
 
 /**

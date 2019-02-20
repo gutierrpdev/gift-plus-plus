@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
 import { PanelText } from './panel-text';
+import { PanelRound } from './panel-round';
 
-const Circle = styled.div`
+const PanelPromptStyle = styled.div`
   box-sizing: border-box;
-  border-radius: 50%;
-  border: 2px dashed white;
   overflow: hidden;
-  height: ${global.components.circle.width};
-  width: ${global.components.circle.width};
   padding: 20px;
   color: white;
   margin: 0 auto;
@@ -26,9 +22,11 @@ interface Props {
 }
 
 const PanelPrompt: React.FC<Props> = ({ text }: Props) => (
-  <Circle>
-    <PanelText>{text}</PanelText>
-  </Circle>
+  <PanelRound darkBackground={true} dottedBorder={true}>
+    <PanelPromptStyle>
+      <PanelText>{text}</PanelText>
+    </PanelPromptStyle>
+  </PanelRound>
 );
 
 export {
