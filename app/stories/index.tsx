@@ -94,6 +94,10 @@ storiesOf('Components', module)
     <div style={bgImg}>
       <Panel>
         <p>123</p>
+        <Buttons>
+          <Button>13</Button>
+          <Button>123</Button>
+        </Buttons>
       </Panel>
     </div>
   ))

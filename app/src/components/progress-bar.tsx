@@ -9,10 +9,11 @@ const ProgressBarInner = styled.div<Props>`
 
 const StyledProgressBar = styled.div`
   background-color: black;
-  height: 2vw;
+  height: 1.2vw;
   width: 100%;
   border-radius: 15px;
   overflow: hidden;
+  margin: 8% 0;
 `;
 
 interface Props {

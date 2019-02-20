@@ -23,7 +23,10 @@ const AudioPlayerStyles = styled.div`
 `;
 
 const AudioPanelText = styled(PanelText)`
-  height: 70px;
+  height: 40%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 `;
 
 const Controls = styled.div`
@@ -31,6 +34,7 @@ const Controls = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px 0 0;
+  height: 40%;
 `;
 
 // == Buttons ==
@@ -55,7 +59,7 @@ const SkipForward = styled(baseButton)`
 const Play = styled(baseButton)`
   width: 17vw;
   height: 17vw;
-  margin: 0 5vw;
+  margin: 0 3vw;
 `;
 
 interface Props {

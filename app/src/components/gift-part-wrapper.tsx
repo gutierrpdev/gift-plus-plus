@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GiftPart } from '../domain';
-import { global } from '../themes/global';
+import { global, romanFromDecimal } from '../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
 import { PanelManager } from './panel-manager';
-import { Panel } from './panel';
+import { Panel, PanelContent } from './panel';
 import { PanelPrompt } from './panel-prompt';
 import { Buttons, Button } from './buttons';
 import { AudioPlayer } from './audio-player';
@@ -15,13 +15,56 @@ const GiftPartTitle = styled.div<Props>`
   text-align: center;
   font-family: ${global.fonts.title.family};
   color: white;
-  font-size: 3vw;
   display: flex;
   margin: 0 auto;
+  font-weight: ${global.fonts.title.bold};
+  line-height: 1;
+
+  // First
+  ${(props: Props) =>
+    props.index === 0 && `
+    position: relative;
+    &:before {
+      content: 'Open';
+      position: absolute;
+      top: -6vw;
+      text-align: center;
+      width: 100%;
+      left: auto;
+      font-size: 4vw;
+      font-family: ${global.fonts.body.family};
+      text-transform: uppercase;
+    }
+    &:after {
+      content: '';
+      background-image: url( ${require('../assets/svg/down-chev-white.svg')} );
+      background-size: cover;
+      width: 10vw;
+      height: 8vw;
+      position: absolute;
+      bottom: -11vw;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+  `}
+
+  // Idle
+  ${(props: Props) =>
+    props.status === GiftPartWrapperStatus.Idle && `
+    font-size: 10vw;
+  `}
 
   // Open
   ${(props: Props) =>
     props.status === GiftPartWrapperStatus.Open && `
+    font-size: 6vw;
+    margin: 20px auto;
+  `}
+
+  // Closed
+  ${(props: Props) =>
+    props.status === GiftPartWrapperStatus.Closed && `
+    font-size: 5vw;
     margin: 20px auto;
   `}
 
@@ -100,28 +143,34 @@ class GiftPartWrapper extends React.Component<Props, {}> {
         >
 
           <Panel>
-            <AudioPlayer
-                text={'One thing before you start...'}
-                src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
-            />
+            <PanelContent>
+              <AudioPlayer
+                  text={'One thing before you start...'}
+                  src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+              />
+            </PanelContent>
             <Buttons>
               <Button onClick={this.nextPanel}>OK</Button>
             </Buttons>
           </Panel>
 
           <Panel>
-            <PanelPrompt text={'lorem ipsum'} />
-              <Buttons>
-                <Button>Show Clue</Button>
-                <Button onClick={this.nextPanel}>OK</Button>
-              </Buttons>
+            <PanelContent>
+              <PanelPrompt text={'lorem ipsum'} />
+            </PanelContent>
+            <Buttons>
+              <Button>Show Clue</Button>
+              <Button onClick={this.nextPanel}>OK</Button>
+            </Buttons>
           </Panel>
 
           <Panel>
-            <PanelPrompt text={'Cool man'} />
-              <Buttons>
-                <Button onClick={this.nextPanel}>OK</Button>
-              </Buttons>
+            <PanelContent>
+              <PanelPrompt text={'Cool man'} />
+            </PanelContent>
+            <Buttons>
+              <Button onClick={this.nextPanel}>OK</Button>
+            </Buttons>
           </Panel>
 
         </PanelManager>
@@ -136,7 +185,7 @@ class GiftPartWrapper extends React.Component<Props, {}> {
     return (
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
 
-        <GiftPartTitle {...this.props}>Part {this.props.index + 1}</GiftPartTitle>
+        <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.index + 1)}</GiftPartTitle>
         {this.renderPanels()}
 
       </StyledGiftPart>

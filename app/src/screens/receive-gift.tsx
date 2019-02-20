@@ -5,6 +5,7 @@ import { GlobalStyles, NoScroll } from '../themes/global';
 import { ScreenManager } from '../components/screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../components/screen-header';
 import { GiftPartsManager } from '../components/gift-parts-manager';
+import { Button } from '../components/buttons';
 
 /**
  * Gift Receive screen
@@ -44,6 +45,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Save for later
   public saveForLater = () => {
     // todo
+    alert('I would go somewhere else now....');
   }
 
   // Open gift part
@@ -51,6 +53,32 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     this.setState({
       status: ReceiveGiftStatus.PartOpen,
     });
+  }
+
+  // Return the corret content based on status
+  public renderContent() {
+    switch (this.state.status) {
+      case ReceiveGiftStatus.OpenOrSave:
+        return this.renderOpenOrSave();
+      case ReceiveGiftStatus.SelectPart:
+      case ReceiveGiftStatus.PartOpen:
+        return this.renderGiftParts();
+      default :
+        return null; // be nice
+    }
+  }
+
+  public renderOpenOrSave() {
+    return (
+      <div>
+        <Button onClick={this.openGift}>Open it now</Button>
+        <Button onClick={this.saveForLater}>Save for later</Button>
+      </div>
+    );
+  }
+
+  public renderGiftParts() {
+    return <GiftPartsManager gift={this.props.gift} onClick={this.openGiftPart} />;
   }
 
   public render() {
@@ -65,8 +93,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       <NoScroll />
 
       <ScreenHeader gift={this.props.gift} title={this.props.museumName} size={headerSize} />
-
-      <GiftPartsManager gift={this.props.gift} onClick={this.openGiftPart} />
+      {this.renderContent()}
     </ScreenManager>
     );
     }

@@ -3,9 +3,19 @@ import styled from 'styled-components';
 
 import { PanelManager } from './panel-manager';
 
+// Content part of the panel, with audio player, text, but not buttons
+const PanelContent = styled.div`
+  flex-grow: 1;
+  align-items: center;
+  display: flex;
+`;
+
 const StyledPanel = styled.div<Props>`
-  display: ${(props) => props.visible === false ? 'none' : 'block'};
+  display: ${(props) => props.visible === false ? 'none' : 'flex'};
+  flex-direction: column;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 `;
 
 export interface Props {
@@ -40,4 +50,5 @@ class Panel extends React.PureComponent<Props, {}> {
 
 export {
   Panel,
+  PanelContent,
 };

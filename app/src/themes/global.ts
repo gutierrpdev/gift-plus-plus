@@ -46,6 +46,9 @@ const NoScroll = createGlobalStyle`
 
 const global = {
   fonts: {
+    body: {
+      family: "'Nunito', serif;",
+    },
     title: {
       family: "'Playfair Display', serif;",
       bold: 700,
@@ -58,9 +61,23 @@ const global = {
   },
 };
 
+function romanFromDecimal(decimal: number) {
+  switch (decimal) {
+    case 1 :
+      return 'I';
+    case 2 :
+      return 'II';
+    case 3 :
+      return 'III';
+    default :
+      return 'not done';
+  }
+}
+
 
 export {
   GlobalStyles,
   NoScroll,
   global,
+  romanFromDecimal,
 };
