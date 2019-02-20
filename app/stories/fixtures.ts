@@ -11,17 +11,17 @@ export const giftThreeParts: Gift = {
   recipientGreeting: 'https://todo.com/todo',
   parts: [
     {
-      photo: require('../src/assets/test.png'),
+      photo: require('../src/assets/test.jpg'),
       note: 'https://todo.com/todo',
       clue: 'Part 1 clue',
     },
     {
-      photo: require('../src/assets/test.png'),
+      photo: require('../src/assets/test.jpg'),
       note: 'https://todo.com/todo',
       clue: 'Part 2 clue',
     },
     {
-      photo: require('../src/assets/test.png'),
+      photo: require('../src/assets/test.jpg'),
       note: 'https://todo.com/todo',
       clue: 'Part 3 clue',
     },

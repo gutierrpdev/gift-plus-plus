@@ -52,7 +52,7 @@ const greyBG = {
 };
 const twoGifts = [giftThreeParts, giftTwoParts];
 
-// const bgImage = import('../src/assets/test.png');
+// const bgImage = import('../src/assets/test.jpg');
 
 const bgImg = {
   // tslint:disable-next-line
