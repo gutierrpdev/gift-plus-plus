@@ -20,14 +20,23 @@ const GiftPartTitle = styled.div<Props>`
   font-weight: ${global.fonts.title.bold};
   line-height: 1;
 
-  // First
+
+  // Idle
   ${(props: Props) =>
+    props.status === GiftPartWrapperStatus.Idle && `
+    font-size: 10vw;
+  `}
+
+  // Idle first
+  ${(props: Props) =>
+    props.status === GiftPartWrapperStatus.Idle &&
     props.index === 0 && `
     position: relative;
+    font-size: 10vw;
     &:before {
       content: 'Open';
       position: absolute;
-      top: -6vw;
+      top: -4vh;
       text-align: center;
       width: 100%;
       left: auto;
@@ -42,16 +51,17 @@ const GiftPartTitle = styled.div<Props>`
       width: 10vw;
       height: 8vw;
       position: absolute;
-      bottom: -11vw;
+      bottom: -6vh;
       left: 50%;
       transform: translate(-50%, 0);
     }
   `}
 
-  // Idle
+  // Idle not first
   ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Idle && `
-    font-size: 10vw;
+    props.status === GiftPartWrapperStatus.Idle &&
+    props.index > 0 && `
+    color: black;
   `}
 
   // Open
@@ -65,7 +75,6 @@ const GiftPartTitle = styled.div<Props>`
   ${(props: Props) =>
     props.status === GiftPartWrapperStatus.Closed && `
     font-size: 5vw;
-    margin: 20px auto;
   `}
 
 `;
@@ -142,11 +151,26 @@ class GiftPartWrapper extends React.Component<Props, {}> {
           ref={(ref) => { this.panelManager = ref; }}
         >
 
+          {/* todo buttons if already player */}
+          {/* todo correct audio */}
+          <Panel>
+            <PanelContent>
+              <AudioPlayer
+                  text={'A message to you before you start...'}
+                  src={require('../assets/audio/_1-second-of-silence.mp3')}
+              />
+            </PanelContent>
+            <Buttons>
+              <Button onClick={this.nextPanel}>Skip</Button>
+              <Button onClick={this.nextPanel}>OK</Button>
+            </Buttons>
+          </Panel>
+
           <Panel>
             <PanelContent>
               <AudioPlayer
                   text={'One thing before you start...'}
-                  src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+                  src={require('../assets/audio/_1-second-of-silence.mp3')}
               />
             </PanelContent>
             <Buttons>
