@@ -1,8 +1,14 @@
+import Ajv from 'ajv';
+import {
+  CreateGiftResponse,
+  createGiftResponseSchema,
+} from '../common/schema';
+
+
 /**
  * The Api is responsible for all communication with the Gift Api.
  *
- * TODO: Do we really want to use errors?
- * TODO: Parsing
+ * TODO: Should we wrap-up fetch errors in our ApiResult too?
  */
 export class Api {
 
@@ -16,11 +22,67 @@ export class Api {
   /**
    *
    */
-  public async getGift(giftId: string): Promise<{}> {
+  public async getGift(giftId: string): Promise<ApiResult<CreateGiftResponse>> {
     const url = `${this.apiUrl}/gift/${giftId}`;
-    const res = await fetch(url);
-
-    if (!res.ok) throw new Error('TODO');
-    return res.json() as Gift;
+    const request = new Request(url);
+    return getApiResult<CreateGiftResponse>(request, createGiftResponseSchema);
   }
+}
+
+
+type ApiResult<T> =
+  | { kind: 'ok', data: T }
+  | { kind: 'fetch-error', error: Error }
+  | { kind: 'http-error', response: Response }
+  | { kind: 'parse-error', errors: ParseError }
+;
+
+
+type ParseError =
+  | 'InvalidJson'
+  | Ajv.ErrorObject[];
+
+
+const ajv = new Ajv({
+  allErrors: true,
+  removeAdditional: true,
+});
+
+
+/**
+ * Run the given request and parse the response according to `schema`.
+ *
+ * This function is not expected to throw. Wraps all errors into the ApiResult.
+ *
+ * UNSAFE: We trust that the given schema does indeed only validate objects of
+ * the given type T.  The caller MUST ensure that's the case.
+ */
+async function getApiResult<T>(request: Request, schema: {}): Promise<ApiResult<T>> {
+
+  // Run the request
+  let response: Response;
+  try {
+    response = await fetch(request);
+  } catch (err) {
+    return { kind: 'fetch-error', error: err };
+  }
+
+  // Check the response
+  if (!response.ok) return { kind: 'http-error', response };
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (err) {
+    return { kind: 'parse-error', errors: 'InvalidJson' };
+  }
+
+  // Validate the response against our schema
+  const valid = ajv.validate(schema, data);
+  if (!valid) {
+    return { kind: 'parse-error', errors: (ajv.errors as Ajv.ErrorObject[]) };
+  }
+
+  // (unsafe type coercion)
+  return { kind: 'ok', data: (data as T) };
 }

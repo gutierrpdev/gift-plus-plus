@@ -16,7 +16,7 @@ export function assertNever(x: never): never {
 type AsyncProgress<ResultType = any, ErrorType = any> =
   | { kind: 'running' }
   | { kind: 'success', result: ResultType }
-  | { kind: 'failure', reason: ErrorType }
+  | { kind: 'failure', reason: ErrorType };
 
 
 /**
