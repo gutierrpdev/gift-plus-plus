@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useReactRouter from 'use-react-router';
+import { useAsync } from '../utils/helpers';
 import { api } from '../services';
 
-interface State {
-  gift?: {};
-}
 
 export const ReceiveGift: React.FC = () => {
+  const { match } = useReactRouter<{ giftId: string }>();
+  const { giftId } = match.params;
 
-  const [state, setState] = useState<State>({});
-  useEffect(
-    () => {
-      api.getGift('some-gift-id').then((apiResult) => {
-        setState({ gift: apiResult });
-      });
-    },
-    [],
-  );
+  const [getGiftAsync] = useAsync(() => api.getGift(giftId), [giftId]);
 
-  if (state.gift) {
-    return <h1>Something</h1>;
-  } else {
-    return <h1>Nothing</h1>;
-  }
+  console.log(getGiftAsync);
+
+  return <h1>{getGiftAsync.kind}</h1>;
 };

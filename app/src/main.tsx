@@ -5,11 +5,12 @@ import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
 import { ReceiveGift } from './screens/receive-gift-wip';
 
-/*
+/**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
- * sake of type-safety. Otherwise the type-checker won't be able to enforce that
- * we've passed the correct props into the rendered component.
-*/
+ * sake of type-safety. Otherwise the type-checker won't be able to enforce
+ * that we've passed the correct props into the rendered component.
+ * (Alternatively, could use `render` prop).
+ */
 
 export const Main: React.FC = () => (
   <Router>
@@ -19,7 +20,7 @@ export const Main: React.FC = () => (
         <UnderConstruction />
       </Route>
 
-      <Route path='/gift'>
+      <Route path='/gift/:giftId'>
         <ReceiveGift />
       </Route>
 
