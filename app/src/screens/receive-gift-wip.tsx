@@ -16,30 +16,23 @@ async function preloadAssets(eff: AsyncProgress<ApiResult<GetGiftResponse>>) {
 
   const giftData = eff.result.data;
 
-  const { audioUrls, imageUrls } = giftData.parts.reduce(
-    ({ audioUrls, imageUrls }, part) => { // tslint:disable-line no-shadowed-variable
-      audioUrls.push(part.note);
-      imageUrls.push(part.photo);
-      return { audioUrls, imageUrls };
+  const urls = giftData.parts.reduce(
+    (urls, part) => { // tslint:disable-line no-shadowed-variable
+      urls.add(part.note);
+      urls.add(part.photo);
+      return urls;
     },
-    { audioUrls: ([] as string[]), imageUrls: ([] as string[]) },
+    new Set<string>(),
   );
 
-  const audioElements = audioUrls.map((url) => {
-    const elm = document.createElement('audio', {});
-    elm.src = url;
-    elm.preload = 'auto';
-    return elm;
-  });
-
-  const imageElements = imageUrls.map((url) => {
+  const elements = Array.from(urls).map((url) => {
     const elm = document.createElement('img');
     elm.src = url;
     return elm;
   });
 
   await Promise.all(
-    [...audioElements, ...imageElements].map(
+    elements.map(
       (elm) => new Promise((resolve, reject) => {
         elm.addEventListener('load', () => resolve());
         elm.addEventListener('error', () => reject());
