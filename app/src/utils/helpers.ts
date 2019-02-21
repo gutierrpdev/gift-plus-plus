@@ -13,7 +13,7 @@ export function assertNever(x: never): never {
 /**
  * Representation of a Promise state machine.
  */
-type AsyncProgress<ResultType = any, ErrorType = any> =
+export type AsyncProgress<ResultType = any, ErrorType = any> =
   | { kind: 'running' }
   | { kind: 'success', result: ResultType }
   | { kind: 'failure', reason: ErrorType };

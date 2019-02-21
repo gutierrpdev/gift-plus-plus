@@ -1,36 +1,47 @@
 import Ajv from 'ajv';
 import {
+  CreateGiftRequest,
   CreateGiftResponse,
   createGiftResponseSchema,
+  GetGiftResponse,
+  getGiftResponseSchema,
 } from '../common/schema';
 
 
 /**
  * The Api is responsible for all communication with the Gift Api.
  *
- * TODO: Should we wrap-up fetch errors in our ApiResult too?
+ * NOTE: We enforce the api contract by validating the data we receive back from
+ * the api. This may be excessive but should mean any errors are surfaced
+ * quickly.
  */
 export class Api {
 
-  /**
-   *
-   */
   public constructor(
     private apiUrl: string,
   ) {}
 
-  /**
-   *
-   */
-  public async getGift(giftId: string): Promise<ApiResult<CreateGiftResponse>> {
+
+  public async getGift(giftId: string): Promise<ApiResult<GetGiftResponse>> {
     const url = `${this.apiUrl}/gift/${giftId}`;
     const request = new Request(url);
+    return getApiResult<GetGiftResponse>(request, getGiftResponseSchema);
+  }
+
+
+  public async createGift(data: CreateGiftRequest): Promise<ApiResult<CreateGiftResponse>> {
+    const url = `${this.apiUrl}/gift`;
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
     return getApiResult<CreateGiftResponse>(request, createGiftResponseSchema);
   }
 }
 
 
-type ApiResult<T> =
+export type ApiResult<T> =
   | { kind: 'ok', data: T }
   | { kind: 'fetch-error', error: Error }
   | { kind: 'http-error', response: Response }
@@ -38,7 +49,7 @@ type ApiResult<T> =
 ;
 
 
-type ParseError =
+export type ParseError =
   | 'InvalidJson'
   | Ajv.ErrorObject[];
 
