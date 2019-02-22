@@ -1,40 +1,41 @@
 * Milestones [4/11]
-** DONE Initial project setup ~(0.5 days)~ [2/2] <2018-12-14 Fri>
+** DONE Initial project setup [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
    - [X] Basic outline docs
 
-** DONE Initial data model ~(0.5 days)~ [2/2] <2018-12-14 Fri>
+** DONE Initial data model [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-14 Fri 14:45] DEADLINE: <2018-12-14 Fri>
    - [X] Explainer doc of core concepts
    - [X] Type definitions for core concepts
 
-** DONE Initial api set-up ~(3 days)~ [4/4] <2019-01-11 Fri>
+** DONE Initial api set-up [4/4] <2019-01-11 Fri>
    CLOSED: [2019-02-14 Thu 17:13] DEADLINE: <2019-01-11 Fri>
    - [X] Project sub-structure for api code
    - [X] Simple rest-ish API to serve the data model
    - [X] Configure staging server
    - [X] CI to deploy to staging
 
-** DONE Initial app set-up ~(1 day)~ [3/3] <2019-01-14 Mon>
+** DONE Initial app set-up [3/3] <2019-01-14 Mon>
    CLOSED: [2019-02-14 Thu 10:23] DEADLINE: <2019-01-14 Mon>
    - [X] Placeholder app
    - [X] Config
    - [X] CI to deploy to staging
 
-** TODO Initial gift receiving (unskinned) ~(4 days)~ [0/5] <2019-02-01 Fri>
-   DEADLINE: <2019-02-01 Fri>
-   - [ ] Visit unique url for gift
-   - [ ] Load gift data from api
-   - [ ] Load gift media
+** TODO Initial gift receiving [3/6] <2019-03-01 Fri>
+   DEADLINE: <2019-03-01 Fri>
+   - [X] Visit unique url for gift
+   - [X] Pre-Load gift data from api
+   - [X] Pre-Load gift media
    - [ ] Display multiple gift parts
      - Text
      - Images
      - Audio
    - [ ] Work offline after first load
+   - [ ] UI + Logic wired up
 
-** TODO Initial gift creation (unskinned) ~(8 days)~ [0/6] <2019-03-01 Fri>
-   DEADLINE: <2019-03-01 Fri>
+** TODO Initial gift creation [0/6] <2019-03-15 Fri>
+   DEADLINE: <2019-03-15 Fri>
    - [ ] Work offline
    - [ ] Create multiple gift parts
      - Text
@@ -48,8 +49,8 @@
      - Email
      - WhatsApp
 
-** TODO Account management (unskinned) ~(5 days)~ [0/7] <2019-03-22 Fri>
-   DEADLINE: <2019-03-22 Fri>
+** TODO Account management (unskinned) [0/7] <2019-04-05 Fri>
+   DEADLINE: <2019-04-05 Fri>
    - [ ] Sign-up
    - [ ] Login
    - [ ] Logout
@@ -61,24 +62,18 @@
    - [ ] View received gifts
      - Work offline
 
-** TODO Respond to gifts ~(3 days)~ [0/3] <2019-04-26 Fri>
+** TODO Respond to gifts [0/3] <2019-04-26 Fri>
    DEADLINE: <2019-04-26 Fri>
    - [ ] Record / Enter a response (TBD)
    - [ ] Notify about response
    - [ ] View response
 
-** TODO Skinned app ~(?? days)~ [0/3] <2019-04-26 Fri>
-   DEADLINE: <2019-04-26 Fri>
-   - [ ] Gift receiving
-   - [ ] Gift creation
-   - [ ] Account management
-
-** TODO Production set up ~(2 days)~ [0/1] <2019-05-03 Fri>
+** TODO Production set up [0/1] <2019-05-03 Fri>
    DEADLINE: <2019-05-03 Fri>
    - [ ] Configure production servers
    - [ ] CI to deploy to production
 
-** TODO Analytics ~(?? days)~ [0/1] <2019-05-03 Fri>
+** TODO Analytics] <2019-05-03 Fri>
    DEADLINE: <2019-05-03 Fri>
    - [ ] TBD
    - [ ] MRL???
