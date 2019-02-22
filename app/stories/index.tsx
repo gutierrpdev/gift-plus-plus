@@ -28,13 +28,13 @@ import { ReceivingIntroContent } from '../src/components/receiving/intro-content
 // Data
 import { giftThreeParts, giftTwoParts } from './fixtures';
 
-storiesOf('Index', module)
-  .add('Index', () => (
-    <div>
-      <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>
-    </div>
-  ))
-;
+// storiesOf('Index', module)
+//   .add('Index', () => (
+//     <div>
+//       <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>
+//     </div>
+//   ))
+// ;
 
 storiesOf('Home', module)
   .add('Home', () => <Home />)
@@ -48,7 +48,7 @@ storiesOf('Receiving', module)
   .add('At museum', () => (
     <ReceiveGift gift={giftThreeParts} museumName={'Brighton & Hove Museum'} />
   ))
-  .add('Remotely', () => <h1>TODO</h1>)
+  // .add('Remotely', () => <h1>TODO</h1>)
 ;
 
 // Some reusable parts
@@ -61,7 +61,7 @@ const twoGifts = [giftThreeParts, giftTwoParts];
 
 const bgImg = {
   // tslint:disable-next-line
-  backgroundImage: "url(" + "https://www.blasttheory.co.uk/wp-content/uploads/2018/09/DSC07757_edit_feature-image-1920x1080.jpg" + ")",
+  backgroundImage: "url(" + "https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg" + ")",
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -81,7 +81,7 @@ storiesOf('Components', module)
       <ScreenHeader gift={giftTwoParts} title={'title'} size={ScreenHeaderSize.Small} />
     </div>
   ))
-  .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
+  // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
   // .add('Gift Part', () => (
   //   <GiftPartWrapper giftPartManager={new GiftPartsManager(null)} />
   // ))
@@ -92,7 +92,7 @@ storiesOf('Components', module)
   ))
   .add('Panel Prompt - just text', () => (
     <div style={greyBG}>
-      <PanelPrompt text={'This text is quite long really, and a bit more, and a third line'} />
+      <PanelPrompt text={'lorem ipsum solus incum'} />
     </div>
   ))
   .add('Panel', () => (
@@ -130,12 +130,12 @@ storiesOf('Components', module)
   ))
 ;
 
-storiesOf('Components/Test Examples', module)
-  .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)
-  .add('Button with link', () => <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>)
-;
+// storiesOf('Components/Test Examples', module)
+//   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)
+//   .add('Button with link', () => <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>)
+// ;
 
 storiesOf('Receiving/Part 1', module)
   .add('Choose location', () => <ReceivingChooseLocation/>)
-  .add('Intro', () => <ReceivingIntroContent/>)
+  // .add('Intro', () => <ReceivingIntroContent/>)
 ;
