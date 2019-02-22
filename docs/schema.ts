@@ -47,7 +47,7 @@ interface GiftShare {
 }
 
 
-interface GiftReciept {
+interface GiftReceipt {
   giftShareId: GiftShareId;
   accountId: AccountId;
 }
