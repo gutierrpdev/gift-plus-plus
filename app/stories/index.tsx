@@ -98,10 +98,10 @@ storiesOf('Components', module)
   .add('Panel', () => (
     <div style={bgImg}>
       <Panel>
-        <p>123</p>
+        <p>Panel text</p>
         <Buttons>
-          <Button>13</Button>
-          <Button>123</Button>
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
         </Buttons>
       </Panel>
     </div>
@@ -110,12 +110,12 @@ storiesOf('Components', module)
     <div style={bgImg}>
       <p>One button</p>
       <Buttons style={greyBG}>
-        <Button onClick={action('clicked')}>Hello Button</Button>
+        <Button onClick={action('clicked')}>One button</Button>
       </Buttons>
       <p>Two buttons</p>
       <Buttons style={greyBG}>
-        <Button>Hello Button</Button>
-        <Button>OK Button</Button>
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
       </Buttons>
     </div>
   ))
