@@ -221,18 +221,6 @@ class GiftPartWrapper extends React.PureComponent<Props, {}> {
             </Buttons>
           </Panel>
 
-          {/* <Panel>
-            <PanelContent>
-              <AudioPlayer
-                  text={'One thing before you start...'}
-                  src={require('../../assets/audio/_1-second-of-silence.mp3')}
-              />
-            </PanelContent>
-            <Buttons>
-              <Button onClick={this.nextPanel}>OK</Button>
-            </Buttons>
-          </Panel> */}
-
           <Panel>
             <PanelContent>
               <PanelPrompt text={'lorem ipsum'} />

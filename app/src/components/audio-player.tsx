@@ -91,7 +91,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
         if (this.audio) {
           // Update the UI
           this.setPlaybackPercentage(this.audio.duration);
-          console.log('ended');
+          // console.log('ended');
           this.setState({
             isPlaying: false,
           });
