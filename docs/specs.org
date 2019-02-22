@@ -1,4 +1,4 @@
-* Fuctional Requirements
+* Functional Requirements
 ** Create a gift
    - Determine museum (just hardcoded initially)
    - Playback audio
