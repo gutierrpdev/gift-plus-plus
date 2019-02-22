@@ -120,7 +120,7 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Audio player', () => (
-    <div style={bgImg}>
+    <div>
       <AudioPlayer
         preload={true}
         text={'Lorem ipsum'}
