@@ -25,7 +25,9 @@ const ReceivingIntroContent: React.FC = () => {
   return (
     <Panel>
       <PanelContent>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet et qui deleniti? Nostrum exercitationem vel deserunt veniam dolore! Veritatis, facere. Expedita, dignissimos voluptate. Voluptatibus, in perspiciatis iusto labore unde recusandae.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Eveniet et qui deleniti? Nostrum exercitationem vel deserunt veniam dolore! Veritatis, facere.
+          Expedita, dignissimos voluptate. Voluptatibus, in perspiciatis iusto labore unde recusandae.</p>
       </PanelContent>
       <Buttons>
         <Button onClick={handleAtMuseum}>OK</Button>

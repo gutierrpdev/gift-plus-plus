@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+// import { linkTo } from '@storybook/addon-links';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
-import { GiftPile } from '../src/components/gift-pile';
+// import { GiftPile } from '../src/components/gift-pile';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 // import GiftPartWrapper from '../src/components/gift-part-wrapper';
 import { Panel } from '../src/components/panel';
@@ -22,7 +22,7 @@ import { Home } from '../src/screens/home';
 
 // Receiving Part 1
 import { ReceivingChooseLocation } from '../src/components/receiving/choose-location';
-import { ReceivingIntroContent } from '../src/components/receiving/intro-content';
+// import { ReceivingIntroContent } from '../src/components/receiving/intro-content';
 // import { ReceivingPart1 } from '../src/components/receiving/receiving-part-1';
 
 // Data
@@ -55,7 +55,7 @@ storiesOf('Receiving', module)
 const greyBG = {
   backgroundColor: 'grey',
 };
-const twoGifts = [giftThreeParts, giftTwoParts];
+// const twoGifts = [giftThreeParts, giftTwoParts];
 
 // const bgImage = import('../src/assets/test.jpg');
 

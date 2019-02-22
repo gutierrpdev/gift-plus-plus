@@ -14,6 +14,7 @@ const AudioPlayerStyles = styled.div`
   display: 'flex';
   color: white;
   padding: 10vw 5vw;
+  margin: 0 auto;
 `;
 
 const AudioPanelText = styled(PanelText)`
@@ -41,19 +42,19 @@ const baseButton = styled.div`
 `;
 
 const SkipBack = styled(baseButton)`
-  width: 10vw;
-  height: 10vw;
+  width: 10vmin;
+  height: 10vmin;
 `;
 
 const SkipForward = styled(baseButton)`
-  width: 10vw;
-  height: 10vw;
+  width: 10vmin;
+  height: 10vmin;
 `;
 
 const Play = styled(baseButton)`
-  width: 17vw;
-  height: 17vw;
-  margin: 0 3vw;
+  width: 17vmin;
+  height: 17vmin;
+  margin: 0 3vmin;
 `;
 
 interface Props {
