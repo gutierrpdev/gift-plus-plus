@@ -10,7 +10,7 @@ const PanelContent = styled.div`
   display: flex;
 `;
 
-const StyledPanel = styled.div<Props>`
+const StyledPanel = styled.div<PanelProps>`
   display: ${(props) => props.visible === false ? 'none' : 'flex'};
   flex-direction: column;
   overflow: hidden;
@@ -18,23 +18,27 @@ const StyledPanel = styled.div<Props>`
   width: 100%;
 `;
 
-export interface Props {
-  panelManager?: PanelManager;
+export interface PanelProps {
+  panelManager?: PanelManager | null;
   visible?: boolean;
 }
 
-class Panel extends React.PureComponent<Props, {}> {
+class Panel extends React.PureComponent<PanelProps, {}> {
 
   public static defaultProps = {
     visible: true,
   };
 
-  public panelManager?: PanelManager = this.props.panelManager;
+  public panelManager?: PanelManager | null = this.props.panelManager;
   // panelManager?: PanelManager;
 
   // Go to the next panel
   public nextPanel() {
-    // Inform the panel managee to go to the next panel
+    // console.log('next');
+    if (this.panelManager) {
+      // Inform the panel managee to go to the next panel
+      this.panelManager.nextPanel();
+    }
   }
 
   // setManager = (panelManager:PanelManager) => {

@@ -7,7 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
 import { GiftPile } from '../src/components/gift-pile';
-import { GiftPartsManager } from '../src/components/gift-parts-manager';
+import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 // import GiftPartWrapper from '../src/components/gift-part-wrapper';
 import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
@@ -19,6 +19,11 @@ import { AudioPlayer } from '../src/components/audio-player';
 import { ReceiveGift } from '../src/screens/receive-gift';
 import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
+
+// Receiving Part 1
+import { ReceivingChooseLocation } from '../src/components/receiving/choose-location';
+import { ReceivingIntroContent } from '../src/components/receiving/intro-content';
+// import { ReceivingPart1 } from '../src/components/receiving/receiving-part-1';
 
 // Data
 import { giftThreeParts, giftTwoParts } from './fixtures';
@@ -128,4 +133,9 @@ storiesOf('Components', module)
 storiesOf('Components/Test Examples', module)
   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)
   .add('Button with link', () => <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>)
+;
+
+storiesOf('Receiving/Part 1', module)
+  .add('Choose location', () => <ReceivingChooseLocation/>)
+  .add('Intro', () => <ReceivingIntroContent/>)
 ;

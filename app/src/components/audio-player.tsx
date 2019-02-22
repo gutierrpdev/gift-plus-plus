@@ -86,10 +86,15 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     if (this.audio) {
 
       // Ended
+      // todo: this doesnt seem to work now
       this.audio.addEventListener('ended', () => {
         if (this.audio) {
           // Update the UI
           this.setPlaybackPercentage(this.audio.duration);
+          console.log('ended');
+          this.setState({
+            isPlaying: false,
+          });
         }
       });
 
@@ -117,15 +122,27 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
       const duration = this.audio.duration;
 
-      // Calculate the percentage of playback
-      let playbackPerc = 0;
-      if (duration) { // Avoid div by zero
-        playbackPerc = Math.round((currentTime / duration) * 100);
-      }
+      // Check for end
+      if (currentTime === duration) {
 
-      this.setState({
-        playbackPercentage: playbackPerc,
-      });
+        this.setState({
+          isPlaying: false,
+          playbackPercentage: 100,
+        });
+
+      } else {
+
+        // Calculate the percentage of playback
+        let playbackPerc = 0;
+        if (duration) { // Avoid div by zero
+          playbackPerc = Math.round((currentTime / duration) * 100);
+        }
+
+        this.setState({
+          playbackPercentage: playbackPerc,
+        });
+
+      }
 
     }
 

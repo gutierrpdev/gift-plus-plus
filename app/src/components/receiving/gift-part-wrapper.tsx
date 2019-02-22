@@ -1,14 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GiftPart } from '../domain';
-import { global, romanFromDecimal } from '../themes/global';
+import { GiftPart } from '../../domain';
+import { global, romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
-import { PanelManager } from './panel-manager';
-import { Panel, PanelContent } from './panel';
-import { PanelPrompt } from './panel-prompt';
-import { Buttons, Button } from './buttons';
-import { AudioPlayer } from './audio-player';
+import { PanelManager } from '../panel-manager';
+import { Panel, PanelContent } from '../panel';
+// import { Button, Buttons } from '../buttons';
+// import { ReceivingPart1 } from './receiving-part-1';
+// import { ReceivingPart2 } from './receiving-part-2';
+// import { ReceivingPart3 } from './receiving-part-3';
+import { ReceivingIntroContent } from '../receiving/intro-content';
+import { Buttons, Button } from '../buttons';
+import { AudioPlayer } from '../audio-player';
+import { PanelPrompt } from '../panel-prompt';
+
+
+import { ReceivingChooseLocation } from '../receiving/choose-location';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
@@ -46,7 +54,7 @@ const GiftPartTitle = styled.div<Props>`
     }
     &:after {
       content: '';
-      background-image: url( ${require('../assets/svg/down-chev-white.svg')} );
+      background-image: url( ${require('../../assets/svg/down-chev-white.svg')} );
       background-size: cover;
       width: 10vw;
       height: 8vw;
@@ -81,6 +89,7 @@ const GiftPartTitle = styled.div<Props>`
 
 /**
  * Visual wrapper for a gift part
+ * Handles displaying its contents
  */
 export enum GiftPartWrapperStatus {Idle, Open, Closed}
 
@@ -125,9 +134,11 @@ const StyledGiftPart = styled.div<Props>`
 
 `;
 
-class GiftPartWrapper extends React.Component<Props, {}> {
+class GiftPartWrapper extends React.PureComponent<Props, {}> {
 
+  // Our panel manager determines which panel in our stack to show
   public panelManager: PanelManager | null = null;
+  // public managerRef: any = React.createRef();
 
   // Inform the wrapper, todo this should be handled by the parent on click
   public handleClick = () => {
@@ -138,6 +149,50 @@ class GiftPartWrapper extends React.Component<Props, {}> {
     if (this.panelManager) {
       this.panelManager.nextPanel();
     }
+  }
+
+  // Load the content for the gift part
+  public getGiftPartContent = () => {
+
+    // console.log('get');
+
+    // console.log(this.props.index);
+    // return (
+    //   <Panel>
+    //     <PanelContent>
+    //       <p>12</p>
+    //     </PanelContent>
+    //     <Buttons>
+    //       <Button onClick={this.nextPanel}>Skip</Button>
+    //       <Button onClick={this.nextPanel}>OK</Button>
+    //     </Buttons>
+    //   </Panel>
+    // );
+
+    // console.log(this.panelManager);
+
+    return (
+      <>
+      <ReceivingChooseLocation {...this.props} panelManager={this.panelManager} />
+      <ReceivingIntroContent {...this.props}  />
+      </>
+    );
+
+
+    // switch (this.props.index) {
+    //   case 0 :
+    //     return (
+    //     <>
+    //     <ReceivingPart1>1</ReceivingPart1>
+    //     </>
+    //     );
+    //   case 1 :
+    //     return <ReceivingPart2 />;
+    //   case 2 :
+    //     return <ReceivingPart3 />;
+    //   default :
+    //     return null;
+    // }
   }
 
   public renderPanels() {
@@ -157,7 +212,7 @@ class GiftPartWrapper extends React.Component<Props, {}> {
             <PanelContent>
               <AudioPlayer
                   text={'A message to you before you start...'}
-                  src={require('../assets/audio/_1-second-of-silence.mp3')}
+                  src={require('../../assets/audio/_1-second-of-silence.mp3')}
               />
             </PanelContent>
             <Buttons>
@@ -166,17 +221,17 @@ class GiftPartWrapper extends React.Component<Props, {}> {
             </Buttons>
           </Panel>
 
-          <Panel>
+          {/* <Panel>
             <PanelContent>
               <AudioPlayer
                   text={'One thing before you start...'}
-                  src={require('../assets/audio/_1-second-of-silence.mp3')}
+                  src={require('../../assets/audio/_1-second-of-silence.mp3')}
               />
             </PanelContent>
             <Buttons>
               <Button onClick={this.nextPanel}>OK</Button>
             </Buttons>
-          </Panel>
+          </Panel> */}
 
           <Panel>
             <PanelContent>
@@ -190,7 +245,7 @@ class GiftPartWrapper extends React.Component<Props, {}> {
 
           <Panel>
             <PanelContent>
-              <PanelPrompt text={'Cool man'} />
+              <PanelPrompt text={'Great, thanks'} />
             </PanelContent>
             <Buttons>
               <Button onClick={this.nextPanel}>OK</Button>
@@ -203,6 +258,22 @@ class GiftPartWrapper extends React.Component<Props, {}> {
     } else {
       return '';
     }
+
+
+    // if (show) {
+
+    //   return (
+    //     <PanelManager
+    //       ref={(ref) => { this.panelManager = ref; console.log('set'); }}
+    //       // ref={this.managerRef}
+    //     >
+    //     {this.getGiftPartContent()}
+    //     </PanelManager>
+    //   );
+
+    // } else {
+    //   return '';
+    // }
   }
 
   public render() {

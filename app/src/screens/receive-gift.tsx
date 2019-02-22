@@ -4,7 +4,7 @@ import { Gift } from '../domain';
 import { GlobalStyles, NoScroll } from '../themes/global';
 import { ScreenManager } from '../components/screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../components/screen-header';
-import { GiftPartsManager } from '../components/gift-parts-manager';
+import { GiftPartsManager } from '../components/receiving/gift-parts-manager';
 import { Button } from '../components/buttons';
 
 /**

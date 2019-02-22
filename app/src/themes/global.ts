@@ -38,10 +38,11 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+// todo: desktop needs to scroll
 const NoScroll = createGlobalStyle`
-  body {
+  /* body {
     overflow: hidden;
-  }
+  } */
 `;
 
 const global = {
