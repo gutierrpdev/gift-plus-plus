@@ -73,7 +73,7 @@
    - [ ] Configure production servers
    - [ ] CI to deploy to production
 
-** TODO Analytics] <2019-05-03 Fri>
+** TODO Analytics <2019-05-03 Fri>
    DEADLINE: <2019-05-03 Fri>
    - [ ] TBD
    - [ ] MRL???
