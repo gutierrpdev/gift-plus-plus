@@ -9,7 +9,7 @@ import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header'
 // import { GiftPile } from '../src/components/gift-pile';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 // import GiftPartWrapper from '../src/components/gift-part-wrapper';
-import { Panel } from '../src/components/panel';
+import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
@@ -21,8 +21,8 @@ import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
 
 // Receiving Part 1
-import { ReceivingChooseLocation } from '../src/components/receiving/choose-location';
-// import { ReceivingIntroContent } from '../src/components/receiving/intro-content';
+import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
+import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 // import { ReceivingPart1 } from '../src/components/receiving/receiving-part-1';
 
 // Data
@@ -97,13 +97,13 @@ storiesOf('Components', module)
   ))
   .add('Panel', () => (
     <div style={bgImg}>
-      <Panel>
+      <StyledPanel>
         <p>Panel text</p>
         <Buttons>
           <Button>Button 1</Button>
           <Button>Button 2</Button>
         </Buttons>
-      </Panel>
+      </StyledPanel>
     </div>
   ))
   .add('Buttons', () => (
@@ -137,5 +137,5 @@ storiesOf('Components', module)
 
 storiesOf('Receiving/Part 1', module)
   .add('Choose location', () => <ReceivingChooseLocation/>)
-  // .add('Intro', () => <ReceivingIntroContent/>)
+  .add('Intro', () => <ReceivingIntroContent/>)
 ;

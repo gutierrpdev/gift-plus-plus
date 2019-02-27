@@ -44,10 +44,13 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
   // Render the parts
   public renderParts() {
     return (
+      // Iterate each of the gift parts and generate a wrapper for it
       this.props.gift.parts.map((giftPart, index) => {
+
         // Set the status of the wrapper to define how it displays
         let status: GiftPartWrapperStatus = GiftPartWrapperStatus.Idle;
 
+        // Check if this part is the active one, and set status
         if (this.state && this.state.activeGiftPart) {
           if (giftPart === this.state.activeGiftPart) {
             status = GiftPartWrapperStatus.Open;
@@ -56,6 +59,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
           }
         }
 
+        // Output the wrapper component
         return (
           <GiftPartWrapper
             giftPartManager={this}

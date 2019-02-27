@@ -4,19 +4,8 @@ import styled from 'styled-components';
 import { GiftPart } from '../../domain';
 import { global, romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
-import { PanelManager } from '../panel-manager';
-import { Panel, PanelContent } from '../panel';
-// import { Button, Buttons } from '../buttons';
-// import { ReceivingPart1 } from './receiving-part-1';
-// import { ReceivingPart2 } from './receiving-part-2';
-// import { ReceivingPart3 } from './receiving-part-3';
-import { ReceivingIntroContent } from '../receiving/intro-content';
-import { Buttons, Button } from '../buttons';
-import { AudioPlayer } from '../audio-player';
-import { PanelPrompt } from '../panel-prompt';
-
-
-import { ReceivingChooseLocation } from '../receiving/choose-location';
+import { ReceivingIntroContent } from './panels/intro-content';
+import { ReceivingChooseLocation } from '../receiving/panels/choose-location';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
@@ -27,7 +16,6 @@ const GiftPartTitle = styled.div<Props>`
   margin: 0 auto;
   font-weight: ${global.fonts.title.bold};
   line-height: 1;
-
 
   // Idle
   ${(props: Props) =>
@@ -101,6 +89,10 @@ export interface Props {
   onClick?: (giftPartWrapper: any) => void;
 }
 
+interface State {
+  activePanelIndex: number;
+}
+
 const StyledGiftPart = styled.div<Props>`
   // Common
   background-image: url(${(props) => props.giftPart && props.giftPart.photo ? props.giftPart.photo : ''});
@@ -134,134 +126,60 @@ const StyledGiftPart = styled.div<Props>`
 
 `;
 
-class GiftPartWrapper extends React.PureComponent<Props, {}> {
+class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   // Our panel manager determines which panel in our stack to show
-  public panelManager: PanelManager | null = null;
-  // public managerRef: any = React.createRef();
+  public managerRef: any = React.createRef();
+  public state = {
+    activePanelIndex: 0,
+  };
 
   // Inform the wrapper, todo this should be handled by the parent on click
   public handleClick = () => {
     this.props.giftPartManager.setActiveGiftPartWrapper(this);
   }
 
+  // Go to the next panel in the list
   public nextPanel = () => {
-    if (this.panelManager) {
-      this.panelManager.nextPanel();
-    }
+
+    // Get the next index, but don't exceed the panels count
+    // todo : set max properly, = total all of components rendered
+    const nextIndex = Math.min(this.state.activePanelIndex + 1, 99);
+
+    this.setState({
+      activePanelIndex: nextIndex,
+    });
+
   }
 
   // Load the content for the gift part
   public getGiftPartContent = () => {
 
-    // console.log('get');
+    const index = this.state.activePanelIndex;
 
-    // console.log(this.props.index);
-    // return (
-    //   <Panel>
-    //     <PanelContent>
-    //       <p>12</p>
-    //     </PanelContent>
-    //     <Buttons>
-    //       <Button onClick={this.nextPanel}>Skip</Button>
-    //       <Button onClick={this.nextPanel}>OK</Button>
-    //     </Buttons>
-    //   </Panel>
-    // );
-
-    // console.log(this.panelManager);
-
-    return (
-      <>
-      <ReceivingChooseLocation {...this.props} panelManager={this.panelManager} />
-      <ReceivingIntroContent {...this.props}  />
-      </>
-    );
-
-
-    // switch (this.props.index) {
-    //   case 0 :
-    //     return (
-    //     <>
-    //     <ReceivingPart1>1</ReceivingPart1>
-    //     </>
-    //     );
-    //   case 1 :
-    //     return <ReceivingPart2 />;
-    //   case 2 :
-    //     return <ReceivingPart3 />;
-    //   default :
-    //     return null;
-    // }
-  }
-
-  public renderPanels() {
-
-    const show = this.props.status === GiftPartWrapperStatus.Open;
-
-    if (show) {
-
-      return (
-        <PanelManager
-          ref={(ref) => { this.panelManager = ref; }}
-        >
-
-          {/* todo buttons if already player */}
-          {/* todo correct audio */}
-          <Panel>
-            <PanelContent>
-              <AudioPlayer
-                  text={'A message to you before you start...'}
-                  src={require('../../assets/audio/_1-second-of-silence.mp3')}
-              />
-            </PanelContent>
-            <Buttons>
-              <Button onClick={this.nextPanel}>Skip</Button>
-              <Button onClick={this.nextPanel}>OK</Button>
-            </Buttons>
-          </Panel>
-
-          <Panel>
-            <PanelContent>
-              <PanelPrompt text={'lorem ipsum'} />
-            </PanelContent>
-            <Buttons>
-              <Button>Show Clue</Button>
-              <Button onClick={this.nextPanel}>OK</Button>
-            </Buttons>
-          </Panel>
-
-          <Panel>
-            <PanelContent>
-              <PanelPrompt text={'Great, thanks'} />
-            </PanelContent>
-            <Buttons>
-              <Button onClick={this.nextPanel}>OK</Button>
-            </Buttons>
-          </Panel>
-
-        </PanelManager>
-      );
-
-    } else {
-      return '';
+    // Render the correct content based on our gift part index [0,1,2]
+    switch (this.props.index) {
+      case 0 :
+        return (
+          <>
+            <ReceivingChooseLocation visible={index === 0} onComplete={this.nextPanel} />
+            <ReceivingIntroContent visible={index === 1} onComplete={this.nextPanel} />
+            <ReceivingChooseLocation visible={index === 2} onComplete={this.nextPanel} />
+          </>
+        );
+      case 1 :
+        return (
+          <>
+          </>
+        );
+      case 2 :
+        return (
+          <>
+          </>
+        );
+      default :
+          return null;
     }
-
-
-    // if (show) {
-
-    //   return (
-    //     <PanelManager
-    //       ref={(ref) => { this.panelManager = ref; console.log('set'); }}
-    //       // ref={this.managerRef}
-    //     >
-    //     {this.getGiftPartContent()}
-    //     </PanelManager>
-    //   );
-
-    // } else {
-    //   return '';
-    // }
   }
 
   public render() {
@@ -269,7 +187,7 @@ class GiftPartWrapper extends React.PureComponent<Props, {}> {
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
 
         <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.index + 1)}</GiftPartTitle>
-        {this.renderPanels()}
+        {this.getGiftPartContent()}
 
       </StyledGiftPart>
     );

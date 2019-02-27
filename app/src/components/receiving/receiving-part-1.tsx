@@ -6,8 +6,12 @@ import React from 'react';
 // import { Buttons, Button } from '../buttons';
 // import { AudioPlayer } from '../audio-player';
 
-import { ReceivingIntroContent } from '../receiving/intro-content';
-import { ReceivingChooseLocation } from '../receiving/choose-location';
+import { ReceivingIntroContent } from '../receiving/panels/intro-content';
+import { ReceivingChooseLocation } from '../receiving/panels/choose-location';
+
+/**
+ * Panel container for Receiving Gift Part 1
+ */
 
 const ReceivingPart1: React.FC = () => {
   // Return all of the panels for this part
