@@ -1,5 +1,5 @@
 import uuidv5 from 'uuid/v5';
-import { Gift } from '../src/domain';
+import { Gift, GiftPart } from '../src/domain';
 
 export const giftThreeParts: Gift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
@@ -49,3 +49,10 @@ export const giftTwoParts: Gift = {
     },
   ],
 };
+
+export const giftPart: GiftPart = {
+  photo: require('../src/assets/test.jpg'),
+  note: 'https://todo.com/todo',
+  clue: 'Part 1 clue',
+};
+

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 
 const PanelPromptStyle = styled.div`
@@ -17,17 +16,17 @@ const PanelPromptStyle = styled.div`
 `;
 
 interface Props {
-  text: string;
+  imageSrc: string;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text }: Props) => (
-  <PanelRound darkBackground={true} dottedBorder={true}>
+const PanelImage: React.FC<Props> = ({ imageSrc }: Props) => (
+  <PanelRound darkBackground={true} dottedBorder={false}>
     <PanelPromptStyle>
-      <PanelText>{text}</PanelText>
+      <img src={imageSrc} />
     </PanelPromptStyle>
   </PanelRound>
 );
 
 export {
-  PanelPrompt,
+  PanelImage,
 };

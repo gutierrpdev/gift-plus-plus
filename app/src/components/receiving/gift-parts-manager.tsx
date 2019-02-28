@@ -43,6 +43,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
 
   // Render the parts
   public renderParts() {
+
     return (
       // Iterate each of the gift parts and generate a wrapper for it
       this.props.gift.parts.map((giftPart, index) => {
@@ -66,6 +67,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
             key={index}
             giftPart={giftPart}
             index={index}
+            giftPartCount={this.props.gift.parts.length}
             status={status}
           />
         );

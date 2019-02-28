@@ -17,7 +17,8 @@ const StyledPanel = styled.div<PanelProps>`
 
 export interface PanelProps {
   visible?: boolean;
-  onComplete?: () => void;
+  doComplete?: () => void;
+  // Avoid 'on' handler prefix: https://github.com/styled-components/styled-components/issues/2218
 }
 
 export {

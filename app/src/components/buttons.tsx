@@ -2,14 +2,21 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
+// Container for button(s)
 const Buttons = styled.div`
   display: flex;
   margin: 0;
   align-items: stretch;
 `;
 
-const Button = styled.button`
+export interface ButtonProps {
+  invisible?: boolean; // Makes the button hidden, but still occupies space
+}
+
+// Button
+const Button = styled.button<ButtonProps>`
   font-family: ${global.fonts.title.family};
+  visibility: ${(props) => props.invisible ? 'hidden' : 'visible'};
   font-size: 6vw;
   margin: 0;
   padding: 4vw;

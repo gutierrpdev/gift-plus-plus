@@ -8,12 +8,14 @@ import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
 // import { GiftPile } from '../src/components/gift-pile';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
-// import GiftPartWrapper from '../src/components/gift-part-wrapper';
+import { GiftPartWrapper, GiftPartWrapperStatus } from '../src/components/receiving/gift-part-wrapper';
 import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
+import { PanelImage } from '../src/components/panel-image';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer } from '../src/components/audio-player';
+import { WaitThen } from '../src/components/wait-then';
 
 // Screens
 import { ReceiveGift } from '../src/screens/receive-gift';
@@ -21,12 +23,12 @@ import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
 
 // Receiving Part 1
-import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
+import { ReceivingChooseLocation, GiftLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
-// import { ReceivingPart1 } from '../src/components/receiving/receiving-part-1';
+import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 
 // Data
-import { giftThreeParts, giftTwoParts } from './fixtures';
+import { giftThreeParts, giftTwoParts, giftPart } from './fixtures';
 
 // storiesOf('Index', module)
 //   .add('Index', () => (
@@ -67,9 +69,16 @@ const bgImg = {
   backgroundRepeat: 'no-repeat',
 };
 
+const whiteText = {
+  color: 'white',
+};
+
 
 // tslint:disable-next-line
 // const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
+
+// Create this instance to keep TypeScript happy
+const giftPartManager = new GiftPartsManager({gift: giftThreeParts, onClick: doNothing});
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
@@ -82,17 +91,29 @@ storiesOf('Components', module)
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
-  // .add('Gift Part', () => (
-  //   <GiftPartWrapper giftPartManager={new GiftPartsManager(null)} />
-  // ))
+  .add('Gift Part', () => (
+    <GiftPartWrapper
+      giftPartManager={giftPartManager}
+      giftPart={giftPart}
+      index={0}
+      giftPartCount={0}
+      status={GiftPartWrapperStatus.Open}
+      onClick={doNothing}
+    />
+  ))
   .add('Gift Parts', () => (
     <ScreenManager>
       <GiftPartsManager gift={giftThreeParts} />
     </ScreenManager>
   ))
-  .add('Panel Prompt - just text', () => (
+  .add('Panel Prompt text', () => (
     <div style={greyBG}>
       <PanelPrompt text={'lorem ipsum solus incum'} />
+    </div>
+  ))
+  .add('Panel Image', () => (
+    <div style={greyBG}>
+      <PanelImage imageSrc={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
     </div>
   ))
   .add('Panel', () => (
@@ -107,7 +128,7 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Buttons', () => (
-    <div style={bgImg}>
+    <div style={{...bgImg, ...whiteText}}>
       <p>One button</p>
       <Buttons style={greyBG}>
         <Button onClick={action('clicked')}>One button</Button>
@@ -117,6 +138,10 @@ storiesOf('Components', module)
         <Button>Button 1</Button>
         <Button>Button 2</Button>
       </Buttons>
+      <p>Not hidden button</p>
+      <Button invisible={false}>You can see me</Button>
+      <p>Hidden button (should occupy space)</p>
+      <Button invisible={true}>I am hidden</Button>
     </div>
   ))
   .add('Audio player', () => (
@@ -128,7 +153,23 @@ storiesOf('Components', module)
       />
     </div>
   ))
+  .add('Wait and Then', () => (
+    <div>
+      <WaitThen
+        wait={2}
+        andThen={showAlert}
+      />
+    </div>
+  ))
 ;
+
+function showAlert() {
+  alert('1');
+}
+
+// To hookup to events to keep TypeScript happy
+function doNothing() {
+}
 
 // storiesOf('Components/Test Examples', module)
 //   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)
@@ -136,6 +177,24 @@ storiesOf('Components', module)
 // ;
 
 storiesOf('Receiving/Part 1', module)
-  .add('Choose location', () => <ReceivingChooseLocation/>)
-  .add('Intro', () => <ReceivingIntroContent/>)
+  .add('Choose location', () => <ReceivingChooseLocation doSetLocation={doNothing} />)
+  .add('Intro', () => (
+    <ReceivingIntroContent
+      visible={true}
+      doComplete={doNothing}
+      giftLocation={GiftLocation.AtMuseum}
+      audioIntroPlayed={true}
+      handleAudioIntroPlayed={doNothing}
+    />
+  ))
+  .add('Content', () => (
+    <ReceivingPartContent
+      visible={true}
+      giftPart={giftPart}
+      giftPartIndex={0}
+      giftPartCount={1}
+      doComplete={doNothing}
+      giftLocation={GiftLocation.AtMuseum}
+    />
+  ))
 ;

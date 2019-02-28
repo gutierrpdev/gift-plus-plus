@@ -7,10 +7,10 @@ export interface Props {
 }
 
 const PanelRound = styled.div<Props>`
-  border-radius: 50%;
   height: ${global.components.circle.width};
   width: ${global.components.circle.width};
-
+  border-radius: 50%;
+  padding: 3vmin;
   margin: 0 auto;
   display: flex;
 

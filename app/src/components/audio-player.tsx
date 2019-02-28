@@ -61,6 +61,7 @@ interface Props {
   text: string;
   preload?: boolean;
   src: string;
+  onPlaybackComplete?: () => void; // optional callback when audio has completed playback
 }
 
 interface State {
@@ -126,10 +127,18 @@ class AudioPlayer extends React.PureComponent<Props, State> {
       // Check for end
       if (currentTime === duration) {
 
+        // End of audio file
+
+        // Update the statu/UI
         this.setState({
           isPlaying: false,
           playbackPercentage: 100,
         });
+
+        // Check for callback
+        if (this.props.onPlaybackComplete) {
+          this.props.onPlaybackComplete();
+        }
 
       } else {
 

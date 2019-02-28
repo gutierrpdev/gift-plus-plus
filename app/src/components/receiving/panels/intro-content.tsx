@@ -1,28 +1,77 @@
-import React /*, { useState, useEffect } */ from 'react';
+import React, { useState } from 'react';
 
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
-import { Buttons } from '../../buttons';
+import { Buttons, Button } from '../../buttons';
+import { AudioPlayer } from '../../../components/audio-player';
+import { GiftLocation } from './choose-location';
+
+/***
+ * Show the intro content
+ */
+
+// Extend panel props with extras
+export interface IntroContentProps extends PanelProps {
+  giftLocation: GiftLocation;
+  audioIntroPlayed: boolean;
+  handleAudioIntroPlayed: () => void;
+}
 
 // Todo : finish question
-const ReceivingIntroContent: React.FC<PanelProps> = (panelProps) => {
+const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
 
-  // const [location, setLocation] = useState('');
+  const atMuseum = (panelProps.giftLocation === GiftLocation.AtMuseum);
+  const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
-  // useEffect(() => {
-  //   document.title = `You clicked ${location}`;
-  // });
+  function handleContinue() {
+
+    // todo: check for skip in global state, show button below
+    if (panelProps.doComplete) {
+      panelProps.doComplete();
+    }
+  }
+
+  // Our audio player has finsihed
+  function handleAudioPlaybackFinished() {
+
+    // Update our state
+    setAudioPlaybackFinished(true);
+
+    // Props callback
+    if (panelProps.handleAudioIntroPlayed) {
+      panelProps.handleAudioIntroPlayed();
+    }
+  }
 
   return (
     <StyledPanel {...panelProps}>
+
       <PanelContent>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Eveniet et qui deleniti? Nostrum exercitationem vel deserunt veniam dolore! Veritatis, facere.
-          Expedita, dignissimos voluptate. Voluptatibus, in perspiciatis iusto labore unde recusandae.</p>
+
+        {/* todo : set audio paths */}
+        {atMuseum &&
+          <AudioPlayer
+            preload={true}
+            text={'A message to you before you start...'}
+            src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            onPlaybackComplete={handleAudioPlaybackFinished}
+          />
+        }
+        {!atMuseum &&
+          <AudioPlayer
+            preload={true}
+            text={'A message to you before we begin...'}
+            src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            onPlaybackComplete={handleAudioPlaybackFinished}
+          />
+        }
       </PanelContent>
+
       <Buttons>
-        {/* <Button onClick={handleAtMuseum}>OK</Button> */}
-        {/* <Button onClick={handleNotAtMuseum}>OK</Button> */}
+        {/* todo: reinstate this */}
+        {/* {panelProps.audioIntroPlayed && <Button onClick={handleContinue}>Skip</Button>} */}
+        <Button onClick={handleContinue} invisible={!audioPlaybackFinished}>OK</Button>
       </Buttons>
+
     </StyledPanel>
   );
 };

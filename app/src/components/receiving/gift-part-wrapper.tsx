@@ -1,11 +1,13 @@
-import React from 'react';
+import React/*, { useState, useEffect }*/ from 'react';
 import styled from 'styled-components';
 
 import { GiftPart } from '../../domain';
 import { global, romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingIntroContent } from './panels/intro-content';
-import { ReceivingChooseLocation } from '../receiving/panels/choose-location';
+import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
+import { ReceivingPartContent } from './panels/part-content';
+// import { GiftPartImageReveal } from '../panel-image-reveal';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
@@ -16,6 +18,8 @@ const GiftPartTitle = styled.div<Props>`
   margin: 0 auto;
   font-weight: ${global.fonts.title.bold};
   line-height: 1;
+  position: relative;
+  z-index: 1;
 
   // Idle
   ${(props: Props) =>
@@ -71,6 +75,7 @@ const GiftPartTitle = styled.div<Props>`
   ${(props: Props) =>
     props.status === GiftPartWrapperStatus.Closed && `
     font-size: 5vw;
+    color: black;
   `}
 
 `;
@@ -85,24 +90,40 @@ export interface Props {
   giftPartManager: GiftPartsManager;
   giftPart: GiftPart;
   index: number;
+  giftPartCount: number; // How many parts are in the gift
   status: GiftPartWrapperStatus;
   onClick?: (giftPartWrapper: any) => void;
 }
 
 interface State {
   activePanelIndex: number;
+  giftLocation: GiftLocation;
+  audioIntroPlayed: boolean;
 }
 
 const StyledGiftPart = styled.div<Props>`
   // Common
-  background-image: url(${(props) => props.giftPart && props.giftPart.photo ? props.giftPart.photo : ''});
-  background-position: center;
-  background-size: cover;
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
   overflow: hidden;
+  position: relative;
+
+  // Background image as :before to apply blur
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${(props) => props.giftPart && props.giftPart.photo ? props.giftPart.photo : ''});
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    filter: blur(5px);
+  }
 
   // Idle
   ${(props: Props) =>
@@ -122,9 +143,28 @@ const StyledGiftPart = styled.div<Props>`
     flex-grow: 0;
     justify-content: center;
     min-height: 10vw;
+    background-color: #777777;
+  `}
+
+  // Dark overlay, not open
+  ${(props: Props) =>
+    props.index > 0 && `
+    &:before {
+      filter: grayscale(60%) blur(5px);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
   `}
 
 `;
+
 
 class GiftPartWrapper extends React.PureComponent<Props, State> {
 
@@ -132,6 +172,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   public managerRef: any = React.createRef();
   public state = {
     activePanelIndex: 0,
+    giftLocation: GiftLocation.Unknown,
+    audioIntroPlayed: false,
   };
 
   // Inform the wrapper, todo this should be handled by the parent on click
@@ -152,39 +194,85 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   }
 
+  // Sets the location
+  public handleSetLocation = (giftLocation: GiftLocation) => {
+    this.setState({giftLocation});
+  }
+
+  // Sets the audio intro having been played
+  public handleIntroAudioPlayed = () => {
+    this.setState({
+      audioIntroPlayed: true,
+    });
+  }
+
   // Load the content for the gift part
   public getGiftPartContent = () => {
 
-    const index = this.state.activePanelIndex;
+    // Only show the content if this gift part is set as open
+    const show = this.props.status === GiftPartWrapperStatus.Open;
 
-    // Render the correct content based on our gift part index [0,1,2]
-    switch (this.props.index) {
-      case 0 :
-        return (
-          <>
-            <ReceivingChooseLocation visible={index === 0} onComplete={this.nextPanel} />
-            <ReceivingIntroContent visible={index === 1} onComplete={this.nextPanel} />
-            <ReceivingChooseLocation visible={index === 2} onComplete={this.nextPanel} />
-          </>
-        );
-      case 1 :
-        return (
-          <>
-          </>
-        );
-      case 2 :
-        return (
-          <>
-          </>
-        );
-      default :
-          return null;
+    if (show) {
+
+      const index = this.state.activePanelIndex;
+
+      // Render the correct content based on our gift part index [0,1,2]
+      switch (this.props.index) {
+        case 0 :
+          return (
+            <>
+              <ReceivingChooseLocation
+                visible={index === 0}
+                doComplete={this.nextPanel}
+                doSetLocation={this.handleSetLocation}
+              />
+              <ReceivingIntroContent
+                visible={index === 1}
+                doComplete={this.nextPanel}
+                giftLocation={this.state.giftLocation}
+                audioIntroPlayed={this.state.audioIntroPlayed}
+                handleAudioIntroPlayed={this.handleIntroAudioPlayed}
+              />
+              <ReceivingPartContent
+                visible={index === 2}
+                giftPart={this.props.giftPart}
+                giftPartIndex={this.props.index}
+                giftPartCount={this.props.index}
+                doComplete={this.nextPanel}
+                giftLocation={this.state.giftLocation}
+              />
+            </>
+          );
+          break;
+        case 1 :
+          return (
+            <>
+            </>
+          );
+          break;
+        case 2 :
+          return (
+            <>
+            </>
+          );
+          break;
+        default :
+            return null;
+      }
+
+    } else {
+      return null;
     }
+
   }
 
   public render() {
     return (
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
+
+        {/* <GiftPartImageReveal
+          imageUrl={this.props.giftPart.photo}
+        /> */}
 
         <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.index + 1)}</GiftPartTitle>
         {this.getGiftPartContent()}
