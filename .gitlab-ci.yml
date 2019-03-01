@@ -49,6 +49,7 @@ build-frontend:
     changes:
       - .gitlab-ci.yml
       - app/**/*
+      - common/**/*
 
 
 deploy-frontend-to-staging:
@@ -73,6 +74,7 @@ deploy-frontend-to-staging:
     changes:
       - .gitlab-ci.yml
       - app/**/*
+      - common/**/*
 
 
 # =======
@@ -99,6 +101,7 @@ build-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+      - common/**/*
 
 
 lint-backend:
@@ -114,6 +117,7 @@ lint-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+      - common/**/*
 
 
 test-backend:
@@ -129,6 +133,7 @@ test-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+      - common/**/*
 
 release-backend:
   stage: release
@@ -144,6 +149,7 @@ release-backend:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+      - common/**/*
 
 
 deploy-backend-to-staging:
@@ -167,3 +173,4 @@ deploy-backend-to-staging:
     changes:
       - .gitlab-ci.yml
       - api/**/*
+      - common/**/*
