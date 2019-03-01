@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer } from '../../../components/audio-player';
+import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
 import { GiftLocation } from './choose-location';
 
 /***
@@ -53,6 +53,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
             preload={true}
             text={'A message to you before you start...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            forwardButton={AudioPlayerForwardButton.GoToEnd}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
@@ -61,6 +62,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
             preload={true}
             text={'A message to you before we begin...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            forwardButton={AudioPlayerForwardButton.GoToEnd}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }

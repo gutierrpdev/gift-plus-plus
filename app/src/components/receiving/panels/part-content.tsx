@@ -4,7 +4,7 @@ import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { PanelImage } from '../../panel-image';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer } from '../../../components/audio-player';
+import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
 import { GiftLocation } from './choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
@@ -268,6 +268,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <AudioPlayer
             text={getPlaySendersMessage()}
             src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+            forwardButton={AudioPlayerForwardButton.GoToEnd}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }

@@ -57,10 +57,14 @@ const Play = styled(baseButton)`
   margin: 0 3vmin;
 `;
 
+// Forward button options
+export enum AudioPlayerForwardButton {'SkipSeconds', 'GoToEnd'}
+
 interface Props {
   text: string;
-  preload?: boolean;
+  preload?: boolean; // Preload the audio, ala the HTML component
   src: string;
+  forwardButton: AudioPlayerForwardButton;
   onPlaybackComplete?: () => void; // optional callback when audio has completed playback
 }
 
@@ -158,6 +162,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
   }
 
+  // Play/pause toggle
   public togglePlay = () => {
 
     // Bail if no audio
@@ -178,6 +183,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     }
   }
 
+  // Skip forward seconds
   public skipForward = () => {
 
     // Bail if no audio
@@ -185,6 +191,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
+    // Calculate our target
     const target = Math.round(this.audio.currentTime + AudioPlayer.skipForwardSeconds);
 
     // Avoid going over the maximum
@@ -201,10 +208,33 @@ class AudioPlayer extends React.PureComponent<Props, State> {
       this.audio.currentTime = target;
     }
 
+    // Update
     this.setPlaybackPercentage(this.audio.currentTime);
 
   }
 
+  // Go to the end of the audio
+  public goToEnd = () => {
+
+    // Bail if no audio
+    if (!this.audio) {
+      return;
+    }
+
+    // Stop
+    if (this.state.isPlaying) {
+      this.togglePlay();
+    }
+
+    // 100%
+    this.audio.currentTime = this.audio.duration;
+
+    // Update
+    this.setPlaybackPercentage(this.audio.currentTime);
+
+  }
+
+  // Skip backwards seconds
   public skipBackward = () => {
 
     // Bail if no audio
@@ -212,9 +242,13 @@ class AudioPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
+    // Calculate the target
     const target = Math.round(this.audio.currentTime - AudioPlayer.skipBackwardSeconds);
+
     // Avoid negative position
     this.audio.currentTime = Math.max(0, target);
+
+    // Update
     this.setPlaybackPercentage(this.audio.currentTime);
 
   }
@@ -262,9 +296,21 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             <Play onClick={this.togglePlay} >
               <img src={playButtonImg} />
             </Play>
-            <SkipForward onClick={this.skipForward}>
-              <img src={require('../assets/svg/button-audio-forward.svg')} />
-            </SkipForward>
+
+            {/* Skip forward seconds */}
+            {this.props.forwardButton === AudioPlayerForwardButton.SkipSeconds &&
+              <SkipForward onClick={this.skipForward}>
+                <img src={require('../assets/svg/button-audio-forward.svg')} />
+              </SkipForward>
+            }
+
+            {/* Jump to end */}
+            {this.props.forwardButton === AudioPlayerForwardButton.GoToEnd &&
+              <SkipForward onClick={this.goToEnd}>
+                <img src={require('../assets/svg/button-audio-skip.svg')} />
+              </SkipForward>
+            }
+
           </Controls>
         </AudioPlayerStyles>
       </PanelRound>

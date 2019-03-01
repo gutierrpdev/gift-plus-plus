@@ -14,7 +14,7 @@ import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImage } from '../src/components/panel-image';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
-import { AudioPlayer } from '../src/components/audio-player';
+import { AudioPlayer, AudioPlayerForwardButton } from '../src/components/audio-player';
 import { WaitThen } from '../src/components/wait-then';
 
 // Screens
@@ -146,9 +146,18 @@ storiesOf('Components', module)
   ))
   .add('Audio player', () => (
     <div>
+      <p>Skip forward button</p>
       <AudioPlayer
         preload={true}
         text={'Lorem ipsum'}
+        forwardButton={AudioPlayerForwardButton.SkipSeconds}
+        src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+      />
+      <p>Jump Go to End forward button</p>
+      <AudioPlayer
+        preload={true}
+        text={'Lorem ipsum'}
+        forwardButton={AudioPlayerForwardButton.GoToEnd}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
     </div>
