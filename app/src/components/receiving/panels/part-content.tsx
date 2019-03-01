@@ -104,25 +104,27 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             {haveClue && <Button onClick={gotoGiveClue}>Give me a clue</Button>}
             {!haveClue && <Button onClick={gotoGiveHelp}>Help</Button>}
-            <Button onClick={gotoFound}>OK</Button>
+            <Button onClick={gotoFound} primary={true}>OK</Button>
           </>
         );
       case 4: // more help
         return (
           <>
-            <Button onClick={gotoFindObject}>OK</Button>
+            <Button onClick={gotoFindObject} primary={true}>OK</Button>
             <Button onClick={gotoGiveHelp}>More Help</Button>
           </>
         );
       case 5: // stuck
         return (
-          <Button onClick={gotoFindObject}>OK</Button>
+          <Button onClick={gotoFindObject} primary={true}>OK</Button>
         );
       case 8: // senders audio message
         return (
           <>
-            {audioHasPlayed && furtherPart && <Button onClick={gotoEndOfGiftPart}>Open part {nextPart}</Button>}
-            {audioHasPlayed && !furtherPart && <Button onClick={gotoEndOfGiftPart}>Done</Button>}
+            {audioHasPlayed && furtherPart &&
+              <Button onClick={gotoEndOfGiftPart} primary={true}>Open part {nextPart}</Button>}
+            {audioHasPlayed && !furtherPart &&
+              <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
         );
       default :

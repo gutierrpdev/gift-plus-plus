@@ -131,13 +131,13 @@ storiesOf('Components', module)
   .add('Buttons', () => (
     <div style={{...bgImg, ...whiteText}}>
       <p>One button</p>
-      <Buttons style={greyBG}>
+      <Buttons>
         <Button onClick={action('clicked')}>One button</Button>
       </Buttons>
       <p>Two buttons</p>
-      <Buttons style={greyBG}>
+      <Buttons>
         <Button>Button 1</Button>
-        <Button>Button 2</Button>
+        <Button primary={true}>Button 2</Button>
       </Buttons>
       <p>Not hidden button</p>
       <Button invisible={false}>You can see me</Button>

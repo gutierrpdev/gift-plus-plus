@@ -51,7 +51,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
         <PanelPrompt text={'Are you at the museum?'} />
       </PanelContent>
       <Buttons>
-        <Button onClick={handleAtMuseum}>Yes</Button>
+        <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
         <Button onClick={handleNotAtMuseum}>No</Button>
       </Buttons>
     </StyledPanel>
