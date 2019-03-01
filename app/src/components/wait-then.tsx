@@ -21,7 +21,7 @@ const WaitThen: React.FC<Props> = ({wait, andThen}) => {
 
   return (
     <>
-    {waitAndThen()}
+      {waitAndThen()}
     </>
   );
 

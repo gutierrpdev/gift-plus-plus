@@ -94,9 +94,9 @@ storiesOf('Components', module)
   .add('Gift Part', () => (
     <GiftPartWrapper
       giftPartManager={giftPartManager}
+      gift={giftThreeParts}
       giftPart={giftPart}
-      index={0}
-      giftPartCount={0}
+      giftPartIndex={0}
       status={GiftPartWrapperStatus.Open}
       onClick={doNothing}
     />
@@ -157,15 +157,21 @@ storiesOf('Components', module)
     <div>
       <WaitThen
         wait={2}
-        andThen={showAlert}
+        andThen={logSomething}
       />
     </div>
   ))
 ;
 
-function showAlert() {
-  alert('1');
+// function showAlert() {
+//   alert('1');
+// }
+
+function logSomething() {
+  // tslint:disable-next-line
+  console.log('something');
 }
+
 
 // To hookup to events to keep TypeScript happy
 function doNothing() {
@@ -190,9 +196,8 @@ storiesOf('Receiving/Part 1', module)
   .add('Content', () => (
     <ReceivingPartContent
       visible={true}
-      giftPart={giftPart}
+      gift={giftThreeParts}
       giftPartIndex={0}
-      giftPartCount={1}
       doComplete={doNothing}
       giftLocation={GiftLocation.AtMuseum}
     />

@@ -7,6 +7,7 @@ const PanelContent = styled.div`
   display: flex;
 `;
 
+// todo: visible might not be required anymore
 const StyledPanel = styled.div<PanelProps>`
   display: ${(props) => props.visible === false ? 'none' : 'flex'};
   flex-direction: column;

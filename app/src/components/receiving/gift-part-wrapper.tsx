@@ -1,7 +1,7 @@
 import React/*, { useState, useEffect }*/ from 'react';
 import styled from 'styled-components';
 
-import { GiftPart } from '../../domain';
+import { Gift, GiftPart } from '../../domain';
 import { global, romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingIntroContent } from './panels/intro-content';
@@ -30,7 +30,7 @@ const GiftPartTitle = styled.div<Props>`
   // Idle first
   ${(props: Props) =>
     props.status === GiftPartWrapperStatus.Idle &&
-    props.index === 0 && `
+    props.giftPartIndex === 0 && `
     position: relative;
     font-size: 10vw;
     &:before {
@@ -60,7 +60,7 @@ const GiftPartTitle = styled.div<Props>`
   // Idle not first
   ${(props: Props) =>
     props.status === GiftPartWrapperStatus.Idle &&
-    props.index > 0 && `
+    props.giftPartIndex > 0 && `
     color: black;
   `}
 
@@ -88,9 +88,9 @@ export enum GiftPartWrapperStatus {Idle, Open, Closed}
 
 export interface Props {
   giftPartManager: GiftPartsManager;
-  giftPart: GiftPart;
-  index: number;
-  giftPartCount: number; // How many parts are in the gift
+  gift: Gift;
+  giftPart: GiftPart; // Pass in the part as well as the gift for props
+  giftPartIndex: number;
   status: GiftPartWrapperStatus;
   onClick?: (giftPartWrapper: any) => void;
 }
@@ -148,7 +148,7 @@ const StyledGiftPart = styled.div<Props>`
 
   // Dark overlay, not open
   ${(props: Props) =>
-    props.index > 0 && `
+    props.giftPartIndex > 0 && `
     &:before {
       filter: grayscale(60%) blur(5px);
     }
@@ -169,7 +169,10 @@ const StyledGiftPart = styled.div<Props>`
 class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   // Our panel manager determines which panel in our stack to show
-  public managerRef: any = React.createRef();
+  // public managerRef: any = React.createRef();
+
+  public giftPartCount: number = this.props.gift.parts.length;
+
   public state = {
     activePanelIndex: 0,
     giftLocation: GiftLocation.Unknown,
@@ -217,30 +220,29 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       const index = this.state.activePanelIndex;
 
       // Render the correct content based on our gift part index [0,1,2]
-      switch (this.props.index) {
+      switch (this.props.giftPartIndex) {
         case 0 :
           return (
             <>
+              {index === 0 &&
               <ReceivingChooseLocation
-                visible={index === 0}
                 doComplete={this.nextPanel}
                 doSetLocation={this.handleSetLocation}
-              />
+              />}
+              {index === 1 &&
               <ReceivingIntroContent
-                visible={index === 1}
                 doComplete={this.nextPanel}
                 giftLocation={this.state.giftLocation}
                 audioIntroPlayed={this.state.audioIntroPlayed}
                 handleAudioIntroPlayed={this.handleIntroAudioPlayed}
-              />
+              />}
+              {index === 2 &&
               <ReceivingPartContent
-                visible={index === 2}
-                giftPart={this.props.giftPart}
-                giftPartIndex={this.props.index}
-                giftPartCount={this.props.index}
+                gift={this.props.gift}
+                giftPartIndex={this.props.giftPartIndex}
                 doComplete={this.nextPanel}
                 giftLocation={this.state.giftLocation}
-              />
+              />}
             </>
           );
           break;
@@ -274,7 +276,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
           imageUrl={this.props.giftPart.photo}
         /> */}
 
-        <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.index + 1)}</GiftPartTitle>
+        <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.giftPartIndex + 1)}</GiftPartTitle>
         {this.getGiftPartContent()}
 
       </StyledGiftPart>

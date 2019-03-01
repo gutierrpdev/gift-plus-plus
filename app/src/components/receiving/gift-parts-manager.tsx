@@ -65,9 +65,9 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
           <GiftPartWrapper
             giftPartManager={this}
             key={index}
+            gift={this.props.gift}
             giftPart={giftPart}
-            index={index}
-            giftPartCount={this.props.gift.parts.length}
+            giftPartIndex={index}
             status={status}
           />
         );

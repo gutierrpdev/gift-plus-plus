@@ -6,7 +6,7 @@ import { PanelImage } from '../../panel-image';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { GiftLocation } from './choose-location';
-import { GiftPart } from '../../../domain';
+import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
 
 /***
@@ -15,17 +15,27 @@ import { WaitThen } from '../../wait-then';
 
  // Extend panel props with extras
 export interface PartContentProps extends PanelProps {
-  giftPart?: GiftPart; // The gift part
-  giftPartIndex?: number; // The index of this gift part
-  giftPartCount?: number; // Total number of gift parts
+  gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
+  giftPartIndex: number; // The index of this gift part
   giftLocation: GiftLocation;
 }
 
 // Todo : finish question
-const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
+const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // section is 0 based incrementer of current stage
   const [section, setSection] = useState(0);
+  const [audioHasPlayed, setAudioHasPlayed] = useState(false);
+
+  // Get some local references
+  const giftPart: GiftPart = props.gift.parts[props.giftPartIndex];
+  const giftPartCount: number = props.gift.parts.length;
+  const giftSenderName: string = props.gift.senderName;
+
+  // Our audio player has finished
+  function handleAudioPlaybackFinished() {
+    setAudioHasPlayed(true);
+  }
 
   function gotoFindObject() {
     setSection(3);
@@ -43,6 +53,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
     setSection(7);
   }
 
+  function gotoEndOfGiftPart() {
+    alert('This part is complete'); // todo ?
+  }
+
   function handleContinue() {
 
     // todo: check for skip in global state, show button below
@@ -51,7 +65,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
     if (section === 3) {
 
       // Check if we have a clue
-      if (panelProps.giftPart && panelProps.giftPart.clue) {
+      if (giftPart && giftPart.clue) {
         // Skip
         setSection(5);
       } else {
@@ -65,18 +79,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
       setSection(newSection);
     }
 
-
     // todo check for last section and continue
-    // if (panelProps.onComplete) {
-    //   panelProps.onComplete();
+    // if (props.onComplete) {
+    //   props.onComplete();
     // }
   }
 
+
   function getButtons() {
+
+    // Is there a part after this one
+    const furtherPart = (giftPartCount > (props.giftPartIndex + 1));
+    const nextPart = props.giftPartIndex + 2; // 1 for the index and 1 as next
+
     switch (section) {
       case 3: // give me a clue
         // Check if we have a clue
-        const haveClue = panelProps.giftPart && panelProps.giftPart.clue;
+        const haveClue = giftPart && giftPart.clue;
         return (
           <>
             {haveClue && <Button onClick={gotoGiveClue}>Give me a clue</Button>}
@@ -85,7 +104,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
           </>
         );
       case 4: // more help
-        // Check if we have a clue
         return (
           <>
             <Button onClick={gotoFindObject}>OK</Button>
@@ -93,9 +111,15 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
           </>
         );
       case 5: // stuck
-        // Check if we have a clue
         return (
           <Button onClick={gotoFindObject}>OK</Button>
+        );
+      case 8: // senders audio message
+        return (
+          <>
+            {audioHasPlayed && furtherPart && <Button onClick={gotoFindObject}>Open part {nextPart}</Button>}
+            <Button onClick={gotoEndOfGiftPart}>Done</Button>
+          </>
         );
       default :
         // One invisible button to occupy space
@@ -106,10 +130,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
   }
 
   function getIntroText() {
-    switch (panelProps.giftPartIndex) {
+    switch (props.giftPartIndex) {
       case 0 :
         // Text changes based on gift count
-        return panelProps.giftPartCount === 1 ?
+        return giftPartCount === 1 ?
           'This is a sneak peek of your gift.' :
           'This is a sneak peek of the first object in your gift.';
       default :
@@ -118,7 +142,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
   }
 
   function getDoYouNeedaClueText() {
-    switch (panelProps.giftPartIndex) {
+    switch (props.giftPartIndex) {
       case 0 :
         return 'Do you know where to look?';
       case 1 :
@@ -129,7 +153,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
   }
 
   function getLookAroundText() {
-    switch (panelProps.giftPartIndex) {
+    switch (props.giftPartIndex) {
       case 0 :
         return 'Wander round and tap OK when you find it.';
       case 1 :
@@ -140,7 +164,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
   }
 
   function getNeedHelpText() {
-    switch (panelProps.giftPartIndex) {
+    switch (props.giftPartIndex) {
       case 0 :
         return 'Stuck? Try asking someone in the museum';
       case 1 :
@@ -150,15 +174,26 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
     }
   }
 
-  const giftPartPhoto = panelProps.giftPart ? panelProps.giftPart.photo : '';
+  function getPlaySendersMessage() {
+    switch (props.giftPartIndex) {
+      case 0 :
+        // Text changes based on gift count and sender name
+        const partCount = giftPartCount > 1 ? 'first' : '';
+        return `Play ${giftSenderName}’s ${partCount} message...`;
+      default :
+        return '';
+    }
+  }
+
+  const giftPartPhoto = giftPart ? giftPart.photo : '';
 
   // Use an index to advance to next statge
   return (
-    <StyledPanel {...panelProps}>
+    <StyledPanel {...props}>
 
       <PanelContent>
 
-        {/* intro */}
+        {/* start */}
         {section === 0 &&
           <>
             <PanelPrompt text={getIntroText()}  />
@@ -180,7 +215,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
           </>
         }
 
-        {/* do you need a clue ? */}
+        {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
             <PanelPrompt text={getDoYouNeedaClueText()} />
@@ -191,7 +226,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
           </>
         }
 
-        {/* look around */}
+        {/* wander/look around */}
         {section === 3 &&
           <PanelPrompt text={getLookAroundText()} />
         }
@@ -231,8 +266,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (panelProps) => {
         {/* play audio */}
         {section === 8 &&
           <AudioPlayer
-            text={'A message to you before you start...'}
+            text={getPlaySendersMessage()}
             src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+            onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
 

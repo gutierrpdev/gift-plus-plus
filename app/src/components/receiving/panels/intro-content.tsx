@@ -30,7 +30,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
     }
   }
 
-  // Our audio player has finsihed
+  // Our audio player has finished
   function handleAudioPlaybackFinished() {
 
     // Update our state
