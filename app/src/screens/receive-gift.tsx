@@ -96,7 +96,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       {this.renderContent()}
     </ScreenManager>
     );
-    }
+  }
 }
 
 

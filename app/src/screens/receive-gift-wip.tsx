@@ -9,6 +9,8 @@ import { getLogger } from '../utils/logging';
 import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
 
+import { ReceiveGift } from './receive-gift';
+
 
 const logger = getLogger('receive-gift');
 
@@ -30,7 +32,7 @@ function extractAssetUrls(giftData: GetGiftResponse): string[] {
 }
 
 
-export const ReceiveGift: React.FC = () => {
+export const ReceiveGiftWip: React.FC = () => {
   const { match } = useReactRouter<{ giftId: string }>();
   const { giftId } = match.params;
 
@@ -65,5 +67,6 @@ export const ReceiveGift: React.FC = () => {
 
 
   const giftResponse = apiResult.data;
-  return <pre>{JSON.stringify(giftResponse, null, 2)}</pre>;
+  return <ReceiveGift gift={giftResponse} museumName={'Brighton & Hove Museum'} />;
+
 };
