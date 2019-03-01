@@ -2,7 +2,7 @@ import {
   CreateGiftRequest,
   createGiftRequestSchema,
   CreateGiftResponse,
-} from '../../common/schema';
+} from '../../common/api-schema';
 import { checkUrl, checkBody } from '../../util-libs/validatation';
 import { ApiRouter } from './router';
 

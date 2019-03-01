@@ -5,8 +5,12 @@ import {
   createGiftResponseSchema,
   GetGiftResponse,
   getGiftResponseSchema,
-} from '../common/schema';
+} from '../common/api-schema';
 
+
+// We re-export any types the Api is responsible for from here.
+export type CreateGiftResponse = CreateGiftResponse;
+export type GetGiftResponse = GetGiftResponse;
 
 /**
  * The Api is responsible for all communication with the Gift Api.

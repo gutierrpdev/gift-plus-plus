@@ -1,25 +1,22 @@
+/* import axios from 'axios'; */
 import React from 'react';
 import useReactRouter from 'use-react-router';
 
-import { useAsync, AsyncProgress } from '../utils/helpers';
+import { useAsync } from '../utils/use-async';
+import { usePreload, totalProgress } from '../utils/use-preload';
 import { getLogger } from '../utils/logging';
 
-import { GetGiftResponse } from '../common/schema';
 import { api } from '../services';
-import { ApiResult } from '../services/api';
+import { GetGiftResponse } from '../services/api';
+
 
 const logger = getLogger('receive-gift');
 
-// TODO: Consider using XMLHttpRequest or (perhaps better) switch to axios and
-// use that for requests to allow monitoring progress and show total percentage
-// loaded.
 
-async function preloadAssets(getGiftTask: AsyncProgress<ApiResult<GetGiftResponse>>) {
-  if (getGiftTask.kind !== 'success') return;
-  if (getGiftTask.result.kind !== 'ok') return;
-
-  const giftData = getGiftTask.result.data;
-
+/**
+ *
+ */
+function extractAssetUrls(giftData: GetGiftResponse): string[] {
   const urls = giftData.parts.reduce<Set<string>>(
     (urls, part) => { // tslint:disable-line no-shadowed-variable
       urls.add(part.note);
@@ -29,22 +26,7 @@ async function preloadAssets(getGiftTask: AsyncProgress<ApiResult<GetGiftRespons
     new Set(),
   );
 
-  logger.debug('Preloading urls', urls);
-
-  const elements = Array.from(urls).map((url) => {
-    const elm = document.createElement('img');
-    elm.src = url;
-    return elm;
-  });
-
-  await Promise.all(
-    elements.map(
-      (elm) => new Promise((resolve, reject) => {
-        elm.addEventListener('load', () => resolve());
-        elm.addEventListener('error', () => reject());
-      }),
-    ),
-  );
+  return Array.from(urls);
 }
 
 
@@ -53,13 +35,16 @@ export const ReceiveGift: React.FC = () => {
   const { giftId } = match.params;
 
   const [getGiftTask] = useAsync(() => api.getGift(giftId), [giftId]);
-  const [preloadTask] = useAsync(() => preloadAssets(getGiftTask), [getGiftTask]);
+
+  const assetUrls = (getGiftTask.kind === 'success' && getGiftTask.result.kind === 'ok')
+                  ? extractAssetUrls(getGiftTask.result.data)
+                  : [];
+
+  const [preloadState] = usePreload(assetUrls);
+
 
   if (getGiftTask.kind === 'running') return <h1>Loading (Gift): TODO</h1>;
   if (getGiftTask.kind === 'failure') return <h1>Error (Gift): TODO</h1>;
-
-  if (preloadTask.kind === 'running') return <h1>Loading (Assets): TODO</h1>;
-  if (preloadTask.kind === 'failure') return <h1>Error (Assets): TODO</h1>;
 
   const apiResult = getGiftTask.result;
 
@@ -67,6 +52,17 @@ export const ReceiveGift: React.FC = () => {
     return <h1>NotFound (Gift): TODO</h1>;
   }
   if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
+
+  if (preloadState.status === 'running') {
+    return (
+      <>
+        <h1>Loading (Assets): {totalProgress(preloadState)}%</h1>
+        <pre>{JSON.stringify(Array.from(preloadState.urlProgress.entries()), null, 2)}</pre>
+      </>
+    );
+  }
+  if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
+
 
   const giftResponse = apiResult.data;
   return <pre>{JSON.stringify(giftResponse, null, 2)}</pre>;
