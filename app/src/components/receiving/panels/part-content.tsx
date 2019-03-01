@@ -54,7 +54,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoEndOfGiftPart() {
-    alert('This part is complete'); // todo ?
+    alert('This part is complete');
+    if (props.doComplete) {
+      props.doComplete();
+    }
   }
 
   function handleContinue() {
@@ -80,8 +83,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
 
     // todo check for last section and continue
-    // if (props.onComplete) {
-    //   props.onComplete();
+    // if (props.doComplete) {
+    //   props.doComplete();
     // }
   }
 
@@ -91,6 +94,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     // Is there a part after this one
     const furtherPart = (giftPartCount > (props.giftPartIndex + 1));
     const nextPart = props.giftPartIndex + 2; // 1 for the index and 1 as next
+
 
     switch (section) {
       case 3: // give me a clue
@@ -117,8 +121,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 8: // senders audio message
         return (
           <>
-            {audioHasPlayed && furtherPart && <Button onClick={gotoFindObject}>Open part {nextPart}</Button>}
-            <Button onClick={gotoEndOfGiftPart}>Done</Button>
+            {audioHasPlayed && furtherPart && <Button onClick={gotoEndOfGiftPart}>Open part {nextPart}</Button>}
+            {audioHasPlayed && !furtherPart && <Button onClick={gotoEndOfGiftPart}>Done</Button>}
           </>
         );
       default :
@@ -198,7 +202,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={getIntroText()}  />
             <WaitThen
-              wait={5}
+              wait={1}
               andThen={handleContinue}
             />
           </>
@@ -209,7 +213,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelImage imageSrc={giftPartPhoto} />
             <WaitThen
-              wait={5}
+              wait={1}
               andThen={handleContinue}
             />
           </>
@@ -220,7 +224,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={getDoYouNeedaClueText()} />
             <WaitThen
-              wait={5}
+              wait={1}
               andThen={handleContinue}
             />
           </>
@@ -232,8 +236,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         }
 
         {/* show clue */}
-        {section === 4 && // todo audio player
-          <PanelPrompt text={'CLUE'} />
+        {section === 4 &&
+          <PanelPrompt text={giftPart.clue} />
         }
 
         {/* need help */}
@@ -246,7 +250,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={'Here you go...'} />
             <WaitThen
-              wait={5}
+              wait={1}
               andThen={handleContinue}
             />
           </>
@@ -257,7 +261,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={'PHOTO'} />
             <WaitThen
-              wait={5}
+              wait={1}
               andThen={handleContinue}
             />
           </>

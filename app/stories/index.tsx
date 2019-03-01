@@ -99,6 +99,7 @@ storiesOf('Components', module)
       giftPartIndex={0}
       status={GiftPartWrapperStatus.Open}
       onClick={doNothing}
+      doComplete={doNothing}
     />
   ))
   .add('Gift Parts', () => (

@@ -29,6 +29,9 @@ interface GiftPartsManagerState {
 
 class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
 
+  public isShowingLastPart: boolean = false;
+  public activeGiftPartIndex: number = -1;
+
   // Set the active part and update the state
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
     // Record the active gift
@@ -39,6 +42,25 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     if (this.props.onClick) {
       this.props.onClick();
     }
+  }
+
+  public showNextGiftPart = () => {
+
+    // Check if this is the last part
+    const isShowingLastPart = ((this.activeGiftPartIndex + 1) === this.props.gift.parts.length);
+
+    if (isShowingLastPart) {
+      alert('this is the last part'); // todo, go to menu, etc.
+    } else {
+
+      // Update state to the next part
+      if (this.state.giftPartWrappers) {
+        const nextGiftPartWrapper = this.state.giftPartWrappers[this.activeGiftPartIndex + 1];
+        this.setActiveGiftPartWrapper(nextGiftPartWrapper);
+      }
+
+    }
+
   }
 
   // Render the parts
@@ -53,7 +75,11 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
 
         // Check if this part is the active one, and set status
         if (this.state && this.state.activeGiftPart) {
+
           if (giftPart === this.state.activeGiftPart) {
+
+            this.activeGiftPartIndex = index;
+
             status = GiftPartWrapperStatus.Open;
           } else {
             status = GiftPartWrapperStatus.Closed;
@@ -69,6 +95,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
             giftPart={giftPart}
             giftPartIndex={index}
             status={status}
+            doComplete={this.showNextGiftPart}
           />
         );
       })

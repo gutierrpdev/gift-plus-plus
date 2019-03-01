@@ -93,6 +93,7 @@ export interface Props {
   giftPartIndex: number;
   status: GiftPartWrapperStatus;
   onClick?: (giftPartWrapper: any) => void;
+  doComplete: () => void;
 }
 
 interface State {
@@ -172,6 +173,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   // public managerRef: any = React.createRef();
 
   public giftPartCount: number = this.props.gift.parts.length;
+  public panelCount = -1;
 
   public state = {
     activePanelIndex: 0,
@@ -187,13 +189,25 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   // Go to the next panel in the list
   public nextPanel = () => {
 
-    // Get the next index, but don't exceed the panels count
-    // todo : set max properly, = total all of components rendered
-    const nextIndex = Math.min(this.state.activePanelIndex + 1, 99);
+    // Are we at the last panel?
+    if ( (this.state.activePanelIndex + 1) === this.panelCount) {
 
-    this.setState({
-      activePanelIndex: nextIndex,
-    });
+      // We are at the last panel so doComplete
+      if (this.props.doComplete) {
+        this.props.doComplete();
+      }
+
+    } else {
+
+      // Get the next index, but don't exceed the panels count
+      const nextIndex = Math.min(this.state.activePanelIndex + 1, this.panelCount);
+
+      // Update
+      this.setState({
+        activePanelIndex: nextIndex,
+      });
+
+    }
 
   }
 
@@ -222,6 +236,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       // Render the correct content based on our gift part index [0,1,2]
       switch (this.props.giftPartIndex) {
         case 0 :
+          this.panelCount = 3;
           return (
             <>
               {index === 0 &&

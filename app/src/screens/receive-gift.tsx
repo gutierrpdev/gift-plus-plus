@@ -55,7 +55,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     });
   }
 
-  // Return the corret content based on status
+  // Return the correct content based on status
   public renderContent() {
     switch (this.state.status) {
       case ReceiveGiftStatus.OpenOrSave:
