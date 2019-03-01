@@ -121,6 +121,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 8: // senders audio message
         return (
           <>
+            {!audioHasPlayed && <Button invisible={true}>&nbsp;</Button>}
             {audioHasPlayed && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Open part {nextPart}</Button>}
             {audioHasPlayed && !furtherPart &&
@@ -273,7 +274,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {section === 8 &&
           <AudioPlayer
             text={getPlaySendersMessage()}
-            src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+            src={giftPart.note}
             forwardButton={AudioPlayerForwardButton.GoToEnd}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
