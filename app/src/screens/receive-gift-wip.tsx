@@ -58,15 +58,14 @@ export const ReceiveGiftWip: React.FC = () => {
   if (preloadState.status === 'running') {
     return (
       <>
-        <h1>Loading (Assets): {totalProgress(preloadState)}%</h1>
+        <h1>Loading (Assets): {Math.round(totalProgress(preloadState) * 100)}%</h1>
         <pre>{JSON.stringify(Array.from(preloadState.urlProgress.entries()), null, 2)}</pre>
       </>
     );
   }
   if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
 
-
   const giftResponse = apiResult.data;
-  return <ReceiveGift gift={giftResponse} museumName={'Brighton & Hove Museum'} />;
-
+  return <pre>{JSON.stringify(giftResponse, null, 2)}</pre>;
+  /* return <ReceiveGift gift={giftResponse} museumName={'Brighton & Hove Museum'} />; */
 };

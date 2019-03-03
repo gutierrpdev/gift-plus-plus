@@ -7,7 +7,15 @@ import { assertNever } from './helpers';
 const logger = getLogger('use-preload');
 
 
-interface PreloadState {
+/**
+ * PreloadState represents the current download progress of multiple urls.
+ *
+ * The download progress for any given url is always represented as a number in
+ * the range [0, 1].
+ *
+ * urlProgress is a map from urls to their respective download progress.
+ */
+export interface PreloadState {
   status: 'running' | 'done' | 'error';
   urlProgress: Map<string, number>;
 }
@@ -35,9 +43,6 @@ function mkPreloadState(urls: string[]): PreloadState {
 }
 
 
-/**
- *
- */
 function preloadReducer(state: PreloadState, action: PreloadAction): PreloadState {
   logger.debug('PreloadAction', state, action);
 
@@ -52,12 +57,12 @@ function preloadReducer(state: PreloadState, action: PreloadAction): PreloadStat
 
     state.urlProgress.forEach((progress, url) => {
       if (url === action.url) return;
-      if (progress < 100) allDone = false;
+      if (progress < 1) allDone = false;
     });
 
     const status = (state.status === 'running' && allDone) ? 'done' : state.status;
 
-    return { ...state, status, urlProgress: state.urlProgress.set(action.url, 100) };
+    return { ...state, status, urlProgress: state.urlProgress.set(action.url, 1) };
   }
 
   if (action.kind === 'url-error') {
@@ -67,10 +72,19 @@ function preloadReducer(state: PreloadState, action: PreloadAction): PreloadStat
   return assertNever(action);
 }
 
+
 /**
+ * [React Hook] Given a collection of urls, this hook will run an effect which
+ * downloads the given urls and provides the current progress via a
+ * `PreloadState`.
  *
+ * A new download effect will occur if the given `urls` change.
+ *
+ * NOTE: We don't implement any caching ourselves, preferring to rely on
+ * appropriate cache headers in the responses and the browser's native caching
+ * mechanisms.
  */
-export function usePreload(urls: string[]) {
+export function usePreload(urls: string[]): [PreloadState] {
   const [state, dispatch] = useReducer(preloadReducer, urls, mkPreloadState);
 
   // Web requests are expensive, so we only want to run when urls have actually
@@ -86,7 +100,7 @@ export function usePreload(urls: string[]) {
           logger.debug('progress', progressEvent);
 
           const progress = progressEvent.lengthComputable
-            ? Math.round(progressEvent.loaded / progressEvent.total * 100)
+            ? progressEvent.loaded / progressEvent.total
             : 0;
 
           dispatch({ kind: 'url-progress', url, progress });
@@ -105,14 +119,18 @@ export function usePreload(urls: string[]) {
 
 
 /**
+ * Determine the overall progress of a preload. Progress is represented as a
+ * number in the range [0,1]
  *
+ * NOTE: For now this assumes each file being preloaded is the same size.
+ * TODO: Track the total size of each file for more accurate progress reporting.
  */
 export function totalProgress(state: PreloadState): number {
   const urlCount = state.urlProgress.size;
-  if (urlCount === 0) return 100;
+  if (urlCount === 0) return 1;
 
   let summedProgress = 0;
   state.urlProgress.forEach((progress) => summedProgress += progress);
 
-  return Math.round(summedProgress / urlCount);
+  return summedProgress / urlCount;
 }
