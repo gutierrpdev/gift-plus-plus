@@ -14,12 +14,13 @@ const StyledPanel = styled.div<PanelProps>`
   overflow: hidden;
   height: 100%;
   width: 100%;
+  flex-grow: 1;
 `;
 
 export interface PanelProps {
   visible?: boolean;
-  doComplete?: () => void;
   // Avoid 'on' handler prefix: https://github.com/styled-components/styled-components/issues/2218
+  doComplete?: () => void;
 }
 
 export {
