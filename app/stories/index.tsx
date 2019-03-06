@@ -15,8 +15,11 @@ import { PanelImage } from '../src/components/panel-image';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer, AudioPlayerForwardButton } from '../src/components/audio-player';
+import { AudioRecorder } from '../src/components/audio-recorder';
 import { WaitThen } from '../src/components/wait-then';
 import { Gradient } from '../src/components/gradient';
+import { AccordionTitle } from '../src/components/accordion-title';
+import { ReceiveReply } from '../src/components/receiving/receive-reply';
 
 // Screens
 import { ReceiveGift } from '../src/screens/receive-gift';
@@ -166,6 +169,11 @@ storiesOf('Components', module)
       />
     </div>
   ))
+  .add('Audio recorder', () => (
+    <AudioRecorder
+      text={'Record an awesome message for someone really cool'}
+    />
+  ))
   .add('Wait and Then', () => (
     <div>
       <WaitThen
@@ -177,6 +185,20 @@ storiesOf('Components', module)
   .add('Gradient', () => (
     <div>
       <Gradient />
+    </div>
+  ))
+  .add('Accordion Title', () => (
+    <div style={greyBG}>
+      <p>Big with Open</p>
+      <AccordionTitle showOpenPrompt={true} textSize={'Big'} textColour={'Black'}>Big</AccordionTitle>
+      <p>Mediun</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'Medium'} textColour={'Black'}>Mediun</AccordionTitle>
+      <p>Small</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'Small'} textColour={'Black'}>Small</AccordionTitle>
+      <p>Medium &amp; White</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'Medium'} textColour={'White'}>
+        Medium &amp; White
+      </AccordionTitle>
     </div>
   ))
 ;
@@ -219,5 +241,8 @@ storiesOf('Receiving/Part 1', module)
       doComplete={doNothing}
       giftLocation={GiftLocation.AtMuseum}
     />
+  ))
+  .add('Reply', () => (
+    <ReceiveReply gift={giftThreeParts} visible={true} />
   ))
 ;

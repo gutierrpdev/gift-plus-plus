@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
 // import { Overlay } from '../overlay';
 import { Gift, GiftPart } from '../../domain';
+import { ReceiveReply } from '../receiving/receive-reply';
+import { giftThreeParts } from '../../../stories/fixtures';
 
 /**
  * Holds and manages visual Gift Parts
@@ -23,11 +25,19 @@ export interface GiftPartsManagerProps {
 }
 
 interface GiftPartsManagerState {
-  activeGiftPart?: GiftPart;
+  activeGiftPart?: GiftPart | null;
   giftPartWrappers?: GiftPartWrapper[];
+  allPartsRead: boolean;
 }
 
 class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
+
+  // Initial state
+  public state = {
+    activeGiftPart: null,
+    allPartsRead: false,
+    giftPartWrappers: [],
+  };
 
   public isShowingLastPart: boolean = false;
   public activeGiftPartIndex: number = -1;
@@ -56,7 +66,10 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     const isShowingLastPart = ((this.activeGiftPartIndex + 1) === this.props.gift.parts.length);
 
     if (isShowingLastPart) {
-      alert('this is the last part'); // todo, go to menu, etc.
+      // console.log('this is the last part');
+      this.setState({
+        allPartsRead: true,
+      });
     } else {
 
       // Update state to the next part
@@ -112,6 +125,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     return (
       <StyledGiftPartsManager>
         {this.renderParts()}
+        <ReceiveReply gift={this.props.gift} visible={this.state.allPartsRead}  />
       </StyledGiftPartsManager>
     );
   }

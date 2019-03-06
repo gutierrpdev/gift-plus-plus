@@ -2,84 +2,14 @@ import React/*, { useState, useEffect }*/ from 'react';
 import styled from 'styled-components';
 
 import { Gift, GiftPart } from '../../domain';
-import { global, romanFromDecimal } from '../../themes/global';
+import { romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
 import { ReceivingPartContent } from './panels/part-content';
 // import { GiftPartImageReveal } from '../panel-image-reveal';
+import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
-
-// Gift Part Title
-const GiftPartTitle = styled.div<Props>`
-  text-align: center;
-  font-family: ${global.fonts.title.family};
-  color: white;
-  display: flex;
-  margin: 0 auto;
-  font-weight: ${global.fonts.title.bold};
-  line-height: 1;
-  position: relative;
-  z-index: 1;
-
-  // Idle
-  ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Idle && `
-    font-size: 10vw;
-  `}
-
-  // Idle first
-  ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Idle &&
-    props.giftPartIndex === 0 && `
-    position: relative;
-    font-size: 10vw;
-    &:before {
-      content: 'Open';
-      position: absolute;
-      top: -4vh;
-      text-align: center;
-      width: 100%;
-      left: auto;
-      font-size: 4vw;
-      font-family: ${global.fonts.body.family};
-      text-transform: uppercase;
-    }
-    &:after {
-      content: '';
-      background-image: url( ${require('../../assets/svg/down-chev-white.svg')} );
-      background-size: cover;
-      width: 10vw;
-      height: 8vw;
-      position: absolute;
-      bottom: -6vh;
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
-  `}
-
-  // Idle not first
-  ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Idle &&
-    props.giftPartIndex > 0 && `
-    color: black;
-  `}
-
-  // Open
-  ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Open && `
-    font-size: 6vw;
-    margin: 20px auto;
-  `}
-
-  // Closed
-  ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Closed && `
-    font-size: 5vw;
-    color: black;
-  `}
-
-`;
 
 /**
  * Visual wrapper for a gift part
@@ -165,7 +95,6 @@ const StyledGiftPart = styled.div<Props>`
   `}
 
 `;
-
 
 class GiftPartWrapper extends React.PureComponent<Props, State> {
 
@@ -284,6 +213,28 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   }
 
   public render() {
+
+    const showOpenPrompt = (this.props.status === GiftPartWrapperStatus.Idle && this.props.giftPartIndex === 0) ?
+      true : false;
+
+    let accordionTitleTextSize: 'Big' | 'Medium' | 'Small';
+    switch (this.props.status) {
+      case GiftPartWrapperStatus.Idle :
+        accordionTitleTextSize = 'Big';
+        break;
+      case GiftPartWrapperStatus.Open :
+        accordionTitleTextSize = 'Medium';
+        break;
+      case GiftPartWrapperStatus.Closed :
+        accordionTitleTextSize = 'Small';
+        break;
+      default :
+        accordionTitleTextSize = 'Small';
+    }
+
+    const accordionTextColour = (this.props.status === GiftPartWrapperStatus.Idle && this.props.giftPartIndex > 0) ?
+      'Black' : 'White';
+
     return (
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
 
@@ -293,7 +244,14 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
           imageUrl={this.props.giftPart.photo}
         /> */}
 
-        <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.giftPartIndex + 1)}</GiftPartTitle>
+        <AccordionTitle
+          showOpenPrompt={showOpenPrompt}
+          textSize={accordionTitleTextSize}
+          textColour={accordionTextColour}
+        >
+          Part {romanFromDecimal(this.props.giftPartIndex + 1)}
+        </AccordionTitle>
+        {/* <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.giftPartIndex + 1)}</GiftPartTitle> */}
         {this.getGiftPartContent()}
 
       </StyledGiftPart>

@@ -9,6 +9,8 @@ import { PanelRound } from './panel-round';
  * Audio Player
  *
  */
+
+ // Used in player and recorder
 const AudioPlayerStyle = styled.div`
   box-sizing: border-box;
   display: 'flex';
@@ -34,24 +36,24 @@ const Controls = styled.div`
 
 // == Buttons ==
 // Base button has active state
-const baseButton = styled.div`
+const BaseAudioButton = styled.div`
   opacity: 0.8;
   &:active {
     opacity: 1;
   }
 `;
 
-const SkipBack = styled(baseButton)`
+const SkipBack = styled(BaseAudioButton)`
   width: 10vmin;
   height: 10vmin;
 `;
 
-const SkipForward = styled(baseButton)`
+const SkipForward = styled(BaseAudioButton)`
   width: 10vmin;
   height: 10vmin;
 `;
 
-const Play = styled(baseButton)`
+const Play = styled(BaseAudioButton)`
   width: 17vmin;
   height: 17vmin;
   margin: 0 3vmin;
@@ -323,4 +325,6 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
 export {
   AudioPlayer,
+  AudioPlayerStyle,
+  BaseAudioButton,
 };
