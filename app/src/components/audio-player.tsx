@@ -9,7 +9,7 @@ import { PanelRound } from './panel-round';
  * Audio Player
  *
  */
-const AudioPlayerStyles = styled.div`
+const AudioPlayerStyle = styled.div`
   box-sizing: border-box;
   display: 'flex';
   color: white;
@@ -253,6 +253,9 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
   }
 
+  public onSeek = (e: MouseEvent) => {
+    console.log(e);
+  }
 
   public render() {
 
@@ -274,7 +277,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
     return (
       <PanelRound darkBackground={true} dottedBorder={false}>
-        <AudioPlayerStyles>
+        <AudioPlayerStyle>
             <audio
               src={this.props.src}
               controls={false}
@@ -288,7 +291,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             </audio>
 
           <AudioPanelText>{this.props.text}</AudioPanelText>
-          <ProgressBar percentage={this.state.playbackPercentage} />
+          <ProgressBar percentage={this.state.playbackPercentage} onSeek={this.onSeek} />
           <Controls>
             <SkipBack onClick={this.skipBackward}>
               <img src={require('../assets/svg/button-audio-back.svg')} />
@@ -312,7 +315,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             }
 
           </Controls>
-        </AudioPlayerStyles>
+        </AudioPlayerStyle>
       </PanelRound>
     );
   }
