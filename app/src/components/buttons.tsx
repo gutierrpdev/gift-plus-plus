@@ -29,7 +29,6 @@ const Button = styled.button<ButtonProps>`
   flex-grow: 1;
   flex-basis: 0;
   border: none;
-  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.8);
 `;
 
 export {
