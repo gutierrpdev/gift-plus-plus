@@ -9,15 +9,11 @@ const StyledScreenLogo = styled.div`
   }
 `;
 
-class ScreenLogo extends React.PureComponent {
-  public render() {
-    return (
-      <StyledScreenLogo>
-        <img src={require('../assets/svg/gift.svg')} />
-      </StyledScreenLogo>
-    );
-  }
-}
+const ScreenLogo: React.FC = () => (
+  <StyledScreenLogo>
+    <img src={require('../assets/svg/gift.svg')} />
+  </StyledScreenLogo>
+);
 
 export {
   ScreenLogo,
