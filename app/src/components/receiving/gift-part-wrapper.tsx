@@ -8,6 +8,7 @@ import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
 import { ReceivingPartContent } from './panels/part-content';
 // import { GiftPartImageReveal } from '../panel-image-reveal';
+import { Gradient } from '../gradient';
 
 // Gift Part Title
 const GiftPartTitle = styled.div<Props>`
@@ -286,6 +287,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   public render() {
     return (
       <StyledGiftPart {...this.props} onClick={this.handleClick}>
+
+        <Gradient />
 
         {/* <GiftPartImageReveal
           imageUrl={this.props.giftPart.photo}

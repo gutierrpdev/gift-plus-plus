@@ -16,6 +16,7 @@ import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer, AudioPlayerForwardButton } from '../src/components/audio-player';
 import { WaitThen } from '../src/components/wait-then';
+import { Gradient } from '../src/components/gradient';
 
 // Screens
 import { ReceiveGift } from '../src/screens/receive-gift';
@@ -143,6 +144,8 @@ storiesOf('Components', module)
       <Button invisible={false}>You can see me</Button>
       <p>Hidden button (should occupy space)</p>
       <Button invisible={true}>I am hidden</Button>
+      <p>There is a gradient below</p>
+      <Gradient />
     </div>
   ))
   .add('Audio player', () => (
@@ -169,6 +172,11 @@ storiesOf('Components', module)
         wait={2}
         andThen={logSomething}
       />
+    </div>
+  ))
+  .add('Gradient', () => (
+    <div>
+      <Gradient />
     </div>
   ))
 ;
