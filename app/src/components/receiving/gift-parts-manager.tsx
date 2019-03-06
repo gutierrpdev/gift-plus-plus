@@ -34,6 +34,12 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
 
   // Set the active part and update the state
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
+
+    // Check we have a different gift part to set
+    if ((this.state !== null) && this.state.activeGiftPart === active.props.giftPart) {
+      return;
+    }
+
     // Record the active gift
     this.setState({
       activeGiftPart: active.props.giftPart,
