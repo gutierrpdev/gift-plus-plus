@@ -145,7 +145,6 @@ const StyledGiftPart = styled.div<Props>`
     flex-grow: 0;
     justify-content: center;
     min-height: 10vw;
-    background-color: #777777;
   `}
 
   // Dark overlay, not open
