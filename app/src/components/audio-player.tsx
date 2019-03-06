@@ -253,9 +253,9 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
   }
 
-  public onSeek = (e: MouseEvent) => {
-    console.log(e);
-  }
+  // public onSeek = (e: MouseEvent) => {
+  //   console.log(e);
+  // }
 
   public render() {
 
@@ -291,7 +291,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             </audio>
 
           <AudioPanelText>{this.props.text}</AudioPanelText>
-          <ProgressBar percentage={this.state.playbackPercentage} onSeek={this.onSeek} />
+          <ProgressBar percentage={this.state.playbackPercentage} /*onSeek={this.onSeek}*/ />
           <Controls>
             <SkipBack onClick={this.skipBackward}>
               <img src={require('../assets/svg/button-audio-back.svg')} />

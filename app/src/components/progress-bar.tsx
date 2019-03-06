@@ -31,14 +31,14 @@ const StyledProgressBar = styled.div`
 
 interface Props {
   percentage: number;
-  onSeek: (e: MouseEvent) => void; // todo hook up seek
+  // onSeek: (e: MouseEvent) => void; // todo hook up seek
 }
 
 const ProgressBar: React.FC<Props> = (props) => {
 
-  function handleSeek(e: MouseEvent) {
-    console.log(e);
-  }
+  // function handleSeek(e: MouseEvent) {
+  //   console.log(e);
+  // }
 
   return (
     <StyledProgressBar>
