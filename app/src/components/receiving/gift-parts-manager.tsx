@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
-import { RecipientLocation } from '../receiving/panels/choose-location';
-// import { Overlay } from '../overlay';
+
+import { assertNever } from '../../utils/helpers';
 import { Gift, GiftPart } from '../../domain';
-import { ReceiveReply } from '../receiving/receive-reply';
-import { giftThreeParts } from '../../../stories/fixtures';
+
+import { GiftPartWrapper } from './gift-part-wrapper';
+import { RecipientLocation } from '../receiving/panels/choose-location';
+
 
 /**
  * Holds and manages visual Gift Parts
  * Controls behaviours of the parts when clicked/made active
- * Gifts are passed in as an array, e.g. after loading from API
  */
 
 const StyledGiftPartsManager = styled.div`
@@ -20,123 +20,130 @@ const StyledGiftPartsManager = styled.div`
   width: 100%;
 `;
 
-export interface GiftPartsManagerProps {
+
+interface Props {
   gift: Gift;
   recipientLocation: RecipientLocation;
 }
 
-interface GiftPartsManagerState {
-  activeGiftPart: GiftPart | null;
-  giftPartWrappers?: GiftPartWrapper[];
-  allPartsRead: boolean;
-  isShowingLastPart: boolean;
-  activeGiftPartIndex: number;
+interface State {
+  status: ManagerStatus;
+  partStateMap: Map<GiftPart, GiftPartState>;
 }
 
-class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
+type ManagerStatus =
+  | { kind: 'ShowingAllParts' }
+  | { kind: 'OnePartOpen', activePart: GiftPart };
 
-  // Initial state
-  public state = {
-    activeGiftPart: null,
-    allPartsRead: false,
-    giftPartWrappers: [],
-    isShowingLastPart: false,
-    activeGiftPartIndex: -1,
-  };
+interface GiftPartState {
+  isDisabled: boolean;
+}
 
-  // Set the active part and update the state
-  public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
 
-    // Check we have a different gift part to set
-    if ((this.state !== null) && this.state.activeGiftPart === active.props.giftPart) {
-      return;
-    }
+/**
+ * Create a fresh new GiftPartsManagerState based on the provided gift.
+ */
+function mkState(gift: Gift): State {
+  const partStateMap = new Map<GiftPart, GiftPartState>();
 
-    // Record the active gift
-    this.setState({
-      activeGiftPart: active.props.giftPart,
+  gift.parts.forEach((part) => {
+    partStateMap.set(part, {
+      isDisabled: true,
     });
-  }
+  });
 
-  public showNextGiftPart = () => {
+  return {
+    status: { kind: 'ShowingAllParts' },
+    partStateMap,
+  };
+}
 
-    // Check if this is the last part
-    const isShowingLastPart = ((this.state.activeGiftPartIndex + 1) === this.props.gift.parts.length);
 
-    if (isShowingLastPart) {
-      // console.log('this is the last part');
-      this.setState({
-        // allPartsRead: true,
-      });
-    } else {
+export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
+  const [state, setState] = useState(() => mkState(gift));
 
-      // Update state to the next part
-      if (this.state.giftPartWrappers) {
-        const nextGiftPartWrapper = this.state.giftPartWrappers[this.state.activeGiftPartIndex + 1];
-        this.setActiveGiftPartWrapper(nextGiftPartWrapper);
-      }
 
-    }
-
-  }
-
-  // Render a single gift part
-  public renderPart(giftPart: GiftPart, index: number) {
-
-    // Set the status of the wrapper to define how it displays
-    let status: GiftPartWrapperStatus = 'Idle';
-
-    // Check if this part is the active one, and set status
-    if (this.state.activeGiftPart) {
-
-      // Current active gift part
-      if (giftPart === this.state.activeGiftPart) {
-        this.state.activeGiftPartIndex = index;
-        status = 'Open';
-      } else {
-        // Not our current active gift part
-        status = 'Closed';
-      }
-
-    }
-
-    // A part can open if the previous one is complete, or if its the first
-    // let canOpen = (index === 0); // First
-    // if (index > 0) {
-    //   console.log(this.state.giftPartWrappers);
-    //   const prevWrapper: GiftPartWrapper = this.state.giftPartWrappers[index - 1];
-    //   console.log(prevWrapper);
-    //   canOpen = prevWrapper.state.isComplete;
-    // }
-
-    const canOpen = true; // (index === 0);
-
-    // Output the wrapper component
+  if (state.status.kind === 'ShowingAllParts') {
     return (
-      <GiftPartWrapper
-        giftPartManager={this}
-        key={index}
-        gift={this.props.gift}
-        giftPart={giftPart}
-        giftPartIndex={index}
-        status={status}
-        canOpen={canOpen}
-        recipientLocation={this.props.recipientLocation}
-        onComplete={this.showNextGiftPart}
-      />
+      <StyledGiftPartsManager>
+        {gift.parts.map((part, idx) => {
+          const partState = state.partStateMap.get(part)!;
+
+          return (
+            <IdleGiftPart
+              key={idx}
+              part={part}
+              displaySize={'medium'}
+              isDisabled={partState.isDisabled}
+              onClick={() => setState({
+                ...state,
+                status: { kind: 'OnePartOpen', activePart: part },
+              })}
+            />
+          );
+        })}
+      </StyledGiftPartsManager>
     );
   }
 
-  public render() {
+
+  if (state.status.kind === 'OnePartOpen') {
+    const activePart = state.status.activePart;
+
     return (
       <StyledGiftPartsManager>
-        {this.props.gift.parts.map((part, idx) => this.renderPart(part, idx))}
-        <ReceiveReply gift={this.props.gift} visible={this.state.allPartsRead}  />
+        {gift.parts.map((part, idx) => {
+          const partState = state.partStateMap.get(part)!;
+
+          if (part === activePart) {
+            return (
+              <GiftPartWrapper
+                key={idx}
+                gift={gift}
+                giftPart={part}
+                recipientLocation={recipientLocation}
+                onComplete={() => { alert('TODO'); }}
+
+                giftPartIndex={idx}
+                status={'Open'}
+                canOpen={true}
+              />
+            );
+          }
+
+          return (
+            <IdleGiftPart
+              key={idx}
+              part={part}
+              displaySize={'small'}
+              isDisabled={partState.isDisabled}
+              onClick={() => setState({
+                ...state,
+                status: { kind: 'OnePartOpen', activePart: part },
+              })}
+            />
+          );
+        })}
       </StyledGiftPartsManager>
-        );
+    );
   }
+
+  return assertNever(state.status);
+};
+
+
+
+interface IdleGiftPartProps {
+  part: GiftPart;
+  displaySize: 'small' | 'medium';
+  isDisabled: boolean;
+  onClick: () => void;
 }
 
-export {
-  GiftPartsManager,
+const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
+  return (
+    <button onClick={props.onClick} >
+      <pre>{JSON.stringify(props, null, 2)}</pre>
+    </button>
+  );
 };

@@ -82,10 +82,10 @@ const whiteText = {
 // const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
 
 // Create this instance to keep TypeScript happy
-const giftPartManager = new GiftPartsManager({
-  gift: giftThreeParts,
-  recipientLocation: 'AtMuseum',
-});
+/* const giftPartManager = new GiftPartsManager({
+ *   gift: giftThreeParts,
+ *   recipientLocation: 'AtMuseum',
+ * }); */
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
@@ -98,19 +98,19 @@ storiesOf('Components', module)
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
-  .add('Gift Part', () => (
-    <GiftPartWrapper
-      giftPartManager={giftPartManager}
-      gift={giftThreeParts}
-      giftPart={giftPart}
-      giftPartIndex={0}
-      status={'Open'}
-      canOpen={true}
-      onClick={doNothing}
-      onComplete={doNothing}
-      recipientLocation={'AtMuseum'}
-    />
-  ))
+/* .add('Gift Part', () => (
+ *   <GiftPartWrapper
+ *     giftPartManager={giftPartManager}
+ *     gift={giftThreeParts}
+ *     giftPart={giftPart}
+ *     giftPartIndex={0}
+ *     status={'Open'}
+ *     canOpen={true}
+ *     onClick={doNothing}
+ *     onComplete={doNothing}
+ *     recipientLocation={'AtMuseum'}
+ *   />
+ * )) */
   .add('Gift Parts', () => (
     <ScreenManager>
       <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />

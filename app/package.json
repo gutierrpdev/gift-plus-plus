@@ -24,7 +24,7 @@
   },
   "scripts": {
     "typecheck": "yarn tsc",
-    "lint": "yarn tslint --project ./tsconfig.json",
+    "lint": "yarn tslint --project ./tsconfig.json --format verbose",
     "start-app": "yarn cleanup; yarn parcel ./src/index.html -p 8000",
     "start-storybook": "start-storybook -p 9000 -s public",
     "build-app": "yarn cleanup; yarn parcel build ./src/index.html",

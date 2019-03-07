@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Gift, GiftPart } from '../../domain';
 import { romanFromDecimal } from '../../themes/global';
-import { GiftPartsManager } from './gift-parts-manager';
+/* import { GiftPartsManager } from './gift-parts-manager'; */
 import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingPartContent } from './panels/part-content';
 // import { GiftPartImageReveal } from '../panel-image-reveal';
@@ -18,14 +18,12 @@ import { RecipientLocation } from '../receiving/panels/choose-location';
 export type GiftPartWrapperStatus = 'Idle' | 'Open' | 'Closed';
 
 export interface Props {
-  giftPartManager: GiftPartsManager;
   gift: Gift;
-  giftPart: GiftPart; // Pass in the part as well as the gift for props
+  giftPart: GiftPart;
   giftPartIndex: number;
   status: GiftPartWrapperStatus;
   canOpen: boolean; // Can this part be opened yet?
   recipientLocation: RecipientLocation;
-  onClick?: (giftPartWrapper: any) => void;
   onComplete: () => void;
 }
 
@@ -114,17 +112,6 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     isComplete: false,
   };
 
-  // Inform the wrapper, todo this should be handled by the parent on click
-  public handleClick = () => {
-
-    if (this.props.canOpen) {
-      this.props.giftPartManager.setActiveGiftPartWrapper(this);
-    }
-
-    // this.setState({
-    //   hasOpened: true,
-    // });
-  }
 
   // Go to the next panel in the list
   public nextPanel = () => {
@@ -241,7 +228,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       'Black' : 'White';
 
     return (
-      <StyledGiftPart {...this.props} onClick={this.handleClick}>
+      <StyledGiftPart {...this.props} >
 
         <Gradient />
 
