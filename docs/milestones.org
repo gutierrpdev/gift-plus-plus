@@ -22,8 +22,8 @@
    - [X] Config
    - [X] CI to deploy to staging
 
-** TODO Initial gift receiving [3/6] <2019-03-01 Fri>
-   DEADLINE: <2019-03-01 Fri>
+** TODO Gift receiving [3/6] <2019-03-08 Fri>
+   DEADLINE: <2019-03-08 Fri>
    - [X] Visit unique url for gift
    - [X] Pre-Load gift data from api
    - [X] Pre-Load gift media
@@ -34,8 +34,8 @@
    - [ ] Work offline after first load
    - [ ] UI + Logic wired up
 
-** TODO Initial gift creation [0/6] <2019-03-15 Fri>
-   DEADLINE: <2019-03-15 Fri>
+** TODO Gift creation [0/6] <2019-03-29 Fri>
+   DEADLINE: <2019-03-29 Fri>
    - [ ] Work offline
    - [ ] Create multiple gift parts
      - Text
@@ -49,8 +49,8 @@
      - Email
      - WhatsApp
 
-** TODO Account management (unskinned) [0/7] <2019-04-05 Fri>
-   DEADLINE: <2019-04-05 Fri>
+** TODO Account management (unskinned) [0/7] <2019-04-19 Fri>
+   DEADLINE: <2019-04-19 Fri>
    - [ ] Sign-up
    - [ ] Login
    - [ ] Logout
@@ -66,6 +66,7 @@
    DEADLINE: <2019-04-26 Fri>
    - [ ] Record / Enter a response (TBD)
    - [ ] Notify about response
+     - Email the gift creator, but don't share respondants email address with them
    - [ ] View response
 
 ** TODO Production set up [0/1] <2019-05-03 Fri>
