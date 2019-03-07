@@ -55,8 +55,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   function gotoEndOfGiftPart() {
     alert('This part is complete');
-    if (props.doComplete) {
-      props.doComplete();
+    if (props.onComplete) {
+      props.onComplete();
     }
   }
 
@@ -83,8 +83,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
 
     // todo check for last section and continue
-    // if (props.doComplete) {
-    //   props.doComplete();
+    // if (props.onComplete) {
+    //   props.onComplete();
     // }
   }
 

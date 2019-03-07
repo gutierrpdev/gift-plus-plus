@@ -25,8 +25,8 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
   function handleContinue() {
 
     // todo: check for skip in global state, show button below
-    if (panelProps.doComplete) {
-      panelProps.doComplete();
+    if (panelProps.onComplete) {
+      panelProps.onComplete();
     }
   }
 

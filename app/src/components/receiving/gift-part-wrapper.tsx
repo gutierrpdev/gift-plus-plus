@@ -5,11 +5,11 @@ import { Gift, GiftPart } from '../../domain';
 import { romanFromDecimal } from '../../themes/global';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingIntroContent } from './panels/intro-content';
-import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
 import { ReceivingPartContent } from './panels/part-content';
 // import { GiftPartImageReveal } from '../panel-image-reveal';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
+import {GiftLocation } from '../receiving/panels/choose-location';
 
 /**
  * Visual wrapper for a gift part
@@ -23,14 +23,17 @@ export interface Props {
   giftPart: GiftPart; // Pass in the part as well as the gift for props
   giftPartIndex: number;
   status: GiftPartWrapperStatus;
+  canOpen: boolean; // Can this part be opened yet?
+  giftLocation: GiftLocation;
   onClick?: (giftPartWrapper: any) => void;
-  doComplete: () => void;
+  onComplete: () => void;
 }
 
 interface State {
-  activePanelIndex: number;
-  giftLocation: GiftLocation;
+  activePanelIndex: number; // Which panel is active
   audioIntroPlayed: boolean;
+  hasOpened: boolean;  // Has this part ever been opened?
+  isComplete: boolean; // Has the reader finsihed consuming this part
 }
 
 const StyledGiftPart = styled.div<Props>`
@@ -79,7 +82,7 @@ const StyledGiftPart = styled.div<Props>`
 
   // Dark overlay, not open
   ${(props: Props) =>
-    props.giftPartIndex > 0 && `
+    !props.canOpen && `
     &:before {
       filter: grayscale(60%) blur(5px);
     }
@@ -106,13 +109,21 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   public state = {
     activePanelIndex: 0,
-    giftLocation: GiftLocation.Unknown,
     audioIntroPlayed: false,
+    hasOpened: false,
+    isComplete: false,
   };
 
   // Inform the wrapper, todo this should be handled by the parent on click
   public handleClick = () => {
-    this.props.giftPartManager.setActiveGiftPartWrapper(this);
+
+    if (this.props.canOpen) {
+      this.props.giftPartManager.setActiveGiftPartWrapper(this);
+    }
+
+    // this.setState({
+    //   hasOpened: true,
+    // });
   }
 
   // Go to the next panel in the list
@@ -121,9 +132,14 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     // Are we at the last panel?
     if ( (this.state.activePanelIndex + 1) === this.panelCount) {
 
-      // We are at the last panel so doComplete
-      if (this.props.doComplete) {
-        this.props.doComplete();
+      // Mark this part as complete
+      this.setState({
+        isComplete: true,
+      });
+
+      // We are at the last panel so onComplete
+      if (this.props.onComplete) {
+        this.props.onComplete();
       }
 
     } else {
@@ -140,10 +156,6 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   }
 
-  // Sets the location
-  public handleSetLocation = (giftLocation: GiftLocation) => {
-    this.setState({giftLocation});
-  }
 
   // Sets the audio intro having been played
   public handleIntroAudioPlayed = () => {
@@ -165,45 +177,38 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       // Render the correct content based on our gift part index [0,1,2]
       switch (this.props.giftPartIndex) {
         case 0 :
-          this.panelCount = 3;
+          this.panelCount = 2;
           return (
             <>
               {index === 0 &&
-              <ReceivingChooseLocation
-                doComplete={this.nextPanel}
-                doSetLocation={this.handleSetLocation}
-              />}
-              {index === 1 &&
               <ReceivingIntroContent
-                doComplete={this.nextPanel}
-                giftLocation={this.state.giftLocation}
+                onComplete={this.nextPanel}
+                giftLocation={this.props.giftLocation}
                 audioIntroPlayed={this.state.audioIntroPlayed}
                 handleAudioIntroPlayed={this.handleIntroAudioPlayed}
               />}
-              {index === 2 &&
+              {index === 1 &&
               <ReceivingPartContent
                 gift={this.props.gift}
                 giftPartIndex={this.props.giftPartIndex}
-                doComplete={this.nextPanel}
-                giftLocation={this.state.giftLocation}
+                onComplete={this.nextPanel}
+                giftLocation={this.props.giftLocation}
               />}
             </>
           );
-          break;
         case 1 :
-          return (
-            <>
-            </>
-          );
-          break;
         case 2 :
+          this.panelCount = 1;
           return (
-            <>
-            </>
+            <ReceivingPartContent
+              gift={this.props.gift}
+              giftPartIndex={this.props.giftPartIndex}
+              onComplete={this.nextPanel}
+              giftLocation={this.props.giftLocation}
+            />
           );
-          break;
         default :
-            return null;
+          return null;
       }
 
     } else {

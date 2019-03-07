@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
+import {GiftLocation } from '../receiving/panels/choose-location';
 // import { Overlay } from '../overlay';
 import { Gift, GiftPart } from '../../domain';
 import { ReceiveReply } from '../receiving/receive-reply';
@@ -21,6 +22,7 @@ const StyledGiftPartsManager = styled.div`
 
 export interface GiftPartsManagerProps {
   gift: Gift;
+  giftLocation: GiftLocation;
   onClick?: () => void;
 }
 
@@ -28,6 +30,8 @@ interface GiftPartsManagerState {
   activeGiftPart?: GiftPart | null;
   giftPartWrappers?: GiftPartWrapper[];
   allPartsRead: boolean;
+  isShowingLastPart: boolean;
+  activeGiftPartIndex: number;
 }
 
 class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPartsManagerState> {
@@ -37,10 +41,9 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     activeGiftPart: null,
     allPartsRead: false,
     giftPartWrappers: [],
+    isShowingLastPart: false,
+    activeGiftPartIndex: -1,
   };
-
-  public isShowingLastPart: boolean = false;
-  public activeGiftPartIndex: number = -1;
 
   // Set the active part and update the state
   public setActiveGiftPartWrapper = (active: GiftPartWrapper) => {
@@ -63,18 +66,18 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
   public showNextGiftPart = () => {
 
     // Check if this is the last part
-    const isShowingLastPart = ((this.activeGiftPartIndex + 1) === this.props.gift.parts.length);
+    const isShowingLastPart = ((this.state.activeGiftPartIndex + 1) === this.props.gift.parts.length);
 
     if (isShowingLastPart) {
       // console.log('this is the last part');
       this.setState({
-        allPartsRead: true,
+        // allPartsRead: true,
       });
     } else {
 
       // Update state to the next part
       if (this.state.giftPartWrappers) {
-        const nextGiftPartWrapper = this.state.giftPartWrappers[this.activeGiftPartIndex + 1];
+        const nextGiftPartWrapper = this.state.giftPartWrappers[this.state.activeGiftPartIndex + 1];
         this.setActiveGiftPartWrapper(nextGiftPartWrapper);
       }
 
@@ -95,15 +98,27 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
         // Check if this part is the active one, and set status
         if (this.state && this.state.activeGiftPart) {
 
+          // Current active gift part
           if (giftPart === this.state.activeGiftPart) {
-
-            this.activeGiftPartIndex = index;
-
+            this.state.activeGiftPartIndex = index;
             status = GiftPartWrapperStatus.Open;
           } else {
+          // Not our current active gift part
             status = GiftPartWrapperStatus.Closed;
           }
+
         }
+
+        // A part can open if the previous one is complete, or if its the first
+        // let canOpen = (index === 0); // First
+        // if (index > 0) {
+        //   console.log(this.state.giftPartWrappers);
+        //   const prevWrapper: GiftPartWrapper = this.state.giftPartWrappers[index - 1];
+        //   console.log(prevWrapper);
+        //   canOpen = prevWrapper.state.isComplete;
+        // }
+
+        const canOpen = true; // (index === 0);
 
         // Output the wrapper component
         return (
@@ -114,7 +129,9 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
             giftPart={giftPart}
             giftPartIndex={index}
             status={status}
-            doComplete={this.showNextGiftPart}
+            canOpen={canOpen}
+            giftLocation={this.props.giftLocation}
+            onComplete={this.showNextGiftPart}
           />
         );
       })

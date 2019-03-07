@@ -22,7 +22,7 @@ import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
 
 // Screens
-import { ReceiveGift } from '../src/screens/receive-gift';
+import { ReceiveGift } from '../src/components/receiving/receive-gift';
 import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
 
@@ -82,7 +82,11 @@ const whiteText = {
 // const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
 
 // Create this instance to keep TypeScript happy
-const giftPartManager = new GiftPartsManager({gift: giftThreeParts, onClick: doNothing});
+const giftPartManager = new GiftPartsManager({
+  gift: giftThreeParts,
+  onClick: doNothing,
+  giftLocation: GiftLocation.AtMuseum,
+});
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
@@ -102,13 +106,15 @@ storiesOf('Components', module)
       giftPart={giftPart}
       giftPartIndex={0}
       status={GiftPartWrapperStatus.Open}
+      canOpen={true}
       onClick={doNothing}
-      doComplete={doNothing}
+      onComplete={doNothing}
+      giftLocation={GiftLocation.AtMuseum}
     />
   ))
   .add('Gift Parts', () => (
     <ScreenManager>
-      <GiftPartsManager gift={giftThreeParts} />
+      <GiftPartsManager gift={giftThreeParts} giftLocation={GiftLocation.AtMuseum} />
     </ScreenManager>
   ))
   .add('Panel Prompt text', () => (
@@ -223,11 +229,11 @@ function doNothing() {
 // ;
 
 storiesOf('Receiving/Part 1', module)
-  .add('Choose location', () => <ReceivingChooseLocation doSetLocation={doNothing} />)
+  .add('Choose location', () => <ReceivingChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
   .add('Intro', () => (
     <ReceivingIntroContent
       visible={true}
-      doComplete={doNothing}
+      onComplete={doNothing}
       giftLocation={GiftLocation.AtMuseum}
       audioIntroPlayed={true}
       handleAudioIntroPlayed={doNothing}
@@ -238,7 +244,7 @@ storiesOf('Receiving/Part 1', module)
       visible={true}
       gift={giftThreeParts}
       giftPartIndex={0}
-      doComplete={doNothing}
+      onComplete={doNothing}
       giftLocation={GiftLocation.AtMuseum}
     />
   ))
