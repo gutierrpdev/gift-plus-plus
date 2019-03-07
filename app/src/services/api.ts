@@ -7,6 +7,9 @@ import {
   getGiftResponseSchema,
 } from '../common/api-schema';
 
+// TEMP: Mock Data
+import { mockGifts } from './mock';
+
 
 // We re-export any types the Api is responsible for from here.
 export type CreateGiftResponse = CreateGiftResponse;
@@ -27,6 +30,9 @@ export class Api {
 
 
   public async getGift(giftId: string): Promise<ApiResult<GetGiftResponse>> {
+    // TEMP: Mock Data
+    if (mockGifts.has(giftId)) return { kind: 'ok', data: mockGifts.get(giftId)! };
+
     const url = `${this.apiUrl}/gift/${giftId}`;
     const request = new Request(url);
     return getApiResult<GetGiftResponse>(request, getGiftResponseSchema);
