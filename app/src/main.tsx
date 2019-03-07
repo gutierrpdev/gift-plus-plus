@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
-import { ReceiveGiftWip } from './screens/receive-gift-wip';
+import { ReceiveGiftScreen } from './screens/receive-gift';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -21,7 +21,7 @@ export const Main: React.FC = () => (
       </Route>
 
       <Route path='/gift/:giftId'>
-        <ReceiveGiftWip />
+        <ReceiveGiftScreen />
       </Route>
 
       <Route>

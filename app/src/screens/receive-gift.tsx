@@ -1,105 +1,71 @@
+/* import axios from 'axios'; */
 import React from 'react';
+import useReactRouter from 'use-react-router';
 
-import { Gift } from '../domain';
-import { GlobalStyles, NoScroll } from '../themes/global';
-import { ScreenManager } from '../components/screen-manager';
-import { ScreenHeader, ScreenHeaderSize } from '../components/screen-header';
-import { GiftPartsManager } from '../components/receiving/gift-parts-manager';
-import { Button } from '../components/buttons';
+import { useAsync } from '../utils/use-async';
+import { usePreload, totalProgress } from '../utils/use-preload';
+import { getLogger } from '../utils/logging';
+
+import { api } from '../services';
+import { GetGiftResponse } from '../services/api';
+
+import { ReceiveGift } from '../components/receiving/receive-gift';
+
+
+const logger = getLogger('receive-gift');
+
 
 /**
- * Gift Receive screen
+ *
  */
+function extractAssetUrls(giftData: GetGiftResponse): string[] {
+  const urls = giftData.parts.reduce<Set<string>>(
+    (urls, part) => { // tslint:disable-line no-shadowed-variable
+      urls.add(part.note);
+      urls.add(part.photo);
+      return urls;
+    },
+    new Set(),
+  );
 
-// Current status of this screen
-enum ReceiveGiftStatus {'OpenOrSave', 'SelectPart', 'PartOpen'}
-
-interface Props {
-  gift: Gift;
-  museumName: string;
-
+  return Array.from(urls);
 }
 
-interface State {
-  status: ReceiveGiftStatus;
-}
 
-class ReceiveGift extends React.PureComponent<Props, State> {
+export const ReceiveGiftScreen: React.FC = () => {
+  const { match } = useReactRouter<{ giftId: string }>();
+  const { giftId } = match.params;
 
-  public static defaultProps = {
-    // gift: null,
-    // museumName: '',
-  };
+  const [getGiftTask] = useAsync(() => api.getGift(giftId), [giftId]);
 
-  public state = {
-    status: ReceiveGiftStatus.OpenOrSave,
-  };
+  const assetUrls = (getGiftTask.kind === 'success' && getGiftTask.result.kind === 'ok')
+                  ? extractAssetUrls(getGiftTask.result.data)
+                  : [];
 
-  // Gift has been opened
-  public openGift = () => {
-    this.setState({
-      status: ReceiveGiftStatus.SelectPart,
-    });
+  const [preloadState] = usePreload(assetUrls);
+
+
+  if (getGiftTask.kind === 'running') return <h1>Loading (Gift): TODO</h1>;
+  if (getGiftTask.kind === 'failure') return <h1>Error (Gift): TODO</h1>;
+
+  const apiResult = getGiftTask.result;
+
+  if (apiResult.kind === 'http-error' && apiResult.response.status === 404) {
+    return <h1>NotFound (Gift): TODO</h1>;
   }
+  if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
 
-  // Save for later
-  public saveForLater = () => {
-    // todo
-    alert('I would go somewhere else now....');
-  }
-
-  // Open gift part
-  public openGiftPart = () => {
-    this.setState({
-      status: ReceiveGiftStatus.PartOpen,
-    });
-  }
-
-  // Return the correct content based on status
-  public renderContent() {
-    switch (this.state.status) {
-      case ReceiveGiftStatus.OpenOrSave:
-        return this.renderOpenOrSave();
-      case ReceiveGiftStatus.SelectPart:
-      case ReceiveGiftStatus.PartOpen:
-        return this.renderGiftParts();
-      default :
-        return null; // be nice
-    }
-  }
-
-  public renderOpenOrSave() {
+  if (preloadState.status === 'running') {
     return (
-      <div>
-        <Button onClick={this.openGift}>Open it now</Button>
-        <Button onClick={this.saveForLater}>Save for later</Button>
-      </div>
+      <>
+        <h1>Loading (Assets): {Math.round(totalProgress(preloadState) * 100)}%</h1>
+        <pre>{JSON.stringify(Array.from(preloadState.urlProgress.entries()), null, 2)}</pre>
+      </>
     );
   }
+  if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
 
-  public renderGiftParts() {
-    return <GiftPartsManager gift={this.props.gift} onClick={this.openGiftPart} />;
-  }
-
-  public render() {
-
-    // The header size is based on our current state
-    const headerSize = this.state.status === ReceiveGiftStatus.PartOpen ? ScreenHeaderSize.Small : ScreenHeaderSize.Big;
-
-    return (
-
-    <ScreenManager>
-      <GlobalStyles />
-      <NoScroll />
-
-      <ScreenHeader gift={this.props.gift} title={this.props.museumName} size={headerSize} />
-      {this.renderContent()}
-    </ScreenManager>
-    );
-  }
-}
-
-
-export {
-  ReceiveGift,
+  const giftResponse = apiResult.data;
+  // return <pre>{JSON.stringify(giftResponse, null, 2)}</pre>;
+  return <ReceiveGift gift={giftResponse} museumName={'Brighton & Hove Museum'} />;
 };
