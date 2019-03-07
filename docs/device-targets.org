@@ -5,7 +5,6 @@
    - Modern Firefox
 
 ** Windows
-   - IE 11
    - Modern Edge
    - Modern Chrome
    - Modern Firefox
