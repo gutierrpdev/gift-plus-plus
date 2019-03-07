@@ -14,7 +14,8 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-
+  # Need a full-featured version of tar, rather than busybox one
+  - apk --no-cache add --virtual tar
 
 # ========
 # FRONTEND
@@ -28,9 +29,10 @@ build-frontend:
     NODE_ENV: staging
     BABEL_ENV: production
   script:
-    # Build the projects
-    - docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=app --tag $APP_IMAGE -f ./app/Dockerfile ./app
-    - docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=storybook --tag $STORYBOOK_IMAGE -f ./app/Dockerfile ./app
+    # Build the projects (we pass the context via tar so we can deference symlinks)
+    - cd app
+    - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=app --tag $APP_IMAGE -
+    - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=storybook --tag $STORYBOOK_IMAGE -
 
     # Push new images to registry
     - docker tag $APP_IMAGE $APP_IMAGE:$CI_COMMIT_SHORT_SHA
@@ -86,9 +88,10 @@ build-backend:
   services:
     - docker:dind
   script:
-    # Build the projects
-    - docker build --pull --target=build --tag $API_TEST_IMAGE -f ./api/Dockerfile ./api
-    - docker build --pull --target=release --tag $API_RELEASE_IMAGE -f ./api/Dockerfile ./api
+    # Build the projects (we pass the context via tar so we can deference symlinks)
+    - cd api
+    - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --target=build --tag $API_TEST_IMAGE -
+    - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --target=release --tag $API_RELEASE_IMAGE -
 
     # Push new images to registry
     - docker tag $API_TEST_IMAGE $API_TEST_IMAGE:$CI_COMMIT_SHORT_SHA
