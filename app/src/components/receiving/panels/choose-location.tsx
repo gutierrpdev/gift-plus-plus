@@ -9,12 +9,12 @@ import { Buttons, Button } from '../../buttons';
  */
 
  // Define our receiving locations
-export type GiftLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
+export type RecipientLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
 
 // Extend panel props with extras
 export interface ChooseLocationProps extends PanelProps {
   museumName: string;
-  doSetLocation: (giftLocation: GiftLocation) => void; // Callback to the parent
+  doSetLocation: (recipientLocation: RecipientLocation) => void; // Callback to the parent
 }
 
 // Todo : finish question

@@ -9,7 +9,7 @@ import { ReceivingPartContent } from './panels/part-content';
 // import { GiftPartImageReveal } from '../panel-image-reveal';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
-import {GiftLocation } from '../receiving/panels/choose-location';
+import { RecipientLocation } from '../receiving/panels/choose-location';
 
 /**
  * Visual wrapper for a gift part
@@ -24,7 +24,7 @@ export interface Props {
   giftPartIndex: number;
   status: GiftPartWrapperStatus;
   canOpen: boolean; // Can this part be opened yet?
-  giftLocation: GiftLocation;
+  recipientLocation: RecipientLocation;
   onClick?: (giftPartWrapper: any) => void;
   onComplete: () => void;
 }
@@ -183,7 +183,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
               {index === 0 &&
               <ReceivingIntroContent
                 onComplete={this.nextPanel}
-                giftLocation={this.props.giftLocation}
+                recipientLocation={this.props.recipientLocation}
                 audioIntroPlayed={this.state.audioIntroPlayed}
                 handleAudioIntroPlayed={this.handleIntroAudioPlayed}
               />}
@@ -192,7 +192,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
                 gift={this.props.gift}
                 giftPartIndex={this.props.giftPartIndex}
                 onComplete={this.nextPanel}
-                giftLocation={this.props.giftLocation}
+                recipientLocation={this.props.recipientLocation}
               />}
             </>
           );
@@ -204,7 +204,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
               gift={this.props.gift}
               giftPartIndex={this.props.giftPartIndex}
               onComplete={this.nextPanel}
-              giftLocation={this.props.giftLocation}
+              recipientLocation={this.props.recipientLocation}
             />
           );
         default :

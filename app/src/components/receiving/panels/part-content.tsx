@@ -5,7 +5,7 @@ import { PanelPrompt } from '../../panel-prompt';
 import { PanelImage } from '../../panel-image';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
-import { GiftLocation } from './choose-location';
+import { RecipientLocation } from './choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
 
@@ -17,7 +17,7 @@ import { WaitThen } from '../../wait-then';
 export interface PartContentProps extends PanelProps {
   gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
-  giftLocation: GiftLocation;
+  recipientLocation: RecipientLocation;
 }
 
 // Todo : finish question

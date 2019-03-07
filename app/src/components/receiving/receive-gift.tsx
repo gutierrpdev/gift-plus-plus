@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { assertNever } from '../../utils/helpers';
+
 import { Gift } from '../../domain';
 import { GlobalStyles, NoScroll } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
-import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
+import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
 import { Button } from '../buttons';
 
 /**
@@ -13,7 +15,7 @@ import { Button } from '../buttons';
  */
 
 // Current status of this screen
-type ReceiveGiftStatus = 'OpenOrSave' | 'SelectLocation' | 'SelectPart' | 'PartOpen';
+type ReceiveGiftStatus = 'OpenOrSave' | 'SelectLocation' | 'ShowingParts';
 
 interface Props {
   gift: Gift;
@@ -22,19 +24,14 @@ interface Props {
 
 interface State {
   status: ReceiveGiftStatus;
-  giftLocation: GiftLocation;
+  recipientLocation: RecipientLocation;
 }
 
 class ReceiveGift extends React.PureComponent<Props, State> {
 
-  public static defaultProps = {
-    // gift: null,
-    // museumName: '',
-  };
-
   public state: State = {
     status: 'OpenOrSave',
-    giftLocation: 'Unknown',
+    recipientLocation: 'Unknown',
   };
 
   // Gift has been opened
@@ -50,20 +47,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     alert('I would go somewhere else now....');
   }
 
-  // Open gift part
-  public openGiftPart = () => {
-    this.setState({
-      status: 'SelectPart',
-    });
-  }
-
   // Sets the location
-  public handleSetLocation = (giftLocation: GiftLocation) => {
+  public handleSetLocation = (recipientLocation: RecipientLocation) => {
 
     // Store this
     this.setState({
-      giftLocation,
-      status: 'SelectPart',
+      recipientLocation,
+      status: 'ShowingParts',
     });
 
     // Update to next stage
@@ -76,11 +66,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
         return this.renderOpenOrSave();
       case 'SelectLocation':
         return this.renderSelectLocation();
-      case 'SelectPart':
-      case 'PartOpen':
+      case 'ShowingParts':
         return this.renderGiftParts();
-      default :
-        return null; // be nice
+      default:
+        return assertNever(this.state.status);
     }
   }
 
@@ -97,8 +86,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     return (
       <GiftPartsManager
         gift={this.props.gift}
-        onClick={this.openGiftPart}
-        giftLocation={this.state.giftLocation}
+        recipientLocation={this.state.recipientLocation}
       />
     );
   }

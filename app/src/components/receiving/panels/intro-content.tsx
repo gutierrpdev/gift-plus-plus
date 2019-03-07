@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
-import { GiftLocation } from './choose-location';
+import { RecipientLocation } from './choose-location';
 
 /***
  * Show the intro content
@@ -11,7 +11,7 @@ import { GiftLocation } from './choose-location';
 
 // Extend panel props with extras
 export interface IntroContentProps extends PanelProps {
-  giftLocation: GiftLocation;
+  recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
   handleAudioIntroPlayed: () => void;
 }
@@ -19,7 +19,7 @@ export interface IntroContentProps extends PanelProps {
 // Todo : finish question
 const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
 
-  const atMuseum = (panelProps.giftLocation === 'AtMuseum');
+  const atMuseum = (panelProps.recipientLocation === 'AtMuseum');
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
   function handleContinue() {

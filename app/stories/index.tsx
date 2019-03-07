@@ -27,7 +27,7 @@ import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
 
 // Receiving Part 1
-import { ReceivingChooseLocation, GiftLocation } from '../src/components/receiving/panels/choose-location';
+import { ReceivingChooseLocation, RecipientLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 
@@ -84,8 +84,7 @@ const whiteText = {
 // Create this instance to keep TypeScript happy
 const giftPartManager = new GiftPartsManager({
   gift: giftThreeParts,
-  onClick: doNothing,
-  giftLocation: 'AtMuseum',
+  recipientLocation: 'AtMuseum',
 });
 
 storiesOf('Components', module)
@@ -109,12 +108,12 @@ storiesOf('Components', module)
       canOpen={true}
       onClick={doNothing}
       onComplete={doNothing}
-      giftLocation={'AtMuseum'}
+      recipientLocation={'AtMuseum'}
     />
   ))
   .add('Gift Parts', () => (
     <ScreenManager>
-      <GiftPartsManager gift={giftThreeParts} giftLocation={'AtMuseum'} />
+      <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />
     </ScreenManager>
   ))
   .add('Panel Prompt text', () => (
@@ -234,7 +233,7 @@ storiesOf('Receiving/Part 1', module)
     <ReceivingIntroContent
       visible={true}
       onComplete={doNothing}
-      giftLocation={'AtMuseum'}
+      recipientLocation={'AtMuseum'}
       audioIntroPlayed={true}
       handleAudioIntroPlayed={doNothing}
     />
@@ -245,7 +244,7 @@ storiesOf('Receiving/Part 1', module)
       gift={giftThreeParts}
       giftPartIndex={0}
       onComplete={doNothing}
-      giftLocation={'AtMuseum'}
+      recipientLocation={'AtMuseum'}
     />
   ))
   .add('Reply', () => (

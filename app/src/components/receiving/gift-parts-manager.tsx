@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { GiftPartWrapper, GiftPartWrapperStatus } from './gift-part-wrapper';
-import {GiftLocation } from '../receiving/panels/choose-location';
+import { RecipientLocation } from '../receiving/panels/choose-location';
 // import { Overlay } from '../overlay';
 import { Gift, GiftPart } from '../../domain';
 import { ReceiveReply } from '../receiving/receive-reply';
@@ -22,12 +22,11 @@ const StyledGiftPartsManager = styled.div`
 
 export interface GiftPartsManagerProps {
   gift: Gift;
-  giftLocation: GiftLocation;
-  onClick?: () => void;
+  recipientLocation: RecipientLocation;
 }
 
 interface GiftPartsManagerState {
-  activeGiftPart?: GiftPart | null;
+  activeGiftPart: GiftPart | null;
   giftPartWrappers?: GiftPartWrapper[];
   allPartsRead: boolean;
   isShowingLastPart: boolean;
@@ -57,10 +56,6 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
     this.setState({
       activeGiftPart: active.props.giftPart,
     });
-
-    if (this.props.onClick) {
-      this.props.onClick();
-    }
   }
 
   public showNextGiftPart = () => {
@@ -85,66 +80,60 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
 
   }
 
-  // Render the parts
-  public renderParts() {
+  // Render a single gift part
+  public renderPart(giftPart: GiftPart, index: number) {
 
+    // Set the status of the wrapper to define how it displays
+    let status: GiftPartWrapperStatus = 'Idle';
+
+    // Check if this part is the active one, and set status
+    if (this.state.activeGiftPart) {
+
+      // Current active gift part
+      if (giftPart === this.state.activeGiftPart) {
+        this.state.activeGiftPartIndex = index;
+        status = 'Open';
+      } else {
+        // Not our current active gift part
+        status = 'Closed';
+      }
+
+    }
+
+    // A part can open if the previous one is complete, or if its the first
+    // let canOpen = (index === 0); // First
+    // if (index > 0) {
+    //   console.log(this.state.giftPartWrappers);
+    //   const prevWrapper: GiftPartWrapper = this.state.giftPartWrappers[index - 1];
+    //   console.log(prevWrapper);
+    //   canOpen = prevWrapper.state.isComplete;
+    // }
+
+    const canOpen = true; // (index === 0);
+
+    // Output the wrapper component
     return (
-      // Iterate each of the gift parts and generate a wrapper for it
-      this.props.gift.parts.map((giftPart, index) => {
-
-        // Set the status of the wrapper to define how it displays
-        let status: GiftPartWrapperStatus = 'Idle';
-
-        // Check if this part is the active one, and set status
-        if (this.state && this.state.activeGiftPart) {
-
-          // Current active gift part
-          if (giftPart === this.state.activeGiftPart) {
-            this.state.activeGiftPartIndex = index;
-            status = 'Open';
-          } else {
-          // Not our current active gift part
-            status = 'Closed';
-          }
-
-        }
-
-        // A part can open if the previous one is complete, or if its the first
-        // let canOpen = (index === 0); // First
-        // if (index > 0) {
-        //   console.log(this.state.giftPartWrappers);
-        //   const prevWrapper: GiftPartWrapper = this.state.giftPartWrappers[index - 1];
-        //   console.log(prevWrapper);
-        //   canOpen = prevWrapper.state.isComplete;
-        // }
-
-        const canOpen = true; // (index === 0);
-
-        // Output the wrapper component
-        return (
-          <GiftPartWrapper
-            giftPartManager={this}
-            key={index}
-            gift={this.props.gift}
-            giftPart={giftPart}
-            giftPartIndex={index}
-            status={status}
-            canOpen={canOpen}
-            giftLocation={this.props.giftLocation}
-            onComplete={this.showNextGiftPart}
-          />
-        );
-      })
+      <GiftPartWrapper
+        giftPartManager={this}
+        key={index}
+        gift={this.props.gift}
+        giftPart={giftPart}
+        giftPartIndex={index}
+        status={status}
+        canOpen={canOpen}
+        recipientLocation={this.props.recipientLocation}
+        onComplete={this.showNextGiftPart}
+      />
     );
   }
 
   public render() {
     return (
       <StyledGiftPartsManager>
-        {this.renderParts()}
+        {this.props.gift.parts.map((part, idx) => this.renderPart(part, idx))}
         <ReceiveReply gift={this.props.gift} visible={this.state.allPartsRead}  />
       </StyledGiftPartsManager>
-    );
+        );
   }
 }
 
