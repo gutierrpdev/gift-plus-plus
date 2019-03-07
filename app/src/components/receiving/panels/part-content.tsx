@@ -143,6 +143,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return giftPartCount === 1 ?
           'This is a sneak peek of your gift.' :
           'This is a sneak peek of the first object in your gift.';
+      case 1 :
+        return 'Here’s a preview of the second object in your gift...';
+      case 2 :
+        return 'Here’s a glimpse of your last object...';
       default :
         return '';
     }
@@ -154,6 +158,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return 'Do you know where to look?';
       case 1 :
         return 'Any ideas?';
+      case 2 :
+        return 'Time to see if you can track it down.';
       default :
         return '';
     }
@@ -165,6 +171,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return 'Wander round and tap OK when you find it.';
       case 1 :
         return 'Take a wander, when you find it – tap OK';
+      case 2 :
+        return 'Tap OK when you find it.';
       default :
         return '';
     }
@@ -176,6 +184,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return 'Stuck? Try asking someone in the museum';
       case 1 :
         return 'Oh dear. Find someone in the museum to help?';
+      case 2 :
+        return 'The last one! Ask someone in the museum.';
       default :
         return '';
     }
@@ -187,12 +197,17 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         // Text changes based on gift count and sender name
         const partCount = giftPartCount > 1 ? 'first' : '';
         return `Play ${giftSenderName}’s ${partCount} message...`;
+      case 1 :
+        return `Play ${giftSenderName}’s message...`;
+      case 2 :
+        return `Play ${giftSenderName}’s final message...`;
       default :
         return '';
     }
   }
 
   const giftPartPhoto = giftPart ? giftPart.photo : '';
+  const defaultWait = 5;
 
   // Use an index to advance to next statge
   return (
@@ -205,7 +220,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={getIntroText()}  />
             <WaitThen
-              wait={1}
+              wait={defaultWait}
               andThen={handleContinue}
             />
           </>
@@ -216,7 +231,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelImage imageSrc={giftPartPhoto} />
             <WaitThen
-              wait={1}
+              wait={defaultWait}
               andThen={handleContinue}
             />
           </>
@@ -227,7 +242,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={getDoYouNeedaClueText()} />
             <WaitThen
-              wait={1}
+              wait={defaultWait}
               andThen={handleContinue}
             />
           </>
@@ -253,7 +268,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             <PanelPrompt text={'Here you go...'} />
             <WaitThen
-              wait={1}
+              wait={defaultWait}
               andThen={handleContinue}
             />
           </>
@@ -262,9 +277,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* show full photo */}
         {section === 7 &&
           <>
-            <PanelPrompt text={'PHOTO'} />
+            <PanelImage imageSrc={giftPartPhoto} />
             <WaitThen
-              wait={1}
+              wait={defaultWait}
               andThen={handleContinue}
             />
           </>

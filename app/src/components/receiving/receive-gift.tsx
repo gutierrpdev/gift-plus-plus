@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Gift } from '../../../domain';
+import { Gift } from '../../domain';
 import { GlobalStyles, NoScroll } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
+import { ReceivingChooseLocation, GiftLocation } from '../receiving/panels/choose-location';
 import { Button } from '../buttons';
 
 /**
@@ -12,16 +13,16 @@ import { Button } from '../buttons';
  */
 
 // Current status of this screen
-enum ReceiveGiftStatus {'OpenOrSave', 'SelectPart', 'PartOpen'}
+enum ReceiveGiftStatus {'OpenOrSave', 'SelectLocation', 'SelectPart', 'PartOpen'}
 
 interface Props {
   gift: Gift;
   museumName: string;
-
 }
 
 interface State {
   status: ReceiveGiftStatus;
+  giftLocation: GiftLocation;
 }
 
 class ReceiveGift extends React.PureComponent<Props, State> {
@@ -33,12 +34,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public state = {
     status: ReceiveGiftStatus.OpenOrSave,
+    giftLocation: GiftLocation.Unknown,
   };
 
   // Gift has been opened
   public openGift = () => {
     this.setState({
-      status: ReceiveGiftStatus.SelectPart,
+      status: ReceiveGiftStatus.SelectLocation,
     });
   }
 
@@ -51,8 +53,20 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Open gift part
   public openGiftPart = () => {
     this.setState({
-      status: ReceiveGiftStatus.PartOpen,
+      status: ReceiveGiftStatus.SelectPart,
     });
+  }
+
+  // Sets the location
+  public handleSetLocation = (giftLocation: GiftLocation) => {
+
+    // Store this
+    this.setState({
+      giftLocation,
+      status: ReceiveGiftStatus.SelectPart,
+    });
+
+    // Update to next stage
   }
 
   // Return the correct content based on status
@@ -60,6 +74,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     switch (this.state.status) {
       case ReceiveGiftStatus.OpenOrSave:
         return this.renderOpenOrSave();
+      case ReceiveGiftStatus.SelectLocation:
+        return this.renderSelectLocation();
       case ReceiveGiftStatus.SelectPart:
       case ReceiveGiftStatus.PartOpen:
         return this.renderGiftParts();
@@ -78,13 +94,29 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   }
 
   public renderGiftParts() {
-    return <GiftPartsManager gift={this.props.gift} onClick={this.openGiftPart} />;
+    return (
+      <GiftPartsManager
+        gift={this.props.gift}
+        onClick={this.openGiftPart}
+        giftLocation={this.state.giftLocation}
+      />
+    );
+  }
+
+  public renderSelectLocation() {
+    return (
+      <ReceivingChooseLocation
+        museumName={this.props.museumName}
+        doSetLocation={this.handleSetLocation}
+      />
+    );
   }
 
   public render() {
 
     // The header size is based on our current state
-    const headerSize = this.state.status === ReceiveGiftStatus.PartOpen ? ScreenHeaderSize.Small : ScreenHeaderSize.Big;
+    const headerSize = this.state.status === ReceiveGiftStatus.OpenOrSave ?
+      ScreenHeaderSize.Big : ScreenHeaderSize.Small;
 
     return (
 

@@ -13,6 +13,7 @@ export enum GiftLocation {Unknown, AtMuseum, NotAtMuseum}
 
 // Extend panel props with extras
 export interface ChooseLocationProps extends PanelProps {
+  museumName: string;
   doSetLocation: (giftLocation: GiftLocation) => void; // Callback to the parent
 }
 
@@ -20,35 +21,25 @@ export interface ChooseLocationProps extends PanelProps {
 const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
 
   function handleAtMuseum() {
-    // setLocation(GiftLocation.AtMuseum);
     // Set Location callback
     if (panelProps.doSetLocation) {
       panelProps.doSetLocation(GiftLocation.AtMuseum);
     }
 
-    // And finish
-    if (panelProps.doComplete) {
-      panelProps.doComplete();
-    }
   }
 
   function handleNotAtMuseum() {
-    // setLocation(GiftLocation.NotAtMuseum);
     // Set Location callback
     if (panelProps.doSetLocation) {
       panelProps.doSetLocation(GiftLocation.NotAtMuseum);
     }
 
-    // And finish
-    if (panelProps.doComplete) {
-      panelProps.doComplete();
-    }
   }
 
   return (
     <StyledPanel {...panelProps}>
       <PanelContent>
-        <PanelPrompt text={'Are you at the museum?'} />
+        <PanelPrompt text={`Are you at the ${panelProps.museumName} right now?`} />
       </PanelContent>
       <Buttons>
         <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
