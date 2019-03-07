@@ -58,7 +58,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
       </AccordionTitle>
 
       {hasRecording &&
-        <AudioPlayer text={'Listen back to your reply...'} src={''} forwardButton={AudioPlayerForwardButton.GoToEnd}  />
+        <AudioPlayer text={'Listen back to your reply...'} src={''} forwardButton={'GoToEnd'}  />
       }
       {!hasRecording &&
         <AudioRecorder text={recordText} onRecordComplete={handleRecordingComplete}  />

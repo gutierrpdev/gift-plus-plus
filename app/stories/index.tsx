@@ -85,7 +85,7 @@ const whiteText = {
 const giftPartManager = new GiftPartsManager({
   gift: giftThreeParts,
   onClick: doNothing,
-  giftLocation: GiftLocation.AtMuseum,
+  giftLocation: 'AtMuseum',
 });
 
 storiesOf('Components', module)
@@ -93,9 +93,9 @@ storiesOf('Components', module)
   .add('Screen Header', () => (
     <div>
       <p>Big header</p>
-      <ScreenHeader gift={giftTwoParts} title={'title'} size={ScreenHeaderSize.Big} />
+      <ScreenHeader gift={giftTwoParts} title={'title'} size={'Big'} />
       <p>Small header</p>
-      <ScreenHeader gift={giftTwoParts} title={'title'} size={ScreenHeaderSize.Small} />
+      <ScreenHeader gift={giftTwoParts} title={'title'} size={'Small'} />
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
@@ -105,16 +105,16 @@ storiesOf('Components', module)
       gift={giftThreeParts}
       giftPart={giftPart}
       giftPartIndex={0}
-      status={GiftPartWrapperStatus.Open}
+      status={'Open'}
       canOpen={true}
       onClick={doNothing}
       onComplete={doNothing}
-      giftLocation={GiftLocation.AtMuseum}
+      giftLocation={'AtMuseum'}
     />
   ))
   .add('Gift Parts', () => (
     <ScreenManager>
-      <GiftPartsManager gift={giftThreeParts} giftLocation={GiftLocation.AtMuseum} />
+      <GiftPartsManager gift={giftThreeParts} giftLocation={'AtMuseum'} />
     </ScreenManager>
   ))
   .add('Panel Prompt text', () => (
@@ -163,14 +163,14 @@ storiesOf('Components', module)
       <AudioPlayer
         preload={true}
         text={'Lorem ipsum'}
-        forwardButton={AudioPlayerForwardButton.SkipSeconds}
+        forwardButton={'SkipSeconds'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
       <p>Jump Go to End forward button</p>
       <AudioPlayer
         preload={true}
         text={'Lorem ipsum'}
-        forwardButton={AudioPlayerForwardButton.GoToEnd}
+        forwardButton={'GoToEnd'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
     </div>
@@ -234,7 +234,7 @@ storiesOf('Receiving/Part 1', module)
     <ReceivingIntroContent
       visible={true}
       onComplete={doNothing}
-      giftLocation={GiftLocation.AtMuseum}
+      giftLocation={'AtMuseum'}
       audioIntroPlayed={true}
       handleAudioIntroPlayed={doNothing}
     />
@@ -245,7 +245,7 @@ storiesOf('Receiving/Part 1', module)
       gift={giftThreeParts}
       giftPartIndex={0}
       onComplete={doNothing}
-      giftLocation={GiftLocation.AtMuseum}
+      giftLocation={'AtMuseum'}
     />
   ))
   .add('Reply', () => (

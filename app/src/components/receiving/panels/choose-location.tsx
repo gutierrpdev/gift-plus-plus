@@ -9,7 +9,7 @@ import { Buttons, Button } from '../../buttons';
  */
 
  // Define our receiving locations
-export enum GiftLocation {Unknown, AtMuseum, NotAtMuseum}
+export type GiftLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
 
 // Extend panel props with extras
 export interface ChooseLocationProps extends PanelProps {
@@ -23,7 +23,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
   function handleAtMuseum() {
     // Set Location callback
     if (panelProps.doSetLocation) {
-      panelProps.doSetLocation(GiftLocation.AtMuseum);
+      panelProps.doSetLocation('AtMuseum');
     }
 
   }
@@ -31,7 +31,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
   function handleNotAtMuseum() {
     // Set Location callback
     if (panelProps.doSetLocation) {
-      panelProps.doSetLocation(GiftLocation.NotAtMuseum);
+      panelProps.doSetLocation('NotAtMuseum');
     }
 
   }

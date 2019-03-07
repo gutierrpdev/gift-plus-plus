@@ -13,7 +13,7 @@ import { Button } from '../buttons';
  */
 
 // Current status of this screen
-enum ReceiveGiftStatus {'OpenOrSave', 'SelectLocation', 'SelectPart', 'PartOpen'}
+type ReceiveGiftStatus = 'OpenOrSave' | 'SelectLocation' | 'SelectPart' | 'PartOpen';
 
 interface Props {
   gift: Gift;
@@ -32,15 +32,15 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     // museumName: '',
   };
 
-  public state = {
-    status: ReceiveGiftStatus.OpenOrSave,
-    giftLocation: GiftLocation.Unknown,
+  public state: State = {
+    status: 'OpenOrSave',
+    giftLocation: 'Unknown',
   };
 
   // Gift has been opened
   public openGift = () => {
     this.setState({
-      status: ReceiveGiftStatus.SelectLocation,
+      status: 'SelectLocation',
     });
   }
 
@@ -53,7 +53,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Open gift part
   public openGiftPart = () => {
     this.setState({
-      status: ReceiveGiftStatus.SelectPart,
+      status: 'SelectPart',
     });
   }
 
@@ -63,7 +63,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     // Store this
     this.setState({
       giftLocation,
-      status: ReceiveGiftStatus.SelectPart,
+      status: 'SelectPart',
     });
 
     // Update to next stage
@@ -72,12 +72,12 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Return the correct content based on status
   public renderContent() {
     switch (this.state.status) {
-      case ReceiveGiftStatus.OpenOrSave:
+      case 'OpenOrSave':
         return this.renderOpenOrSave();
-      case ReceiveGiftStatus.SelectLocation:
+      case 'SelectLocation':
         return this.renderSelectLocation();
-      case ReceiveGiftStatus.SelectPart:
-      case ReceiveGiftStatus.PartOpen:
+      case 'SelectPart':
+      case 'PartOpen':
         return this.renderGiftParts();
       default :
         return null; // be nice
@@ -115,8 +115,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   public render() {
 
     // The header size is based on our current state
-    const headerSize = this.state.status === ReceiveGiftStatus.OpenOrSave ?
-      ScreenHeaderSize.Big : ScreenHeaderSize.Small;
+    const headerSize = this.state.status === 'OpenOrSave' ? 'Big' : 'Small';
 
     return (
 

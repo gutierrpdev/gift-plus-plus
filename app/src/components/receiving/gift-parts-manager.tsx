@@ -93,7 +93,7 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
       this.props.gift.parts.map((giftPart, index) => {
 
         // Set the status of the wrapper to define how it displays
-        let status: GiftPartWrapperStatus = GiftPartWrapperStatus.Idle;
+        let status: GiftPartWrapperStatus = 'Idle';
 
         // Check if this part is the active one, and set status
         if (this.state && this.state.activeGiftPart) {
@@ -101,10 +101,10 @@ class GiftPartsManager extends React.PureComponent<GiftPartsManagerProps, GiftPa
           // Current active gift part
           if (giftPart === this.state.activeGiftPart) {
             this.state.activeGiftPartIndex = index;
-            status = GiftPartWrapperStatus.Open;
+            status = 'Open';
           } else {
           // Not our current active gift part
-            status = GiftPartWrapperStatus.Closed;
+            status = 'Closed';
           }
 
         }

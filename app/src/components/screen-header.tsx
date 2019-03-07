@@ -8,7 +8,7 @@ import { Gift } from '../domain';
 
 // Header for receiving a gift.  todo : rename to receiving
 
-export enum ScreenHeaderSize {'Small', 'Big'}
+export type ScreenHeaderSize = 'Small' | 'Big';
 
 const ScreenHeaderStyle = styled.div`
   margin: 5vw 0 8vw;
@@ -22,8 +22,8 @@ interface Props {
 
 const ScreenHeader: React.FC<Props> = ({ gift, title, size }: Props) => {
 
-  const logoVisible = (size === ScreenHeaderSize.Big);
-  const museumNameVisible = (size === ScreenHeaderSize.Big);
+  const logoVisible = (size === 'Big');
+  const museumNameVisible = (size === 'Big');
 
   return (
     <ScreenHeaderStyle>

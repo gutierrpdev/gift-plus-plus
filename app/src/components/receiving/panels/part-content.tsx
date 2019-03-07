@@ -290,7 +290,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <AudioPlayer
             text={getPlaySendersMessage()}
             src={giftPart.note}
-            forwardButton={AudioPlayerForwardButton.GoToEnd}
+            forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }

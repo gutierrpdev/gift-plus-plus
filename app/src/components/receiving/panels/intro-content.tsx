@@ -19,7 +19,7 @@ export interface IntroContentProps extends PanelProps {
 // Todo : finish question
 const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
 
-  const atMuseum = (panelProps.giftLocation === GiftLocation.AtMuseum);
+  const atMuseum = (panelProps.giftLocation === 'AtMuseum');
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
   function handleContinue() {
@@ -53,7 +53,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
             preload={true}
             text={'A message to you before you start...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
-            forwardButton={AudioPlayerForwardButton.GoToEnd}
+            forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
@@ -62,7 +62,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
             preload={true}
             text={'A message to you before we begin...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
-            forwardButton={AudioPlayerForwardButton.GoToEnd}
+            forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }

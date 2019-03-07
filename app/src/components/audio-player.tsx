@@ -60,7 +60,7 @@ const Play = styled(BaseAudioButton)`
 `;
 
 // Forward button options
-export enum AudioPlayerForwardButton {'SkipSeconds', 'GoToEnd'}
+export type AudioPlayerForwardButton = 'SkipSeconds' | 'GoToEnd';
 
 interface Props {
   text: string;
@@ -303,14 +303,14 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             </Play>
 
             {/* Skip forward seconds */}
-            {this.props.forwardButton === AudioPlayerForwardButton.SkipSeconds &&
+            {this.props.forwardButton === 'SkipSeconds' &&
               <SkipForward onClick={this.skipForward}>
                 <img src={require('../assets/svg/button-audio-forward.svg')} />
               </SkipForward>
             }
 
             {/* Jump to end */}
-            {this.props.forwardButton === AudioPlayerForwardButton.GoToEnd &&
+            {this.props.forwardButton === 'GoToEnd' &&
               <SkipForward onClick={this.goToEnd}>
                 <img src={require('../assets/svg/button-audio-skip.svg')} />
               </SkipForward>

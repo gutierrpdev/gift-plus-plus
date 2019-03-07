@@ -15,7 +15,7 @@ import {GiftLocation } from '../receiving/panels/choose-location';
  * Visual wrapper for a gift part
  * Handles displaying its contents
  */
-export enum GiftPartWrapperStatus {Idle, Open, Closed}
+export type GiftPartWrapperStatus = 'Idle' | 'Open' | 'Closed';
 
 export interface Props {
   giftPartManager: GiftPartsManager;
@@ -62,19 +62,19 @@ const StyledGiftPart = styled.div<Props>`
 
   // Idle
   ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Idle && `
+    props.status === 'Idle' && `
     justify-content: center;
   `}
 
   // Open
   ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Open && `
+    props.status === 'Open' && `
     flex-grow: 1;
   `}
 
   // Closed
   ${(props: Props) =>
-    props.status === GiftPartWrapperStatus.Closed && `
+    props.status === 'Closed' && `
     flex-grow: 0;
     justify-content: center;
     min-height: 10vw;
@@ -168,7 +168,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   public getGiftPartContent = () => {
 
     // Only show the content if this gift part is set as open
-    const show = this.props.status === GiftPartWrapperStatus.Open;
+    const show = this.props.status === 'Open';
 
     if (show) {
 
@@ -219,25 +219,25 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   public render() {
 
-    const showOpenPrompt = (this.props.status === GiftPartWrapperStatus.Idle && this.props.giftPartIndex === 0) ?
+    const showOpenPrompt = (this.props.status === 'Idle' && this.props.giftPartIndex === 0) ?
       true : false;
 
     let accordionTitleTextSize: 'Big' | 'Medium' | 'Small';
     switch (this.props.status) {
-      case GiftPartWrapperStatus.Idle :
+      case 'Idle' :
         accordionTitleTextSize = 'Big';
         break;
-      case GiftPartWrapperStatus.Open :
+      case 'Open' :
         accordionTitleTextSize = 'Medium';
         break;
-      case GiftPartWrapperStatus.Closed :
+      case 'Closed' :
         accordionTitleTextSize = 'Small';
         break;
       default :
         accordionTitleTextSize = 'Small';
     }
 
-    const accordionTextColour = (this.props.status === GiftPartWrapperStatus.Idle && this.props.giftPartIndex > 0) ?
+    const accordionTextColour = (this.props.status === 'Idle' && this.props.giftPartIndex > 0) ?
       'Black' : 'White';
 
     return (
