@@ -10,6 +10,7 @@ import { ReceivingPartContent } from './panels/part-content';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
 import { RecipientLocation } from '../receiving/panels/choose-location';
+import { string } from 'prop-types';
 
 /**
  * Visual wrapper for a gift part
@@ -30,9 +31,16 @@ interface State {
   audioIntroPlayed: boolean;
   hasOpened: boolean;  // Has this part ever been opened?
   isComplete: boolean; // Has the reader finsihed consuming this part
+  blurImage: boolean;
 }
 
-const StyledGiftPart = styled.div<Props>`
+
+interface StyledGiftPartProps {
+  imageSrc: string;
+  blurImage: boolean;
+}
+
+const StyledGiftPart = styled.div<StyledGiftPartProps>`
   // Common
   display: flex;
   flex: 1;
@@ -50,11 +58,13 @@ const StyledGiftPart = styled.div<Props>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${(props) => props.giftPart && props.giftPart.photo ? props.giftPart.photo : ''});
+    background-image: url(${(props) => props.imageSrc});
     background-position: center;
     background-size: cover;
     z-index: -1;
-    filter: blur(5px);
+    ${(props) => props.blurImage && `
+      filter: blur(5px);`
+    }
   }
 `;
 
@@ -68,8 +78,14 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     audioIntroPlayed: false,
     hasOpened: false,
     isComplete: false,
+    blurImage: true,
   };
 
+  public unBlurImage = () => {
+    this.setState({
+      blurImage: false,
+    });
+  }
 
   // Go to the next panel in the list
   public nextPanel = () => {
@@ -133,6 +149,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
               giftPartIndex={this.props.giftPartIndex}
               onComplete={this.nextPanel}
               recipientLocation={this.props.recipientLocation}
+              revelImage={this.unBlurImage}
             />}
           </>
         );
@@ -145,6 +162,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
             giftPartIndex={this.props.giftPartIndex}
             onComplete={this.nextPanel}
             recipientLocation={this.props.recipientLocation}
+            revelImage={this.unBlurImage}
           />
         );
       default :
@@ -156,7 +174,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   public render() {
 
     return (
-      <StyledGiftPart {...this.props} >
+      <StyledGiftPart imageSrc={this.props.giftPart.photo} blurImage={this.state.blurImage} >
 
         <Gradient />
 

@@ -8,6 +8,7 @@ import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
+import { GiftPartBackground } from '../gift-part-background';
 
 /***
  * Show the gift part content, prompting for clues, etc.
@@ -18,6 +19,7 @@ export interface PartContentProps extends PanelProps {
   gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation;
+  revelImage: () => void;
 }
 
 // Todo : finish question
@@ -50,6 +52,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoFound() {
+    if (props.revelImage) {
+      props.revelImage();
+    }
     setSection(7);
   }
 
@@ -73,7 +78,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       } else {
         setSection(4);
       }
-
     } else {
       // Default is to incremene to the next section
       // Increment out section index
@@ -81,10 +85,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       setSection(newSection);
     }
 
-    // todo check for last section and continue
-    // if (props.onComplete) {
-    //   props.onComplete();
-    // }
   }
 
 
@@ -216,6 +216,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       <PanelContent>
 
         {showReveal && <PanelImageReveal imageUrl={giftPartPhoto} />}
+        {/* <GiftPartBackground giftPart={giftPart} /> */}
 
         {/* start */}
         {section === 0 &&
@@ -270,7 +271,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt text={'Here you go...'} darkBackground={false}/>
             <WaitThen
               wait={defaultWait}
-              andThen={handleContinue}
+              andThen={gotoFound}
             />
           </>
         }

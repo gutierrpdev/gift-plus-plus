@@ -60,7 +60,7 @@ const global = {
       width: '65vmin',
     },
     imageReveal : {
-      width: '35vmin',
+      width: '34vmin',
     },
   },
 };

@@ -290,6 +290,7 @@ storiesOf('Receiving/Part 1', module)
       giftPartIndex={0}
       onComplete={doNothing}
       recipientLocation={'AtMuseum'}
+      revelImage={doNothing}
     />
   ))
   .add('Reply', () => (
