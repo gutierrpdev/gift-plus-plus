@@ -47,9 +47,9 @@ interface GiftPartState {
 function mkState(gift: Gift): State {
   const partStateMap = new Map<GiftPart, GiftPartState>();
 
-  gift.parts.forEach((part) => {
+  gift.parts.forEach((part, idx) => {
     partStateMap.set(part, {
-      isDisabled: true,
+      isDisabled: idx !== 0,
     });
   });
 
@@ -95,9 +95,18 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
       const nextPart = nextGiftPart(gift, part);
 
       if (nextPart) {
+        // Mark the nextPart as no longer being disabled.
+        const partStateMap = state.partStateMap;
+        const nextPartState = partStateMap.get(nextPart)!;
+        partStateMap.set(nextPart, {
+          ...nextPartState,
+          isDisabled: false,
+        });
+
         setState({
           ...state,
           status: { kind: 'OnePartOpen', activePart: nextPart },
+          partStateMap,
         });
       } else {
         setState({
@@ -144,6 +153,7 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
       </StyledGiftPartsManager>
     );
   }
+
 
   if (state.status.kind === 'ShowingResponse') {
     return (
