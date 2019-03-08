@@ -33,7 +33,8 @@ interface State {
 
 type ManagerStatus =
   | { kind: 'ShowingAllParts' }
-  | { kind: 'OnePartOpen', activePart: GiftPart };
+  | { kind: 'OnePartOpen', activePart: GiftPart }
+  | { kind: 'ShowingResponse' };
 
 interface GiftPartState {
   isDisabled: boolean;
@@ -90,6 +91,22 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
   if (state.status.kind === 'OnePartOpen') {
     const activePart = state.status.activePart;
 
+    const handlePartComplete = (part: GiftPart) => {
+      const nextPart = nextGiftPart(gift, part);
+
+      if (nextPart) {
+        setState({
+          ...state,
+          status: { kind: 'OnePartOpen', activePart: nextPart },
+        });
+      } else {
+        setState({
+          ...state,
+          status: { kind: 'ShowingResponse' },
+        });
+      }
+    };
+
     return (
       <StyledGiftPartsManager>
         {gift.parts.map((part, idx) => {
@@ -102,7 +119,7 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
                 gift={gift}
                 giftPart={part}
                 recipientLocation={recipientLocation}
-                onComplete={() => { alert('TODO'); }}
+                onComplete={() => handlePartComplete(part)}
 
                 giftPartIndex={idx}
                 status={'Open'}
@@ -128,9 +145,30 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
     );
   }
 
+  if (state.status.kind === 'ShowingResponse') {
+    return (
+      <StyledGiftPartsManager>
+        <h1>TODO: Respond to gift</h1>
+      </StyledGiftPartsManager>
+    );
+  }
+
   return assertNever(state.status);
 };
 
+
+/**
+ * Find the part after the given one for the given gift.
+ *
+ * Returns `null` if there are no more parts in the gift.
+ */
+function nextGiftPart(gift: Gift, currentPart: GiftPart): GiftPart | null {
+  for (let i = 0; i < gift.parts.length; i++) {
+    if (gift.parts[i] !== currentPart) continue;
+    return gift.parts[i + 1] || null;
+  }
+  return null;
+}
 
 
 interface IdleGiftPartProps {
