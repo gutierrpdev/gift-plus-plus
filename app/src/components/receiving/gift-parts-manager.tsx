@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 import { assertNever } from '../../utils/helpers';
 import { Gift, GiftPart } from '../../domain';
+import { romanNumeralFromDecimal } from '../../themes/global';
 
 import { GiftPartWrapper } from './gift-part-wrapper';
+import { IdleGiftPart } from './idle-gift-part';
 import { RecipientLocation } from '../receiving/panels/choose-location';
-
 
 /**
  * Holds and manages visual Gift Parts
@@ -59,7 +60,7 @@ function mkState(gift: Gift): State {
 }
 
 
-export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
+const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
   const [state, setState] = useState(() => mkState(gift));
 
 
@@ -102,11 +103,11 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
                 gift={gift}
                 giftPart={part}
                 recipientLocation={recipientLocation}
-                onComplete={() => { alert('TODO'); }}
+                onComplete={() => { alert('TODO'); }} // next
 
-                giftPartIndex={idx}
-                status={'Open'}
-                canOpen={true}
+                giftPartIndex={idx} // required?
+                status={'Open'} // not need as wrapper always one things and open, other status for idle below
+                canOpen={true} // remove
               />
             );
           }
@@ -121,7 +122,9 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
                 ...state,
                 status: { kind: 'OnePartOpen', activePart: part },
               })}
-            />
+            >
+              Part {romanNumeralFromDecimal(idx + 1)}
+            </IdleGiftPart>
           );
         })}
       </StyledGiftPartsManager>
@@ -131,19 +134,6 @@ export const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) =
   return assertNever(state.status);
 };
 
-
-
-interface IdleGiftPartProps {
-  part: GiftPart;
-  displaySize: 'small' | 'medium';
-  isDisabled: boolean;
-  onClick: () => void;
-}
-
-const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
-  return (
-    <button onClick={props.onClick} >
-      <pre>{JSON.stringify(props, null, 2)}</pre>
-    </button>
-  );
+export {
+  GiftPartsManager,
 };

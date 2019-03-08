@@ -2,7 +2,7 @@ import React/*, { useState, useEffect }*/ from 'react';
 import styled from 'styled-components';
 
 import { Gift, GiftPart } from '../../domain';
-import { romanFromDecimal } from '../../themes/global';
+import { romanNumeralFromDecimal } from '../../themes/global';
 /* import { GiftPartsManager } from './gift-parts-manager'; */
 import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingPartContent } from './panels/part-content';
@@ -241,9 +241,11 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
           textSize={accordionTitleTextSize}
           textColour={accordionTextColour}
         >
-          Part {romanFromDecimal(this.props.giftPartIndex + 1)}
+          Part {romanNumeralFromDecimal(this.props.giftPartIndex + 1)}
         </AccordionTitle>
-        {/* <GiftPartTitle {...this.props}>Part {romanFromDecimal(this.props.giftPartIndex + 1)}</GiftPartTitle> */}
+        {/* <GiftPartTitle {...this.props}>
+          Part {romanNumeralFromDecimal(this.props.giftPartIndex + 1)}
+        </GiftPartTitle> */}
         {this.getGiftPartContent()}
 
       </StyledGiftPart>

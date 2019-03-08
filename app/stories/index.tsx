@@ -8,7 +8,8 @@ import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
 // import { GiftPile } from '../src/components/gift-pile';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
-import { GiftPartWrapper, GiftPartWrapperStatus } from '../src/components/receiving/gift-part-wrapper';
+import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
+import { GiftPartWrapper, GiftPartWrapperStatus  } from '../src/components/receiving/gift-part-wrapper';
 import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImage } from '../src/components/panel-image';
@@ -42,6 +43,42 @@ import { giftThreeParts, giftTwoParts, giftPart } from './fixtures';
 //   ))
 // ;
 
+// Some useful bits to help...
+
+// Handlers
+function alertClicked() {
+  alert('Clicked');
+}
+
+function logSomething() {
+  // tslint:disable-next-line
+  console.log('something');
+}
+
+function doNothing() {
+}
+
+// Styles
+const greyBG = {
+  backgroundColor: 'grey',
+};
+
+const whiteText = {
+  color: 'white',
+};
+
+// const twoGifts = [giftThreeParts, giftTwoParts];
+
+// const bgImage = import('../src/assets/test.jpg');
+
+const bgImg = {
+  // tslint:disable-next-line
+  backgroundImage: "url(" + "https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg" + ")",
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+};
+
 storiesOf('Home', module)
   .add('Home', () => <Home />)
 ;
@@ -57,25 +94,6 @@ storiesOf('Receiving', module)
   // .add('Remotely', () => <h1>TODO</h1>)
 ;
 
-// Some reusable parts
-const greyBG = {
-  backgroundColor: 'grey',
-};
-// const twoGifts = [giftThreeParts, giftTwoParts];
-
-// const bgImage = import('../src/assets/test.jpg');
-
-const bgImg = {
-  // tslint:disable-next-line
-  backgroundImage: "url(" + "https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg" + ")",
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-};
-
-const whiteText = {
-  color: 'white',
-};
 
 
 // tslint:disable-next-line
@@ -206,21 +224,17 @@ storiesOf('Components', module)
       </AccordionTitle>
     </div>
   ))
+  .add('Idle Gift Part', () => (
+    <div style={greyBG}>
+      <p>Small</p>
+      <IdleGiftPart part={giftPart} displaySize={'small'} isDisabled={false} onClick={alertClicked}>Big</IdleGiftPart>
+      <p>Medium</p>
+      <IdleGiftPart part={giftPart} displaySize={'medium'} isDisabled={false} onClick={alertClicked}>Big</IdleGiftPart>
+      <p>Medium &amp; disabled</p>
+      <IdleGiftPart part={giftPart} displaySize={'medium'} isDisabled={true} onClick={alertClicked}>Big</IdleGiftPart>
+    </div>
+  ))
 ;
-
-// function showAlert() {
-//   alert('1');
-// }
-
-function logSomething() {
-  // tslint:disable-next-line
-  console.log('something');
-}
-
-
-// To hookup to events to keep TypeScript happy
-function doNothing() {
-}
 
 // storiesOf('Components/Test Examples', module)
 //   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)

@@ -62,7 +62,7 @@ const global = {
   },
 };
 
-function romanFromDecimal(decimal: number) {
+function romanNumeralFromDecimal(decimal: number) {
   switch (decimal) {
     case 1 :
       return 'I';
@@ -80,5 +80,5 @@ export {
   GlobalStyles,
   NoScroll,
   global,
-  romanFromDecimal,
+  romanNumeralFromDecimal,
 };
