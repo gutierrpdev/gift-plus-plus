@@ -51,6 +51,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     setSection(5);
   }
 
+  function gotoHereYouGo() {
+    setSection(6);
+  }
+
   function gotoFound() {
     if (props.revelImage) {
       props.revelImage();
@@ -103,7 +107,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             {haveClue && <Button onClick={gotoGiveClue}>Give me a clue</Button>}
             {!haveClue && <Button onClick={gotoGiveHelp}>Help</Button>}
-            <Button onClick={gotoFound} primary={true}>OK</Button>
+            <Button onClick={gotoHereYouGo} primary={true}>OK</Button>
           </>
         );
       case 4: // more help
