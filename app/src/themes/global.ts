@@ -59,6 +59,9 @@ const global = {
     circle : {
       width: '65vmin',
     },
+    imageReveal : {
+      width: '35vmin',
+    },
   },
 };
 

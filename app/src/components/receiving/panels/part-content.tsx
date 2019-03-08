@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
-import { PanelImage } from '../../panel-image';
+import { PanelImageReveal } from '../../panel-image-reveal';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
+import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
@@ -54,7 +54,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoEndOfGiftPart() {
-    alert('This part is complete');
     if (props.onComplete) {
       props.onComplete();
     }
@@ -207,7 +206,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   const giftPartPhoto = giftPart ? giftPart.photo : '';
-  const defaultWait = 5;
+  const defaultWait = 2;
+  const showReveal = section >= 1 && section < 7;
 
   // Use an index to advance to next statge
   return (
@@ -215,10 +215,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
       <PanelContent>
 
+        {showReveal && <PanelImageReveal imageUrl={giftPartPhoto} />}
+
         {/* start */}
         {section === 0 &&
           <>
-            <PanelPrompt text={getIntroText()}  />
+            <PanelPrompt text={getIntroText()} darkBackground={true}  />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -229,7 +231,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* reveal photo */}
         {section === 1 &&
           <>
-            <PanelImage imageSrc={giftPartPhoto} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -240,7 +241,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
-            <PanelPrompt text={getDoYouNeedaClueText()} />
+            <PanelPrompt text={getDoYouNeedaClueText()} darkBackground={false} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -250,23 +251,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* wander/look around */}
         {section === 3 &&
-          <PanelPrompt text={getLookAroundText()} />
+          <PanelPrompt text={getLookAroundText()} darkBackground={false}/>
         }
 
         {/* show clue */}
         {section === 4 &&
-          <PanelPrompt text={giftPart.clue} />
+          <PanelPrompt text={giftPart.clue} darkBackground={false}/>
         }
 
         {/* need help */}
         {section === 5 &&
-          <PanelPrompt text={getNeedHelpText()} />
+          <PanelPrompt text={getNeedHelpText()} darkBackground={false}/>
         }
 
         {/* here is help */}
         {section === 6 &&
           <>
-            <PanelPrompt text={'Here you go...'} />
+            <PanelPrompt text={'Here you go...'} darkBackground={false}/>
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -277,7 +278,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* show full photo */}
         {section === 7 &&
           <>
-            <PanelImage imageSrc={giftPartPhoto} />
+            {/* <PanelImage imageUrl={giftPartPhoto} /> */}
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}

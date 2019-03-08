@@ -135,11 +135,8 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
                 gift={gift}
                 giftPart={part}
                 recipientLocation={recipientLocation}
-                onComplete={() => { alert('TODO'); }} // next
-
-                giftPartIndex={idx} // required?
-                status={'Open'} // not need as wrapper always one things and open, other status for idle below
-                canOpen={true} // remove
+                onComplete={() => { handlePartComplete(part); }} // next
+                giftPartIndex={idx} // todo required?
               />
             );
           }

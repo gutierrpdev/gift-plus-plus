@@ -12,7 +12,6 @@ import { PanelRound } from './panel-round';
 
  // Used in player and recorder
 const AudioPlayerStyle = styled.div`
-  box-sizing: border-box;
   display: 'flex';
   color: white;
   padding: 10vw 5vw;

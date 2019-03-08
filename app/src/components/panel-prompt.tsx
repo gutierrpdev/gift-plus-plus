@@ -5,7 +5,6 @@ import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 
 const PanelPromptStyle = styled.div`
-  box-sizing: border-box;
   overflow: hidden;
   color: white;
   margin: 0 auto;
@@ -18,12 +17,13 @@ const PanelPromptStyle = styled.div`
 
 interface Props {
   text: string;
+  darkBackground: boolean;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text }: Props) => (
-  <PanelRound darkBackground={true} dottedBorder={true}>
+const PanelPrompt: React.FC<Props> = (props: Props) => (
+  <PanelRound darkBackground={props.darkBackground} dottedBorder={true}>
     <PanelPromptStyle>
-      <PanelText>{text}</PanelText>
+      <PanelText>{props.text}</PanelText>
     </PanelPromptStyle>
   </PanelRound>
 );

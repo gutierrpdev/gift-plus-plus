@@ -6,7 +6,7 @@ import { romanNumeralFromDecimal } from '../../themes/global';
 /* import { GiftPartsManager } from './gift-parts-manager'; */
 import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingPartContent } from './panels/part-content';
-// import { GiftPartImageReveal } from '../panel-image-reveal';
+// import { PanelImageReveal } from '../panel-image-reveal';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
 import { RecipientLocation } from '../receiving/panels/choose-location';
@@ -21,8 +21,6 @@ export interface Props {
   gift: Gift;
   giftPart: GiftPart;
   giftPartIndex: number;
-  status: GiftPartWrapperStatus;
-  canOpen: boolean; // Can this part be opened yet?
   recipientLocation: RecipientLocation;
   onComplete: () => void;
 }
@@ -38,6 +36,7 @@ const StyledGiftPart = styled.div<Props>`
   // Common
   display: flex;
   flex: 1;
+  flex-grow: 1;
   flex-direction: column;
   align-items: flex-start;
   overflow: hidden;
@@ -57,33 +56,9 @@ const StyledGiftPart = styled.div<Props>`
     z-index: -1;
     filter: blur(5px);
   }
-
-  // Idle
-  ${(props: Props) =>
-    props.status === 'Idle' && `
-    justify-content: center;
-  `}
-
-  // Open
-  ${(props: Props) =>
-    props.status === 'Open' && `
-    flex-grow: 1;
-  `}
-
-  // Closed
-  ${(props: Props) =>
-    props.status === 'Closed' && `
-    flex-grow: 0;
-    justify-content: center;
-    min-height: 10vw;
-  `}
-
 `;
 
 class GiftPartWrapper extends React.PureComponent<Props, State> {
-
-  // Our panel manager determines which panel in our stack to show
-  // public managerRef: any = React.createRef();
 
   public giftPartCount: number = this.props.gift.parts.length;
   public panelCount = -1;
@@ -137,100 +112,62 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
   // Load the content for the gift part
   public getGiftPartContent = () => {
 
-    // Only show the content if this gift part is set as open
-    const show = this.props.status === 'Open';
+    const index = this.state.activePanelIndex;
 
-    if (show) {
-
-      const index = this.state.activePanelIndex;
-
-      // Render the correct content based on our gift part index [0,1,2]
-      switch (this.props.giftPartIndex) {
-        case 0 :
-          this.panelCount = 2;
-          return (
-            <>
-              {index === 0 &&
-              <ReceivingIntroContent
-                onComplete={this.nextPanel}
-                recipientLocation={this.props.recipientLocation}
-                audioIntroPlayed={this.state.audioIntroPlayed}
-                handleAudioIntroPlayed={this.handleIntroAudioPlayed}
-              />}
-              {index === 1 &&
-              <ReceivingPartContent
-                gift={this.props.gift}
-                giftPartIndex={this.props.giftPartIndex}
-                onComplete={this.nextPanel}
-                recipientLocation={this.props.recipientLocation}
-              />}
-            </>
-          );
-        case 1 :
-        case 2 :
-          this.panelCount = 1;
-          return (
+    // Render the correct content based on our gift part index [0,1,2]
+    switch (this.props.giftPartIndex) {
+      case 0 :
+        this.panelCount = 2;
+        return (
+          <>
+            {index === 0 &&
+            <ReceivingIntroContent
+              onComplete={this.nextPanel}
+              recipientLocation={this.props.recipientLocation}
+              audioIntroPlayed={this.state.audioIntroPlayed}
+              handleAudioIntroPlayed={this.handleIntroAudioPlayed}
+            />}
+            {index === 1 &&
             <ReceivingPartContent
               gift={this.props.gift}
               giftPartIndex={this.props.giftPartIndex}
               onComplete={this.nextPanel}
               recipientLocation={this.props.recipientLocation}
-            />
-          );
-        default :
-          return null;
-      }
-
-    } else {
-      return null;
+            />}
+          </>
+        );
+      case 1 :
+      case 2 :
+        this.panelCount = 1;
+        return (
+          <ReceivingPartContent
+            gift={this.props.gift}
+            giftPartIndex={this.props.giftPartIndex}
+            onComplete={this.nextPanel}
+            recipientLocation={this.props.recipientLocation}
+          />
+        );
+      default :
+        return null;
     }
 
   }
 
   public render() {
 
-    const showOpenPrompt = (this.props.status === 'Idle' && this.props.giftPartIndex === 0) ?
-      true : false;
-
-    let accordionTitleTextSize: 'big' | 'medium' | 'small';
-    switch (this.props.status) {
-      case 'Idle' :
-        accordionTitleTextSize = 'big';
-        break;
-      case 'Open' :
-        accordionTitleTextSize = 'medium';
-        break;
-      case 'Closed' :
-        accordionTitleTextSize = 'small';
-        break;
-      default :
-        accordionTitleTextSize = 'small';
-    }
-
-    const accordionTextColour = (this.props.status === 'Idle' && this.props.giftPartIndex > 0) ?
-      'black' : 'white';
-
     return (
       <StyledGiftPart {...this.props} >
 
         <Gradient />
 
-        {/* <GiftPartImageReveal
-          imageUrl={this.props.giftPart.photo}
-        /> */}
-
         <AccordionTitle
-          showOpenPrompt={showOpenPrompt}
-          textSize={accordionTitleTextSize}
-          textColour={accordionTextColour}
+          showOpenPrompt={false}
+          textSize={'medium'}
+          textColour={'white'}
         >
           Part {romanNumeralFromDecimal(this.props.giftPartIndex + 1)}
         </AccordionTitle>
-        {/* <GiftPartTitle {...this.props}>
-          Part {romanNumeralFromDecimal(this.props.giftPartIndex + 1)}
-        </GiftPartTitle> */}
         {this.getGiftPartContent()}
-
       </StyledGiftPart>
     );
   }

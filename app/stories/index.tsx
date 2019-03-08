@@ -7,12 +7,14 @@ import { action } from '@storybook/addon-actions';
 import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
 // import { GiftPile } from '../src/components/gift-pile';
+import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper, GiftPartWrapperStatus  } from '../src/components/receiving/gift-part-wrapper';
 import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImage } from '../src/components/panel-image';
+import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer, AudioPlayerForwardButton } from '../src/components/audio-player';
@@ -116,32 +118,34 @@ storiesOf('Components', module)
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
-/* .add('Gift Part', () => (
- *   <GiftPartWrapper
- *     giftPartManager={giftPartManager}
- *     gift={giftThreeParts}
- *     giftPart={giftPart}
- *     giftPartIndex={0}
- *     status={'Open'}
- *     canOpen={true}
- *     onClick={doNothing}
- *     onComplete={doNothing}
- *     recipientLocation={'AtMuseum'}
- *   />
- * )) */
+  .add('Gift Part', () => (
+    <GiftPartWrapper
+      gift={giftThreeParts}
+      giftPart={giftPart}
+      giftPartIndex={0}
+      onComplete={doNothing}
+      recipientLocation={'AtMuseum'}
+    />
+  ))
   .add('Gift Parts', () => (
     <ScreenManager>
+      <GlobalStyles />
       <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />
     </ScreenManager>
   ))
   .add('Panel Prompt text', () => (
     <div style={greyBG}>
-      <PanelPrompt text={'lorem ipsum solus incum'} />
+      <PanelPrompt text={'lorem ipsum solus incum'} darkBackground={true} />
     </div>
   ))
   .add('Panel Image', () => (
     <div style={greyBG}>
       <PanelImage imageSrc={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
+    </div>
+  ))
+  .add('Panel Image Reveal', () => (
+    <div style={greyBG}>
+      <PanelImageReveal imageUrl={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
     </div>
   ))
   .add('Panel', () => (

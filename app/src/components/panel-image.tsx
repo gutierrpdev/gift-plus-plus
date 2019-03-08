@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { PanelRound } from './panel-round';
 
 const PanelPromptStyle = styled.div`
-  box-sizing: border-box;
   overflow: hidden;
   color: white;
   margin: 0 auto;
