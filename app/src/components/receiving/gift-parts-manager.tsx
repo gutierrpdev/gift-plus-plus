@@ -34,7 +34,8 @@ interface State {
 
 type ManagerStatus =
   | { kind: 'ShowingAllParts' }
-  | { kind: 'OnePartOpen', activePart: GiftPart };
+  | { kind: 'OnePartOpen', activePart: GiftPart }
+  | { kind: 'ShowingResponse' };
 
 interface GiftPartState {
   isDisabled: boolean;
@@ -47,9 +48,9 @@ interface GiftPartState {
 function mkState(gift: Gift): State {
   const partStateMap = new Map<GiftPart, GiftPartState>();
 
-  gift.parts.forEach((part) => {
+  gift.parts.forEach((part, idx) => {
     partStateMap.set(part, {
-      isDisabled: true,
+      isDisabled: idx !== 0,
     });
   });
 
@@ -93,6 +94,31 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
   if (state.status.kind === 'OnePartOpen') {
     const activePart = state.status.activePart;
 
+    const handlePartComplete = (part: GiftPart) => {
+      const nextPart = nextGiftPart(gift, part);
+
+      if (nextPart) {
+        // Mark the nextPart as no longer being disabled.
+        const partStateMap = state.partStateMap;
+        const nextPartState = partStateMap.get(nextPart)!;
+        partStateMap.set(nextPart, {
+          ...nextPartState,
+          isDisabled: false,
+        });
+
+        setState({
+          ...state,
+          status: { kind: 'OnePartOpen', activePart: nextPart },
+          partStateMap,
+        });
+      } else {
+        setState({
+          ...state,
+          status: { kind: 'ShowingResponse' },
+        });
+      }
+    };
+
     return (
       <StyledGiftPartsManager>
         {gift.parts.map((part, idx) => {
@@ -133,8 +159,30 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
     );
   }
 
+
+  if (state.status.kind === 'ShowingResponse') {
+    return (
+      <StyledGiftPartsManager>
+        <h1>TODO: Respond to gift</h1>
+      </StyledGiftPartsManager>
+    );
+  }
+
   return assertNever(state.status);
 };
+
+/**
+ * Find the part after the given one for the given gift.
+ *
+ * Returns `null` if there are no more parts in the gift.
+ */
+function nextGiftPart(gift: Gift, currentPart: GiftPart): GiftPart | null {
+  for (let i = 0; i < gift.parts.length; i++) {
+    if (gift.parts[i] !== currentPart) continue;
+    return gift.parts[i + 1] || null;
+  }
+  return null;
+}
 
 export {
   GiftPartsManager,
