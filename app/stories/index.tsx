@@ -213,13 +213,13 @@ storiesOf('Components', module)
   .add('Accordion Title', () => (
     <div style={greyBG}>
       <p>Big with Open</p>
-      <AccordionTitle showOpenPrompt={true} textSize={'Big'} textColour={'Black'}>Big</AccordionTitle>
+      <AccordionTitle showOpenPrompt={true} textSize={'big'} textColour={'black'}>Big</AccordionTitle>
       <p>Mediun</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'Medium'} textColour={'Black'}>Mediun</AccordionTitle>
+      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'black'}>Mediun</AccordionTitle>
       <p>Small</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'Small'} textColour={'Black'}>Small</AccordionTitle>
+      <AccordionTitle showOpenPrompt={false} textSize={'small'} textColour={'black'}>Small</AccordionTitle>
       <p>Medium &amp; White</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'Medium'} textColour={'White'}>
+      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'white'}>
         Medium &amp; White
       </AccordionTitle>
     </div>
@@ -227,11 +227,38 @@ storiesOf('Components', module)
   .add('Idle Gift Part', () => (
     <div style={greyBG}>
       <p>Small</p>
-      <IdleGiftPart part={giftPart} displaySize={'small'} isDisabled={false} onClick={alertClicked}>Big</IdleGiftPart>
-      <p>Medium</p>
-      <IdleGiftPart part={giftPart} displaySize={'medium'} isDisabled={false} onClick={alertClicked}>Big</IdleGiftPart>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'small'}
+        isDisabled={false}
+        onClick={alertClicked}
+        showOpenPrompt={false}
+        textColour={'black'}
+      >
+        Small
+      </IdleGiftPart>
       <p>Medium &amp; disabled</p>
-      <IdleGiftPart part={giftPart} displaySize={'medium'} isDisabled={true} onClick={alertClicked}>Big</IdleGiftPart>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'medium'}
+        isDisabled={true}
+        onClick={alertClicked}
+        showOpenPrompt={false}
+        textColour={'black'}
+      >
+        Medium
+      </IdleGiftPart>
+      <p>Big &amp; open</p>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'medium'}
+        isDisabled={false}
+        onClick={alertClicked}
+        showOpenPrompt={true}
+        textColour={'black'}
+      >
+        Big
+      </IdleGiftPart>
     </div>
   ))
 ;

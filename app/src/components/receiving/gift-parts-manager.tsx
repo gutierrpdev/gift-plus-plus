@@ -70,13 +70,17 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
       <StyledGiftPartsManager>
         {gift.parts.map((part, idx) => {
           const partState = state.partStateMap.get(part)!;
+          const showOpenPrompt = (idx === 0); // todo, check for next part
+          const textColour = (idx === 0) ? 'white' : 'black'; // todo, use disabled,check for next part
 
           return (
             <IdleGiftPart
               key={idx}
               part={part}
-              displaySize={'medium'}
+              displaySize={'big'}
               isDisabled={partState.isDisabled}
+              showOpenPrompt={showOpenPrompt}
+              textColour={textColour}
               onClick={() => setState({
                 ...state,
                 status: { kind: 'OnePartOpen', activePart: part },
@@ -145,6 +149,8 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
               key={idx}
               part={part}
               displaySize={'small'}
+              showOpenPrompt={false}
+              textColour={'black'}
               isDisabled={partState.isDisabled}
               onClick={() => setState({
                 ...state,

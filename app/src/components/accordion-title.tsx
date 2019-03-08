@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
@@ -56,7 +55,7 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
       top: -4vh;
       text-align: center;
       width: 100%;
-      left: auto;
+      left: 0;
       font-size: 4vw;
       font-family: ${global.fonts.body.family};
       text-transform: uppercase;

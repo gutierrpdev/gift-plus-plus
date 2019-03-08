@@ -11,7 +11,9 @@ import { AccordionTitle } from '../accordion-title';
  */
 interface IdleGiftPartProps {
   part: GiftPart;
-  displaySize: 'small' | 'medium';
+  displaySize: 'small' | 'medium' | 'big';
+  textColour: 'black' | 'white';
+  showOpenPrompt: boolean;
   isDisabled: boolean;
   onClick: () => void;
 }
@@ -23,7 +25,6 @@ const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
   align-items: flex-start;
   overflow: hidden;
   position: relative;
-  border: 1px solid yellow;
   z-index: 0;
   text-align: center;
   justify-content: center;
@@ -38,16 +39,44 @@ const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
   ${(props) => props.displaySize === 'medium' && `
   `}
 
+  // Dark overlay when disabled
+  ${(props) => props.isDisabled && `
+    &:before {
+      filter: grayscale(60%) blur(5px);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+  `}
+
 `;
 
+
 const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
+
+  // Only allow the onClick when appropriate
+  function handleOnClick() {
+    if (!props.isDisabled && props.onClick) {
+      props.onClick();
+    }
+  }
+
   return (
-    <IdleGiftPartStyle {...props} onClick={props.onClick}>
+    <IdleGiftPartStyle {...props} onClick={handleOnClick}>
       <GiftPartBackground giftPart={props.part}>
-        <AccordionTitle textSize={props.displaySize} textColour={'black'} showOpenPrompt={false}>
+        <AccordionTitle
+          textSize={props.displaySize}
+          textColour={props.textColour}
+          showOpenPrompt={props.showOpenPrompt}
+        >
           {props.children}
         </AccordionTitle>
-        {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
       </GiftPartBackground>
     </IdleGiftPartStyle>
   );

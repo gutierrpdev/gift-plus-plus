@@ -78,23 +78,6 @@ const StyledGiftPart = styled.div<Props>`
     min-height: 10vw;
   `}
 
-  // Dark overlay, not open
-  ${(props: Props) =>
-    !props.canOpen && `
-    &:before {
-      filter: grayscale(60%) blur(5px);
-    }
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-    }
-  `}
-
 `;
 
 class GiftPartWrapper extends React.PureComponent<Props, State> {
