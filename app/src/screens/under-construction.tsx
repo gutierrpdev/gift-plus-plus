@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vh;
@@ -39,5 +40,8 @@ export const UnderConstruction: React.FC = () => (
   <Container>
     <Heading>🚧 Under Construction 🚧</Heading>
     <Spinner>👷</Spinner>
+    <Link to='/gift/5475400c-684c-515f-8343-b9d14340de9c'>
+      <button>Example Gift</button>
+    </Link>
   </Container>
 );
