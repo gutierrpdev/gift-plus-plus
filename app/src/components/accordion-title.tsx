@@ -8,8 +8,8 @@ import { global } from '../themes/global';
  */
 
 export interface AccordionTitleProps {
-  textSize: 'Big' | 'Medium' | 'Small';
-  textColour: 'Black' | 'White';
+  textSize: 'big' | 'medium' | 'small';
+  textColour: 'black' | 'white';
   showOpenPrompt: boolean;
 }
 
@@ -19,27 +19,30 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
   font-family: ${global.fonts.title.family};
   color: white;
   display: flex;
+  display: block;
   margin: 0 auto;
   font-weight: ${global.fonts.title.bold};
   line-height: 1;
   position: relative;
   z-index: 1;
+  width: 100%;
+  text-align: center;
 
   // Text Size
-  ${(props: AccordionTitleProps) => props.textSize === 'Big' && `
+  ${(props: AccordionTitleProps) => props.textSize === 'big' && `
     font-size: 10vw;
   `}
-  ${(props: AccordionTitleProps) => props.textSize === 'Medium' && `
+  ${(props: AccordionTitleProps) => props.textSize === 'medium' && `
     font-size: 6vw;
     margin: 20px auto;
   `}
-  ${(props: AccordionTitleProps) => props.textSize === 'Small' && `
+  ${(props: AccordionTitleProps) => props.textSize === 'small' && `
     font-size: 5vw;
     color: black;
   `}
 
   // Text Colour
-  ${(props: AccordionTitleProps) => props.textColour === 'Black' && `
+  ${(props: AccordionTitleProps) => props.textColour === 'black' && `
     color: black;
   `}
 

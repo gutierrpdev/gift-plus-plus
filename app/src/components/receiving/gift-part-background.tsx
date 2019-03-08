@@ -15,6 +15,8 @@ const GiftPartBackground = styled.div<Props>`
   // left: 0;
   // width: 100%;
   // height: 100%;
+  width: 100%;
+  // text-align: center;
   // Background image as :before to apply blur
   &:before {
     content: '';

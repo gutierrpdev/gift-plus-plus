@@ -209,23 +209,23 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     const showOpenPrompt = (this.props.status === 'Idle' && this.props.giftPartIndex === 0) ?
       true : false;
 
-    let accordionTitleTextSize: 'Big' | 'Medium' | 'Small';
+    let accordionTitleTextSize: 'big' | 'medium' | 'small';
     switch (this.props.status) {
       case 'Idle' :
-        accordionTitleTextSize = 'Big';
+        accordionTitleTextSize = 'big';
         break;
       case 'Open' :
-        accordionTitleTextSize = 'Medium';
+        accordionTitleTextSize = 'medium';
         break;
       case 'Closed' :
-        accordionTitleTextSize = 'Small';
+        accordionTitleTextSize = 'small';
         break;
       default :
-        accordionTitleTextSize = 'Small';
+        accordionTitleTextSize = 'small';
     }
 
     const accordionTextColour = (this.props.status === 'Idle' && this.props.giftPartIndex > 0) ?
-      'Black' : 'White';
+      'black' : 'white';
 
     return (
       <StyledGiftPart {...this.props} >

@@ -80,7 +80,9 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
                 ...state,
                 status: { kind: 'OnePartOpen', activePart: part },
               })}
-            />
+            >
+              Part {romanNumeralFromDecimal(idx + 1)}
+            </IdleGiftPart>
           );
         })}
       </StyledGiftPartsManager>
