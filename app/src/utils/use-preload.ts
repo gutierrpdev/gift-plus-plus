@@ -12,17 +12,22 @@ const logger = getLogger('use-preload');
  * The download progress for any given url is always represented as a number in
  * the range [0, 1].
  *
- * urlProgress is a map from urls to their respective download progress.
+ * urlProgress: A map from urls to their respective download progress. This will
+ *              always contain a key/value for every url.
+ *
+ * urlData: A map from urls to their `ObjectURL` for use as a source. This will
+ *          contain a key/value for every IFF `status === 'done'`.
  */
 export interface PreloadState {
   status: 'running' | 'done' | 'error';
   urlProgress: Map<string, number>;
+  urlData: Map<string, string>;
 }
 
 
 type PreloadAction =
   | { kind: 'url-progress', url: string, progress: number }
-  | { kind: 'url-done', url: string }
+  | { kind: 'url-done', url: string, objectUrl: string }
   | { kind: 'url-error', url: string }
   | { kind: 'reset', urls: string[] }
 ;
@@ -32,12 +37,13 @@ type PreloadAction =
  * Create a fresh new PreloadState based on the provided urls.
  */
 function mkPreloadState(urls: string[]): PreloadState {
-  const urlMap = new Map<string, number>();
-  urls.forEach((url) => urlMap.set(url, 0));
+  const urlProgressMap = new Map<string, number>();
+  urls.forEach((url) => urlProgressMap.set(url, 0));
 
   return {
     status: (urls.length === 0) ? 'done' : 'running',
-    urlProgress: urlMap,
+    urlProgress: urlProgressMap,
+    urlData: new Map<string, string>(),
   };
 }
 
@@ -61,7 +67,12 @@ function preloadReducer(state: PreloadState, action: PreloadAction): PreloadStat
 
     const status = (state.status === 'running' && allDone) ? 'done' : state.status;
 
-    return { ...state, status, urlProgress: state.urlProgress.set(action.url, 1) };
+    return {
+      ...state,
+      status,
+      urlProgress: state.urlProgress.set(action.url, 1),
+      urlData: state.urlData.set(action.url, action.objectUrl),
+    };
   }
 
   if (action.kind === 'url-error') {
@@ -83,7 +94,6 @@ function preloadReducer(state: PreloadState, action: PreloadAction): PreloadStat
  * appropriate cache headers in the responses and the browser's native caching
  * mechanisms.
  *
- * TODO: Optionally cleanup via URL.revokeObjectURL when leaving effect
  * TODO: Consider if it's worth offloading request-handling to a web-worker
  * TODO: Consider redirect handling
  * TODO: Consider timeout and retry handling
@@ -99,14 +109,14 @@ export function usePreload(urls: string[]): [PreloadState] {
   useEffect(() => {
     dispatch({ kind: 'reset', urls });
 
+    const createdObjectUrls: string[] = [];
+
     const requests = urls.map((url) => {
       const req = new XMLHttpRequest();
       req.open('GET', url, true);
       req.responseType = 'blob';
 
       req.onprogress = (progressEvent) => {
-        logger.debug('progress', progressEvent);
-
         const progress = progressEvent.lengthComputable
           ? progressEvent.loaded / progressEvent.total
           : 0;
@@ -114,22 +124,32 @@ export function usePreload(urls: string[]): [PreloadState] {
         dispatch({ kind: 'url-progress', url, progress });
       };
 
-      req.onload = () => dispatch({ kind: 'url-done', url });
+      req.onload = () => {
+        try {
+          if (req.status !== 200) throw new Error();
+          const objectUrl = URL.createObjectURL(req.response);
+          createdObjectUrls.push(objectUrl);
+          dispatch({ kind: 'url-done', url, objectUrl });
+        } catch {
+          dispatch({ kind: 'url-error', url });
+        }
+      };
+
       req.onerror = () => dispatch({ kind: 'url-error', url });
 
       req.send();
-
       return req;
     });
 
     // Cleanup function called when dependencyKey changes. Here we abort any
-    // outstanding requests and revoke any object-urls we created (unless
-    // explicitly asked not to)
+    // outstanding requests and revoke any object-urls we created.
     return () => {
       requests.forEach((req) => {
         try { req.abort(); } catch {}
       });
-      // TODO: revokeObjectURL
+      createdObjectUrls.forEach((objectUrl) => {
+        try { URL.revokeObjectURL(objectUrl); } catch {}
+      });
     };
   }, [dependencyKey]);
 
