@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useReducer } from 'react';
 import { getLogger } from './logging';
 import { assertNever } from './helpers';
@@ -24,7 +23,7 @@ export interface PreloadState {
 type PreloadAction =
   | { kind: 'url-progress', url: string, progress: number }
   | { kind: 'url-done', url: string }
-  | { kind: 'url-error', url: string, error: any }
+  | { kind: 'url-error', url: string }
   | { kind: 'reset', urls: string[] }
 ;
 
@@ -83,6 +82,12 @@ function preloadReducer(state: PreloadState, action: PreloadAction): PreloadStat
  * NOTE: We don't implement any caching ourselves, preferring to rely on
  * appropriate cache headers in the responses and the browser's native caching
  * mechanisms.
+ *
+ * TODO: Optionally cleanup via URL.revokeObjectURL when leaving effect
+ * TODO: Consider if it's worth offloading request-handling to a web-worker
+ * TODO: Consider redirect handling
+ * TODO: Consider timeout and retry handling
+ * TODO: Write some docs about caching / dependencyKey / cleanup / revokeObjectURL
  */
 export function usePreload(urls: string[]): [PreloadState] {
   const [state, dispatch] = useReducer(preloadReducer, urls, mkPreloadState);
@@ -94,24 +99,38 @@ export function usePreload(urls: string[]): [PreloadState] {
   useEffect(() => {
     dispatch({ kind: 'reset', urls });
 
-    urls.forEach((url) => {
-      axios.get(url, {
-        onDownloadProgress: (progressEvent: ProgressEvent) => {
-          logger.debug('progress', progressEvent);
+    const requests = urls.map((url) => {
+      const req = new XMLHttpRequest();
+      req.open('GET', url, true);
+      req.responseType = 'blob';
 
-          const progress = progressEvent.lengthComputable
-            ? progressEvent.loaded / progressEvent.total
-            : 0;
+      req.onprogress = (progressEvent) => {
+        logger.debug('progress', progressEvent);
 
-          dispatch({ kind: 'url-progress', url, progress });
-        },
-      }).then(() => {
-        dispatch({ kind: 'url-done', url });
-      }).catch((error: any) => {
-        dispatch({ kind: 'url-error', url, error });
-      });
+        const progress = progressEvent.lengthComputable
+          ? progressEvent.loaded / progressEvent.total
+          : 0;
+
+        dispatch({ kind: 'url-progress', url, progress });
+      };
+
+      req.onload = () => dispatch({ kind: 'url-done', url });
+      req.onerror = () => dispatch({ kind: 'url-error', url });
+
+      req.send();
+
+      return req;
     });
 
+    // Cleanup function called when dependencyKey changes. Here we abort any
+    // outstanding requests and revoke any object-urls we created (unless
+    // explicitly asked not to)
+    return () => {
+      requests.forEach((req) => {
+        try { req.abort(); } catch {}
+      });
+      // TODO: revokeObjectURL
+    };
   }, [dependencyKey]);
 
   return [state];
