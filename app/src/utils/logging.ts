@@ -1,5 +1,3 @@
-import Debug from 'debug';
-
 /**
  * An opinionated logging interface, providing functions for debug,
  * info, warn, and error log statements.
@@ -28,43 +26,29 @@ export interface Logger {
 }
 
 
+// tslint:disable no-console
+const consoleDebug = console.debug || console.log;
+const consoleInfo = console.info || console.log;
+const consoleWarn = console.warn || console.log;
+const consoleError = console.error || console.log;
+// tslint:enable no-console
+
+
 /**
  * A basic logger adhering to the standard interface.
  *
- * This logger is a thin wrapper over TJ Holowaychuk's debug library
- * (https://github.com/visionmedia/debug).
+ * This logger is a thin wrapper over the browser console.
  *
- *
- * To view the logs in the browsesr, do:
- *
- *     localStorage.debug = '(DEBUG|INFO|WARN|ERROR)*' // or '*'
- *
- * then refresh the page.
+ * @param nameSpace The namespace prefix, e.g. 'api'
  */
-export class BasicLogger implements Logger {
-  public debug: (msg: string, ...rest: any[]) => void;
-  public info: (msg: string) => void;
-  public warn: (msg: string) => void;
-  public error: (error: Error, msg?: string) => void;
-
-  /**
-   * Create a new logger
-   *
-   * @param nameSpace The namespace prefix, e.g. 'api'
-   */
-  constructor(nameSpace: string) {
-    this.debug = Debug(`DEBUG:${nameSpace}`);
-    this.info = Debug(`INFO:${nameSpace}`);
-    this.warn = Debug(`WARN:${nameSpace}`);
-
-    this.error = (() => {
-      const d = Debug(`ERROR:${nameSpace}`);
-
-      // Switch the args around when calling debug
-      return (err: Error, msg = '') => d(msg, err);
-    })();
-  }
-}
+export const BasicLogger
+: (nameSpace: string) => Logger
+= (nameSpace) => ({
+  debug: (...args) => consoleDebug(`DEBUG:${nameSpace}`, ...args),
+  info: (...args) => consoleInfo(`INFO:${nameSpace}`, ...args),
+  warn: (...args) => consoleWarn(`WARN:${nameSpace}`, ...args),
+  error: (err: Error, msg = '') => consoleError(`ERROR:${nameSpace}`, msg, err),
+});
 
 
 /**
@@ -110,9 +94,9 @@ export function getLogger(nameSpace: string): Logger {
   if (!loggingEnabled()) return NullLogger;
 
   if (!registry.has(nameSpace)) {
-    const logger = new BasicLogger(nameSpace);
+    const logger = BasicLogger(nameSpace);
     registry.set(nameSpace, logger);
   }
 
-  return registry.get(nameSpace) as BasicLogger;
+  return registry.get(nameSpace)!;
 }
