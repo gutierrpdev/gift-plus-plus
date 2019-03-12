@@ -7,6 +7,7 @@ const Buttons = styled.div`
   display: flex;
   margin: 0;
   align-items: stretch;
+  width: 100%;
 `;
 
 export interface ButtonProps {
