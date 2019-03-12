@@ -21,7 +21,6 @@ export type GiftPartWrapperStatus = 'Idle' | 'Open' | 'Closed';
 export interface Props {
   gift: Gift;
   giftPart: GiftPart;
-  giftPartIndex: number;
   recipientLocation: RecipientLocation;
   onComplete: () => void;
 }
@@ -70,9 +69,6 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
 
 class GiftPartWrapper extends React.PureComponent<Props, State> {
 
-  public giftPartCount: number = this.props.gift.parts.length;
-  public panelCount = -1;
-
   public state = {
     activePanelIndex: 0,
     audioIntroPlayed: false,
@@ -87,11 +83,25 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     });
   }
 
+  public getPanelCount(): number {
+
+    const giftPartIndex = getGiftPartIndexInGift(this.props.gift, this.props.giftPart);
+
+    if (giftPartIndex === 0) {
+      return 2;
+    } else {
+      return 1;
+    }
+
+  }
+
   // Go to the next panel in the list
   public nextPanel = () => {
 
+    const panelCount = this.getPanelCount();
+
     // Are we at the last panel?
-    if ( (this.state.activePanelIndex + 1) === this.panelCount) {
+    if ( (this.state.activePanelIndex + 1) === panelCount) {
 
       // Mark this part as complete
       this.setState({
@@ -106,7 +116,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     } else {
 
       // Get the next index, but don't exceed the panels count
-      const nextIndex = Math.min(this.state.activePanelIndex + 1, this.panelCount);
+      const nextIndex = Math.min(this.state.activePanelIndex + 1, panelCount);
 
       // Update
       this.setState({
@@ -125,15 +135,17 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     });
   }
 
+  // Returns the index of the gift part in our gift
+
   // Load the content for the gift part
   public getGiftPartContent = () => {
 
     const index = this.state.activePanelIndex;
+    const giftPartIndex = getGiftPartIndexInGift(this.props.gift, this.props.giftPart);
 
     // Render the correct content based on our gift part index [0,1,2]
-    switch (this.props.giftPartIndex) {
+    switch (giftPartIndex) {
       case 0 :
-        this.panelCount = 2;
         return (
           <>
             {index === 0 &&
@@ -146,7 +158,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
             {index === 1 &&
             <ReceivingPartContent
               gift={this.props.gift}
-              giftPartIndex={this.props.giftPartIndex}
+              giftPartIndex={giftPartIndex}
               onComplete={this.nextPanel}
               recipientLocation={this.props.recipientLocation}
               revelImage={this.unBlurImage}
@@ -155,11 +167,10 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
         );
       case 1 :
       case 2 :
-        this.panelCount = 1;
         return (
           <ReceivingPartContent
             gift={this.props.gift}
-            giftPartIndex={this.props.giftPartIndex}
+            giftPartIndex={giftPartIndex}
             onComplete={this.nextPanel}
             recipientLocation={this.props.recipientLocation}
             revelImage={this.unBlurImage}
@@ -173,6 +184,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 
   public render() {
 
+    const giftPartIndex = getGiftPartIndexInGift(this.props.gift, this.props.giftPart);
+
     return (
       <StyledGiftPart imageSrc={this.props.giftPart.photo} blurImage={this.state.blurImage} >
 
@@ -183,7 +196,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
           textSize={'medium'}
           textColour={'white'}
         >
-          Part {romanNumeralFromDecimal(this.props.giftPartIndex + 1)}
+          Part {romanNumeralFromDecimal(giftPartIndex + 1)}
         </AccordionTitle>
         {this.getGiftPartContent()}
       </StyledGiftPart>
@@ -194,3 +207,17 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
 export {
   GiftPartWrapper,
 };
+
+/***
+ * Returns the index of the gift part in our gift
+ * Returns -1 if not found
+ */
+function getGiftPartIndexInGift(gift: Gift, part: GiftPart): number {
+
+  for (let i = 0; i < gift.parts.length; i++) {
+    if (gift.parts[i] !== part) continue;
+    return i;
+  }
+  return -1;
+
+}

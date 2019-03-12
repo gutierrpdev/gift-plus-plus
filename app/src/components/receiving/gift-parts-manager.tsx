@@ -136,7 +136,6 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
                 giftPart={part}
                 recipientLocation={recipientLocation}
                 onComplete={() => { handlePartComplete(part); }} // next
-                giftPartIndex={idx} // todo required?
               />
             );
           }
@@ -190,3 +189,4 @@ function nextGiftPart(gift: Gift, currentPart: GiftPart): GiftPart | null {
 export {
   GiftPartsManager,
 };
+

@@ -122,7 +122,6 @@ storiesOf('Components', module)
     <GiftPartWrapper
       gift={giftThreeParts}
       giftPart={giftPart}
-      giftPartIndex={0}
       onComplete={doNothing}
       recipientLocation={'AtMuseum'}
     />
