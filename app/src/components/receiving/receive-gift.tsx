@@ -8,7 +8,7 @@ import { ScreenManager } from '../screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
-import { Button } from '../buttons';
+import { Button, Buttons } from '../buttons';
 
 /**
  * Gift Receive screen
@@ -75,10 +75,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public renderOpenOrSave() {
     return (
-      <div>
+      <Buttons>
         <Button onClick={this.openGift}>Open it now</Button>
         <Button onClick={this.saveForLater}>Save for later</Button>
-      </div>
+      </Buttons>
     );
   }
 
@@ -106,14 +106,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     const headerSize = this.state.status === 'OpenOrSave' ? 'Big' : 'Small';
 
     return (
+      <ScreenManager>
+        <GlobalStyles />
+        <NoScroll />
 
-    <ScreenManager>
-      <GlobalStyles />
-      <NoScroll />
-
-      <ScreenHeader gift={this.props.gift} title={this.props.museumName} size={headerSize} />
-      {this.renderContent()}
-    </ScreenManager>
+        <ScreenHeader gift={this.props.gift} title={this.props.museumName} size={headerSize} />
+        {this.renderContent()}
+      </ScreenManager>
     );
   }
 }
