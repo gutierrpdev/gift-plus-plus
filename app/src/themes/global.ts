@@ -1,9 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
+
   // Fonts
   @import url('https://fonts.googleapis.com/css?family=Nunito:300,400');
   @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
+
   // Reset
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -30,11 +32,22 @@ const GlobalStyles = createGlobalStyle`
   input[type="file" i]::-webkit-file-upload-button, button {
     background-color: transparent;
   }
+
+  // Limit the maximum width of all screens
+  html {
+    background-color: #eee;
+    max-width: 60vh; // Force aspect ratio
+    margin: 0 auto;
+  }
+
   // Global styles
   body {
     font-family: 'Nunito', sans-serif;
+    background-color: white;
     color: black;
     -webkit-font-smoothing: antialiased;
+    max-width: 768px;
+    margin: 0 auto;
   }
 `;
 
