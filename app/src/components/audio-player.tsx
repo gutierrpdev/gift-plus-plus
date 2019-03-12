@@ -292,7 +292,12 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             </audio>
 
           <AudioPanelText>{this.props.text}</AudioPanelText>
-          <ProgressBar percentage={this.state.playbackPercentage} /*onSeek={this.onSeek}*/ />
+          <ProgressBar
+            percentage={this.state.playbackPercentage}
+            theme={'whiteOnBlack'}
+            showPositionBar={true}
+            /*onSeek={this.onSeek}*/
+          />
           <Controls>
             <SkipBack onClick={this.skipBackward}>
               <img src={require('../assets/svg/button-audio-back.svg')} />

@@ -9,10 +9,9 @@ import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
 
 import { ReceiveGift } from '../components/receiving/receive-gift';
-
+import { ProgressLoader } from '../components/progress-loader';
 
 const logger = getLogger('receive-gift');
-
 
 /**
  *
@@ -40,13 +39,11 @@ export const ReceiveGiftScreen: React.FC = () => {
   }
   if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
 
-
   if (preloadState.status === 'running') {
     return (
       <>
         <h1>Status: {preloadState.status}</h1>
-        <h1>Progress: {Math.round(totalProgress(preloadState) * 100)}%</h1>
-        <pre>{JSON.stringify(Array.from(preloadState.urlProgress.entries()), null, 2)}</pre>
+        <ProgressLoader percentage={Math.round(totalProgress(preloadState) * 100)} />
         <pre>{JSON.stringify(Array.from(preloadState.urlData.entries()), null, 2)}</pre>
       </>
     );

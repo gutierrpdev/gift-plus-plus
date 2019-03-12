@@ -23,6 +23,7 @@ import { WaitThen } from '../src/components/wait-then';
 import { Gradient } from '../src/components/gradient';
 import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
+import { ProgressLoader } from '../src/components/progress-loader';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -263,6 +264,9 @@ storiesOf('Components', module)
         Big
       </IdleGiftPart>
     </div>
+  ))
+  .add('Idle Gift Part', () => (
+    <ProgressLoader percentage={25} />
   ))
 ;
 
