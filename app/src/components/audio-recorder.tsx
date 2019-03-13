@@ -71,7 +71,7 @@ const AudioRecorder: React.FC<Props> = (props) => {
   }
 
   return (
-    <PanelRound darkBackground={true} dottedBorder={false}>
+    <PanelRound background={'transparent-black'} dottedBorder={false}>
 
       {status === 'Idle' &&
       <AudioPlayerStyle>

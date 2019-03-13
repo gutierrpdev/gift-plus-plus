@@ -42,9 +42,9 @@ export const ReceiveGiftScreen: React.FC = () => {
   if (preloadState.status === 'running') {
     return (
       <>
-        <h1>Status: {preloadState.status}</h1>
+        {/* <h1>Status: {preloadState.status}</h1> */}
         <ProgressLoader percentage={Math.round(totalProgress(preloadState) * 100)} />
-        <pre>{JSON.stringify(Array.from(preloadState.urlData.entries()), null, 2)}</pre>
+        {/* <pre>{JSON.stringify(Array.from(preloadState.urlData.entries()), null, 2)}</pre> */}
       </>
     );
   }

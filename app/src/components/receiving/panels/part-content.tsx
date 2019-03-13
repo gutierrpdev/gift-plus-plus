@@ -225,7 +225,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* start */}
         {section === 0 &&
           <>
-            <PanelPrompt text={getIntroText()} darkBackground={true}  />
+            <PanelPrompt text={getIntroText()} background={'transparent-black'}  />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -246,7 +246,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
-            <PanelPrompt text={getDoYouNeedaClueText()} darkBackground={false} />
+            <PanelPrompt text={getDoYouNeedaClueText()} background={'none'} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -256,23 +256,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* wander/look around */}
         {section === 3 &&
-          <PanelPrompt text={getLookAroundText()} darkBackground={false}/>
+          <PanelPrompt text={getLookAroundText()} background={'none'}/>
         }
 
         {/* show clue */}
         {section === 4 &&
-          <PanelPrompt text={giftPart.clue} darkBackground={false}/>
+          <PanelPrompt text={giftPart.clue} background={'none'}/>
         }
 
         {/* need help */}
         {section === 5 &&
-          <PanelPrompt text={getNeedHelpText()} darkBackground={false}/>
+          <PanelPrompt text={getNeedHelpText()} background={'none'}/>
         }
 
         {/* here is help */}
         {section === 6 &&
           <>
-            <PanelPrompt text={'Here you go...'} darkBackground={false}/>
+            <PanelPrompt text={'Here you go...'} background={'none'}/>
             <WaitThen
               wait={defaultWait}
               andThen={gotoFound}

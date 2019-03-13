@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PanelText } from './panel-text';
-import { PanelRound } from './panel-round';
+import { PanelRound, PanelRoundBackgroundStyle } from './panel-round';
 
 const PanelPromptStyle = styled.div`
   overflow: hidden;
@@ -17,11 +17,11 @@ const PanelPromptStyle = styled.div`
 
 interface Props {
   text: string;
-  darkBackground: boolean;
+  background: PanelRoundBackgroundStyle;
 }
 
 const PanelPrompt: React.FC<Props> = (props: Props) => (
-  <PanelRound darkBackground={props.darkBackground} dottedBorder={true}>
+  <PanelRound background={props.background} dottedBorder={true}>
     <PanelPromptStyle>
       <PanelText>{props.text}</PanelText>
     </PanelPromptStyle>
@@ -30,4 +30,5 @@ const PanelPrompt: React.FC<Props> = (props: Props) => (
 
 export {
   PanelPrompt,
+  PanelPromptStyle,
 };

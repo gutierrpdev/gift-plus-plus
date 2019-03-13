@@ -112,10 +112,33 @@ storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
   .add('Screen Header', () => (
     <div>
-      <p>Big header</p>
-      <ScreenHeader gift={giftTwoParts} title={'title'} size={'Big'} />
+      <p>Big header with logo</p>
+      <ScreenHeader
+        subTitle={`Sub title`}
+        postSubTitle={`post sub title`}
+        title={'Title'}
+        postTitle={'post title'}
+        showLogo={true}
+        topPadding={false}
+      />
+      <p>Big header no logo</p>
+      <ScreenHeader
+        subTitle={`Sub title`}
+        postSubTitle={`post sub title`}
+        title={'Title'}
+        postTitle={'post title'}
+        showLogo={false}
+        topPadding={false}
+      />
       <p>Small header</p>
-      <ScreenHeader gift={giftTwoParts} title={'title'} size={'Small'} />
+      <ScreenHeader
+        subTitle={`Sub title`}
+        postSubTitle={`post sub title`}
+        title={'Title'}
+        postTitle={'post title'}
+        showLogo={false}
+        topPadding={false}
+      />
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
@@ -135,7 +158,7 @@ storiesOf('Components', module)
   ))
   .add('Panel Prompt text', () => (
     <div style={greyBG}>
-      <PanelPrompt text={'lorem ipsum solus incum'} darkBackground={true} />
+      <PanelPrompt text={'lorem ipsum solus incum'} background={'transparent-black'} />
     </div>
   ))
   .add('Panel Image', () => (

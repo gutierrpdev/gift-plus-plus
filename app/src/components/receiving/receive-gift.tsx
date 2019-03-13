@@ -9,13 +9,14 @@ import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
 import { Button, Buttons } from '../buttons';
+import { ReceivingOpenGift } from './open-gift';
 
 /**
  * Gift Receive screen
  */
 
 // Current status of this screen
-type ReceiveGiftStatus = 'OpenOrSave' | 'SelectLocation' | 'ShowingParts';
+type ReceiveGiftStatus =  'Welcome' | 'SelectLocation' | 'OpenOrSave' |  'ShowingParts';
 
 interface Props {
   gift: Gift;
@@ -30,14 +31,21 @@ interface State {
 class ReceiveGift extends React.PureComponent<Props, State> {
 
   public state: State = {
-    status: 'OpenOrSave',
+    status: 'Welcome',
     recipientLocation: 'Unknown',
   };
+
+  // Lets start
+  public startGift = () => {
+    this.setState({
+      status: 'SelectLocation',
+    });
+  }
 
   // Gift has been opened
   public openGift = () => {
     this.setState({
-      status: 'SelectLocation',
+      status: 'ShowingParts',
     });
   }
 
@@ -53,7 +61,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     // Store this
     this.setState({
       recipientLocation,
-      status: 'ShowingParts',
+      status: 'OpenOrSave',
     });
 
     // Update to next stage
@@ -62,6 +70,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Return the correct content based on status
   public renderContent() {
     switch (this.state.status) {
+      case 'Welcome':
+        return this.renderWelcome();
       case 'OpenOrSave':
         return this.renderOpenOrSave();
       case 'SelectLocation':
@@ -71,6 +81,12 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       default:
         return assertNever(this.state.status);
     }
+  }
+
+  public renderWelcome() {
+    return (
+      <ReceivingOpenGift onComplete={this.startGift} />
+    );
   }
 
   public renderOpenOrSave() {
@@ -102,21 +118,50 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public render() {
 
+    const { status } = this.state;
+
     // The header size is based on our current state
-    const headerSize = this.state.status === 'OpenOrSave' ? 'Big' : 'Small';
+    const headerSize = status === 'Welcome' || status === 'OpenOrSave'  ?
+      'Big' : 'Small';
+
+    // Background
+    const bgImage = (status === 'Welcome' || status === 'SelectLocation' ?
+      require('../../assets/svg/trianglify-2.svg') : null );
+
+    // Logo
+    const showLogo = false;
 
     return (
-      <ScreenManager>
+      <ScreenManager backgroundImageUrl={bgImage}>
         <GlobalStyles />
         <NoScroll />
 
-        <ScreenHeader gift={this.props.gift} title={this.props.museumName} size={headerSize} />
+        {headerSize === 'Big' &&
+          <ScreenHeader
+            subTitle={`Heres's your gift`}
+            postSubTitle={`from`}
+            title={this.props.gift.senderName}
+            postTitle={`at ${this.props.museumName}`}
+            showLogo={showLogo}
+            topPadding={true}
+          />
+        }
+        {headerSize === 'Small' &&
+          <ScreenHeader
+            subTitle={`Heres's your gift`}
+            postSubTitle={`from`}
+            title={this.props.gift.senderName}
+            postTitle={`at ${this.props.museumName}`}
+            showLogo={showLogo}
+            topPadding={true}
+          />
+        }
+
         {this.renderContent()}
       </ScreenManager>
     );
   }
 }
-
 
 export {
   ReceiveGift,

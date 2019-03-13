@@ -277,7 +277,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     );
 
     return (
-      <PanelRound darkBackground={true} dottedBorder={false}>
+      <PanelRound background={'transparent-black'} dottedBorder={false}>
         <AudioPlayerStyle>
             <audio
               src={this.props.src}

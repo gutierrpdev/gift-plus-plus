@@ -3,9 +3,16 @@ import styled from 'styled-components';
 
 import { ProgressBar } from '../components/progress-bar';
 
-const StyledProgressBar = styled.div`
+const StyledProgressLoader = styled.div`
+  height: 100%;
+  height: 100vh;
   max-width: 90%;
+  margin: 0 auto;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const ProgressTitle = styled.div`
@@ -20,10 +27,10 @@ interface Props {
 const ProgressLoader: React.FC<Props> = (props) => {
 
   return (
-    <StyledProgressBar>
+    <StyledProgressLoader>
       <ProgressTitle>Loading: {props.percentage}%</ProgressTitle>
       <ProgressBar percentage={props.percentage} theme={'blackOnWhite'} />
-    </StyledProgressBar>
+    </StyledProgressLoader>
   );
 
 };

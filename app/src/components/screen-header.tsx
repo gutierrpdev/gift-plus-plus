@@ -3,34 +3,36 @@ import styled from 'styled-components';
 
 import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
+import {  ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
-import { Gift } from '../domain';
 
-// Header for receiving a gift.  todo : rename to receiving
+const ScreenHeaderStyle = styled.div<Props>`
+  margin: 5vw 0 8vw;
+  ${(props) => props.topPadding && `
+    padding-top: 20vw;
+  `}
+`;
 
 export type ScreenHeaderSize = 'Small' | 'Big';
 
-const ScreenHeaderStyle = styled.div`
-  margin: 5vw 0 8vw;
-`;
-
 interface Props {
-  gift: Gift;
+  subTitle: string;
+  postSubTitle: string;
   title: string;
-  size: ScreenHeaderSize;
+  postTitle: string;
+  showLogo: boolean;
+  topPadding?: boolean;
 }
 
-const ScreenHeader: React.FC<Props> = ({ gift, title, size }: Props) => {
-
-  const logoVisible = (size === 'Big');
-  const museumNameVisible = (size === 'Big');
+const ScreenHeader: React.FC<Props> = (props: Props) => {
 
   return (
-    <ScreenHeaderStyle>
-      {logoVisible && <ScreenLogo />}
-      <ScreenSubTitle>Your gift from</ScreenSubTitle>
-      <ScreenTitle>{gift.senderName}</ScreenTitle>
-      {museumNameVisible && <ScreenSubTitle>{title}</ScreenSubTitle>}
+    <ScreenHeaderStyle {...props}>
+      {props.showLogo && <ScreenLogo />}
+      {props.subTitle && <ScreenSubTitle>{props.subTitle}</ScreenSubTitle>}
+      {props.postSubTitle && <ScreenPostTitle>{props.postSubTitle}</ScreenPostTitle>}
+      {props.title && <ScreenTitle>{props.title}</ScreenTitle>}
+      {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
     </ScreenHeaderStyle>
   );
 };
