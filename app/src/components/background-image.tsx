@@ -1,18 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// todo this seems unused, check and delete
+
 // Arranges the elements on the screen, using flex
 const BackgroundImageStyle = styled.div<Props>`
-  // position: absolute;
-  // top: 0;
-  // left: 0;
-  // width: 100%;
-  // height: 100%;
-  width: 100%;
-  // text-align: center;
-  // Background image as :before to apply blur
-  &:before {
-    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -23,7 +15,6 @@ const BackgroundImageStyle = styled.div<Props>`
     background-position: center;
     background-size: cover;
     z-index: -1;
-  }
 `;
 
 interface Props {

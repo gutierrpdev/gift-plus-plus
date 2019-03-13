@@ -51,13 +51,6 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-// todo: desktop needs to scroll
-const NoScroll = createGlobalStyle`
-  /* body {
-    overflow: hidden;
-  } */
-`;
-
 const global = {
   fonts: {
     body: {
@@ -94,7 +87,6 @@ function romanNumeralFromDecimal(decimal: number) {
 
 export {
   GlobalStyles,
-  NoScroll,
   global,
   romanNumeralFromDecimal,
 };

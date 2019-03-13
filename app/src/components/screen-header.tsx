@@ -16,10 +16,10 @@ const ScreenHeaderStyle = styled.div<Props>`
 export type ScreenHeaderSize = 'Small' | 'Big';
 
 interface Props {
-  subTitle: string;
+  subTitle?: string;
   postSubTitle: string;
   title: string;
-  postTitle: string;
+  postTitle?: string;
   showLogo: boolean;
   topPadding?: boolean;
 }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBackgroundStyle } from './panel-round';
+import { checkPropTypes } from 'prop-types';
 
 const PanelPromptStyle = styled.div`
   overflow: hidden;
@@ -13,17 +14,20 @@ const PanelPromptStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 interface Props {
   text: string;
   background: PanelRoundBackgroundStyle;
+  dottedBorder?: boolean;
 }
 
-const PanelPrompt: React.FC<Props> = (props: Props) => (
-  <PanelRound background={props.background} dottedBorder={true}>
+const PanelPrompt: React.FC<Props> = ({ text, background, dottedBorder = false, children }) => (
+  <PanelRound background={background} dottedBorder={dottedBorder}>
     <PanelPromptStyle>
-      <PanelText>{props.text}</PanelText>
+      <PanelText>{text}</PanelText>
+      {children}
     </PanelPromptStyle>
   </PanelRound>
 );

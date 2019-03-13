@@ -48,6 +48,7 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
   align-items: flex-start;
   overflow: hidden;
   position: relative;
+  z-index: 1;
 
   // Background image as :before to apply blur
   &:before {

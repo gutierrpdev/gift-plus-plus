@@ -3,13 +3,15 @@ import React from 'react';
 import { assertNever } from '../../utils/helpers';
 
 import { Gift } from '../../domain';
-import { GlobalStyles, NoScroll } from '../../themes/global';
+import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
 import { Button, Buttons } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
+import { StyledPanel, PanelContent } from '../panel';
+import { PanelPrompt } from '../panel-prompt';
 
 /**
  * Gift Receive screen
@@ -26,6 +28,7 @@ interface Props {
 interface State {
   status: ReceiveGiftStatus;
   recipientLocation: RecipientLocation;
+  compactHeader: boolean;
 }
 
 class ReceiveGift extends React.PureComponent<Props, State> {
@@ -33,6 +36,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   public state: State = {
     status: 'Welcome',
     recipientLocation: 'Unknown',
+    compactHeader: false,
   };
 
   // Lets start
@@ -44,6 +48,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   // Gift has been opened
   public openGift = () => {
+    this.setCompactHeader();
     this.setState({
       status: 'ShowingParts',
     });
@@ -65,6 +70,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     });
 
     // Update to next stage
+  }
+
+  // Set the header to be compact
+  public setCompactHeader = () => {
+    this.setState({
+      compactHeader: true,
+    });
   }
 
   // Return the correct content based on status
@@ -91,10 +103,19 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public renderOpenOrSave() {
     return (
-      <Buttons>
-        <Button onClick={this.openGift}>Open it now</Button>
-        <Button onClick={this.saveForLater}>Save for later</Button>
-      </Buttons>
+      <StyledPanel>
+        <PanelContent>
+          <PanelPrompt
+            text={`Would you like to save the gift for when you're at the museum or open it anyway?`}
+            background={'transparent-black'}
+            dottedBorder={false}
+          />
+        </PanelContent>
+        <Buttons>
+        <Button onClick={this.saveForLater}>Save it</Button>
+        <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
+        </Buttons>
+      </StyledPanel>
     );
   }
 
@@ -118,42 +139,53 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public render() {
 
-    const { status } = this.state;
+    const { status, compactHeader } = this.state;
 
     // The header size is based on our current state
-    const headerSize = status === 'Welcome' || status === 'OpenOrSave'  ?
-      'Big' : 'Small';
+    // const headerSize = compactHeader ? 'compact' :
+    //   status === 'Welcome' || status === 'OpenOrSave'  ? 'big' : 'small';
+
+    let headerSize = 'compact';
+    if (compactHeader) {
+      headerSize = 'compact';
+    } else {
+      headerSize = status === 'Welcome' || status === 'OpenOrSave'  ? 'big' : 'small';
+    }
+
+    console.log({compactHeader});
 
     // Background
-    const bgImage = (status === 'Welcome' || status === 'SelectLocation' ?
-      require('../../assets/svg/trianglify-2.svg') : null );
-
-    // Logo
-    const showLogo = false;
+    const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/trianglify-2.svg') );
 
     return (
       <ScreenManager backgroundImageUrl={bgImage}>
         <GlobalStyles />
-        <NoScroll />
 
-        {headerSize === 'Big' &&
+        {headerSize === 'big' &&
           <ScreenHeader
             subTitle={`Heres's your gift`}
             postSubTitle={`from`}
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
-            showLogo={showLogo}
+            showLogo={false}
             topPadding={true}
           />
         }
-        {headerSize === 'Small' &&
+        {headerSize === 'small' &&
           <ScreenHeader
-            subTitle={`Heres's your gift`}
-            postSubTitle={`from`}
+            postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
-            showLogo={showLogo}
-            topPadding={true}
+            showLogo={false}
+            topPadding={false}
+          />
+        }
+        {headerSize === 'compact' &&
+          <ScreenHeader
+            postSubTitle={`Your gift from`}
+            title={this.props.gift.senderName}
+            showLogo={false}
+            topPadding={false}
           />
         }
 

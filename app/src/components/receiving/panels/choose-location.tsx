@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
@@ -7,6 +8,11 @@ import { Buttons, Button } from '../../buttons';
 /***
  * Choose location panel
  */
+
+const PinImg = styled.img`
+  margin-top: 5%;
+  max-width: 30%;
+`;
 
  // Define our receiving locations
 export type RecipientLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
@@ -39,11 +45,17 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
   return (
     <StyledPanel {...panelProps}>
       <PanelContent>
-        <PanelPrompt text={`Are you at the ${panelProps.museumName} right now?`} background={'transparent-black'} />
+        <PanelPrompt
+          text={`Are you at the ${panelProps.museumName} right now?`}
+          background={'transparent-black'}
+          dottedBorder={false}
+        >
+          <PinImg src={require('../../../assets/svg/pin.svg')} />
+        </PanelPrompt>
       </PanelContent>
       <Buttons>
-        <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
         <Button onClick={handleNotAtMuseum}>No</Button>
+        <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
       </Buttons>
     </StyledPanel>
   );

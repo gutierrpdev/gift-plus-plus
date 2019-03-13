@@ -5,7 +5,6 @@ import { global } from '../../themes/global';
 
 import { StyledPanel, PanelContent, PanelProps } from '../panel';
 import { PanelRound } from '../panel-round';
-import { PanelPromptStyle } from '../panel-prompt';
 
 /***
  * Open gift
@@ -13,7 +12,7 @@ import { PanelPromptStyle } from '../panel-prompt';
 
 const GiftImage = styled.img`
   max-width: 100%;
-  margin: 5vw 0 1vw;
+  margin: 5vw 0 0;
 `;
 
 const OpenPanel = styled.div`
@@ -27,7 +26,7 @@ const OpenText = styled.div`
   font-family: ${global.fonts.title.family};
   font-size: 7vw;
   position: relative;
-  top: -2vw; // nudge up because of svg spacing
+  top: -3vw; // nudge up because of svg spacing
   color: black;
 `;
 
