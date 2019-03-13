@@ -50,7 +50,6 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
         {/* todo : set audio paths */}
         {atMuseum &&
           <AudioPlayer
-            preload={true}
             text={'A message to you before you start...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
             forwardButton={'GoToEnd'}
@@ -59,7 +58,6 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
         }
         {!atMuseum &&
           <AudioPlayer
-            preload={true}
             text={'A message to you before we begin...'}
             src={require('../../../assets/audio/_1-second-of-silence.mp3')}
             forwardButton={'GoToEnd'}

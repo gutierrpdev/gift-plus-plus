@@ -63,7 +63,6 @@ export type AudioPlayerForwardButton = 'SkipSeconds' | 'GoToEnd';
 
 interface Props {
   text: string;
-  preload?: boolean; // Preload the audio, ala the HTML component
   src: string;
   forwardButton: AudioPlayerForwardButton;
   onPlaybackComplete?: () => void; // optional callback when audio has completed playback
@@ -261,8 +260,6 @@ class AudioPlayer extends React.PureComponent<Props, State> {
   public render() {
 
     // Prepare our props
-    // <audio> accepts string preload value
-    const preload = this.props.preload ? 'auto' : 'none';
     const { children } = this.props;
     const { isPlaying } = this.state;
     const playButtonImg = isPlaying ?
@@ -285,7 +282,6 @@ class AudioPlayer extends React.PureComponent<Props, State> {
               title={'Play'}
               loop={false}
               autoPlay={false}
-              preload={preload}
               ref={(ref) => { this.audio = ref; }}
             >
               {incompatibilityMessage}

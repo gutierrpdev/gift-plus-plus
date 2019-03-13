@@ -205,14 +205,12 @@ storiesOf('Components', module)
     <div>
       <p>Skip forward button</p>
       <AudioPlayer
-        preload={true}
         text={'Lorem ipsum'}
         forwardButton={'SkipSeconds'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
       <p>Jump Go to End forward button</p>
       <AudioPlayer
-        preload={true}
         text={'Lorem ipsum'}
         forwardButton={'GoToEnd'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
