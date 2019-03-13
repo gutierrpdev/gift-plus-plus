@@ -13,8 +13,12 @@ export interface Props {
 }
 
 const PanelRound = styled.div<Props>`
-  height: ${global.components.circle.width};
-  width: ${global.components.circle.width};
+  height: ${global.components.circle.width.vm};
+  width: ${global.components.circle.width.vm};
+  @media (min-width: 768px) {
+    height: ${global.components.circle.width.pixels};
+    width: ${global.components.circle.width.pixels};
+  }
   border-radius: 50%;
   padding: 3vmin;
   margin: 0 auto;

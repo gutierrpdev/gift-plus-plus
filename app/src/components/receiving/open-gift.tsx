@@ -5,28 +5,31 @@ import { global } from '../../themes/global';
 
 import { StyledPanel, PanelContent, PanelProps } from '../panel';
 import { PanelRound } from '../panel-round';
+import { TextResize } from './../text-resize';
 
 /***
  * Open gift
  */
 
 const GiftImage = styled.img`
-  max-width: 100%;
-  margin: 5vw 0 0;
+  max-width: 70%;
+  margin: 7% 0 0;
 `;
 
 const OpenPanel = styled.div`
   display: block;
   text-align: center;
   margin: 0 auto;
+  width: 100%;
 `;
 
-const OpenText = styled.div`
+const OpenText = styled(TextResize).attrs({
+    size: 60,
+  })`
   font-style: italic;
   font-family: ${global.fonts.title.family};
-  font-size: 7vw;
   position: relative;
-  top: -3vw; // nudge up because of svg spacing
+  top: -5%; // nudge up because of svg spacing
   color: black;
 `;
 

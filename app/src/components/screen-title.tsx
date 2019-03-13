@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import { TextResize } from './text-resize';
 
-const ScreenTitle = styled.h1`
-  font-size: 12vw; // todo check font size for big name
+const ScreenTitle = styled(TextResize).attrs({
+    size: 100,
+  })`
   margin: 0 0 1vw;
   text-align: center;
   font-family: ${global.fonts.title.family};

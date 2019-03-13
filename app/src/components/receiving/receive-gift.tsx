@@ -152,8 +152,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       headerSize = status === 'Welcome' || status === 'OpenOrSave'  ? 'big' : 'small';
     }
 
-    console.log({compactHeader});
-
     // Background
     const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/trianglify-2.svg') );
 
@@ -163,7 +161,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
         {headerSize === 'big' &&
           <ScreenHeader
-            subTitle={`Heres's your gift`}
+            subTitle={`Here's your gift`}
             postSubTitle={`from`}
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}

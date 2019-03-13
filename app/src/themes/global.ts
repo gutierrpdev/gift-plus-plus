@@ -63,7 +63,10 @@ const global = {
   },
   components: {
     circle : {
-      width: '65vmin',
+      width: {
+        vm : '65vmin',
+        pixels: '400px',
+      },
     },
     imageReveal : {
       width: '34vmin',

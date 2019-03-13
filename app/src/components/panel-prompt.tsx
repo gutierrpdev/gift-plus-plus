@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBackgroundStyle } from './panel-round';
-import { checkPropTypes } from 'prop-types';
 
 const PanelPromptStyle = styled.div`
   overflow: hidden;

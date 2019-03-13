@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
-const PanelText = styled.div`
+import { TextResize } from './text-resize';
+
+const PanelText = styled(TextResize).attrs({
+    size: 60,
+  })`
   text-align: center;
-  font-size: 6vw;
   font-weight: 300;
   padding: 0 5%;
 `;

@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import { TextResize } from './text-resize';
 
-const ScreenSubTitle = styled.h1`
-  font-size: 7vw;
+const ScreenSubTitle = styled(TextResize).attrs({
+    size: 70,
+  })`
+  /* font-size: 7vw; */
   margin: 0 0 3vw;
   line-height: 1;
   text-align: center;

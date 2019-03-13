@@ -7,9 +7,9 @@ import {  ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
 
 const ScreenHeaderStyle = styled.div<Props>`
-  margin: 5vw 0 8vw;
+  margin: 5% 0 5%;
   ${(props) => props.topPadding && `
-    padding-top: 20vw;
+    padding-top: 10%;
   `}
 `;
 
