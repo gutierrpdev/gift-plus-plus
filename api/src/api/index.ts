@@ -6,7 +6,7 @@ import { router } from './routes';
 
 export interface Config {
   lib: Lib;
-  frontendOrigin: string;
+  corsAllowedOrigins: string;
 }
 
 
@@ -39,7 +39,7 @@ class Api extends JsonApi<Api.StateT, Api.CustomT> {
 
     // Enable CORS
     this.use(cors({
-      origin: config.frontendOrigin,
+      origin: config.corsAllowedOrigins,
       keepHeadersOnError: false,
       allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
       maxAge: 60 * 60 * 24,

@@ -53,7 +53,7 @@ async function main(): Promise<void> {
   runningComponents.push(lib);
 
   logger.debug(`Creating API`);
-  const api = await Api.create({ lib, frontendOrigin: config.frontendOrigin });
+  const api = await Api.create({ lib, corsAllowedOrigins: config.corsAllowedOrigins });
   runningComponents.push(api);
 
   logger.info(`Starting API`);
