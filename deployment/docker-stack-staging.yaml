@@ -19,6 +19,8 @@ services:
 
   app:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest
+    volumes:
+      - './nginx-app.conf:/etc/nginx/nginx.conf'
     deploy:
       replicas: 1
       labels:
