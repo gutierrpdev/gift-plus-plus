@@ -1,6 +1,19 @@
 import uuidv5 from 'uuid/v5';
 import { Gift, GiftPart } from '../src/domain';
 
+// Empty gift, for creating
+export const emptyGift: Gift = {
+  id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
+  kind: 'PersonalGift',
+  museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
+  accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
+  senderName: '',
+  recipientName: '',
+  recipientGreeting: '',
+  parts: [],
+};
+
+// Gifts, for receiving
 export const giftThreeParts: Gift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
   kind: 'PersonalGift',

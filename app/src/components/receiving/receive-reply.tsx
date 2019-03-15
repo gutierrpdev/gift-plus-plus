@@ -61,7 +61,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
         <AudioPlayer text={'Listen back to your reply...'} src={''} forwardButton={'GoToEnd'}  />
       }
       {!hasRecording &&
-        <AudioRecorder text={recordText} onRecordComplete={handleRecordingComplete}  />
+        <AudioRecorder text={recordText}  onRecordingStop={handleRecordingComplete}  />
       }
 
       <Buttons>

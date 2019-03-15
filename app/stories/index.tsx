@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
+import { Gift } from '../src/domain';
+
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader } from '../src/components/screen-header';
@@ -36,8 +38,11 @@ import { ReceivingChooseLocation } from '../src/components/receiving/panels/choo
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 
+// Creating
+import { CreateGiftStart } from '../src/components/creating/create-gift-start';
+
 // Data
-import { giftThreeParts, giftPart } from './fixtures';
+import { giftThreeParts, giftPart, emptyGift } from './fixtures';
 
 // Some useful bits to help...
 
@@ -280,6 +285,8 @@ storiesOf('Components', module)
   ))
 ;
 
+
+// Receiving components
 storiesOf('Components/Receiving', module)
   .add('Gift Part', () => (
     <GiftPartWrapper
@@ -317,5 +324,12 @@ storiesOf('Components/Receiving', module)
   ))
   .add('Reply', () => (
     <ReceiveReply gift={giftThreeParts} visible={true} />
+  ))
+;
+
+// Creating components
+storiesOf('Components/Creating', module)
+  .add('Create Gift Start', () => (
+    <CreateGiftStart gift={emptyGift} />
   ))
 ;

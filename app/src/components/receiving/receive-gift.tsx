@@ -5,7 +5,7 @@ import { assertNever } from '../../utils/helpers';
 import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
-import { ScreenHeader, ScreenHeaderSize } from '../screen-header';
+import { ScreenHeader } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
 import { Button, Buttons } from '../buttons';
@@ -14,7 +14,7 @@ import { StyledPanel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 
 /**
- * Gift Receive screen
+ * Gift Receive screen top level component
  */
 
 // Current status of this screen
@@ -174,7 +174,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
             showLogo={false}
-            topPadding={false}
           />
         }
         {headerSize === 'compact' &&
@@ -182,7 +181,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             showLogo={false}
-            topPadding={false}
           />
         }
 

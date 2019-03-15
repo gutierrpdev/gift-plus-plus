@@ -18,10 +18,10 @@ const PanelPromptStyle = styled.div`
 
 interface Props {
   text: string;
-  background: PanelRoundBackgroundStyle;
+  background?: PanelRoundBackgroundStyle;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text, background, children }) => (
+const PanelPrompt: React.FC<Props> = ({ text, background = 'none', children }) => (
   <PanelRound background={background}>
     <PanelPromptStyle>
       <PanelText>{text}</PanelText>

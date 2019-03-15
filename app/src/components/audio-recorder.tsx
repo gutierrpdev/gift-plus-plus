@@ -53,14 +53,16 @@ const RecordButton = styled(BaseControlButton)`
 
 interface Props {
   text: string;
-  onRecordComplete?: (recordedAudioPath: string) => void; // optional callback when audio has been recorded
+  onRecordingStart?: () => void;
+  onRecordingStop?: (recordedAudioPath: string) => void;
 }
 
 type AudioRecorderState = 'idle' | 'recording';
 
 const AudioRecorder: React.FC<Props> = (props) => {
 
-  const [status, setStatus] = useState('idle');
+  // State
+  const [status, setStatus] = useState<AudioRecorderState>('idle');
   const [hasRecording, setHasRecording] = useState(false);
 
   // Handle Record button press
@@ -69,18 +71,30 @@ const AudioRecorder: React.FC<Props> = (props) => {
       case 'idle' :
         // Start recording
         setStatus('recording');
+        if (props.onRecordingStart) {
+          props.onRecordingStart();
+        }
         break;
       case 'recording' :
         // Stop recording
         setStatus('idle');
         setHasRecording(true);
-        if (props.onRecordComplete) {
-          props.onRecordComplete('filename'); // todo
+        if (props.onRecordingStop) {
+          props.onRecordingStop('filename'); // todo
         }
         break;
     }
   }
 
+  function startRecording() {
+    setStatus('recording');
+  }
+
+  function stopRecording() {
+    setStatus('recording');
+  }
+
+  // Handy values
   const recording = status === 'recording';
   const border: PanelRoundBorderStyle = recording ? 'solid-red' : 'none';
 

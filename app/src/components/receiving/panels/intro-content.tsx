@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { StyledPanel, PanelContent, PanelProps } from '../../panel';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer, AudioPlayerForwardButton } from '../../../components/audio-player';
+import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
 
 /***

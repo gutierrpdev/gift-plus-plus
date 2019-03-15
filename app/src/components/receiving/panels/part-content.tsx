@@ -210,7 +210,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   const giftPartPhoto = giftPart ? giftPart.photo : '';
-  const defaultWait = 2;
+  const defaultWait = 5;
   const showReveal = section >= 1 && section < 7;
 
   // Use an index to advance to next statge
@@ -246,7 +246,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
-            <PanelPrompt text={getDoYouNeedaClueText()} background={'none'} />
+            <PanelPrompt text={getDoYouNeedaClueText()} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -256,23 +256,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* wander/look around */}
         {section === 3 &&
-          <PanelPrompt text={getLookAroundText()} background={'none'}/>
+          <PanelPrompt text={getLookAroundText()} />
         }
 
         {/* show clue */}
         {section === 4 &&
-          <PanelPrompt text={giftPart.clue} background={'none'}/>
+          <PanelPrompt text={giftPart.clue} />
         }
 
         {/* need help */}
         {section === 5 &&
-          <PanelPrompt text={getNeedHelpText()} background={'none'}/>
+          <PanelPrompt text={getNeedHelpText()} />
         }
 
         {/* here is help */}
         {section === 6 &&
           <>
-            <PanelPrompt text={'Here you go...'} background={'none'}/>
+            <PanelPrompt text={'Here you go...'} />
             <WaitThen
               wait={defaultWait}
               andThen={gotoFound}
