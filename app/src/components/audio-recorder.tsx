@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBorderStyle } from './panel-round';
-import { BaseAudioButton } from './audio-player';
+import { BaseControlButton } from './buttons';
 import { TextResize } from './text-resize';
 
 /**
@@ -46,7 +46,7 @@ const RecordingText = styled.div<RecordingProps>`
 `;
 
 // Buttons
-const RecordButton = styled(BaseAudioButton)`
+const RecordButton = styled(BaseControlButton)`
   width: 30%;
   border-radius: 50%;
 `;

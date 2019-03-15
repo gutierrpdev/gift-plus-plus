@@ -24,6 +24,7 @@ import { Gradient } from '../src/components/gradient';
 import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
 import { ProgressLoader } from '../src/components/progress-loader';
+import { PhotoCapture } from '../src/components/photo-capture';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -273,6 +274,9 @@ storiesOf('Components', module)
   ))
   .add('Progress Loader', () => (
     <ProgressLoader percentage={25} />
+  ))
+  .add('Photo Capture', () => (
+    <PhotoCapture text={'take a photo'}/>
   ))
 ;
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ProgressBar } from './progress-bar';
 import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
+import { BaseControlButton } from './buttons';
 
 /**
  * Audio Player
@@ -34,25 +35,17 @@ const Controls = styled.div`
 `;
 
 // == Buttons ==
-// Base button has active state
-const BaseAudioButton = styled.div`
-  opacity: 0.8;
-  &:active {
-    opacity: 1;
-  }
-`;
-
-const SkipBack = styled(BaseAudioButton)`
+const SkipBack = styled(BaseControlButton)`
   width: 10vmin;
   height: 10vmin;
 `;
 
-const SkipForward = styled(BaseAudioButton)`
+const SkipForward = styled(BaseControlButton)`
   width: 10vmin;
   height: 10vmin;
 `;
 
-const Play = styled(BaseAudioButton)`
+const Play = styled(BaseControlButton)`
   width: 17vmin;
   height: 17vmin;
   margin: 0 3vmin;
@@ -326,5 +319,4 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 export {
   AudioPlayer,
   AudioPlayerStyle,
-  BaseAudioButton,
 };

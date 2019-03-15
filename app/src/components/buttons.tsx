@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
-// Container for button(s)
+// Container for button(s) used at the bottom of screens
 const Buttons = styled.div`
   display: flex;
   margin: 0;
@@ -32,7 +32,17 @@ const Button = styled.button<ButtonProps>`
   border: none;
 `;
 
+// Base button used for controls (audio player, photo capture, etc)
+// Base button has active state
+const BaseControlButton = styled.div`
+  opacity: 0.8;
+  &:active {
+    opacity: 1;
+  }
+`;
+
 export {
   Button,
   Buttons,
+  BaseControlButton,
 };
