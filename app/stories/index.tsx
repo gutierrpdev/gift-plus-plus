@@ -30,7 +30,7 @@ import { PhotoCapture } from '../src/components/photo-capture';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
-import { CreateGift } from '../src/screens/create-gift';
+import { CreateGift } from '../src/components/creating/create-gift';
 import { Home } from '../src/screens/home';
 
 // Receiving Part 1
@@ -84,7 +84,7 @@ storiesOf('Home', module)
 ;
 
 storiesOf('Creating', module)
-  .add('Create gift', () => <CreateGift />)
+  .add('Create gift', () => <CreateGift gift={emptyGift} museumName={'Brighton & Hove Museum'} />)
 ;
 
 storiesOf('Receiving', module)

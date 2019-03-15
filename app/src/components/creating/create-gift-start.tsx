@@ -75,7 +75,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
   // This section is complete
   function finishedThisSection() {
     // callback
-    console.log('finished');
+    // console.log('finished');
   }
 
   // Render different bits of content
@@ -149,9 +149,8 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
 
 
   function renderRecordGreeting() {
-    // check audio has already played ala script
 
-    let recorder: AudioRecorder = null;
+    // check audio has already played ala script
 
     return (
       <>
@@ -159,7 +158,6 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
           <AudioRecorder
             text={`Record a greeting for ${gift.recipientName}`}
             onRecordingStop={handleRecordingComplete}
-            ref={ (thisone: AudioRecorder) => { recorder = thisone; } }
           />
         </PanelContent>
         <Buttons>

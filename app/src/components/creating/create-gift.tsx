@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { assertNever } from '../../utils/helpers';
 
@@ -6,10 +6,6 @@ import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
-import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
-import { Button, Buttons } from '../buttons';
-import { StyledPanel, PanelContent } from '../panel';
-import { PanelPrompt } from '../panel-prompt';
 
 /**
  * Gift Create screen top level component
@@ -25,130 +21,110 @@ interface Props {
   museumName: string;
 }
 
-interface State {
-  status: Status;
-  recipientLocation: RecipientLocation;
-  compactHeader: boolean;
-}
+const CreateGift: React.FC<Props> = ({ gift, museumName }) => {
 
-class ReceiveGift extends React.PureComponent<Props, State> {
+  const [status, setStatus] = useState<Status>('start');
+  const [compactHeader, setCompactHeader] = useState(false);
 
-  public state: State = {
-    status: 'start',
-    recipientLocation: 'Unknown',
-    compactHeader: false,
-  };
-
-  // Select Part
-  public selectPart = () => {
-    this.setState({
-      status: 'select-part',
-    });
+  // Move to section
+  function gotoSelectPart() {
+    setStatus('select-part');
   }
 
-  // Creating part
-  public createPart = () => {
-    // this.setCompactHeader();
-    this.setState({
-      status: 'creating-part',
-    });
+  function gotoCreatePart() {
+    setStatus('creating-part');
   }
 
-  // Sign gift
-  public signGift = () => {
-    this.setState({
-      status: 'sign-gift',
-    });
+  function gotoSignGift() {
+    setStatus('sign-gift');
   }
 
   // Return the correct content based on status
-  public renderContent() {
-    switch (this.state.status) {
+  function renderContent() {
+    switch (status) {
       case 'start':
-        return this.renderStart();
+        return renderStart();
       case 'select-part':
-        return this.renderSelectPart();
+        return renderSelectPart();
       case 'creating-part':
-        return this.renderCreatingPart();
+        return renderCreatingPart();
       case 'sign-gift':
-        return this.renderSignGift();
+        return renderSignGift();
       default:
-        return assertNever(this.state.status);
+        return assertNever(status);
     }
   }
 
   // Start section
-  public renderStart() {
+  function renderStart() {
     return (
       null
     );
   }
 
-  public renderSelectPart() {
+  function renderSelectPart() {
     return (
       null
     );
   }
 
-  public renderCreatingPart() {
+  function renderCreatingPart() {
     return (
       null
     );
   }
 
-  public renderSignGift() {
+  function renderSignGift() {
     return (
       null
     );
   }
 
-  public render() {
+  // The header size is based on our current state
+  const headerSize = compactHeader
+                    ? 'compact'
+                    : status === 'start' ? 'big' : 'small';
 
-    const { status, compactHeader } = this.state;
+  // Background
+  const bgImage = require('../../assets/svg/trianglify-2.svg');
 
-    // The header size is based on our current state
-    const headerSize = compactHeader
-                     ? 'compact'
-                     : status === 'start' ? 'big' : 'small';
 
-    // Background
-    const bgImage = require('../../assets/svg/trianglify-2.svg');
+  return (
 
-    return (
-      <ScreenManager backgroundImageUrl={bgImage}>
-        <GlobalStyles />
+    <ScreenManager backgroundImageUrl={bgImage}>
+      <GlobalStyles />
 
-        {headerSize === 'big' && // todo, no design yet
-          <ScreenHeader
-            subTitle={`Making a gift for`}
-            postSubTitle={`from`}
-            title={this.props.gift.senderName}
-            postTitle={`at ${this.props.museumName}`}
-            showLogo={false}
-            topPadding={true}
-          />
-        }
-        {headerSize === 'small' &&
-          <ScreenHeader
-            postSubTitle={`Making a gift for`}
-            title={this.props.gift.senderName}
-            showLogo={true}
-          />
-        }
-        {headerSize === 'compact' &&
-          <ScreenHeader
-            postSubTitle={`Making a gift for`}
-            title={this.props.gift.senderName}
-            showLogo={false}
-          />
-        }
+      {headerSize === 'big' && // todo, no design yet
+        <ScreenHeader
+          subTitle={`Making a gift for`}
+          postSubTitle={`from`}
+          title={gift.senderName}
+          postTitle={`at ${museumName}`}
+          showLogo={false}
+          topPadding={true}
+        />
+      }
+      {headerSize === 'small' &&
+        <ScreenHeader
+          postSubTitle={`Making a gift for`}
+          title={gift.senderName}
+          showLogo={true}
+        />
+      }
+      {headerSize === 'compact' &&
+        <ScreenHeader
+          postSubTitle={`Making a gift for`}
+          title={gift.senderName}
+          showLogo={false}
+        />
+      }
 
-        {this.renderContent()}
-      </ScreenManager>
-    );
-  }
-}
+      {renderContent()}
+    </ScreenManager>
+  );
+
+};
 
 export {
-  ReceiveGift,
+  CreateGift,
 };
