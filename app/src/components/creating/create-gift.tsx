@@ -6,6 +6,7 @@ import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
+import { CreateGiftStart } from '../creating/create-gift-start';
 
 /**
  * Gift Create screen top level component
@@ -27,6 +28,7 @@ const CreateGift: React.FC<Props> = ({ gift, museumName }) => {
   const [compactHeader, setCompactHeader] = useState(false);
 
   // Move to section
+  // todo do we need this, check with Nick
   function gotoSelectPart() {
     setStatus('select-part');
   }
@@ -58,7 +60,7 @@ const CreateGift: React.FC<Props> = ({ gift, museumName }) => {
   // Start section
   function renderStart() {
     return (
-      null
+      <CreateGiftStart gift={gift}/>
     );
   }
 
@@ -87,7 +89,6 @@ const CreateGift: React.FC<Props> = ({ gift, museumName }) => {
 
   // Background
   const bgImage = require('../../assets/svg/trianglify-2.svg');
-
 
   return (
 

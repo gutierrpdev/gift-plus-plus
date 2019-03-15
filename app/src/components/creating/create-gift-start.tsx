@@ -29,7 +29,7 @@ interface Props {
 const CreateGiftStart: React.FC<Props> = ({ gift }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('record-greeting');
+  const [status, setStatus] = useState<Status>('first-message');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);
@@ -129,8 +129,9 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
           />
         </PanelContent>
         <Buttons>
+          {/* {!audioHasPlayed && <Button invisible={true}>&nbsp;</Button>} */}
           {audioHasPlayed && <Button onClick={gotoEnterRecipient}>Skip</Button>}
-          {audioHasPlayed && <Button onClick={gotoEnterRecipient}>Choose Person</Button>}
+          {audioHasPlayed && <Button onClick={gotoEnterRecipient} primary={true}>Choose Person</Button>}
         </Buttons>
       </>
     );
@@ -161,6 +162,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
           />
         </PanelContent>
         <Buttons>
+          {!greetingIsRecording && !greetingIsRecorded && <Button invisible={true}>&nbsp;</Button>}
           {greetingIsRecording && <Button>Start recording</Button>}
           {greetingIsRecording && <Button>Stop recording</Button>}
           {greetingIsRecorded && <Button>Re-record</Button>}
@@ -170,7 +172,6 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
     );
   }
 
-  // Use an index to advance to next statge
   return (
     <StyledPanel>
 
