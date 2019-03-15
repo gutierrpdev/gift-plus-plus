@@ -5,19 +5,19 @@ import { action } from '@storybook/addon-actions';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
-import { ScreenHeader, ScreenHeaderSize } from '../src/components/screen-header';
+import { ScreenHeader } from '../src/components/screen-header';
 // import { GiftPile } from '../src/components/gift-pile';
 import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
-import { GiftPartWrapper, GiftPartWrapperStatus  } from '../src/components/receiving/gift-part-wrapper';
+import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
 import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImage } from '../src/components/panel-image';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
-import { AudioPlayer, AudioPlayerForwardButton } from '../src/components/audio-player';
+import { AudioPlayer } from '../src/components/audio-player';
 import { AudioRecorder } from '../src/components/audio-recorder';
 import { WaitThen } from '../src/components/wait-then';
 import { Gradient } from '../src/components/gradient';
@@ -31,20 +31,12 @@ import { CreateGift } from '../src/screens/create-gift';
 import { Home } from '../src/screens/home';
 
 // Receiving Part 1
-import { ReceivingChooseLocation, RecipientLocation } from '../src/components/receiving/panels/choose-location';
+import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 
 // Data
-import { giftThreeParts, giftTwoParts, giftPart } from './fixtures';
-
-// storiesOf('Index', module)
-//   .add('Index', () => (
-//     <div>
-//       <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>
-//     </div>
-//   ))
-// ;
+import { giftThreeParts, giftPart } from './fixtures';
 
 // Some useful bits to help...
 
@@ -71,7 +63,6 @@ const whiteText = {
 };
 
 // const twoGifts = [giftThreeParts, giftTwoParts];
-
 // const bgImage = import('../src/assets/test.jpg');
 
 const bgImg = {
@@ -96,7 +87,6 @@ storiesOf('Receiving', module)
   ))
   // .add('Remotely', () => <h1>TODO</h1>)
 ;
-
 
 
 // tslint:disable-next-line
@@ -142,20 +132,6 @@ storiesOf('Components', module)
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
-  .add('Gift Part', () => (
-    <GiftPartWrapper
-      gift={giftThreeParts}
-      giftPart={giftPart}
-      onComplete={doNothing}
-      recipientLocation={'AtMuseum'}
-    />
-  ))
-  .add('Gift Parts', () => (
-    <ScreenManager>
-      <GlobalStyles />
-      <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />
-    </ScreenManager>
-  ))
   .add('Panel Prompt text', () => (
     <div style={greyBG}>
       <PanelPrompt text={'lorem ipsum solus incum'} background={'transparent-black'} />
@@ -295,17 +271,26 @@ storiesOf('Components', module)
       </IdleGiftPart>
     </div>
   ))
-  .add('Idle Gift Part', () => (
+  .add('Progress Loader', () => (
     <ProgressLoader percentage={25} />
   ))
 ;
 
-// storiesOf('Components/Test Examples', module)
-//   .add('Button with text', () => <button onClick={action('clicked')}>Hello Button</button>)
-//   .add('Button with link', () => <button onClick={linkTo('Receiving', 'At Museum')}>Go to receiving</button>)
-// ;
-
-storiesOf('Receiving/Part 1', module)
+storiesOf('Components/Receiving', module)
+  .add('Gift Part', () => (
+    <GiftPartWrapper
+      gift={giftThreeParts}
+      giftPart={giftPart}
+      onComplete={doNothing}
+      recipientLocation={'AtMuseum'}
+    />
+  ))
+  .add('Gift Parts', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />
+    </ScreenManager>
+  ))
   .add('Choose location', () => <ReceivingChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
   .add('Intro', () => (
     <ReceivingIntroContent
