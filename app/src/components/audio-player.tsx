@@ -12,7 +12,7 @@ import { PanelRound } from './panel-round';
 
  // Used in player and recorder
 const AudioPlayerStyle = styled.div`
-  display: 'flex';
+  display: 'flex'; // todo this seems wrong
   color: white;
   padding: 10vw 5vw;
   margin: 0 auto;
@@ -274,7 +274,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     );
 
     return (
-      <PanelRound background={'transparent-black'} dottedBorder={false}>
+      <PanelRound background={'transparent-black'}>
         <AudioPlayerStyle>
             <audio
               src={this.props.src}

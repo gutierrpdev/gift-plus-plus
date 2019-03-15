@@ -18,7 +18,7 @@ import { PanelPrompt } from '../panel-prompt';
  */
 
 // Current status of this screen
-type ReceiveGiftStatus =  'Welcome' | 'SelectLocation' | 'OpenOrSave' |  'ShowingParts';
+type ReceiveGiftStatus = 'Welcome' | 'SelectLocation' | 'OpenOrSave' | 'ShowingParts';
 
 interface Props {
   gift: Gift;
@@ -108,7 +108,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           <PanelPrompt
             text={`Would you like to save the gift for when you're at the museum or open it anyway?`}
             background={'transparent-black'}
-            dottedBorder={false}
           />
         </PanelContent>
         <Buttons>

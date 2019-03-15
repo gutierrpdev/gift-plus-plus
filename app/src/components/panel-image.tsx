@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PanelImage: React.FC<Props> = ({ imageSrc }: Props) => (
-  <PanelRound background={'transparent-black'} dottedBorder={false}>
+  <PanelRound background={'transparent-black'}>
     <PanelPromptStyle>
       <img src={imageSrc} />
     </PanelPromptStyle>

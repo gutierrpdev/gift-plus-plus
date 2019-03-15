@@ -1,45 +1,54 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { ProgressBar } from './progress-bar';
 import { PanelText } from './panel-text';
-import { PanelRound } from './panel-round';
-import { AudioPlayerStyle, BaseAudioButton } from './audio-player';
+import { PanelRound, PanelRoundBorderStyle } from './panel-round';
+import { BaseAudioButton } from './audio-player';
+import { TextResize } from './text-resize';
 
 /**
  * Audio Recorder
  *
  */
+const AudioRecorderStyle = styled.div`
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 const AudioPanelText = styled(PanelText)`
   height: 60%;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
   flex-direction: column;
-`;
-const AudioPanelThinText = styled(PanelText)`
-  font-weight: 300;
-  /* display: block; */
-  width: 100%;
+  padding: 5% 10%;
+  text-align: center;
 `;
 
 const Controls = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 20px 0 0;
-  height: 40%;
+  align-items: flex-end;
+`;
+
+interface RecordingProps {
+  show: boolean;
+}
+const RecordingText = styled.div<RecordingProps>`
+  color: red;
+  text-transform: uppercase;
+  visibility: ${(props) => props.show ? 'visible' : 'hidden'};
+  text-align: center;
+  margin-bottom: 10%;
+  font-weight: 300;
 `;
 
 // Buttons
 const RecordButton = styled(BaseAudioButton)`
-  width: 15vmin;
-  height: 15vmin;
+  width: 30%;
   border-radius: 50%;
-  padding: 1vmin;
-`;
-const RecordButtonRecording = styled(RecordButton)`
-  border: 1vmin solid red;
 `;
 
 interface Props {
@@ -47,21 +56,23 @@ interface Props {
   onRecordComplete?: (recordedAudioPath: string) => void; // optional callback when audio has been recorded
 }
 
+type AudioRecorderState = 'idle' | 'recording';
+
 const AudioRecorder: React.FC<Props> = (props) => {
 
-  const [status, setStatus] = useState('Idle'); // 'Recording' | 'Playing'
+  const [status, setStatus] = useState('idle');
   const [hasRecording, setHasRecording] = useState(false);
 
   // Handle Record button press
   function handleRecordButton() {
     switch (status) {
-      case 'Idle' :
+      case 'idle' :
         // Start recording
-        setStatus('Recording');
+        setStatus('recording');
         break;
-      case 'Recording' :
+      case 'recording' :
         // Stop recording
-        setStatus('Idle');
+        setStatus('idle');
         setHasRecording(true);
         if (props.onRecordComplete) {
           props.onRecordComplete('filename'); // todo
@@ -70,34 +81,24 @@ const AudioRecorder: React.FC<Props> = (props) => {
     }
   }
 
-  return (
-    <PanelRound background={'transparent-black'} dottedBorder={false}>
+  const recording = status === 'recording';
+  const border: PanelRoundBorderStyle = recording ? 'solid-red' : 'none';
 
-      {status === 'Idle' &&
-      <AudioPlayerStyle>
+  return (
+    <PanelRound background={'transparent-black'} border={border} onClick={handleRecordButton}>
+      <AudioRecorderStyle>
         <AudioPanelText>{props.text}</AudioPanelText>
+        <RecordingText
+          show={recording}
+        >
+          <TextResize size={40}>Now Recording</TextResize>
+        </RecordingText>
         <Controls>
-          <RecordButton onClick={handleRecordButton}>
+          <RecordButton >
             <img src={require('../assets/svg/button-audio-record.svg')} />
           </RecordButton>
         </Controls>
-      </AudioPlayerStyle>
-      }
-
-      {status === 'Recording' &&
-      <AudioPlayerStyle>
-        <AudioPanelText>
-          Now Recording
-          <AudioPanelThinText>Click to stop</AudioPanelThinText>
-        </AudioPanelText>
-        <Controls>
-          <RecordButtonRecording onClick={handleRecordButton}>
-            <img src={require('../assets/svg/button-audio-record.svg')} />
-          </RecordButtonRecording>
-        </Controls>
-      </AudioPlayerStyle>
-      }
-
+      </AudioRecorderStyle>
 
     </PanelRound>
   );

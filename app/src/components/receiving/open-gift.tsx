@@ -49,7 +49,7 @@ const ReceivingOpenGift: React.FC<Props> = (panelProps) => {
   return (
     <StyledPanel {...panelProps}>
       <PanelContent>
-        <PanelRound dottedBorder={false} background={'solid-white'} onClick={handleOpenGift}>
+        <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
           <OpenPanel>
             <GiftImage src={require('../../assets/svg/gift.svg')} />
             <OpenText>Click to open</OpenText>

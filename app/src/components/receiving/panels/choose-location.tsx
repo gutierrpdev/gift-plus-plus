@@ -48,7 +48,6 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
         <PanelPrompt
           text={`Are you at the ${panelProps.museumName} right now?`}
           background={'transparent-black'}
-          dottedBorder={false}
         >
           <PinImg src={require('../../../assets/svg/pin.svg')} />
         </PanelPrompt>

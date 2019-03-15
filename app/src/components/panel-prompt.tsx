@@ -19,11 +19,10 @@ const PanelPromptStyle = styled.div`
 interface Props {
   text: string;
   background: PanelRoundBackgroundStyle;
-  dottedBorder?: boolean;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text, background, dottedBorder = false, children }) => (
-  <PanelRound background={background} dottedBorder={dottedBorder}>
+const PanelPrompt: React.FC<Props> = ({ text, background, children }) => (
+  <PanelRound background={background}>
     <PanelPromptStyle>
       <PanelText>{text}</PanelText>
       {children}

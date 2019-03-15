@@ -218,9 +218,18 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Audio recorder', () => (
-    <AudioRecorder
-      text={'Record an awesome message for someone really cool'}
-    />
+    <>
+      <GlobalStyles />
+      <AudioRecorder
+        text={'Record a greeting for Alexandria'}
+      />
+      <AudioRecorder
+        text={'short'}
+      />
+      <AudioRecorder
+        text={'this is quite long text and it should sit ok'}
+      />
+    </>
   ))
   .add('Wait and Then', () => (
     <div>

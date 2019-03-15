@@ -6,9 +6,10 @@ import { global } from '../themes/global';
  */
 
 export type PanelRoundBackgroundStyle = 'transparent-black' | 'solid-white' | 'none';
+export type PanelRoundBorderStyle = 'dotted' | 'solid-red' | 'none';
 
 export interface Props {
-  dottedBorder: boolean;
+  border?: PanelRoundBorderStyle; // default = 'none'
   background: PanelRoundBackgroundStyle;
 }
 
@@ -27,9 +28,19 @@ const PanelRound = styled.div<Props>`
   // flex-direction: column;
 
   ${(props: Props) =>
-    props.dottedBorder === true && `
-      border: 2px dashed white;
-  `}
+    props.border === 'none' && `
+      border: 2vw solid transparent;`
+  }
+
+  ${(props: Props) =>
+    props.border === 'dotted' && `
+      border: 2vw dashed white;`
+  }
+
+  ${(props: Props) =>
+    props.border === 'solid-red' && `
+    border: 2vw solid ${global.colour.red};`
+  }
 
   ${(props: Props) =>
     props.background === 'transparent-black' && `
@@ -41,8 +52,11 @@ const PanelRound = styled.div<Props>`
     background-color: rgba(255, 255, 255, 1);
   `}
 
-
 `;
+
+PanelRound.defaultProps = {
+  border: 'none',
+};
 
 export {
   PanelRound,

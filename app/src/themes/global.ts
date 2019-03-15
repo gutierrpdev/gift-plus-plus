@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { isNumber } from 'util';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -52,6 +53,9 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const global = {
+  colour: {
+    red: 'red',
+  },
   fonts: {
     body: {
       family: "'Nunito', serif;",
@@ -86,7 +90,6 @@ function romanNumeralFromDecimal(decimal: number) {
       return 'not done';
   }
 }
-
 
 export {
   GlobalStyles,
