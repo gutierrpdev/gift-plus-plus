@@ -84,11 +84,11 @@ const CreateGift: React.FC<Props> = ({ gift, museumName }) => {
 
   // The header size is based on our current state
   const headerSize = compactHeader
-                    ? 'compact'
-                    : status === 'start' ? 'big' : 'small';
+                   ? 'compact'
+                   : status === 'start' ? 'big' : 'small';
 
   // Background
-  const bgImage = require('../../assets/svg/trianglify-2.svg');
+  const bgImage = require('../../assets/svg/bg.svg');
 
   return (
 

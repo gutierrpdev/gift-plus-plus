@@ -1,8 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const global = {
+  mobile: {
+    endPixels: 768,
+  },
   desktop: {
-    startPixels: 768,
+    startPixels: 769,
   },
   colour: {
     brightRed: '#ff3333',
@@ -67,8 +70,12 @@ const GlobalStyles = createGlobalStyle`
   // Limit the maximum width of all screens
   html {
     background-color: #eee;
-    max-width: 60vh; // Force aspect ratio
     margin: 0 auto;
+    // Over desktop
+    @media (min-width: ${global.desktop.startPixels}px) {
+      // Force a mobile like aspect ratio
+      max-width: 60vh; // Force aspect ratio
+    }
   }
 
   // Global styles
@@ -77,7 +84,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
     color: black;
     -webkit-font-smoothing: antialiased;
-    max-width: ${global.desktop.startPixels}px;
+    max-width: ${global.mobile.endPixels}px;
     margin: 0 auto;
   }
 `;

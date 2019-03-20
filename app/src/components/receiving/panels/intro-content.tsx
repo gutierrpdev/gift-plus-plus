@@ -70,7 +70,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
       <Buttons>
         {/* todo: reinstate this */}
         {/* {panelProps.audioIntroPlayed && <Button onClick={handleContinue}>Skip</Button>} */}
-        <Button onClick={handleContinue} invisible={!audioPlaybackFinished} primary={true}>Continue</Button>
+        <Button onClick={handleContinue} primary={true}>Continue</Button>
       </Buttons>
 
     </StyledPanel>

@@ -145,7 +145,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       ? 'big' : 'small';
 
     // Background
-    const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/trianglify-2.svg') );
+    const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/bg.svg') );
 
     return (
       <ScreenManager backgroundImageUrl={bgImage}>

@@ -10,7 +10,7 @@ interface Props {
 const TextResize = styled.div<Props>`
   font-size: ${(props) => (props.mobileSize / 10)}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => Math.round( props.desktopSize ? props.desktopSize : (props.mobileSize * 4.8) )}%;
+    font-size: ${(props) => Math.round( props.desktopSize ? (props.desktopSize * 4.8) : (props.mobileSize * 4.8) )}%;
   };
 `;
 
