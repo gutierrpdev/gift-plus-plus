@@ -13,6 +13,7 @@ import { RecipientLocation } from './choose-location';
 export interface IntroContentProps extends PanelProps {
   recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
+  onComplete?: () => void;
   handleAudioIntroPlayed: () => void;
 }
 

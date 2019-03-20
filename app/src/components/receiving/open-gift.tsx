@@ -35,6 +35,7 @@ const OpenText = styled(TextResize).attrs({
 
 // Extend panel props with extras
 export interface Props extends PanelProps {
+  onComplete?: () => void;
 }
 
 // Todo : finish question

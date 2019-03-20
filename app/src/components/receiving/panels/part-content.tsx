@@ -19,6 +19,7 @@ export interface PartContentProps extends PanelProps {
   gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation;
+  onComplete?: () => void;
   revelImage: () => void;
 }
 
