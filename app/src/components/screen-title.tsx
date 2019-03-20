@@ -7,6 +7,9 @@ const ScreenTitle = styled(TextResize).attrs({
     mobileSize: 100,
   })`
   margin: 0 0 1vw;
+  @media (min-width: 768px) {
+    margin: 0 0 10px;
+  }
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
