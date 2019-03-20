@@ -5,7 +5,8 @@ const global = {
     startPixels: 768,
   },
   colour: {
-    red: 'red',
+    brightRed: '#ff3333',
+    darkRed: '#cc3333',
   },
   fonts: {
     body: {

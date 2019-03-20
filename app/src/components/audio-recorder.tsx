@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../themes/global';
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBorderStyle } from './panel-round';
 import { BaseControlButton } from './buttons';
@@ -37,7 +38,7 @@ interface RecordingProps {
   show: boolean;
 }
 const RecordingText = styled.div<RecordingProps>`
-  color: red;
+  color: ${global.colour.brightRed};
   text-transform: uppercase;
   visibility: ${(props) => props.show ? 'visible' : 'hidden'};
   text-align: center;

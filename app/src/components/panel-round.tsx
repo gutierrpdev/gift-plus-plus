@@ -43,13 +43,13 @@ const PanelRound = styled.div<Props>`
 
   ${(props: Props) =>
     props.border === 'dotted' && `
-      border: dashed white;`
-  }
+      border: dashed white;
+  `}
 
   ${(props: Props) =>
     props.border === 'solid-red' && `
-    border: solid ${global.colour.red};`
-  }
+    border: solid ${global.colour.darkRed};
+  `}
 
   ${(props: Props) =>
     props.background === 'transparent-black' && `
