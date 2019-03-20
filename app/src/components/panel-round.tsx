@@ -17,13 +17,13 @@ export interface Props {
 const PanelRound = styled.div<Props>`
   height: ${global.components.circle.width.vm};
   width: ${global.components.circle.width.vm};
-  @media (min-width: 768px) {
+  @media (min-width: ${global.desktop.startPixels}px) {
     height: ${global.components.circle.width.pixels};
     width: ${global.components.circle.width.pixels};
   }
   border-radius: 50%;
   border-width: 2vw;
-  @media (min-width: 768px) {
+  @media (min-width: ${global.desktop.startPixels}) {
     border-width: 20px;
   }
   padding: 5%;
@@ -36,7 +36,7 @@ const PanelRound = styled.div<Props>`
   ${(props: Props) =>
     props.border === 'none' && `
       border: solid transparent;
-      @media (min-width: 768px) {
+      @media (min-width: ${global.desktop.startPixels}px) {
         border: solid transparent;
       }
   `}

@@ -7,7 +7,7 @@ const ScreenPostTitle = styled(TextResize).attrs({
   mobileSize: 30,
 })`
   margin: 0 0 0.5vw;
-  @media (min-width: 768px) {
+  @media (min-width: ${global.desktop.startPixels}px) {
     margin: 0 0 10px;
   }
   text-align: center;

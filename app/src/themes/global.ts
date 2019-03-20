@@ -1,5 +1,33 @@
 import { createGlobalStyle } from 'styled-components';
-import { isNumber } from 'util';
+
+const global = {
+  desktop: {
+    startPixels: 768,
+  },
+  colour: {
+    red: 'red',
+  },
+  fonts: {
+    body: {
+      family: "'Nunito', serif;",
+    },
+    title: {
+      family: "'Playfair Display', serif;",
+      bold: 700,
+    },
+  },
+  components: {
+    circle : {
+      width: {
+        vm : '65vmin',
+        pixels: '400px',
+      },
+    },
+    imageReveal : {
+      width: '32.5vmin',
+    },
+  },
+};
 
 const GlobalStyles = createGlobalStyle`
 
@@ -48,36 +76,12 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
     color: black;
     -webkit-font-smoothing: antialiased;
-    max-width: 768px;
+    max-width: ${global.desktop.startPixels}px;
     margin: 0 auto;
   }
 `;
 
-const global = {
-  colour: {
-    red: 'red',
-  },
-  fonts: {
-    body: {
-      family: "'Nunito', serif;",
-    },
-    title: {
-      family: "'Playfair Display', serif;",
-      bold: 700,
-    },
-  },
-  components: {
-    circle : {
-      width: {
-        vm : '65vmin',
-        pixels: '400px',
-      },
-    },
-    imageReveal : {
-      width: '32.5vmin',
-    },
-  },
-};
+
 
 function romanNumeralFromDecimal(decimal: number) {
   switch (decimal) {
