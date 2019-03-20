@@ -74,7 +74,7 @@ const global = {
       },
     },
     imageReveal : {
-      width: '34vmin',
+      width: '32.5vmin',
     },
   },
 };

@@ -31,6 +31,7 @@ const PanelRound = styled.div<Props>`
   display: flex;
   // align-items: center;
   // flex-direction: column;
+  z-index: 0;
 
   ${(props: Props) =>
     props.border === 'none' && `
