@@ -175,10 +175,6 @@ storiesOf('Components', module)
         <Button>Button 1</Button>
         <Button primary={true}>Button 2</Button>
       </Buttons>
-      <p>Not hidden button</p>
-      <Button invisible={false}>You can see me</Button>
-      <p>Hidden button (should occupy space)</p>
-      <Button invisible={true}>I am hidden</Button>
       <p>There is a gradient below</p>
       <Gradient />
     </div>

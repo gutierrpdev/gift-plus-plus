@@ -125,7 +125,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 8: // senders audio message
         return (
           <>
-            {!audioHasPlayed && <Button invisible={true}>&nbsp;</Button>}
             {audioHasPlayed && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Open part {nextPart}</Button>}
             {audioHasPlayed && !furtherPart &&
@@ -135,7 +134,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       default :
         // One invisible button to occupy space
         return (
-          <Button invisible={true}>&nbsp;</Button>
+          null
         );
     }
   }

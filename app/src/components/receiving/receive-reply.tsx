@@ -65,8 +65,8 @@ const ReceiveReply: React.FC<Props> = (props) => {
       }
 
       <Buttons>
-        <Button onClick={handleReRecord} invisible={!hasRecording}>Re-record</Button>
-        <Button onClick={handleSend} invisible={!hasRecording} primary={true}>Send</Button>
+        <Button onClick={handleReRecord}>Re-record</Button>
+        <Button onClick={handleSend} primary={true}>Send</Button>
       </Buttons>
 
     </>

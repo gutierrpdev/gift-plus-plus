@@ -10,13 +10,12 @@ const Buttons = styled.div`
   margin: 0;
   align-items: stretch;
   width: 100%;
-  /* height: calc(1em + 8vw);
+  height: calc(1em + 8vw); // todo: this is a hack to ensure the buttons appear
   font-size: 6vw;
-  line-height: 1; */
+  line-height: 1;
 `;
 
 export interface ButtonProps {
-  invisible?: boolean; // Makes the button hidden, but still occupies space
   primary?: boolean;
   onClick?: () => void;
 }
@@ -24,7 +23,6 @@ export interface ButtonProps {
 // Button
 const ButtonStyle = styled.button<ButtonProps>`
   font-family: ${global.fonts.title.family};
-  visibility: ${(props) => props.invisible ? 'hidden' : 'visible'};
   color: ${(props) => props.primary ? 'black' : 'white'};
   background-color: ${(props) => props.primary ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'};;
   line-height: 1;
