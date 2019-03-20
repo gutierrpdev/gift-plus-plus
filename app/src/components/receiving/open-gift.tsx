@@ -48,7 +48,7 @@ const ReceivingOpenGift: React.FC<Props> = (panelProps) => {
   }
 
   return (
-    <StyledPanel {...panelProps}>
+    <StyledPanel visible={panelProps.visible}>
       <PanelContent>
         <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
           <OpenPanel>

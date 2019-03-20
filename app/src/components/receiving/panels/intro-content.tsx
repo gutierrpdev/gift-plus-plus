@@ -44,7 +44,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
   }
 
   return (
-    <StyledPanel {...panelProps}>
+    <StyledPanel visible={panelProps.visible}>
 
       <PanelContent>
 

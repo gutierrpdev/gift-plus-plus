@@ -43,7 +43,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
   }
 
   return (
-    <StyledPanel {...panelProps}>
+    <StyledPanel visible={panelProps.visible}>
       <PanelContent>
         <PanelPrompt
           text={`Are you at the ${panelProps.museumName} right now?`}
