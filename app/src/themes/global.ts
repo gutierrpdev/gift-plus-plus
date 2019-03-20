@@ -27,7 +27,8 @@ const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    line-height: 1.2;
+    line-height: 1;
+    box-sizing: border-box;
   }
   input[type="button" i], input[type="submit" i], input[type="reset" i],
   input[type="file" i]::-webkit-file-upload-button, button {

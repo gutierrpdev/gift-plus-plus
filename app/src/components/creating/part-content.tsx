@@ -21,7 +21,7 @@ export interface Props {
   giftPartIndex: number; // The index of this gift part
 }
 
-const CreatingPartContent: React.FC<Props> = ({ gift, giftPartIndex }) => {
+const CreatingPartContent: React.FC<Props> = ({ /*gift, */giftPartIndex }) => {
 
   // State
   const [status, setStatus] = useState<Status>('first-message');

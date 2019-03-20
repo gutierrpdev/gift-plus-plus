@@ -4,7 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenPostTitle = styled(TextResize).attrs({
-  size: 30,
+  mobileSize: 30,
 })`
   margin: 0 0 0.5vw;
   text-align: center;

@@ -13,6 +13,7 @@ export interface Props {
   background: PanelRoundBackgroundStyle;
 }
 
+
 const PanelRound = styled.div<Props>`
   height: ${global.components.circle.width.vm};
   width: ${global.components.circle.width.vm};
@@ -21,6 +22,10 @@ const PanelRound = styled.div<Props>`
     width: ${global.components.circle.width.pixels};
   }
   border-radius: 50%;
+  border-width: 2vw;
+  @media (min-width: 768px) {
+    border-width: 20px;
+  }
   padding: 5%;
   margin: 0 auto;
   display: flex;
@@ -29,17 +34,20 @@ const PanelRound = styled.div<Props>`
 
   ${(props: Props) =>
     props.border === 'none' && `
-      border: 2vw solid transparent;`
-  }
+      border: solid transparent;
+      @media (min-width: 768px) {
+        border: solid transparent;
+      }
+  `}
 
   ${(props: Props) =>
     props.border === 'dotted' && `
-      border: 2vw dashed white;`
+      border: dashed white;`
   }
 
   ${(props: Props) =>
     props.border === 'solid-red' && `
-    border: 2vw solid ${global.colour.red};`
+    border: solid ${global.colour.red};`
   }
 
   ${(props: Props) =>

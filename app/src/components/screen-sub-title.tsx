@@ -4,7 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenSubTitle = styled(TextResize).attrs({
-    size: 70,
+  mobileSize: 70,
   })`
   /* font-size: 7vw; */
   margin: 0 0 3vw;
