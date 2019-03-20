@@ -69,7 +69,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       status: 'OpenOrSave',
     });
 
-    // Update to next stage
   }
 
   // Set the header to be compact
@@ -111,8 +110,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           />
         </PanelContent>
         <Buttons>
-        <Button onClick={this.saveForLater}>Save it</Button>
-        <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
+          <Button onClick={this.saveForLater}>Save it</Button>
+          <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
         </Buttons>
       </StyledPanel>
     );
@@ -141,15 +140,9 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     const { status, compactHeader } = this.state;
 
     // The header size is based on our current state
-    // const headerSize = compactHeader ? 'compact' :
-    //   status === 'Welcome' || status === 'OpenOrSave'  ? 'big' : 'small';
-
-    let headerSize = 'compact';
-    if (compactHeader) {
-      headerSize = 'compact';
-    } else {
-      headerSize = status === 'Welcome' || status === 'OpenOrSave'  ? 'big' : 'small';
-    }
+    const headerSize = compactHeader ? 'compact'
+      : status === 'Welcome' || status === 'SelectLocation' || status === 'OpenOrSave'
+      ? 'big' : 'small';
 
     // Background
     const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/trianglify-2.svg') );
