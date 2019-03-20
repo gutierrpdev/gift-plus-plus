@@ -58,9 +58,7 @@ const CreatingPartContent: React.FC<Props> = ({ /*gift, */giftPartIndex }) => {
 
   return (
     <StyledPanel>
-
       {status === 'first-message' && renderFirstMessage()}
-
     </StyledPanel>
   );
 
