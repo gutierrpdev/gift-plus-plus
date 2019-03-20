@@ -21,7 +21,7 @@ const PanelRound = styled.div<Props>`
     width: ${global.components.circle.width.pixels};
   }
   border-radius: 50%;
-  padding: 3vmin;
+  padding: 5%;
   margin: 0 auto;
   display: flex;
   // align-items: center;

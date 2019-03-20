@@ -13,10 +13,10 @@ import { BaseControlButton } from './buttons';
 
  // Used in player and recorder
 const AudioPlayerStyle = styled.div`
-  display: 'flex'; // todo this seems wrong
   color: white;
-  padding: 10vw 5vw;
+  padding: 20% 10%;
   margin: 0 auto;
+  width: 100%;
 `;
 
 const AudioPanelText = styled(PanelText)`
@@ -48,7 +48,7 @@ const SkipForward = styled(BaseControlButton)`
 const Play = styled(BaseControlButton)`
   width: 17vmin;
   height: 17vmin;
-  margin: 0 3vmin;
+  margin: 0 5%;
 `;
 
 // Forward button options

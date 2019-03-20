@@ -184,7 +184,8 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Audio player', () => (
-    <div>
+    <>
+      <GlobalStyles />
       <p>Skip forward button</p>
       <AudioPlayer
         text={'Lorem ipsum'}
@@ -197,7 +198,7 @@ storiesOf('Components', module)
         forwardButton={'GoToEnd'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
-    </div>
+    </>
   ))
   .add('Audio recorder', () => (
     <>
@@ -330,6 +331,9 @@ storiesOf('Components/Receiving', module)
 // Creating components
 storiesOf('Components/Creating', module)
   .add('Create Gift Start', () => (
-    <CreateGiftStart gift={emptyGift} />
+    <>
+      <GlobalStyles />
+      <CreateGiftStart gift={emptyGift} />
+    </>
   ))
 ;
