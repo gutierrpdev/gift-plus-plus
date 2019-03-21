@@ -67,8 +67,9 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
         </>
       }
 
-      {/* {status === 'sign-gift' &&
-      } */}
+      {status === 'sign-gift' &&
+        <p>Sign gift</p>
+      }
 
     </ScreenManager>
   );

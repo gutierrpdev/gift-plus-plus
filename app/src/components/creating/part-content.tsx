@@ -23,7 +23,7 @@ export interface Props {
   onComplete: () => void;
 }
 
-const CreatingPartContent: React.FC<Props> = ({ gift }) => {
+const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
@@ -36,6 +36,15 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
 
   // Defaults
   const defaultWait = 1;
+
+  // Sets all state to initial values
+  function resetState() {
+    setFirstAudioHasPlayed(false);
+    setShowCamera(false);
+    setSecondAudioHasPlayed(false);
+    setAudioIsRecorded(false);
+    setClueIsWritten(false);
+  }
 
   function handlePhotoTaken() { // pass file
     // Handle file here // todo
@@ -66,22 +75,48 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
     setStatus('finish-message1');
   }
 
-  function handleSendNow() {
+  // Part creation is complete
+  function handleAllComplete() {
+
+    // Callback to continue
+    if (onComplete) {
+      onComplete();
+    }
 
   }
 
+  // Start on part 2
   function handleStartPart2() {
     // todo save the gift now?
 
     // Setup the second part
+    resetState();
 
     // Set the index
     setGiftPartIndex(1);
-    setStatus('first-message');
+
+    // Note no first message for part 2, jump to second part
+    setStatus('second-message');
   }
+
+  // Start on part 3
+  function handleStartPart3() {
+    // todo save the gift now?
+
+    // Setup the second part
+    resetState();
+
+    // Set the index
+    setGiftPartIndex(2);
+
+    // Note no first message for part 2, jump to second part
+    setStatus('second-message');
+  }
+
 
   // Render different bits of content
   function renderFirstMessage() {
+    // note: only first gift part 1
     return (
       <>
         <PanelContent>
@@ -110,11 +145,27 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
+          {giftPartIndex === 1 &&
+            <AudioPlayer
+              text={'Time to choose a second object...'}
+              src={require('../../../src/assets/audio/c-choose-part-2.mp3')}
+              forwardButton={'GoToEnd'}
+              onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
+            />
+          }
+          {giftPartIndex === 2 &&
+            <AudioPlayer
+              text={'Time to look for a final object...'}
+              src={require('../../../src/assets/audio/c-choose-part-3.mp3')}
+              forwardButton={'GoToEnd'}
+              onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
+            />
+          }
         </PanelContent>
         <Buttons>
-          {/* <Button onClick={gotoHereYouGo} primary={true}>Skip</Button> */}
+          <Button>Skip</Button>
           {firstAudioHasPlayed &&
-            <Button onClick={() => {setStatus('take-photo'); }} primary={true}>OK</Button>
+            <Button onClick={() => {setStatus('take-photo'); }} primary={true}>Continue</Button>
           }
         </Buttons>
       </>
@@ -132,6 +183,22 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
               showCamera={showCamera}
             />
           }
+          {giftPartIndex === 1 &&
+            <PhotoCapture
+              text={`Have a wander to find the second object for ${gift.recipientName}.
+                Why not visit another part of the museum?
+                When you’ve found it take a photo to show them.`}
+              onPhotoTaken={handlePhotoTaken}
+              showCamera={showCamera}
+            />
+          }
+          {giftPartIndex === 2 &&
+            <PhotoCapture
+              text={`Choose your last object and take a photo.`}
+              onPhotoTaken={handlePhotoTaken}
+              showCamera={showCamera}
+            />
+          }
         </PanelContent>
         <Buttons>
           <Button onClick={() => {setStatus('second-message'); }}>Back</Button>
@@ -145,16 +212,36 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
     return (
       <>
         <PanelContent>
-          <AudioPlayer
-              text={`Let them know why you chose this object...`}
-              src={require('../../../src/assets/audio/c-let-them-know-part-1.mp3')}
-              forwardButton={'GoToEnd'}
-              onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
-          />
+          {giftPartIndex === 0 &&
+            <AudioPlayer
+                text={`Let them know why you chose this object...`}
+                src={require('../../../src/assets/audio/c-let-them-know-part-1.mp3')}
+                forwardButton={'GoToEnd'}
+                onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
+            />
+          }
+          {giftPartIndex === 1 &&
+            <AudioPlayer
+                text={`Tell them why you chose this...`}
+                src={require('../../../src/assets/audio/c-let-them-know-part-2.mp3')}
+                forwardButton={'GoToEnd'}
+                onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
+            />
+          }
+          {giftPartIndex === 2 &&
+            <AudioPlayer
+                text={`And record your final message...`}
+                src={require('../../../src/assets/audio/c-let-them-know-part-3.mp3')}
+                forwardButton={'GoToEnd'}
+                onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
+            />
+          }
         </PanelContent>
         <Buttons>
           {secondAudioHasPlayed && <Button onClick={() => {setStatus('record-message'); }}>Skip</Button>}
-          {secondAudioHasPlayed && <Button onClick={() => {setStatus('record-message'); }}>Record message</Button>}
+          {secondAudioHasPlayed &&
+            <Button onClick={() => {setStatus('record-message'); }} primary={true}>Record message</Button>
+          }
         </Buttons>
       </>
     );
@@ -164,16 +251,30 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
     return (
       <>
         <PanelContent>
-          <AudioRecorder
-            text={`Let them know why you chose this object...`}
-            onRecordingStop={handleAudioRecordingComplete}
-          />
+          {giftPartIndex === 0 &&
+            <AudioRecorder
+              text={`Let them know why you chose this object...`}
+              onRecordingStop={handleAudioRecordingComplete}
+            />
+          }
+          {giftPartIndex === 1 &&
+            <AudioRecorder
+              text={`Tell them why you chose this...`}
+              onRecordingStop={handleAudioRecordingComplete}
+            />
+          }
+          {giftPartIndex === 2 &&
+            <AudioRecorder
+              text={`And record your final message...`}
+              onRecordingStop={handleAudioRecordingComplete}
+            />
+          }
         </PanelContent>
         <Buttons>
           {/* {!audioIsRecorded && <Button>Start recording</Button>} */}
           {/* {greetingIsRecording && <Button>Stop recording</Button>} */}
           {/* {greetingIsRecorded && <Button>Re-record</Button>} */}
-          {audioIsRecorded && <Button onClick={handleAudioRecordSave}>Save message</Button>}
+          {audioIsRecorded && <Button onClick={handleAudioRecordSave} primary={true}>Save message</Button>}
         </Buttons>
       </>
     );
@@ -183,16 +284,23 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
     return (
       <>
         <PanelContent>
+          <PanelPrompt
+            text={`Now write a clue to help ${gift.recipientName} find the object`}
+            background={'transparent-black'}
+          />
+          {/* note: goto different next section based on gift part index */}
           {giftPartIndex === 0 &&
-            <PanelPrompt
-              text={`Now write a clue to help ${gift.recipientName} find the object`}
-              background={'transparent-black'}
+            <WaitThen
+              wait={defaultWait}
+              andThen={() => { setStatus('pre-clue-message2'); }}
             />
           }
-          <WaitThen
-            wait={defaultWait}
-            andThen={() => { setStatus('pre-clue-message2'); }}
-          />
+          {giftPartIndex > 0  &&
+            <WaitThen
+              wait={defaultWait}
+              andThen={() => { setStatus('write-clue'); }}
+            />
+          }
         </PanelContent>
         <Buttons />
       </>
@@ -223,12 +331,8 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
     return (
       <>
         <PanelContent>
-          {giftPartIndex === 0 &&
-            <>
-              <PanelPrompt text={`Write a clue`} background={'transparent-black'} />
-              <p>Enter text</p>
-            </>
-          }
+            <PanelPrompt text={`Write a clue`} background={'transparent-black'} />
+            <p>Enter text</p>
         </PanelContent>
         <Buttons>
           <Button>Skip</Button>
@@ -248,10 +352,31 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
               background={'transparent-black'}
             />
           }
-          <WaitThen
-            wait={defaultWait}
-            andThen={() => { setStatus('finish-message2'); }}
-          />
+          {giftPartIndex === 1 &&
+            <PanelPrompt
+              text={`Done!`}
+              background={'transparent-black'}
+            />
+          }
+          {/* note: goto different next section based on gift part index */}
+          {giftPartIndex === 0 &&
+            <WaitThen
+              wait={defaultWait}
+              andThen={() => { setStatus('finish-message2'); }}
+            />
+          }
+          {giftPartIndex === 1 &&
+            <WaitThen
+              wait={defaultWait}
+              andThen={() => { setStatus('send'); }}
+            />
+          }
+          {giftPartIndex === 2 &&
+            <WaitThen
+              wait={defaultWait}
+              andThen={() => { handleAllComplete(); }}
+            />
+          }
         </PanelContent>
         <Buttons />
       </>
@@ -288,10 +413,21 @@ const CreatingPartContent: React.FC<Props> = ({ gift }) => {
               background={'transparent-black'}
             />
           }
+          {giftPartIndex === 1 &&
+            <PanelPrompt
+              text={`Do you want to add a final part or send it as it is? You can choose one more...`}
+              background={'transparent-black'}
+            />
+          }
         </PanelContent>
         <Buttons>
-          <Button onClick={handleSendNow}>Send now</Button>
-          <Button onClick={handleStartPart2}>Add another object</Button>
+          <Button onClick={handleAllComplete}>Send now</Button>
+          {giftPartIndex === 0 &&
+            <Button onClick={handleStartPart2}>Add another object</Button>
+          }
+          {giftPartIndex === 1 &&
+           <Button onClick={handleStartPart3}>Add another object</Button>
+          }
         </Buttons>
       </>
     );
