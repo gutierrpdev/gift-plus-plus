@@ -67,7 +67,7 @@ const CreatingPartContent: React.FC<Props> = ({ /*gift*/ }) => {
           {giftPartIndex === 0 &&
             <AudioPlayer
               text={'Listen while you look for your first object...'}
-              src={require('../../../src/assets/audio/create-choose-part1.mp3')}
+              src={require('../../../src/assets/audio/c-choose-part-1.mp3')}
               forwardButton={'GoToEnd'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />

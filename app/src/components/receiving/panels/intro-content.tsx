@@ -52,7 +52,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
         {atMuseum &&
           <AudioPlayer
             text={'A message to you before you start...'}
-            src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            src={require('../../../assets/audio/r-intro-content-1.mp3')}
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
@@ -60,7 +60,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
         {!atMuseum &&
           <AudioPlayer
             text={'A message to you before we begin...'}
-            src={require('../../../assets/audio/_1-second-of-silence.mp3')}
+            src={require('../../../assets/audio/r-intro-content-1.mp3')} // todo this should be a different file
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
