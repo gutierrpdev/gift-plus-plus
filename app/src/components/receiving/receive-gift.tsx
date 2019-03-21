@@ -63,10 +63,15 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   // Sets the location
   public handleSetLocation = (recipientLocation: RecipientLocation) => {
 
+    // Determine the next stage based on the location
+    const nextStage: ReceiveGiftStatus = recipientLocation === 'NotAtMuseum'
+      ? 'OpenOrSave'
+      : 'ShowingParts';
+
     // Store this
     this.setState({
       recipientLocation,
-      status: 'OpenOrSave',
+      status: nextStage,
     });
 
   }
