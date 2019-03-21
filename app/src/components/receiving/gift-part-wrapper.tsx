@@ -10,7 +10,7 @@ import { ReceivingPartContent } from './panels/part-content';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
 import { RecipientLocation } from '../receiving/panels/choose-location';
-import { string } from 'prop-types';
+
 
 /**
  * Visual wrapper for a gift part

@@ -15,7 +15,7 @@ const PanelImageRevealStyle = styled.div<PanelImageRevealProps>`
   left: 0;
   height: 100%;
   width: 100%;
-  background-image: url(${(props) => props.imageUrl ? props.imageUrl : ''});
+  background-image: url(${(props) => props.imageUrl});
   background-position: center;
   background-size: cover;
   // Possible MS Edge issue with clip path, check for Polyfill alternative

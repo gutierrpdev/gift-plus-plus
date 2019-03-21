@@ -15,9 +15,12 @@ const ScreenManagerStyle = styled.div<Props>`
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  background-image: url(${(props) => props.backgroundImageUrl ? props.backgroundImageUrl : ''});
-  background-position: center;
-  background-size: cover;
+
+  ${(props) => props.backgroundImageUrl && `
+    background-image: url(${props.backgroundImageUrl});
+    background-position: center;
+    background-size: cover;
+  `}
 `;
 
 const ScreenManager: React.FC<Props> = (props) => {
