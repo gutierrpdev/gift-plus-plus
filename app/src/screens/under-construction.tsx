@@ -40,8 +40,14 @@ export const UnderConstruction: React.FC = () => (
   <Container>
     <Heading>🚧 Under Construction 🚧</Heading>
     <Spinner>👷</Spinner>
+    <Link to='/gift/cdfc5287-9d03-5c70-94f1-755d4480bfac'>
+      <button>1 Part Example Gift</button>
+    </Link>
+    <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'>
+      <button>2 Part Example Gift</button>
+    </Link>
     <Link to='/gift/5475400c-684c-515f-8343-b9d14340de9c'>
-      <button>Example Gift</button>
+      <button>3 Part Example Gift</button>
     </Link>
   </Container>
 );
