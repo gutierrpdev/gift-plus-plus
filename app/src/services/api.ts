@@ -31,7 +31,9 @@ export class Api {
 
   public async getGift(giftId: string): Promise<ApiResult<GetGiftResponse>> {
     // TEMP: Mock Data
-    if (mockGifts.has(giftId)) return { kind: 'ok', data: mockGifts.get(giftId)! };
+    if (mockGifts.has(giftId)) {
+      return { kind: 'ok', data: mockGifts.get(giftId)! };
+    }
 
     const url = `${this.apiUrl}/gift/${giftId}`;
     const request = new Request(url);
