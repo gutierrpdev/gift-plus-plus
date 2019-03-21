@@ -92,8 +92,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   function handleClueChanged( clue: string ) {
 
-    console.log(clue);
-
     // Get our gift
     const giftPart: GiftPart = getGiftPart(giftPartIndex);
 
