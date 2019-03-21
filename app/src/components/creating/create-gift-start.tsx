@@ -60,7 +60,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
     setAudioHasPlayed(true);
   }
 
-  function handleRecordingComplete() {
+  function handleAudioRecordingComplete() {
 
     setGreetingIsRecorded(true);
 
@@ -155,7 +155,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
         <PanelContent>
           <AudioRecorder
             text={`Record a greeting for ${gift.recipientName}`}
-            onRecordingStop={handleRecordingComplete}
+            onRecordingStop={handleAudioRecordingComplete}
           />
         </PanelContent>
         <Buttons>

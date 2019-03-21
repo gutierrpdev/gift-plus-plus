@@ -337,7 +337,7 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreatingPartContent
-        // gift={emptyGift}
+        gift={emptyGift}
         onComplete={doNothing}
       />
     </>

@@ -61,7 +61,7 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
             subTitle={`Making a gift for ${gift.recipientName}`}
           />
           <CreatingPartContent
-            // gift={gift}
+            gift={gift}
             onComplete={gotoSignGift}
           />
         </>
