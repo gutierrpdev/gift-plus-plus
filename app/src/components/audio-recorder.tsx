@@ -48,7 +48,7 @@ const RecordingText = styled.div<RecordingProps>`
 
 // Buttons
 const RecordButton = styled(BaseControlButton)`
-  width: 30%;
+  width: 17%;
   border-radius: 50%;
 `;
 
@@ -115,7 +115,7 @@ class AudioRecorder extends React.PureComponent<Props, State> {
           </RecordingText>
           <Controls>
             <RecordButton >
-              <img src={require('../assets/svg/button-audio-record.svg')} />
+              <img src={require('../assets/svg/icon-microphone.svg')} />
             </RecordButton>
           </Controls>
         </AudioRecorderStyle>

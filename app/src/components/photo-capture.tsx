@@ -7,6 +7,7 @@ import { BaseControlButton } from './buttons';
 
 /**
  * Capture photo from users camera
+ * Includes a text prompt
  *
  */
 const PhotoCaptureStyle = styled.div`
@@ -44,16 +45,22 @@ const CaptureButton = styled(BaseControlButton)`
 
 interface Props {
   text: string;
+  showCamera?: boolean;
   onPhotoTaken?: () => void;
 }
 
 const PhotoCapture: React.FC<Props> = (props) => {
 
+  // Check for initial props
+  if (props.showCamera) {
+    showCamera();
+  }
+
   // Show the camera to the user
   function showCamera() {
 
     // Trigger the input element
-    const input = document.getElementById('photo-capture-input');
+    const input = document.getElementById('photo-capture-input'); // todo, improve
     if (input) {
       input.click();
     }
@@ -82,13 +89,12 @@ const PhotoCapture: React.FC<Props> = (props) => {
         <PhotoCaptureText>{props.text}</PhotoCaptureText>
         <Controls>
           <CaptureButton >
-            <img src={require('../assets/svg/button-audio-record.svg')} onClick={showCamera} />
+            <img src={require('../assets/svg/icon-camera.svg')} onClick={showCamera} />
             <ImageInput
               id='photo-capture-input'
               type='file'
               accept='image/*'
               onChange={handleChange}
-              src={require('../assets/svg/button-audio-record.svg')}
             />
           </CaptureButton>
         </Controls>

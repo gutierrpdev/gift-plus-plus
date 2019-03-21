@@ -35,11 +35,14 @@ const CreatingPartContent: React.FC<Props> = ({ /*gift*/ }) => {
   const defaultWait = 1;
 
   function handlePhotoTaken() { // pass file
-    // Handle file here
-    // setPhotoTaken(true);
+    // Handle file here // todo
 
     // Move to next section
     setStatus('pre-record-message');
+  }
+
+  function doShowCamera() {
+
   }
 
   // Render different bits of content
@@ -88,23 +91,15 @@ const CreatingPartContent: React.FC<Props> = ({ /*gift*/ }) => {
       <>
         <PanelContent>
           {giftPartIndex === 0 &&
-            <>
-              {showCamera &&
-                <PhotoCapture
-                  text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
-                  onPhotoTaken={handlePhotoTaken}
-                />
-              }
-              {!showCamera &&
-                <PanelPrompt
-                  text={'If you’ve found your first object, take a photo so they can see what you’ve chosen.'}
-                  background={'transparent-black'}
-                />
-              }
-            </>
+            <PhotoCapture
+              text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
+              onPhotoTaken={handlePhotoTaken}
+              showCamera={showCamera}
+            />
           }
         </PanelContent>
         <Buttons>
+          <Button onClick={() => {setStatus('second-message'); }}>Back</Button>
           <Button onClick={() => {setShowCamera(true); }} primary={true}>Open camera</Button>
         </Buttons>
       </>
