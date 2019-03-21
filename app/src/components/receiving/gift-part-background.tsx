@@ -26,7 +26,7 @@ const GiftPartBackground = styled.div<Props>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${(props) => props.giftPart && props.giftPart.photo ? props.giftPart.photo : ''});
+    background-image: url(${(props) => props.giftPart.photo});
     background-position: center;
     background-size: cover;
     z-index: -1;

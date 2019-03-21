@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent, PanelProps } from '../panel';
+import { StyledPanel, PanelContent } from '../panel';
+import { PanelTitle } from '../panel-title';
+import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
-import { PanelImageReveal } from '../panel-image-reveal';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { AudioRecorder } from '../../components/audio-recorder';
 import { Gift, GiftPart } from '../../domain';
 import { WaitThen } from '../wait-then';
 import { PhotoCapture } from '../../components/photo-capture';
+import { TextAreaInput } from '../../components/inputs/textarea-input';
+import { romanNumeralFromDecimal } from '../../themes/global';
 
 /***
  * Show the creating gift part content
@@ -27,7 +30,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('first-message');
+  const [status, setStatus] = useState<Status>('write-clue');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
@@ -35,7 +38,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   const [clueIsWritten, setClueIsWritten] = useState(false);
 
   // Defaults
-  const defaultWait = 1;
+  const defaultWait = 5;
 
   // Sets all state to initial values
   function resetState() {
@@ -44,6 +47,24 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setSecondAudioHasPlayed(false);
     setAudioIsRecorded(false);
     setClueIsWritten(false);
+  }
+
+  // Returns the gift part based on the index
+  // Creates the gift part if it doesn't already exist
+  function getGiftPart( index: number ) {
+
+    // Return if exists
+    if (gift.parts[index]) {
+      return gift.parts[index];
+    }
+
+    // Create if not
+    return gift.parts[index] = {
+      photo: '',
+      note: '',
+      clue: '',
+    };
+
   }
 
   function handlePhotoTaken() { // pass file
@@ -69,10 +90,19 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setStatus('pre-clue-message1');
   }
 
-  function handleSaveClue() {
-    // todo: save the clue to the gift
+  function handleClueChanged( clue: string ) {
 
-    setStatus('finish-message1');
+    console.log(clue);
+
+    // Get our gift
+    const giftPart: GiftPart = getGiftPart(giftPartIndex);
+
+    // Set the clue
+    giftPart.clue = clue;
+
+    // Set the state
+    setClueIsWritten(true);
+
   }
 
   // Part creation is complete
@@ -329,16 +359,16 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderWriteClue() {
     return (
-      <>
+      <StyledPanel>
+        <PanelTitle>Making Part {romanNumeralFromDecimal(1)}</PanelTitle>
+        <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
-            <PanelPrompt text={`Write a clue`} background={'transparent-black'} />
-            <p>Enter text</p>
+            <TextAreaInput placeHolder={'Write a clue'} onTextChanged={handleClueChanged} />
         </PanelContent>
         <Buttons>
-          <Button>Skip</Button>
-          {secondAudioHasPlayed && <Button onClick={handleSaveClue}>Save clue</Button>}
+          {clueIsWritten && <Button onClick={() => setStatus('finish-message1')}>Save clue</Button>}
         </Buttons>
-      </>
+      </StyledPanel>
     );
   }
 

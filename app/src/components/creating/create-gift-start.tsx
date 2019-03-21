@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent, PanelProps } from '../panel';
+import { romanNumeralFromDecimal } from '../../themes/global';
+import { StyledPanel, PanelContent } from '../panel';
+import { PanelTitle } from '../panel-title';
+import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelImageReveal } from '../panel-image-reveal';
 import { Buttons, Button } from '../buttons';
@@ -10,7 +13,7 @@ import { AudioRecorder } from '../../components/audio-recorder';
 import { Gift, GiftPart } from '../../domain';
 import { WaitThen } from '../wait-then';
 // import { GiftPartBackground } from '../gift-part-background';
-import { CreatingEnterRecipient } from './enter-recipient';
+import { TextInput } from '../inputs/text-input';
 
 /***
  * The start of making a gift
@@ -30,13 +33,14 @@ interface Props {
 const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('first-message');
+  const [status, setStatus] = useState<Status>('enter-recipient');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);
+  const [nameIsEntered, setnameIsEntered] = useState(false);
 
   // Defaults
-  const defaultWait = 1;
+  const defaultWait = 5;
 
   // Move to section
   function gotoSecondMessage() {
@@ -56,6 +60,17 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   // Callbacks
+
+  // Set the recipient name
+  function handleRecipientNameChange( name: string ) {
+
+    // Update the gift object
+    gift.recipientName = name;
+
+    // Set state
+    setnameIsEntered(true);
+  }
+
   function handleAudioPlaybackFinished() {
     setAudioHasPlayed(true);
   }
@@ -85,7 +100,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
     return (
       <>
         <PanelContent>
-          <PanelPrompt text={'You’re about to make a gift for someone special'} background={'transparent-black'}/>
+          <PanelPrompt text={'You’re about to make a gift for someone special.'} background={'transparent-black'}/>
             <WaitThen
               wait={defaultWait}
               andThen={gotoSecondMessage}
@@ -101,7 +116,8 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
       <>
         <PanelContent>
           <PanelPrompt
-            text={'It might take two minutes. It might take twenty. It’s what you choose.'}
+            text={`It might take two minutes. It might take twenty.
+              It’s what you choose.`}
             background={'transparent-black'}
           />
             <WaitThen
@@ -116,6 +132,8 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderThirdMessage() {
     // todo check audio has already played ala script
+    // todo audio required
+    // todo skip
     return (
       <>
         <PanelContent>
@@ -127,8 +145,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
           />
         </PanelContent>
         <Buttons>
-          {audioHasPlayed && <Button onClick={gotoEnterRecipient}>Skip</Button>}
-          {audioHasPlayed && <Button onClick={gotoEnterRecipient} primary={true}>Choose Person</Button>}
+          {audioHasPlayed && <Button onClick={gotoEnterRecipient} primary={true}>Enter their name</Button>}
         </Buttons>
       </>
     );
@@ -136,12 +153,14 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderEnterRecipient() {
     return (
-      <>
-        <CreatingEnterRecipient />
+      <StyledPanel>
+        <PanelContent>
+          <TextInput placeHolder={'enter their first name'} onTextChanged={handleRecipientNameChange} />
+        </PanelContent>
         <Buttons>
-          <Button onClick={gotoRecordGreeting}>Choose Person</Button>
+          {nameIsEntered && <Button onClick={gotoRecordGreeting}>Continue</Button>}
         </Buttons>
-      </>
+      </StyledPanel>
     );
   }
 
@@ -154,7 +173,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
       <>
         <PanelContent>
           <AudioRecorder
-            text={`Record a greeting for ${gift.recipientName}`}
+            text={`Record a greeting for ${gift.recipientName}.`}
             onRecordingStop={handleAudioRecordingComplete}
           />
         </PanelContent>
@@ -162,7 +181,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
           {greetingIsRecording && <Button>Start recording</Button>}
           {greetingIsRecording && <Button>Stop recording</Button>}
           {greetingIsRecorded && <Button>Re-record</Button>}
-          {greetingIsRecorded && <Button onClick={finishedThisSection}>Save Greeting</Button>}
+          {greetingIsRecorded && <Button primary={true} onClick={finishedThisSection}>Save Greeting</Button>}
         </Buttons>
       </>
     );

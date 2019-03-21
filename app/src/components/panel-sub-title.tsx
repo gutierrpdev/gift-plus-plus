@@ -7,15 +7,14 @@ import { TextResize } from './text-resize';
  * A sub title element at the top of panels
  */
 
-const PanelTitle = styled(TextResize).attrs({
-    mobileSize: 60,
+const PanelSubTitle = styled(TextResize).attrs({
+    mobileSize: 50,
   })`
   text-align: center;
   font-family: ${global.fonts.title.family};
-  font-weight: ${global.fonts.title.bold};
-  margin: 0 0 0.5vh 0;
+  font-style: italic
 `;
 
 export {
-  PanelTitle,
+  PanelSubTitle,
 };

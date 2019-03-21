@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { assertNever } from '../../utils/helpers';
-
 import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
@@ -24,7 +22,7 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('creating-part');
 
   // Move to section
   function gotoCreatePart() {
@@ -43,28 +41,22 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager backgroundImageUrl={bgImage}>
       <GlobalStyles />
 
+      <ScreenHeader
+        subTitle={`Making a gift for ${gift.recipientName || '...'}`}
+      />
+
       {status === 'start' &&
-        <>
-          <ScreenHeader
-            subTitle={`Making a gift for ...`}
-          />
-          <CreateGiftStart
-            gift={gift}
-            onComplete={gotoCreatePart}
-          />
-        </>
+        <CreateGiftStart
+          gift={gift}
+          onComplete={gotoCreatePart}
+        />
       }
 
       {status === 'creating-part' &&
-        <>
-          <ScreenHeader
-            subTitle={`Making a gift for ${gift.recipientName}`}
-          />
-          <CreatingPartContent
-            gift={gift}
-            onComplete={gotoSignGift}
-          />
-        </>
+        <CreatingPartContent
+          gift={gift}
+          onComplete={gotoSignGift}
+        />
       }
 
       {status === 'sign-gift' &&

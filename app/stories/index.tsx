@@ -27,6 +27,8 @@ import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
 import { ProgressLoader } from '../src/components/progress-loader';
 import { PhotoCapture } from '../src/components/photo-capture';
+import { TextAreaInput } from '../src/components/inputs/textarea-input';
+import { TextInput } from '../src/components/inputs/text-input';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -52,9 +54,9 @@ function alertClicked() {
   alert('Clicked');
 }
 
-function logSomething() {
+function logSomething( something?: string ) {
   // tslint:disable-next-line
-  console.log('something');
+  console.log( something || 'something' );
 }
 
 function doNothing() {
@@ -280,6 +282,23 @@ storiesOf('Components', module)
   ))
   .add('Photo Capture', () => (
     <PhotoCapture text={'take a photo'}/>
+  ))
+  .add('Text Area Input', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <TextAreaInput />
+      <TextAreaInput onTextChanged={(text) => logSomething(text)} />
+      <TextAreaInput placeHolder={'enter something'} onTextChanged={(text) => logSomething(text)} />
+      <TextAreaInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
+    </div>
+  ))
+  .add('Text Input', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <TextInput onTextChanged={(text) => logSomething(text)} />
+      <TextInput placeHolder={'enter your name'} onTextChanged={(text) => logSomething(text)} />
+      <TextInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
+    </div>
   ))
 ;
 

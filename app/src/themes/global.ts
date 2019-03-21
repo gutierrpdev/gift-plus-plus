@@ -67,6 +67,22 @@ const GlobalStyles = createGlobalStyle`
     background-color: transparent;
   }
 
+  /* text areas */
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    max-width: 95%;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    box-sizing: border-box;
+  }
+
+  /* single line inputs */
+  input[type="text"], input[type="email"], input[type="password"] {
+    border-radius: 6vw;
+    padding: 5vw 5vw;
+    text-align: center;;
+  }
+
   // Limit the maximum width of all screens
   html {
     background-color: #eee;
@@ -91,6 +107,7 @@ const GlobalStyles = createGlobalStyle`
 
 
 
+// Convert a decimal number to a roman numeral
 function romanNumeralFromDecimal(decimal: number) {
   switch (decimal) {
     case 1 :
@@ -104,8 +121,20 @@ function romanNumeralFromDecimal(decimal: number) {
   }
 }
 
+// Convert given text size to a font size, for mobile
+function calcMobileTextSize( size: number ) {
+  return Math.round( size / 10 );
+}
+
+// Convert given text size to a font size, for desktop
+function calcDesktopTextSize( size: number ) {
+  return Math.round( size * 4.8 );
+}
+
 export {
   GlobalStyles,
   global,
   romanNumeralFromDecimal,
+  calcMobileTextSize,
+  calcDesktopTextSize,
 };

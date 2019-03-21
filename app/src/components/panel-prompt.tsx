@@ -24,7 +24,10 @@ interface Props {
 const PanelPrompt: React.FC<Props> = ({ text, background = 'none', children }) => (
   <PanelRound background={background}>
     <PanelPromptStyle>
-      <PanelText>{text}</PanelText>
+      {/* support line breaks */}
+      {text.split('\n').map((item, key) => {
+        return <PanelText key={key}>{item}</PanelText>;
+      })}
       {children}
     </PanelPromptStyle>
   </PanelRound>

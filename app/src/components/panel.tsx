@@ -4,7 +4,9 @@ import styled from 'styled-components';
 const PanelContent = styled.div`
   flex-grow: 1;
   align-items: center;
+  justify-content: center;
   display: flex;
+  flex-direction: column;
 `;
 
 // todo: visible might not be required anymore

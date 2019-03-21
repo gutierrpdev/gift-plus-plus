@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
+import { global, calcMobileTextSize, calcDesktopTextSize } from '../themes/global';
 
 interface Props {
   mobileSize: number;
@@ -8,9 +8,9 @@ interface Props {
 }
 
 const TextResize = styled.div<Props>`
-  font-size: ${(props) => (props.mobileSize / 10)}vw;
+  font-size: ${(props) => calcMobileTextSize(props.mobileSize)}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => Math.round( props.desktopSize ? (props.desktopSize * 4.8) : (props.mobileSize * 4.8) )}%;
+    font-size: ${(props) => calcDesktopTextSize( props.desktopSize ? props.desktopSize : props.mobileSize ) }%;
   };
 `;
 
