@@ -24,12 +24,13 @@ type Status = 'first-message' | 'second-message' | 'third-message' | 'enter-reci
 // Extend panel props with extras
 interface Props {
   gift: Gift;
+  onComplete: () => void;
 }
 
-const CreateGiftStart: React.FC<Props> = ({ gift }) => {
+const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('third-message');
+  const [status, setStatus] = useState<Status>('first-message');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);
@@ -74,8 +75,9 @@ const CreateGiftStart: React.FC<Props> = ({ gift }) => {
 
   // This section is complete
   function finishedThisSection() {
-    // callback
-    // console.log('finished');
+    if (onComplete) {
+      onComplete();
+    }
   }
 
   // Render different bits of content

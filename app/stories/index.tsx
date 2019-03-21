@@ -40,6 +40,7 @@ import { ReceivingPartContent } from '../src/components/receiving/panels/part-co
 
 // Creating
 import { CreateGiftStart } from '../src/components/creating/create-gift-start';
+import { CreatingPartContent } from '../src/components/creating/part-content';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
@@ -84,7 +85,7 @@ storiesOf('Home', module)
 ;
 
 storiesOf('Creating', module)
-  .add('Create gift', () => <CreateGift gift={emptyGift} museumName={'Brighton & Hove Museum'} />)
+  .add('Create gift', () => <CreateGift gift={emptyGift} />)
 ;
 
 storiesOf('Receiving', module)
@@ -329,7 +330,16 @@ storiesOf('Components/Creating', module)
   .add('Create Gift Start', () => (
     <>
       <GlobalStyles />
-      <CreateGiftStart gift={emptyGift} />
+      <CreateGiftStart gift={emptyGift} onComplete={doNothing} />
+    </>
+  ))
+  .add('Create Gift Part', () => (
+    <>
+      <GlobalStyles />
+      <CreatingPartContent
+        // gift={emptyGift}
+        onComplete={doNothing}
+      />
     </>
   ))
 ;

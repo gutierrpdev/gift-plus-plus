@@ -17,10 +17,10 @@ export type ScreenHeaderSize = 'Small' | 'Big';
 
 interface Props {
   subTitle?: string;
-  postSubTitle: string;
-  title: string;
+  postSubTitle?: string;
+  title?: string;
   postTitle?: string;
-  showLogo: boolean;
+  showLogo?: boolean;
   topPadding?: boolean;
 }
 

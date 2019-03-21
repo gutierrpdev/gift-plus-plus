@@ -87,7 +87,6 @@ const PhotoCapture: React.FC<Props> = (props) => {
               id='photo-capture-input'
               type='file'
               accept='image/*'
-              capture='camera'
               onChange={handleChange}
               src={require('../assets/svg/button-audio-record.svg')}
             />
