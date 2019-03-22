@@ -33,6 +33,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   flex-grow: 1;
   flex-basis: 0;
   border: none;
+  cursor: pointer;
 `;
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -47,6 +48,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 // Base button used for controls (audio player, photo capture, etc)
 // Base button has active state
 const BaseControlButton = styled.div`
+  cursor: pointer;
   opacity: 0.8;
   &:active {
     opacity: 1;
