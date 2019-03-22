@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent } from '../panel';
+import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
@@ -147,14 +147,14 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderEnterRecipient() {
     return (
-      <StyledPanel>
+      <Panel>
         <PanelContent>
           <TextInput placeHolder={'enter their first name'} onTextChanged={handleRecipientNameChange} />
         </PanelContent>
         <Buttons>
           {nameIsEntered && <Button onClick={gotoRecordGreeting}>Continue</Button>}
         </Buttons>
-      </StyledPanel>
+      </Panel>
     );
   }
 
@@ -182,7 +182,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   return (
-    <StyledPanel>
+    <Panel>
 
         {status === 'first-message' && renderFirstMessage()}
         {status === 'second-message' && renderSecondMessage()}
@@ -190,7 +190,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
         {status === 'enter-recipient' && renderEnterRecipient()}
         {status === 'record-greeting' && renderRecordGreeting()}
 
-    </StyledPanel>
+    </Panel>
   );
 };
 

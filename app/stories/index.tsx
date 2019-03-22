@@ -13,7 +13,7 @@ import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
-import { StyledPanel } from '../src/components/panel';
+import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImage } from '../src/components/panel-image';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
@@ -158,13 +158,13 @@ storiesOf('Components', module)
   ))
   .add('Panel', () => (
     <div style={bgImg}>
-      <StyledPanel>
+      <Panel>
         <p>Panel text</p>
         <Buttons>
           <Button>Button 1</Button>
           <Button>Button 2</Button>
         </Buttons>
-      </StyledPanel>
+      </Panel>
     </div>
   ))
   .add('Buttons', () => (

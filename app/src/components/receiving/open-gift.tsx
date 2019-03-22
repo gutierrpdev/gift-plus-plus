@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { global } from '../../themes/global';
 
-import { StyledPanel, PanelContent, PanelProps } from '../panel';
+import { Panel, PanelContent, PanelProps } from '../panel';
 import { PanelRound } from '../panel-round';
 import { TextResize } from './../text-resize';
 
@@ -48,7 +48,7 @@ const ReceivingOpenGift: React.FC<Props> = (panelProps) => {
   }
 
   return (
-    <StyledPanel visible={panelProps.visible}>
+    <Panel visible={panelProps.visible}>
       <PanelContent>
         <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
           <OpenPanel>
@@ -57,7 +57,7 @@ const ReceivingOpenGift: React.FC<Props> = (panelProps) => {
           </OpenPanel>
         </PanelRound>
       </PanelContent>
-    </StyledPanel>
+    </Panel>
   );
 };
 

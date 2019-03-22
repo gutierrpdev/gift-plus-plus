@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent, PanelProps } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
@@ -44,7 +44,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
   }
 
   return (
-    <StyledPanel visible={panelProps.visible}>
+    <Panel visible={panelProps.visible}>
 
       <PanelContent>
 
@@ -73,7 +73,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
         <Button onClick={handleContinue} primary={true}>Continue</Button>
       </Buttons>
 
-    </StyledPanel>
+    </Panel>
   );
 };
 

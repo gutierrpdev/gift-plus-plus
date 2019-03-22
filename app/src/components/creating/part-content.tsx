@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent } from '../panel';
+import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
@@ -29,7 +29,7 @@ export interface Props {
 const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
+  const [giftPartIndex, setGiftPartIndex] = useState(1); // The current gift part index
   const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
@@ -207,7 +207,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           {giftPartIndex === 0 &&
             <PhotoCapture
               text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
-              textSize={40}
               onPhotoTaken={handlePhotoTaken}
               showCamera={showCamera}
             />
@@ -217,6 +216,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
               text={`Have a wander to find the second object for ${gift.recipientName}.
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them.`}
+              textSize={37}
               onPhotoTaken={handlePhotoTaken}
               showCamera={showCamera}
             />
@@ -358,7 +358,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderWriteClue() {
     return (
-      <StyledPanel>
+      <Panel>
         <PanelTitle>Making Part {romanNumeralFromDecimal(1)}</PanelTitle>
         <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
@@ -367,7 +367,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
         <Buttons>
           {clueIsWritten && <Button onClick={() => setStatus('finish-message1')}>Save clue</Button>}
         </Buttons>
-      </StyledPanel>
+      </Panel>
     );
   }
 
@@ -463,7 +463,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   return (
-    <StyledPanel>
+    <Panel>
       {status === 'first-message' && renderFirstMessage()}
       {status === 'second-message' && renderSecondMessage()}
       {status === 'take-photo' && renderTakePhoto()}
@@ -475,7 +475,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
       {status === 'finish-message1' && renderFinishMessage1()}
       {status === 'finish-message2' && renderFinishMessage2()}
       {status === 'send' && renderSend()}
-    </StyledPanel>
+    </Panel>
   );
 
 };
