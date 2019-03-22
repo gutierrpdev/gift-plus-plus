@@ -5,7 +5,7 @@ const StyledScreenLogo = styled.div`
   text-align: center;
   margin: 0 0 2vw;
   img {
-    max-width: 27vw;
+    max-width: 25%;
   }
 `;
 
