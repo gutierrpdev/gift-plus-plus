@@ -13,7 +13,7 @@ const PanelTitle = styled(TextResize).attrs({
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
-  margin: 0 0 0.5vh 0;
+  margin: 5% 0 1% 0;
 `;
 
 export {

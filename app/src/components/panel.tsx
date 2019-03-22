@@ -18,6 +18,7 @@ const Panel = styled.div<PanelProps>`
   height: 100%;
   width: 100%;
   flex-grow: 1;
+  z-index: 3;
 `;
 
 export interface PanelProps {
