@@ -10,8 +10,7 @@ const Buttons = styled.div`
   margin: 0;
   align-items: stretch;
   width: 100%;
-  min-height: calc(1em + 8vw); // todo: this is a hack to ensure the buttons appear
-  font-size: 6vw;
+  min-height: calc(1em + 8vw); // this is a hack to ensure the buttons appear
   line-height: 1;
 `;
 
