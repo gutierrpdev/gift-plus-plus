@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 
-import { romanNumeralFromDecimal } from '../../themes/global';
 import { StyledPanel, PanelContent } from '../panel';
-import { PanelTitle } from '../panel-title';
-import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
-import { PanelImageReveal } from '../panel-image-reveal';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { AudioRecorder } from '../../components/audio-recorder';
-// import { RecipientLocation } from './choose-location';
-import { Gift, GiftPart } from '../../domain';
+import { Gift } from '../../domain';
 import { WaitThen } from '../wait-then';
-// import { GiftPartBackground } from '../gift-part-background';
 import { TextInput } from '../inputs/text-input';
 
 /***
@@ -33,7 +27,7 @@ interface Props {
 const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('enter-recipient');
+  const [status, setStatus] = useState<Status>('first-message');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);

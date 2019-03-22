@@ -128,7 +128,7 @@ function calcMobileTextSize( size: number ) {
 
 // Convert given text size to a font size, for desktop
 function calcDesktopTextSize( size: number ) {
-  return Math.round( size * 4.8 );
+  return Math.round( size * 4 );
 }
 
 export {

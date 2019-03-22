@@ -30,7 +30,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('take-photo');
+  const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
@@ -452,7 +452,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
         <Buttons>
           <Button onClick={handleAllComplete}>Send now</Button>
           {giftPartIndex === 0 &&
-            <Button onClick={handleStartPart2}>Add another object</Button>
+            <Button onClick={handleStartPart2} primary={true}>Add another object</Button>
           }
           {giftPartIndex === 1 &&
            <Button onClick={handleStartPart3} primary={true}>Add another object</Button>
