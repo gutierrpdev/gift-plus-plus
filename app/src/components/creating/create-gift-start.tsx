@@ -27,7 +27,7 @@ interface Props {
 const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('record-greeting');
+  const [status, setStatus] = useState<Status>('first-message');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);

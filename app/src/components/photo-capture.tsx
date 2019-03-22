@@ -72,13 +72,22 @@ const PhotoCapture: React.FC<Props> = (props) => {
 
     // Get the file from the list
     if (e.target.files) {
-      const file = e.target.files[0];
-      // console.log(file);
 
-      // todo: process photo and pass final URL
-      if (props.onPhotoTaken) {
-        props.onPhotoTaken( 'file' );
-      }
+      const reader = new FileReader();
+      const file = e.target.files[0]; // Assuming one file
+
+      reader.onload = () => {
+        // console.log(reader.result);
+
+        // todo: process photo via API and pass final URL??
+        if (props.onPhotoTaken) {
+          // note : this is raw data at present, maybe get url from API?
+          props.onPhotoTaken( reader.result as string );
+        }
+      };
+
+      reader.readAsDataURL(file);
+
     }
 
   }

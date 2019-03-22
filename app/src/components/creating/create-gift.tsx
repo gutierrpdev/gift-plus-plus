@@ -16,13 +16,17 @@ type Status = 'start' | 'creating-part' | 'sign-gift';
 /* Todo : other parts include verify and send, but these are likely reached from a verification email link
    and so might be a seperate screen, with the gift already saved */
 
+// Header state
+type HeaderState = 'start' | 'choosing-recipient' | 'recipient-choosen';
+
 interface Props {
   gift: Gift;
 }
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('creating-part');
+  const [headerState, setHeaderState] = useState<HeaderState>('choosing-recipient');
 
   // Move to section
   function gotoCreatePart() {
@@ -41,32 +45,41 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager backgroundImageUrl={bgImage}>
       <GlobalStyles />
 
-      {status === 'start' &&
-        <>
-          <ScreenHeader
-            subTitle={`Making a gift for ${gift.recipientName || '...'}`}
-          />
+      {headerState === 'start' &&
+        <ScreenHeader
+          topPadding={true}
+          title={`Making a new gift...`}
+        />
+      }
 
-          <CreateGiftStart
-            gift={gift}
-            onComplete={gotoCreatePart}
-          />
-        </>
+      {headerState === 'choosing-recipient' &&
+        <ScreenHeader
+          showLogo={true}
+          postSubTitle={`Making a gift for...`}
+          background={'white'}
+        />
+      }
+
+      {headerState === 'recipient-choosen' &&
+        <ScreenHeader
+          postSubTitle={`Making a gift...`}
+          subTitle={gift.recipientName}
+          background={'white'}
+        />
+      }
+
+      {status === 'start' &&
+        <CreateGiftStart
+          gift={gift}
+          onComplete={gotoCreatePart}
+        />
       }
 
       {status === 'creating-part' &&
-        <>
-          <ScreenHeader
-            postSubTitle={`Making a gift for`}
-            subTitle={gift.recipientName}
-            background={'white'}
-          />
-
-          <CreatingPartContent
-            gift={gift}
-            onComplete={gotoSignGift}
-          />
-        </>
+        <CreatingPartContent
+          gift={gift}
+          onComplete={gotoSignGift}
+        />
       }
 
       {status === 'sign-gift' &&

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
@@ -17,6 +18,33 @@ import { romanNumeralFromDecimal } from '../../themes/global';
  * Show the creating gift part content
  */
 
+interface PartContentStyleProps {
+  backgroundImage?: string; // data or url
+  showWhiteOverlay?: boolean;
+}
+
+const PartContentStyle = styled(Panel)<PartContentStyleProps>`
+  background-image: url(${(props) => props.backgroundImage});
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  ${(props: PartContentStyleProps) =>
+    props.showWhiteOverlay && `
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255,255,255,0.3);
+      pointer-events: none;
+    }
+  `}
+
+`;
+
 type Status = 'first-message' | 'second-message' | 'take-photo' | 'pre-record-message' | 'record-message' |
   'pre-clue-message1' | 'pre-clue-message2' | 'write-clue' | 'finish-message1' | 'finish-message2' | 'send';
 
@@ -30,13 +58,14 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('record-message');
+  const [status, setStatus] = useState<Status>('take-photo');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [audioIsRecorded, setAudioIsRecorded] = useState(false);
   const [audioIsRecording, setAudioIsRecording] = useState(false);
   const [clueIsWritten, setClueIsWritten] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState('');
 
   // Defaults
   const defaultWait = 5;
@@ -85,11 +114,17 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   }
 
+  // Handle the photo being taken
   function handlePhotoTaken( fileUrl: string ) {
+
+    // todo check this is a fileURL as at present this is raw data
 
     // Record the photo file
     const giftPart: GiftPart = getGiftPart(giftPartIndex);
     giftPart.photo = fileUrl;
+
+    // Set the background of this component
+    setBackgroundImage(fileUrl);
 
     // Move to next section
     setStatus('pre-record-message');
@@ -508,7 +543,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   return (
-    <Panel>
+    <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
       {status === 'first-message' && renderFirstMessage()}
       {status === 'second-message' && renderSecondMessage()}
       {status === 'take-photo' && renderTakePhoto()}
@@ -520,7 +555,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
       {status === 'finish-message1' && renderFinishMessage1()}
       {status === 'finish-message2' && renderFinishMessage2()}
       {status === 'send' && renderSend()}
-    </Panel>
+    </PartContentStyle>
   );
 
 };
