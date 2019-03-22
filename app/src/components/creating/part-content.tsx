@@ -29,7 +29,7 @@ export interface Props {
 const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [giftPartIndex, setGiftPartIndex] = useState(1); // The current gift part index
+  const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
   const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
