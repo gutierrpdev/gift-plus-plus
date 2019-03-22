@@ -24,7 +24,7 @@ const OpenPanel = styled.div`
 `;
 
 const OpenText = styled(TextResize).attrs({
-    mobileSize: 60,
+    textSize: 60,
   })`
   font-style: italic;
   font-family: ${global.fonts.title.family};

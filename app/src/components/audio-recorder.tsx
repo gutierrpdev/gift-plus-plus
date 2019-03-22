@@ -111,7 +111,7 @@ class AudioRecorder extends React.PureComponent<Props, State> {
           <RecordingText
             show={recording}
           >
-            <TextResize mobileSize={40}>Now Recording</TextResize>
+            <TextResize textSize={40}>Now Recording</TextResize>
           </RecordingText>
           <Controls>
             <RecordButton >

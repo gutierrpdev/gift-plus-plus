@@ -38,7 +38,7 @@ const ButtonStyle = styled.button<ButtonProps>`
 const Button: React.FC<ButtonProps> = (props) => {
   return (
     <ButtonStyle {...props}>
-      <TextResize mobileSize={50} desktopSize={50}>{props.children}</TextResize>
+      <TextResize textSize={50}>{props.children}</TextResize>
     </ButtonStyle>
   );
 };

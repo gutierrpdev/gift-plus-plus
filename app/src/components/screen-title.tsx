@@ -4,8 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenTitle = styled(TextResize).attrs({
-    mobileSize: 100,
-    desktopSize: 70,
+    textSize: 100,
   })`
   margin: 0 0 1vw;
   @media (min-width: ${global.desktop.startPixels}px) {

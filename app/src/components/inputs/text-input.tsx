@@ -10,17 +10,16 @@ import { global, calcMobileTextSize, calcDesktopTextSize } from '../../themes/gl
 const TextInputStyled = styled.input.attrs({
     type: 'text',
   })<Props>`
-  font-size: ${(props) => calcMobileTextSize( props.mobileSize || 40 )}vw;
+  font-size: ${(props) => calcMobileTextSize( props.textSize || 40 )}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => calcDesktopTextSize( (props.desktopSize ? props.desktopSize : props.mobileSize) || 40 ) }%;
+    font-size: ${(props) => calcDesktopTextSize( props.textSize || 40 ) }%;
   };
 `;
 
 interface Props {
   defaultValue?: string;
   placeHolder?: string;
-  mobileSize?: number;
-  desktopSize?: number;
+  textSize?: number;
   onTextChanged?: (text: string) => void;
 }
 
@@ -35,8 +34,7 @@ const TextInput: React.FC<Props> = ( props ) => {
   return (
     <TextInputStyled
       defaultValue={props.defaultValue}
-      mobileSize={props.mobileSize}
-      desktopSize={props.desktopSize}
+      textSize={props.textSize}
       placeholder={props.placeHolder}
       onChange={handleChange}
     />

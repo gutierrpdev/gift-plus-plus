@@ -8,7 +8,7 @@ import { TextResize } from './text-resize';
  */
 
 const PanelSubTitle = styled(TextResize).attrs({
-    mobileSize: 50,
+    textSize: 50,
   })`
   text-align: center;
   font-family: ${global.fonts.title.family};

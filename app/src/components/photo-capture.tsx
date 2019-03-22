@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 import { BaseControlButton } from './buttons';
+import { TextResize } from './text-resize';
 
 /**
  * Capture photo from users camera
@@ -18,7 +19,7 @@ const PhotoCaptureStyle = styled.div`
 `;
 
 const PhotoCaptureText = styled(PanelText)`
-  height: 60%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,11 +41,11 @@ const ImageInput = styled.input`
 // Buttons
 const CaptureButton = styled(BaseControlButton)`
   width: 30%;
-  border-radius: 50%;
 `;
 
 interface Props {
   text: string;
+  textSize?: number;
   showCamera?: boolean;
   onPhotoTaken?: () => void;
 }
@@ -86,7 +87,7 @@ const PhotoCapture: React.FC<Props> = (props) => {
   return (
     <PanelRound background={'transparent-black'}>
       <PhotoCaptureStyle>
-        <PhotoCaptureText>{props.text}</PhotoCaptureText>
+        <PhotoCaptureText textSize={props.textSize}>{props.text}</PhotoCaptureText>
         <Controls>
           <CaptureButton >
             <img src={require('../assets/svg/icon-camera.svg')} onClick={showCamera} />

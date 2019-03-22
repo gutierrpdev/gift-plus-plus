@@ -30,7 +30,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('write-clue');
+  const [status, setStatus] = useState<Status>('take-photo');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
@@ -207,6 +207,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           {giftPartIndex === 0 &&
             <PhotoCapture
               text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
+              textSize={40}
               onPhotoTaken={handlePhotoTaken}
               showCamera={showCamera}
             />
@@ -454,7 +455,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
             <Button onClick={handleStartPart2}>Add another object</Button>
           }
           {giftPartIndex === 1 &&
-           <Button onClick={handleStartPart3}>Add another object</Button>
+           <Button onClick={handleStartPart3} primary={true}>Add another object</Button>
           }
         </Buttons>
       </>

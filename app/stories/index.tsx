@@ -281,7 +281,16 @@ storiesOf('Components', module)
     <ProgressLoader percentage={25} />
   ))
   .add('Photo Capture', () => (
+    <>
+    <GlobalStyles />
     <PhotoCapture text={'take a photo'}/>
+    <PhotoCapture
+      text={`Have a wander to find the second object for Nick.
+        Why not visit another part of the museum?
+        When you’ve found it take a photo to show them.`}
+      textSize={30}
+    />
+    </>
   ))
   .add('Text Area Input', () => (
     <div style={greyBG}>
