@@ -22,7 +22,7 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('creating-part');
+  const [status, setStatus] = useState<Status>('start');
 
   // Move to section
   function gotoCreatePart() {

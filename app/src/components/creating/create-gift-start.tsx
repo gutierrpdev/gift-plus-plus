@@ -27,7 +27,7 @@ interface Props {
 const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('first-message');
+  const [status, setStatus] = useState<Status>('record-greeting');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);
@@ -35,6 +35,9 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // Defaults
   const defaultWait = 5;
+
+  // Local values
+  let audioRecorder: AudioRecorder;
 
   // Move to section
   function gotoSecondMessage() {
@@ -69,11 +72,22 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
     setAudioHasPlayed(true);
   }
 
-  function handleAudioRecordingComplete() {
+  function handleAudioRecordingStart() {
 
+    // Set our state
+    setGreetingIsRecorded(false);
+    setGreetingIsRecording(true);
+
+  }
+
+  function handleAudioRecordingStop( fileUrl: string ) {
+
+    // Set out state
     setGreetingIsRecorded(true);
+    setGreetingIsRecording(false);
 
-    // todo apply the recording to the gift
+    // Update the gift
+    gift.recipientGreeting = fileUrl;
 
   }
 
@@ -166,15 +180,28 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
     return (
       <>
         <PanelContent>
-          <AudioRecorder
-            text={`Record a greeting for ${gift.recipientName}.`}
-            onRecordingStop={handleAudioRecordingComplete}
-          />
+          {!greetingIsRecorded &&
+            <AudioRecorder
+              text={`Record a greeting for ${gift.recipientName}.`}
+              onRecordingStop={handleAudioRecordingStop}
+              onRecordingStart={handleAudioRecordingStart}
+              ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+            />
+          }
+          {greetingIsRecorded &&
+            <AudioPlayer
+              text={'Review your recording'}
+              src={gift.recipientGreeting}
+              forwardButton={'SkipSeconds'}
+            />
+          }
         </PanelContent>
         <Buttons>
-          {greetingIsRecording && <Button>Start recording</Button>}
-          {greetingIsRecording && <Button>Stop recording</Button>}
-          {greetingIsRecorded && <Button>Re-record</Button>}
+          {!greetingIsRecorded && !greetingIsRecording &&
+            <Button onClick={() => { audioRecorder.startRecording(); }} primary={true}>Start recording</Button>
+          }
+          {greetingIsRecording && <Button onClick={() => { audioRecorder.stopRecording(); }}>Stop recording</Button>}
+          {greetingIsRecorded && <Button onClick={() => {setGreetingIsRecorded(false); }}>Re-record</Button>}
           {greetingIsRecorded && <Button primary={true} onClick={finishedThisSection}>Save Greeting</Button>}
         </Buttons>
       </>

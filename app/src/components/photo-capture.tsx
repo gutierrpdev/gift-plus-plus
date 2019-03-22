@@ -47,7 +47,7 @@ interface Props {
   text: string;
   textSize?: number;
   showCamera?: boolean;
-  onPhotoTaken?: () => void;
+  onPhotoTaken?: ( fileUrl: string ) => void;
 }
 
 const PhotoCapture: React.FC<Props> = (props) => {
@@ -73,12 +73,11 @@ const PhotoCapture: React.FC<Props> = (props) => {
     // Get the file from the list
     if (e.target.files) {
       const file = e.target.files[0];
-      // alert(file);
       // console.log(file);
 
-      // todo probably pass the photo to the callback event?
+      // todo: process photo and pass final URL
       if (props.onPhotoTaken) {
-        props.onPhotoTaken(); // pass back file?
+        props.onPhotoTaken( 'file' );
       }
     }
 
