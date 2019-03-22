@@ -7,9 +7,13 @@ import {  ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
 
 const ScreenHeaderStyle = styled.div<Props>`
-  margin: 5% 0 5%;
+  width: 100%;
+  padding: 5% 0 5%;
   ${(props) => props.topPadding && `
     padding-top: 10%;
+  `}
+  ${(props) => props.background === 'white' && `
+    background-color: white;
   `}
 `;
 
@@ -22,6 +26,7 @@ interface Props {
   postTitle?: string;
   showLogo?: boolean;
   topPadding?: boolean;
+  background?: 'none' | 'white';
 }
 
 const ScreenHeader: React.FC<Props> = (props: Props) => {

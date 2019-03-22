@@ -22,7 +22,7 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('creating-part');
 
   // Move to section
   function gotoCreatePart() {
@@ -41,22 +41,32 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager backgroundImageUrl={bgImage}>
       <GlobalStyles />
 
-      <ScreenHeader
-        subTitle={`Making a gift for ${gift.recipientName || '...'}`}
-      />
-
       {status === 'start' &&
-        <CreateGiftStart
-          gift={gift}
-          onComplete={gotoCreatePart}
-        />
+        <>
+          <ScreenHeader
+            subTitle={`Making a gift for ${gift.recipientName || '...'}`}
+          />
+
+          <CreateGiftStart
+            gift={gift}
+            onComplete={gotoCreatePart}
+          />
+        </>
       }
 
       {status === 'creating-part' &&
-        <CreatingPartContent
-          gift={gift}
-          onComplete={gotoSignGift}
-        />
+        <>
+          <ScreenHeader
+            postSubTitle={`Making a gift for`}
+            subTitle={gift.recipientName}
+            background={'white'}
+          />
+
+          <CreatingPartContent
+            gift={gift}
+            onComplete={gotoSignGift}
+          />
+        </>
       }
 
       {status === 'sign-gift' &&
