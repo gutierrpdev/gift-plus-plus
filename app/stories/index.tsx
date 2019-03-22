@@ -15,7 +15,6 @@ import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
 import { StyledPanel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
-import { PanelImage } from '../src/components/panel-image';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
@@ -144,11 +143,6 @@ storiesOf('Components', module)
   .add('Panel Prompt text', () => (
     <div style={greyBG}>
       <PanelPrompt text={'lorem ipsum solus incum'} background={'transparent-black'} />
-    </div>
-  ))
-  .add('Panel Image', () => (
-    <div style={greyBG}>
-      <PanelImage imageSrc={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
     </div>
   ))
   .add('Panel Image Reveal', () => (

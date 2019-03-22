@@ -283,7 +283,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* show full photo */}
         {section === 7 &&
           <>
-            {/* <PanelImage imageUrl={giftPartPhoto} /> */}
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
