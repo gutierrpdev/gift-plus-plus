@@ -18,7 +18,6 @@ import { TextInput } from '../inputs/text-input';
 
 type Status = 'first-message' | 'second-message' | 'third-message' | 'enter-recipient' | 'record-greeting';
 
-// Extend panel props with extras
 interface Props {
   gift: Gift;
   onComplete: () => void;

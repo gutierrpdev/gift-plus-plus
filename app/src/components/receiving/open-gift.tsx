@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { global } from '../../themes/global';
 
-import { Panel, PanelContent, PanelProps } from '../panel';
+import { Panel, PanelContent } from '../panel';
 import { PanelRound } from '../panel-round';
 import { TextResize } from './../text-resize';
 
@@ -33,22 +33,22 @@ const OpenText = styled(TextResize).attrs({
   color: black;
 `;
 
-// Extend panel props with extras
-export interface Props extends PanelProps {
+export interface Props {
+  visible?: boolean;
   onComplete?: () => void;
 }
 
 // Todo : finish question
-const ReceivingOpenGift: React.FC<Props> = (panelProps) => {
+const ReceivingOpenGift: React.FC<Props> = (props) => {
 
   function handleOpenGift() {
-    if (panelProps.onComplete) {
-      panelProps.onComplete();
+    if (props.onComplete) {
+      props.onComplete();
     }
   }
 
   return (
-    <Panel visible={panelProps.visible}>
+    <Panel visible={props.visible}>
       <PanelContent>
         <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
           <OpenPanel>

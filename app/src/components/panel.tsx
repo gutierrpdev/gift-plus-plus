@@ -21,7 +21,7 @@ const Panel = styled.div<PanelProps>`
   z-index: 3;
 `;
 
-export interface PanelProps {
+interface PanelProps {
   visible?: boolean;
 }
 

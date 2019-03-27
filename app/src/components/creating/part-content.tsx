@@ -48,7 +48,6 @@ const PartContentStyle = styled(Panel)<PartContentStyleProps>`
 type Status = 'first-message' | 'second-message' | 'take-photo' | 'pre-record-message' | 'record-message' |
   'pre-clue-message1' | 'pre-clue-message2' | 'write-clue' | 'finish-message1' | 'finish-message2' | 'send';
 
- // Extend panel props with extras
 export interface Props {
   gift: Gift; // Pass in the whole gift.  This component will add all necessary parts
   onComplete: () => void; // When this component is finished

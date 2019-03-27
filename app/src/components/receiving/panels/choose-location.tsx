@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Panel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
 
@@ -17,36 +17,36 @@ const PinImg = styled.img`
  // Define our receiving locations
 export type RecipientLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
 
-// Extend panel props with extras
-export interface ChooseLocationProps extends PanelProps {
+export interface ChooseLocationProps {
+  visible?: boolean;
   museumName: string;
   doSetLocation: (recipientLocation: RecipientLocation) => void; // Callback to the parent
 }
 
 // Todo : finish question
-const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
+const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
 
   function handleAtMuseum() {
     // Set Location callback
-    if (panelProps.doSetLocation) {
-      panelProps.doSetLocation('AtMuseum');
+    if (props.doSetLocation) {
+      props.doSetLocation('AtMuseum');
     }
 
   }
 
   function handleNotAtMuseum() {
     // Set Location callback
-    if (panelProps.doSetLocation) {
-      panelProps.doSetLocation('NotAtMuseum');
+    if (props.doSetLocation) {
+      props.doSetLocation('NotAtMuseum');
     }
 
   }
 
   return (
-    <Panel visible={panelProps.visible}>
+    <Panel visible={props.visible}>
       <PanelContent>
         <PanelPrompt
-          text={`Are you at the ${panelProps.museumName} right now?`}
+          text={`Are you at the ${props.museumName} right now?`}
           background={'transparent-black'}
         >
           <PinImg src={require('../../../assets/svg/pin.svg')} />

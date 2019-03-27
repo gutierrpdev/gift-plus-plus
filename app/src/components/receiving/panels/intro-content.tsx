@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Panel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
@@ -9,8 +9,8 @@ import { RecipientLocation } from './choose-location';
  * Show the intro content
  */
 
-// Extend panel props with extras
-export interface IntroContentProps extends PanelProps {
+export interface IntroContentProps {
+  visible?: boolean;
   recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
   onComplete?: () => void;
@@ -18,16 +18,16 @@ export interface IntroContentProps extends PanelProps {
 }
 
 // Todo : finish question
-const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
+const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
 
-  const atMuseum = (panelProps.recipientLocation === 'AtMuseum');
+  const atMuseum = (props.recipientLocation === 'AtMuseum');
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
   function handleContinue() {
 
     // todo: check for skip in global state, show button below
-    if (panelProps.onComplete) {
-      panelProps.onComplete();
+    if (props.onComplete) {
+      props.onComplete();
     }
   }
 
@@ -38,13 +38,13 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
     setAudioPlaybackFinished(true);
 
     // Props callback
-    if (panelProps.handleAudioIntroPlayed) {
-      panelProps.handleAudioIntroPlayed();
+    if (props.handleAudioIntroPlayed) {
+      props.handleAudioIntroPlayed();
     }
   }
 
   return (
-    <Panel visible={panelProps.visible}>
+    <Panel visible={props.visible}>
 
       <PanelContent>
 
@@ -69,7 +69,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (panelProps) => {
 
       <Buttons>
         {/* todo: reinstate this */}
-        {/* {panelProps.audioIntroPlayed && <Button onClick={handleContinue}>Skip</Button>} */}
+        {/* {props.audioIntroPlayed && <Button onClick={handleContinue}>Skip</Button>} */}
         <Button onClick={handleContinue} primary={true}>Continue</Button>
       </Buttons>
 

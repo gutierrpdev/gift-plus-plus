@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Panel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { PanelImageReveal } from '../../panel-image-reveal';
 import { Buttons, Button } from '../../buttons';
@@ -14,8 +14,9 @@ import { GiftPartBackground } from '../gift-part-background';
  * Show the gift part content, prompting for clues, etc.
  */
 
- // Extend panel props with extras
-export interface PartContentProps extends PanelProps {
+
+export interface PartContentProps {
+  visible?: boolean;
   gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation;
