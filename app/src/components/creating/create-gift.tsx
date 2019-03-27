@@ -6,6 +6,7 @@ import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
 import { CreateGiftStart } from '../creating/create-gift-start';
 import { CreatingPartContent } from '../creating/part-content';
+import { SignGift } from '../creating/sign-gift';
 
 /**
  * Gift Create screen top level component
@@ -25,7 +26,7 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('creating-part');
+  const [status, setStatus] = useState<Status>('start');
   const [headerState, setHeaderState] = useState<HeaderState>('choosing-recipient');
 
   // Move to section
@@ -82,8 +83,12 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
         />
       }
 
+      {/* todo: isVerified and userName */}
       {status === 'sign-gift' &&
-        <p>Sign gift</p>
+        <SignGift
+          gift={gift}
+          isVerifiedUser={false}
+        />
       }
 
     </ScreenManager>

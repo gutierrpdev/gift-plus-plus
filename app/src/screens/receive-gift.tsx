@@ -29,7 +29,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   const [preloadState] = usePreload(assetUrls);
 
 
-  if (getGiftTask.kind === 'running') return <ProgressLoader percentage={0} />;
+  if (getGiftTask.kind === 'running') return <ProgressLoader text={'Running'} percent={0} />;
   if (getGiftTask.kind === 'failure') return <h1>Error (Gift): TODO</h1>;
 
   const apiResult = getGiftTask.result;
@@ -40,7 +40,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
 
   if (preloadState.status === 'running') {
-    return <ProgressLoader percentage={Math.round(totalProgress(preloadState) * 100)} />;
+    return <ProgressLoader text={'Loading'} percent={Math.round(totalProgress(preloadState) * 100)} />;
   }
   if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
 

@@ -42,6 +42,7 @@ import { ReceivingPartContent } from '../src/components/receiving/panels/part-co
 // Creating
 import { CreateGiftStart } from '../src/components/creating/create-gift-start';
 import { CreatingPartContent } from '../src/components/creating/part-content';
+import { SignGift } from '../src/components/creating/sign-gift';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
@@ -272,7 +273,7 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Progress Loader', () => (
-    <ProgressLoader percentage={25} />
+    <ProgressLoader text={'Loading'} percent={25} />
   ))
   .add('Photo Capture', () => (
     <>
@@ -361,6 +362,25 @@ storiesOf('Components/Creating', module)
       <CreatingPartContent
         gift={emptyGift}
         onComplete={doNothing}
+      />
+    </>
+  ))
+  .add('Sign gift - anonymous', () => (
+    <>
+      <GlobalStyles />
+      <SignGift
+        isVerifiedUser={false}
+        gift={giftThreeParts}
+      />
+    </>
+  ))
+  .add('Sign gift - logged in', () => (
+    <>
+      <GlobalStyles />
+      <SignGift
+        isVerifiedUser={true}
+        userName={'Nick'}
+        gift={giftThreeParts}
       />
     </>
   ))

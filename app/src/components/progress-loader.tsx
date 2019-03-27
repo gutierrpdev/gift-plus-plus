@@ -21,15 +21,16 @@ const ProgressTitle = styled.div`
 `;
 
 interface Props {
-  percentage: number;
+  text: string;
+  percent: number;
 }
 
-const ProgressLoader: React.FC<Props> = (props) => {
+const ProgressLoader: React.FC<Props> = ({ text, percent }) => {
 
   return (
     <StyledProgressLoader>
-      <ProgressTitle>Loading: {props.percentage}%</ProgressTitle>
-      <ProgressBar percentage={props.percentage} theme={'blackOnWhite'} />
+      <ProgressTitle>{text}: {percent}%</ProgressTitle>
+      <ProgressBar percentage={percent} theme={'blackOnWhite'} />
     </StyledProgressLoader>
   );
 
