@@ -6,7 +6,7 @@ import { TextResize } from './text-resize';
 const ScreenTitle = styled(TextResize).attrs({
     textSize: 100,
   })`
-  line-height: 1.2;
+  line-height: 1;
   margin: 0 10vw 1vw;
   @media (min-width: ${global.desktop.startPixels}px) {
     margin: 0 10px 10px;

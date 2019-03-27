@@ -7,13 +7,7 @@ import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelPlus } from '../panel-plus';
 import { Buttons, Button } from '../buttons';
-import { AudioPlayer } from '../../components/audio-player';
-import { AudioRecorder } from '../../components/audio-recorder';
-import { Gift, GiftPart } from '../../domain';
-import { WaitThen } from '../wait-then';
-import { PhotoCapture } from '../../components/photo-capture';
-import { TextAreaInput } from '../../components/inputs/textarea-input';
-import { romanNumeralFromDecimal } from '../../themes/global';
+import { Gift } from '../../domain';
 import { TextInput } from '../inputs/text-input';
 import { ProgressLoader } from '../progress-loader';
 
@@ -32,23 +26,18 @@ interface Props {
 const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('first-message');
+  const [status, setStatus] = useState<Status>('enter-name');
   const [saveProgress, setSaveProgress] = useState(0);
-
-  // Defaults
-
-
-  // Local values
-
+  const [senderName, setSenderName] = useState('');
+  const [senderEmailAddress, setSenderEmailAddress] = useState('');
 
   // Handlers
-  function handleFirstNameChange( /*name: string*/ ) {
-    // todo
+  function handleFirstNameChange( name: string ) {
+    setSenderName(name);
   }
 
-
-  function handleEmailChange( /*email: string*/ ) {
-    // todo
+  function handleEmailChange( email: string ) {
+    setSenderEmailAddress(email);
   }
 
   // Render different bits of content
@@ -79,12 +68,13 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
           {!isVerifiedUser &&
             <>
               <TextInput placeHolder={'your first name'} onTextChanged={handleFirstNameChange} />
-              <TextInput placeHolder={'your email'} onTextChanged={handleEmailChange} />
+              <TextInput placeHolder={'your email'} inputType={'email'} onTextChanged={handleEmailChange} />
             </>
           }
         </PanelContent>
         <Buttons>
-          <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>
+          {senderName && senderEmailAddress &&
+            <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>}
         </Buttons>
       </Panel>
     );
@@ -142,8 +132,9 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
         <PanelSubTitle>Ready to send</PanelSubTitle>
         <PanelContent>
           <PanelPrompt
+            background={'transparent-black'}
             text={`We’ve sent you an email.
-            Please click on the link in the email to confirm your address.`}
+              Please click on the link in the email to confirm your address.`}
           />
         </PanelContent>
         <Buttons>

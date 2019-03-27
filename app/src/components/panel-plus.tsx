@@ -13,7 +13,7 @@ interface Props {
 }
 
 const PlusStyle = styled.img`
-  margin-top: 5%;
+  margin-top: 10%;
   max-width: 40%;
   cursor: pointer;
 `;

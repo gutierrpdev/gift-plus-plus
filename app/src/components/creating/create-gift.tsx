@@ -18,7 +18,7 @@ type Status = 'start' | 'creating-part' | 'sign-gift';
    and so might be a seperate screen, with the gift already saved */
 
 // Header state
-type HeaderState = 'start' | 'choosing-recipient' | 'recipient-choosen';
+type HeaderState = 'name-unknown' | 'named-big' | 'named-small';
 
 interface Props {
   gift: Gift;
@@ -26,8 +26,8 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
-  const [headerState, setHeaderState] = useState<HeaderState>('choosing-recipient');
+  const [status, setStatus] = useState<Status>('sign-gift');
+  const [headerState, setHeaderState] = useState<HeaderState>('name-unknown');
 
   // Move to section
   function gotoCreatePart() {
@@ -38,6 +38,11 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     setStatus('sign-gift');
   }
 
+  // When the recipient name is set update our header
+  function setRecipientNameSet() {
+    setHeaderState('named-small');
+  }
+
   // Background
   const bgImage = require('../../assets/svg/bg.svg');
 
@@ -46,32 +51,36 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager backgroundImageUrl={bgImage}>
       <GlobalStyles />
 
-      {headerState === 'start' &&
+      {/* Header */}
+      {headerState === 'name-unknown' &&
         <ScreenHeader
           topPadding={true}
-          title={`Making a new gift...`}
+          title={`Making\na gift...`}
         />
       }
 
-      {headerState === 'choosing-recipient' &&
+      {/* todo named-big unused */}
+      {/* {headerState === 'named-big' &&
         <ScreenHeader
           showLogo={true}
           postSubTitle={`Making a gift for...`}
           background={'white'}
         />
-      }
+      } */}
 
-      {headerState === 'recipient-choosen' &&
+      {headerState === 'named-small' &&
         <ScreenHeader
-          postSubTitle={`Making a gift...`}
+          preSubTitle={`Making a gift for`}
           subTitle={gift.recipientName}
           background={'white'}
         />
       }
 
+      {/* Content */}
       {status === 'start' &&
         <CreateGiftStart
           gift={gift}
+          onRecipientNameSet={setRecipientNameSet}
           onComplete={gotoCreatePart}
         />
       }

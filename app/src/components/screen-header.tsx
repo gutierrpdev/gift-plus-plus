@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
-import {  ScreenPostTitle } from './screen-post-title';
+import { ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
 
 const ScreenHeaderStyle = styled.div<Props>`
@@ -20,6 +20,7 @@ const ScreenHeaderStyle = styled.div<Props>`
 export type ScreenHeaderSize = 'Small' | 'Big';
 
 interface Props {
+  preSubTitle?: string;
   subTitle?: string;
   postSubTitle?: string;
   title?: string;
@@ -34,9 +35,15 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   return (
     <ScreenHeaderStyle {...props}>
       {props.showLogo && <ScreenLogo />}
+      {props.preSubTitle && <ScreenPostTitle>{props.preSubTitle}</ScreenPostTitle>}
       {props.subTitle && <ScreenSubTitle>{props.subTitle}</ScreenSubTitle>}
       {props.postSubTitle && <ScreenPostTitle>{props.postSubTitle}</ScreenPostTitle>}
-      {props.title && <ScreenTitle>{props.title}</ScreenTitle>}
+
+      {/* support line breaks */}
+      {props.title && props.title.split('\n').map((item, key) => {
+        return <ScreenTitle key={key}>{item}</ScreenTitle>;
+      })}
+
       {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
     </ScreenHeaderStyle>
   );

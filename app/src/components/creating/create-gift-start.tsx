@@ -20,17 +20,18 @@ type Status = 'first-message' | 'second-message' | 'third-message' | 'enter-reci
 
 interface Props {
   gift: Gift;
+  onRecipientNameSet: () => void;
   onComplete: () => void;
 }
 
-const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
+const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete }) => {
 
   // State
   const [status, setStatus] = useState<Status>('first-message');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
   const [greetingIsRecording, setGreetingIsRecording] = useState(false);
   const [greetingIsRecorded, setGreetingIsRecorded] = useState(false);
-  const [nameIsEntered, setnameIsEntered] = useState(false);
+  const [nameIsEntered, setNameIsEntered] = useState(false);
 
   // Defaults
   const defaultWait = 5;
@@ -52,6 +53,12 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   function gotoRecordGreeting() {
+
+    // Notify that the recipient name is set
+    if (onRecipientNameSet) {
+      onRecipientNameSet();
+    }
+
     setStatus('record-greeting');
   }
 
@@ -64,7 +71,8 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
     gift.recipientName = name;
 
     // Set state
-    setnameIsEntered(true);
+    setNameIsEntered(true);
+
   }
 
   function handleAudioPlaybackFinished() {

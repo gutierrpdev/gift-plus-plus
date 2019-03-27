@@ -2,13 +2,16 @@ import React from 'react';
 import uuidv5 from 'uuid/v5';
 
 import { Gift } from '../domain';
-import { ScreenTitle } from '../components/screen-title';
-import { GlobalStyles } from '../themes/global';
 import { CreateGift } from '../components/creating/create-gift';
+
+/**
+ * Create gift screen
+ */
 
 const CreateGiftScreen: React.FC = () => {
 
-  // Create out empty gift structure
+  // Create our empty gift structure
+  // todo
   const gift: Gift = {
     id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
     kind: 'PersonalGift',

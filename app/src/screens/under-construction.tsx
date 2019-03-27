@@ -18,10 +18,10 @@ const Heading = styled.h1`
   animation: shake infinite 1s linear;
 
   @keyframes shake {
-  0% { transform: translateY(0px); }
-  25% { transform: translateY(5px); }
-  75% { transform: translateY(-5px); }
-  100% { transform: translateY(0px); }
+    0% { transform: translateY(0px); }
+    25% { transform: translateY(5px); }
+    75% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
   }
 `;
 
@@ -40,6 +40,9 @@ export const UnderConstruction: React.FC = () => (
   <Container>
     <Heading>🚧 Under Construction 🚧</Heading>
     <Spinner>👷</Spinner>
+    <Link to='/gift/new'>
+      <button>New Gift</button>
+    </Link>
     <Link to='/gift/cdfc5287-9d03-5c70-94f1-755d4480bfac'>
       <button>1 Part Example Gift</button>
     </Link>
