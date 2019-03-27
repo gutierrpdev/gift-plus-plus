@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyledPanel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent, PanelProps } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { PanelImageReveal } from '../../panel-image-reveal';
 import { Buttons, Button } from '../../buttons';
@@ -215,7 +215,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // Use an index to advance to next statge
   return (
-    <StyledPanel visible={props.visible}>
+    <Panel visible={props.visible}>
 
       <PanelContent>
 
@@ -306,7 +306,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {getButtons()}
       </Buttons>
 
-    </StyledPanel>
+    </Panel>
   );
 };
 

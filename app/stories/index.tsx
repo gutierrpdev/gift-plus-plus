@@ -13,7 +13,7 @@ import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
-import { StyledPanel } from '../src/components/panel';
+import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
@@ -152,13 +152,13 @@ storiesOf('Components', module)
   ))
   .add('Panel', () => (
     <div style={bgImg}>
-      <StyledPanel>
+      <Panel>
         <p>Panel text</p>
         <Buttons>
           <Button>Button 1</Button>
           <Button>Button 2</Button>
         </Buttons>
-      </StyledPanel>
+      </Panel>
     </div>
   ))
   .add('Buttons', () => (
@@ -275,7 +275,16 @@ storiesOf('Components', module)
     <ProgressLoader percentage={25} />
   ))
   .add('Photo Capture', () => (
+    <>
+    <GlobalStyles />
     <PhotoCapture text={'take a photo'}/>
+    <PhotoCapture
+      text={`Have a wander to find the second object for Nick.
+        Why not visit another part of the museum?
+        When you’ve found it take a photo to show them.`}
+      textSize={30}
+    />
+    </>
   ))
   .add('Text Area Input', () => (
     <div style={greyBG}>

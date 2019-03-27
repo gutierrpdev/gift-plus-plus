@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledPanel, PanelContent, PanelProps } from '../../panel';
+import { Panel, PanelContent, PanelProps } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
 
@@ -43,7 +43,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
   }
 
   return (
-    <StyledPanel visible={panelProps.visible}>
+    <Panel visible={panelProps.visible}>
       <PanelContent>
         <PanelPrompt
           text={`Are you at the ${panelProps.museumName} right now?`}
@@ -56,7 +56,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (panelProps) => {
         <Button onClick={handleNotAtMuseum}>No</Button>
         <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
       </Buttons>
-    </StyledPanel>
+    </Panel>
   );
 };
 

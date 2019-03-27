@@ -10,7 +10,7 @@ import { GiftPartsManager } from './gift-parts-manager';
 import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
 import { Button, Buttons } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
-import { StyledPanel, PanelContent } from '../panel';
+import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 
 /**
@@ -107,7 +107,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public renderOpenOrSave() {
     return (
-      <StyledPanel>
+      <Panel>
         <PanelContent>
           <PanelPrompt
             text={`Would you like to save the gift for when you're at the museum or open it anyway?`}
@@ -118,7 +118,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           <Button onClick={this.saveForLater}>Save it</Button>
           <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
         </Buttons>
-      </StyledPanel>
+      </Panel>
     );
   }
 

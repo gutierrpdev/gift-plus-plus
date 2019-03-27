@@ -53,7 +53,7 @@ const PanelRound = styled.div<Props>`
 
   ${(props: Props) =>
     props.background === 'transparent-black' && `
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
   `}
 
   ${(props: Props) =>

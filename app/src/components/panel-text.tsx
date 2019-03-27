@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 import { TextResize } from './text-resize';
 
-const PanelText = styled(TextResize).attrs({
-    mobileSize: 50,
-  })`
+// Pass through to TextResize
+const PanelText = styled(TextResize)`
   text-align: center;
   font-weight: 300;
   padding: 0 5%;

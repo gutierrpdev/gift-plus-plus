@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { global, calcMobileTextSize, calcDesktopTextSize } from '../themes/global';
 
 interface Props {
-  mobileSize: number;
-  desktopSize?: number; // Optional value for desktop.  Calculated if not included
+  // Note: textSize is optional as this is inherited by some components.
+  // It's inherited as it allows good merging to CSS classes over styled components
+  textSize?: number;
 }
 
 const TextResize = styled.div<Props>`
-  font-size: ${(props) => calcMobileTextSize(props.mobileSize)}vw;
+  font-size: ${(props) => calcMobileTextSize(props.textSize || 50)}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => calcDesktopTextSize( props.desktopSize ? props.desktopSize : props.mobileSize ) }%;
+    font-size: ${(props) => calcDesktopTextSize( props.textSize || 50 ) }%;
   };
 `;
 

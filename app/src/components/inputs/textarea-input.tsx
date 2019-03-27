@@ -16,17 +16,16 @@ const TextAreaStyled = styled.textarea<Props>`
   padding: 5vw 5vw;
   box-sizing: border-box;
   resize: none;
-  font-size: ${(props) => calcMobileTextSize( props.mobileSize || 40 )}vw;
+  font-size: ${(props) => calcMobileTextSize( props.textSize || 40 )}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => calcDesktopTextSize( (props.desktopSize ? props.desktopSize : props.mobileSize) || 40 ) }%;
+    font-size: ${(props) => calcDesktopTextSize( props.textSize || 40 ) }%;
   };
 `;
 
 interface Props {
   defaultValue?: string;
   placeHolder?: string;
-  mobileSize?: number;
-  desktopSize?: number;
+  textSize?: number;
   onTextChanged?: (text: string) => void;
 }
 
@@ -41,8 +40,7 @@ const TextAreaInput: React.FC<Props> = ( props ) => {
   return (
     <TextAreaStyled
       defaultValue={props.defaultValue}
-      mobileSize={props.mobileSize}
-      desktopSize={props.desktopSize}
+      textSize={props.textSize}
       placeholder={props.placeHolder}
       onChange={handleChange}
     />

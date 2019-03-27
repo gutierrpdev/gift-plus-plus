@@ -10,9 +10,9 @@ const Buttons = styled.div`
   margin: 0;
   align-items: stretch;
   width: 100%;
-  min-height: calc(1em + 8vw); // todo: this is a hack to ensure the buttons appear
-  font-size: 6vw;
+  min-height: calc(1em + 8%); // this is a hack to ensure the buttons section is visible without a button
   line-height: 1;
+  z-index: 10; // keep above most content
 `;
 
 export interface ButtonProps {
@@ -33,12 +33,13 @@ const ButtonStyle = styled.button<ButtonProps>`
   flex-grow: 1;
   flex-basis: 0;
   border: none;
+  cursor: pointer;
 `;
 
 const Button: React.FC<ButtonProps> = (props) => {
   return (
     <ButtonStyle {...props}>
-      <TextResize mobileSize={50} desktopSize={50}>{props.children}</TextResize>
+      <TextResize textSize={50}>{props.children}</TextResize>
     </ButtonStyle>
   );
 };
@@ -47,6 +48,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 // Base button used for controls (audio player, photo capture, etc)
 // Base button has active state
 const BaseControlButton = styled.div`
+  cursor: pointer;
   opacity: 0.8;
   &:active {
     opacity: 1;

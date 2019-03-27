@@ -14,7 +14,7 @@ import { BaseControlButton } from './buttons';
  // Used in player and recorder
 const AudioPlayerStyle = styled.div`
   color: white;
-  padding: 20% 10%;
+  padding: 20% 5%;
   margin: 0 auto;
   width: 100%;
 `;
@@ -31,23 +31,23 @@ const Controls = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px 0 0;
-  height: 40%;
+  height: 55%;
 `;
 
 // == Buttons ==
 const SkipBack = styled(BaseControlButton)`
-  width: 10vmin;
-  height: 10vmin;
+  width: 20%
+  /* height: 10vmin; */
 `;
 
 const SkipForward = styled(BaseControlButton)`
-  width: 10vmin;
-  height: 10vmin;
+  width: 20%
+  /* height: 10vmin; */
 `;
 
 const Play = styled(BaseControlButton)`
-  width: 17vmin;
-  height: 17vmin;
+  width: 35%;
+  /* height: 17vmin; */
   margin: 0 5%;
 `;
 

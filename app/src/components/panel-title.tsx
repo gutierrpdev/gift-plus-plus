@@ -8,12 +8,12 @@ import { TextResize } from './text-resize';
  */
 
 const PanelTitle = styled(TextResize).attrs({
-    mobileSize: 60,
+    textSize: 60,
   })`
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
-  margin: 0 0 0.5vh 0;
+  margin: 5% 0 1% 0;
 `;
 
 export {

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 import { BaseControlButton } from './buttons';
+import { TextResize } from './text-resize';
 
 /**
  * Capture photo from users camera
@@ -18,7 +19,7 @@ const PhotoCaptureStyle = styled.div`
 `;
 
 const PhotoCaptureText = styled(PanelText)`
-  height: 60%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,13 +41,13 @@ const ImageInput = styled.input`
 // Buttons
 const CaptureButton = styled(BaseControlButton)`
   width: 30%;
-  border-radius: 50%;
 `;
 
 interface Props {
   text: string;
+  textSize?: number;
   showCamera?: boolean;
-  onPhotoTaken?: () => void;
+  onPhotoTaken?: ( fileUrl: string ) => void;
 }
 
 const PhotoCapture: React.FC<Props> = (props) => {
@@ -71,14 +72,22 @@ const PhotoCapture: React.FC<Props> = (props) => {
 
     // Get the file from the list
     if (e.target.files) {
-      const file = e.target.files[0];
-      // alert(file);
-      // console.log(file);
 
-      // todo probably pass the photo to the callback event?
-      if (props.onPhotoTaken) {
-        props.onPhotoTaken(); // pass back file?
-      }
+      const reader = new FileReader();
+      const file = e.target.files[0]; // Assuming one file
+
+      reader.onload = () => {
+        // console.log(reader.result);
+
+        // todo: process photo via API and pass final URL??
+        if (props.onPhotoTaken) {
+          // note : this is raw data at present, maybe get url from API?
+          props.onPhotoTaken( reader.result as string );
+        }
+      };
+
+      reader.readAsDataURL(file);
+
     }
 
   }
@@ -86,7 +95,7 @@ const PhotoCapture: React.FC<Props> = (props) => {
   return (
     <PanelRound background={'transparent-black'}>
       <PhotoCaptureStyle>
-        <PhotoCaptureText>{props.text}</PhotoCaptureText>
+        <PhotoCaptureText textSize={props.textSize}>{props.text}</PhotoCaptureText>
         <Controls>
           <CaptureButton >
             <img src={require('../assets/svg/icon-camera.svg')} onClick={showCamera} />

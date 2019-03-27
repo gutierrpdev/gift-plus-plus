@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import { StyledPanel, PanelContent } from '../panel';
+import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
@@ -17,28 +18,60 @@ import { romanNumeralFromDecimal } from '../../themes/global';
  * Show the creating gift part content
  */
 
+interface PartContentStyleProps {
+  backgroundImage?: string; // data or url
+  showWhiteOverlay?: boolean;
+}
+
+const PartContentStyle = styled(Panel)<PartContentStyleProps>`
+  background-image: url(${(props) => props.backgroundImage});
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  ${(props: PartContentStyleProps) =>
+    props.showWhiteOverlay && `
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255,255,255,0.3);
+      pointer-events: none;
+    }
+  `}
+
+`;
+
 type Status = 'first-message' | 'second-message' | 'take-photo' | 'pre-record-message' | 'record-message' |
   'pre-clue-message1' | 'pre-clue-message2' | 'write-clue' | 'finish-message1' | 'finish-message2' | 'send';
 
  // Extend panel props with extras
 export interface Props {
   gift: Gift; // Pass in the whole gift.  This component will add all necessary parts
-  onComplete: () => void;
+  onComplete: () => void; // When this component is finished
 }
 
 const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('write-clue');
+  const [status, setStatus] = useState<Status>('take-photo');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [audioIsRecorded, setAudioIsRecorded] = useState(false);
+  const [audioIsRecording, setAudioIsRecording] = useState(false);
   const [clueIsWritten, setClueIsWritten] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState('');
 
   // Defaults
   const defaultWait = 5;
+
+  // Local values
+  let audioRecorder: AudioRecorder;
 
   // Sets all state to initial values
   function resetState() {
@@ -47,6 +80,20 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setSecondAudioHasPlayed(false);
     setAudioIsRecorded(false);
     setClueIsWritten(false);
+  }
+
+  // Start recording audio
+  function startRecordingAudio() {
+
+    // Start the recorder
+    audioRecorder.startRecording();
+  }
+
+  // Stop recording audio
+  function stopRecordingAudio() {
+
+    // Start the recorder
+    audioRecorder.stopRecording();
   }
 
   // Returns the gift part based on the index
@@ -67,26 +114,42 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   }
 
-  function handlePhotoTaken() { // pass file
-    // Handle file here // todo
+  // Handle the photo being taken
+  function handlePhotoTaken( fileUrl: string ) {
+
+    // todo check this is a fileURL as at present this is raw data
+
+    // Record the photo file
+    const giftPart: GiftPart = getGiftPart(giftPartIndex);
+    giftPart.photo = fileUrl;
+
+    // Set the background of this component
+    setBackgroundImage(fileUrl);
 
     // Move to next section
     setStatus('pre-record-message');
   }
 
-  function handleAudioRecordingComplete() {
+  function handleAudioRecordingStart() {
 
-    // todo apply the recording to the gift
+    // Set our state
+    setAudioIsRecorded(false);
+    setAudioIsRecording(true);
 
-    // Save it to the state ready for the confirm button
-    // setAudioFileName('');
-    setAudioIsRecorded(true);
   }
 
-  function handleAudioRecordSave() {
+  function handleAudioRecordingStop( fileUrl: string ) {
 
-    // todo: save the audio to the gift
+    // Update our state
+    setAudioIsRecording(false);
+    setAudioIsRecorded(true);
 
+    // Store our recording
+    const giftPart: GiftPart = getGiftPart(giftPartIndex);
+    giftPart.note = fileUrl;
+  }
+
+  function handleAudioRecordFinished() {
     setStatus('pre-clue-message1');
   }
 
@@ -115,7 +178,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // Start on part 2
   function handleStartPart2() {
-    // todo save the gift now?
 
     // Setup the second part
     resetState();
@@ -129,7 +191,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // Start on part 3
   function handleStartPart3() {
-    // todo save the gift now?
 
     // Setup the second part
     resetState();
@@ -144,7 +205,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // Render different bits of content
   function renderFirstMessage() {
-    // note: only first gift part 1
+    // note: only for gift part 1
     return (
       <>
         <PanelContent>
@@ -216,6 +277,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
               text={`Have a wander to find the second object for ${gift.recipientName}.
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them.`}
+              textSize={37}
               onPhotoTaken={handlePhotoTaken}
               showCamera={showCamera}
             />
@@ -279,30 +341,49 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     return (
       <>
         <PanelContent>
-          {giftPartIndex === 0 &&
-            <AudioRecorder
-              text={`Let them know why you chose this object...`}
-              onRecordingStop={handleAudioRecordingComplete}
-            />
+          {!audioIsRecorded &&
+            <>
+            {giftPartIndex === 0 &&
+              <AudioRecorder
+                text={`Let them know why you chose this object...`}
+                onRecordingStop={handleAudioRecordingStop}
+                onRecordingStart={handleAudioRecordingStart}
+                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+              />
+            }
+            {giftPartIndex === 1 &&
+              <AudioRecorder
+                text={`Tell them why you chose this...`}
+                onRecordingStop={handleAudioRecordingStop}
+                onRecordingStart={handleAudioRecordingStart}
+                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+              />
+            }
+            {giftPartIndex === 2 &&
+              <AudioRecorder
+                text={`And record your final message...`}
+                onRecordingStop={handleAudioRecordingStop}
+                onRecordingStart={handleAudioRecordingStart}
+                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+              />
+            }
+            </>
           }
-          {giftPartIndex === 1 &&
-            <AudioRecorder
-              text={`Tell them why you chose this...`}
-              onRecordingStop={handleAudioRecordingComplete}
-            />
-          }
-          {giftPartIndex === 2 &&
-            <AudioRecorder
-              text={`And record your final message...`}
-              onRecordingStop={handleAudioRecordingComplete}
+          {audioIsRecorded &&
+            <AudioPlayer
+              text={'Review your recording'}
+              src={''}
+              forwardButton={'SkipSeconds'}
             />
           }
         </PanelContent>
         <Buttons>
-          {/* {!audioIsRecorded && <Button>Start recording</Button>} */}
-          {/* {greetingIsRecording && <Button>Stop recording</Button>} */}
-          {/* {greetingIsRecorded && <Button>Re-record</Button>} */}
-          {audioIsRecorded && <Button onClick={handleAudioRecordSave} primary={true}>Save message</Button>}
+          {!audioIsRecorded && !audioIsRecording &&
+            <Button onClick={() => { startRecordingAudio(); }} primary={true}>Start recording</Button>
+          }
+          {audioIsRecording && <Button onClick={() => { stopRecordingAudio(); }}>Stop recording</Button>}
+          {audioIsRecorded && <Button onClick={() => {setAudioIsRecorded(false); }}>Re-record</Button>}
+          {audioIsRecorded && <Button onClick={handleAudioRecordFinished} primary={true}>Save message</Button>}
         </Buttons>
       </>
     );
@@ -357,7 +438,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   function renderWriteClue() {
     return (
-      <StyledPanel>
+      <Panel>
         <PanelTitle>Making Part {romanNumeralFromDecimal(1)}</PanelTitle>
         <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
@@ -366,7 +447,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
         <Buttons>
           {clueIsWritten && <Button onClick={() => setStatus('finish-message1')}>Save clue</Button>}
         </Buttons>
-      </StyledPanel>
+      </Panel>
     );
   }
 
@@ -451,10 +532,10 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
         <Buttons>
           <Button onClick={handleAllComplete}>Send now</Button>
           {giftPartIndex === 0 &&
-            <Button onClick={handleStartPart2}>Add another object</Button>
+            <Button onClick={handleStartPart2} primary={true}>Add another object</Button>
           }
           {giftPartIndex === 1 &&
-           <Button onClick={handleStartPart3}>Add another object</Button>
+           <Button onClick={handleStartPart3} primary={true}>Add another object</Button>
           }
         </Buttons>
       </>
@@ -462,7 +543,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   return (
-    <StyledPanel>
+    <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
       {status === 'first-message' && renderFirstMessage()}
       {status === 'second-message' && renderSecondMessage()}
       {status === 'take-photo' && renderTakePhoto()}
@@ -474,7 +555,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
       {status === 'finish-message1' && renderFinishMessage1()}
       {status === 'finish-message2' && renderFinishMessage2()}
       {status === 'send' && renderSend()}
-    </StyledPanel>
+    </PartContentStyle>
   );
 
 };

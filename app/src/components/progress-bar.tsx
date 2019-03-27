@@ -26,7 +26,7 @@ const ProgressBarInner = styled.div<Props>`
 
 const StyledProgressBar = styled.div<Props>`
   background-color: ${(props) => props.theme === 'whiteOnBlack' ? 'black' : 'white'};
-  height: 1.2vw;
+  height: 3%;
   width: 100%;
   /* border-radius: 10vmin; */
   /* overflow: hidden; */

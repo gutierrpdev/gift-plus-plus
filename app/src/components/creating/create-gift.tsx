@@ -16,6 +16,9 @@ type Status = 'start' | 'creating-part' | 'sign-gift';
 /* Todo : other parts include verify and send, but these are likely reached from a verification email link
    and so might be a seperate screen, with the gift already saved */
 
+// Header state
+type HeaderState = 'start' | 'choosing-recipient' | 'recipient-choosen';
+
 interface Props {
   gift: Gift;
 }
@@ -23,6 +26,7 @@ interface Props {
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
   const [status, setStatus] = useState<Status>('creating-part');
+  const [headerState, setHeaderState] = useState<HeaderState>('choosing-recipient');
 
   // Move to section
   function gotoCreatePart() {
@@ -41,9 +45,28 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager backgroundImageUrl={bgImage}>
       <GlobalStyles />
 
-      <ScreenHeader
-        subTitle={`Making a gift for ${gift.recipientName || '...'}`}
-      />
+      {headerState === 'start' &&
+        <ScreenHeader
+          topPadding={true}
+          title={`Making a new gift...`}
+        />
+      }
+
+      {headerState === 'choosing-recipient' &&
+        <ScreenHeader
+          showLogo={true}
+          postSubTitle={`Making a gift for...`}
+          background={'white'}
+        />
+      }
+
+      {headerState === 'recipient-choosen' &&
+        <ScreenHeader
+          postSubTitle={`Making a gift...`}
+          subTitle={gift.recipientName}
+          background={'white'}
+        />
+      }
 
       {status === 'start' &&
         <CreateGiftStart
