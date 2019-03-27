@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
+import { CreateGiftScreen } from './screens/create-gift';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -18,6 +19,10 @@ export const Main: React.FC = () => (
 
       <Route exact={true} path='/'>
         <UnderConstruction />
+      </Route>
+
+      <Route path='/gift/new'>
+        <CreateGiftScreen />
       </Route>
 
       <Route path='/gift/:giftId'>
