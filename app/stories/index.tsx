@@ -353,7 +353,7 @@ storiesOf('Components/Creating', module)
   .add('Create Gift Start', () => (
     <>
       <GlobalStyles />
-      <CreateGiftStart gift={emptyGift} onComplete={doNothing} />
+      <CreateGiftStart gift={emptyGift} onComplete={doNothing} onRecipientNameSet={doNothing} />
     </>
   ))
   .add('Create Gift Part', () => (
