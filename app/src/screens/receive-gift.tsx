@@ -9,7 +9,6 @@ import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
 
 import { ReceiveGift } from '../components/receiving/receive-gift';
-import { ProgressLoader } from '../components/progress-loader';
 import { Working } from '../components/working';
 
 const logger = getLogger('receive-gift');
