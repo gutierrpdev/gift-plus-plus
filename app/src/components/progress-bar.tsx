@@ -46,7 +46,7 @@ const StyledProgressBar = styled.div<Props>`
 
 interface Props {
   percent: number;
-  height: string; // e.g. '3%'
+  height: string; // e.g. '3%' or '10px'
   theme: 'white-on-black' | 'black-on-white' | 'grey-on-black';
   showPositionBar?: boolean;
   // onSeek: (e: MouseEvent) => void; // todo hook up seek

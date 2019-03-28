@@ -10,9 +10,13 @@ const Buttons = styled.div`
   margin: 0;
   align-items: stretch;
   width: 100%;
-  min-height: calc(1em + 8%); // this is a hack to ensure the buttons section is visible without a button
+  min-height: calc(1em + 10%); // this is a hack to ensure the buttons section is visible without a button
   line-height: 1;
   z-index: 10; // keep above most content
+  // Set the height to match the buttons, desktop only
+  @media (max-width: ${global.mobile.endPixels}px) {
+    font-size: 5vw;
+  }
 `;
 
 export interface ButtonProps {

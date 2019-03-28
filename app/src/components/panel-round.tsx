@@ -23,7 +23,7 @@ const PanelRound = styled.div<Props>`
   }
   border-radius: 50%;
   border-width: 2vw;
-  @media (min-width: ${global.desktop.startPixels}) {
+  @media (min-width: ${global.desktop.startPixels}px) {
     border-width: 20px;
   }
   padding: 5%;
