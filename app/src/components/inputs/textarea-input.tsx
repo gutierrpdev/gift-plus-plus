@@ -8,10 +8,12 @@ import { global, calcMobileTextSize, calcDesktopTextSize } from '../../themes/gl
  */
 
 const TextAreaStyled = styled.textarea<Props>`
+  padding: 6vw;
   resize: none;
   font-size: ${(props) => calcMobileTextSize( props.textSize || 40 )}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
     font-size: ${(props) => calcDesktopTextSize( props.textSize || 40 ) }%;
+    padding: 30px;
   };
 `;
 
