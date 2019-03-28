@@ -40,7 +40,7 @@ const StyledProgressBar = styled.div<Props>`
   height: ${(props) => props.height};
   width: 100%;
   border-radius: 10vmin;
-  overflow: hidden;
+  /* overflow: hidden; */ /* this causes the progress bar to be hidden */
   margin: 3% 0;
 `;
 
