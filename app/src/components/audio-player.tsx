@@ -24,13 +24,14 @@ const AudioPanelText = styled(PanelText)`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  margin: 0 0 8%;
 `;
 
 const Controls = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0 0;
+  margin: 8% 0 0;
   height: 55%;
 `;
 

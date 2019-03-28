@@ -10,9 +10,9 @@ import { global, calcMobileTextSize, calcDesktopTextSize } from '../../themes/gl
 const TextInputStyled = styled.input.attrs<TextInputProps>({
     type: (props: TextInputProps) => props.inputType || 'text',
   })<TextInputProps>`
-  font-size: ${(props) => calcMobileTextSize( props.textSize || 40 )}vw;
+  font-size: ${(props) => calcMobileTextSize( props.textSize || 50 )}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
-    font-size: ${(props) => calcDesktopTextSize( props.textSize || 40 ) }%;
+    font-size: ${(props) => calcDesktopTextSize( props.textSize || 50 ) }%;
   };
 `;
 

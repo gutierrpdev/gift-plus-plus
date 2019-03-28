@@ -73,15 +73,16 @@ const GlobalStyles = createGlobalStyle`
 
   /* text areas */
   input[type="text"], input[type="email"], input[type="password"], textarea {
+    font-family: 'Nunito', sans-serif;
     width: 100%;
     max-width: 95%;
     background: rgba(255, 255, 255, 0.8);
     border: none;
     box-sizing: border-box;
     border-radius: 2rem;
-    padding: 2.5vw;
+    padding: 3vw;
     @media (min-width: ${global.desktop.startPixels}px) {
-      padding: 15px;
+      padding: 20px;
     }
   }
 
