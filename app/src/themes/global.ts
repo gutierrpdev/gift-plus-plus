@@ -78,13 +78,17 @@ const GlobalStyles = createGlobalStyle`
     background: rgba(255, 255, 255, 0.8);
     border: none;
     box-sizing: border-box;
+    border-radius: 2rem;
+    padding: 2.5vw;
+    @media (min-width: ${global.desktop.startPixels}px) {
+      padding: 15px;
+    }
   }
 
   /* single line inputs */
   input[type="text"], input[type="email"], input[type="password"] {
-    border-radius: 6vw;
-    padding: 5vw 5vw;
-    text-align: center;;
+    text-align: center;
+    margin-bottom: 2vh;
   }
 
   // Limit the maximum width of all screens
