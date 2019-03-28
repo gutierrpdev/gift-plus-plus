@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
@@ -15,6 +16,12 @@ import { TextInput } from '../inputs/text-input';
  *
  * User enters recipient name
  */
+
+const GiftImg = styled.img`
+  margin-top: 5%;
+  max-width: 40%;
+`;
+
 
 type Status = 'first-message' | 'second-message' | 'third-message' | 'enter-recipient' | 'record-greeting';
 
@@ -115,11 +122,13 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
     return (
       <>
         <PanelContent>
-          <PanelPrompt text={'You’re about to make a gift for someone special.'} background={'transparent-black'}/>
-            <WaitThen
-              wait={defaultWait}
-              andThen={gotoSecondMessage}
-            />
+          <PanelPrompt text='You’re about to make a gift for someone special.' background='transparent-black'>
+            <GiftImg src={require('../../assets/svg/gift-white.svg')} />
+          </PanelPrompt>
+          <WaitThen
+            wait={defaultWait}
+            andThen={gotoSecondMessage}
+          />
         </PanelContent>
         <Buttons/>
       </>
@@ -135,10 +144,10 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
               It’s what you choose.`}
             background={'transparent-black'}
           />
-            <WaitThen
-              wait={defaultWait}
-              andThen={gotoThirdMessage}
-            />
+          <WaitThen
+            wait={defaultWait}
+            andThen={gotoThirdMessage}
+          />
         </PanelContent>
         <Buttons/>
       </>
@@ -154,7 +163,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
         <PanelContent>
           <AudioPlayer
             text={'Who are you going to choose?'}
-            src={require('../../../src/assets/audio/_1-second-of-silence.mp3')}
+            src={require('../../../src/assets/audio/c-start-gift.mp3')}
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
@@ -170,10 +179,10 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
     return (
       <Panel>
         <PanelContent>
-          <TextInput placeHolder={'enter their first name'} onTextChanged={handleRecipientNameChange} />
+          <TextInput placeHolder={'Their first name'} onTextChanged={handleRecipientNameChange} />
         </PanelContent>
         <Buttons>
-          {nameIsEntered && <Button onClick={gotoRecordGreeting}>Continue</Button>}
+          {nameIsEntered && <Button onClick={gotoRecordGreeting} primary={true}>Enter</Button>}
         </Buttons>
       </Panel>
     );

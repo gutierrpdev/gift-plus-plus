@@ -40,7 +40,7 @@ const GiftIcon = styled.img`
 
 const ProgressLoader: React.FC<Props> = (props) => {
 
-  const icon = require('../assets/svg/gift.svg');
+  const icon = require('../assets/svg/gift-light-grey.svg');
 
   const theme = props.colour === 'white' ? 'white-on-black' : 'grey-on-black';
 

@@ -63,12 +63,12 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
         <PanelSubTitle>Sign it</PanelSubTitle>
         <PanelContent>
           {isVerifiedUser &&
-            <TextInput placeHolder={'your first name'} defaultValue={userName} onTextChanged={handleFirstNameChange} />
+            <TextInput placeHolder={'Your first name'} defaultValue={userName} onTextChanged={handleFirstNameChange} />
           }
           {!isVerifiedUser &&
             <>
-              <TextInput placeHolder={'your first name'} onTextChanged={handleFirstNameChange} />
-              <TextInput placeHolder={'your email'} inputType={'email'} onTextChanged={handleEmailChange} />
+              <TextInput placeHolder={'Your first name'} onTextChanged={handleFirstNameChange} />
+              <TextInput placeHolder={'Your email'} inputType={'email'} onTextChanged={handleEmailChange} />
             </>
           }
         </PanelContent>

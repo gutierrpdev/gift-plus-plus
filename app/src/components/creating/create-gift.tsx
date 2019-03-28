@@ -26,7 +26,7 @@ interface Props {
 
 const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('creating-part');
   const [headerState, setHeaderState] = useState<HeaderState>('name-unknown');
 
   // Move to section

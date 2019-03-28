@@ -11,7 +11,7 @@ const StyledScreenLogo = styled.div`
 
 const ScreenLogo: React.FC = () => (
   <StyledScreenLogo>
-    <img src={require('../assets/svg/gift.svg')} />
+    <img src={require('../assets/svg/gift-black.svg')} />
   </StyledScreenLogo>
 );
 

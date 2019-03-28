@@ -57,7 +57,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [status, setStatus] = useState<Status>('take-photo');
+  const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
@@ -251,7 +251,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           }
         </PanelContent>
         <Buttons>
-          <Button>Skip</Button>
+          {/* <Button>Skip</Button> */}
           {firstAudioHasPlayed &&
             <Button onClick={() => {setStatus('take-photo'); }} primary={true}>Continue</Button>
           }
@@ -290,7 +290,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           }
         </PanelContent>
         <Buttons>
-          <Button onClick={() => {setStatus('second-message'); }}>Back</Button>
+          {/* <Button onClick={() => {setStatus('second-message'); }}>Back</Button> */}
           <Button onClick={() => {setShowCamera(true); }} primary={true}>Open camera</Button>
         </Buttons>
       </>
