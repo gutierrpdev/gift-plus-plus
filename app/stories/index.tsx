@@ -312,9 +312,16 @@ storiesOf('Components', module)
   .add('Text Input', () => (
     <div style={greyBG}>
       <GlobalStyles />
+      <p>Text inputs</p><br/>
       <TextInput onTextChanged={(text) => logSomething(text)} />
       <TextInput placeHolder={'enter your name'} onTextChanged={(text) => logSomething(text)} />
-      <TextInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
+      <TextInput
+        placeHolder={'enter your name'}
+        defaultValue={'lorem impsum'}
+        onTextChanged={(text) => logSomething(text)}
+      />
+      <p>Email inputs</p><br/>
+      <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />
     </div>
   ))
 ;
