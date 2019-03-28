@@ -6,6 +6,7 @@ import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelPlus } from '../panel-plus';
+import { PanelRound } from '../panel-round';
 import { Buttons, Button } from '../buttons';
 import { Gift } from '../../domain';
 import { TextInput } from '../inputs/text-input';
@@ -26,8 +27,8 @@ interface Props {
 const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('first-message');
-  const [saveProgress, setSaveProgress] = useState(0);
+  const [status, setStatus] = useState<Status>('saving');
+  const [saveProgress, setSaveProgress] = useState(50);
   const [senderName, setSenderName] = useState('');
   const [senderEmailAddress, setSenderEmailAddress] = useState('');
 
@@ -91,14 +92,16 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
       // Upload successful
       setSaveProgress(100);
       setStatus('ready-to-send');
-    }, 1000);
+    }, 1000000);
 
     return (
       <Panel>
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Saving it</PanelSubTitle>
         <PanelContent>
-          <ProgressLoader text='Saving' percent={saveProgress} colour='white' />
+          <PanelRound background='transparent-black'>
+            <ProgressLoader text='Saving' percent={saveProgress} colour='white' />
+          </PanelRound>
         </PanelContent>
         <Buttons>
           <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>

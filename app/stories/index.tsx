@@ -38,7 +38,7 @@ import { Home } from '../src/screens/home';
 import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
-import { LoadingGift } from '../src/components/receiving/loading-gift';
+import { Working } from '../src/components/working';
 
 // Creating
 import { CreateGiftStart } from '../src/components/creating/create-gift-start';
@@ -367,7 +367,7 @@ storiesOf('Components/Receiving', module)
     <ReceiveReply gift={giftThreeParts} visible={true} />
   ))
   .add('Loading gift', () => (
-    <LoadingGift percent={37} />
+    <Working text='Loading' percent={37} />
   ))
 ;
 

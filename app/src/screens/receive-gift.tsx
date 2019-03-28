@@ -10,6 +10,7 @@ import { GetGiftResponse } from '../services/api';
 
 import { ReceiveGift } from '../components/receiving/receive-gift';
 import { ProgressLoader } from '../components/progress-loader';
+import { Working } from '../components/working';
 
 const logger = getLogger('receive-gift');
 
@@ -29,7 +30,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   const [preloadState] = usePreload(assetUrls);
 
 
-  if (getGiftTask.kind === 'running') return <ProgressLoader colour='light-grey' text='Running' percent={0} />;
+  if (getGiftTask.kind === 'running') return <Working text='Running' percent={0} />;
   if (getGiftTask.kind === 'failure') return <h1>Error (Gift): TODO</h1>;
 
   const apiResult = getGiftTask.result;
@@ -40,13 +41,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
 
   if (preloadState.status === 'running') {
-    return (
-    <ProgressLoader
-      text='Loading'
-      colour='light-grey'
-      percent={Math.round(totalProgress(preloadState) * 100)}
-    />
-    );
+    return <Working text='Loading' percent={Math.round(totalProgress(preloadState) * 100)} />;
   }
   if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
 

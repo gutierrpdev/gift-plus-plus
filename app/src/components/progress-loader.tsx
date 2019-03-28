@@ -11,8 +11,9 @@ interface Props {
 }
 
 const StyledProgressLoader = styled.div<Props>`
-  height: 100%;
-  height: 100vh;
+  /* height: 100%; */
+  /* height: 100vh; */
+  width: 100%;
   max-width: 90%;
   margin: 0 auto;
   overflow: hidden;
@@ -29,18 +30,20 @@ const StyledProgressLoader = styled.div<Props>`
 `;
 
 const ProgressTitle = styled.div`
-  font-size: 200%;
+  font-size: 150%;
   text-align: center;
 `;
 
-
 const GiftIcon = styled.img`
   max-width: 30%;
+  margin-bottom: 5%;
 `;
 
 const ProgressLoader: React.FC<Props> = (props) => {
 
-  const icon = require('../assets/svg/gift-light-grey.svg');
+  const icon = props.colour === 'white'
+    ? require('../assets/svg/gift-white.svg')
+    : require('../assets/svg/gift-light-grey.svg');
 
   const theme = props.colour === 'white' ? 'white-on-black' : 'grey-on-black';
 
@@ -48,7 +51,7 @@ const ProgressLoader: React.FC<Props> = (props) => {
     <StyledProgressLoader {...props}>
       <GiftIcon src={icon} />
       <ProgressTitle>{props.text}</ProgressTitle>
-      <ProgressBar percent={props.percent} theme={theme} height={'10px'} />
+      <ProgressBar percent={props.percent} theme={theme} height='0.4rem' />
       <ProgressTitle>{props.percent}%</ProgressTitle>
     </StyledProgressLoader>
   );
