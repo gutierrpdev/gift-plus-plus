@@ -26,7 +26,7 @@ interface Props {
 const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
 
   // State
-  const [status, setStatus] = useState<Status>('enter-name');
+  const [status, setStatus] = useState<Status>('first-message');
   const [saveProgress, setSaveProgress] = useState(0);
   const [senderName, setSenderName] = useState('');
   const [senderEmailAddress, setSenderEmailAddress] = useState('');
