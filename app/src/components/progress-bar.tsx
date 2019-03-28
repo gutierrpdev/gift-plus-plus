@@ -28,7 +28,7 @@ const ProgressBarInner = styled.div<Props>`
       background-color: white;
       position: absolute;
       top: -2.5vmin;
-      right: -0.5vw;
+      right: 0vw;
       border-radius: 10vmin;
     }
   `}
