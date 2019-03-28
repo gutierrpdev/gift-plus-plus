@@ -116,8 +116,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   // Handle the photo being taken
   function handlePhotoTaken( fileUrl: string ) {
 
-    // todo check this is a fileURL as at present this is raw data
-
     // Record the photo file
     const giftPart: GiftPart = getGiftPart(giftPartIndex);
     giftPart.photo = fileUrl;
@@ -327,7 +325,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           }
         </PanelContent>
         <Buttons>
-          {secondAudioHasPlayed && <Button onClick={() => {setStatus('record-message'); }}>Skip</Button>}
+          {/* {secondAudioHasPlayed && <Button onClick={() => {setStatus('record-message'); }}>Skip</Button>} */}
           {secondAudioHasPlayed &&
             <Button onClick={() => {setStatus('record-message'); }} primary={true}>Record message</Button>
           }
