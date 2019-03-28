@@ -21,7 +21,7 @@ export const Main: React.FC = () => (
         <UnderConstruction />
       </Route>
 
-      <Route path='/gift/new'>
+      <Route exact={true} path='/create-gift'>
         <CreateGiftScreen />
       </Route>
 
