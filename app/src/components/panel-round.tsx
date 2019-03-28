@@ -17,6 +17,11 @@ export interface Props {
 const PanelRound = styled.div<Props>`
   height: ${global.components.circle.width.vm};
   width: ${global.components.circle.width.vm};
+  /* Target devices with smaller aspect ratio */
+  @media (min-aspect-ratio: 6/9) {
+    height: ${global.components.circle.width.vmCompact};
+    width: ${global.components.circle.width.vmCompact};
+  }
   @media (min-width: ${global.desktop.startPixels}px) {
     height: ${global.components.circle.width.pixels};
     width: ${global.components.circle.width.pixels};

@@ -4,7 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenTitle = styled(TextResize).attrs({
-    textSize: 100,
+    textSize: 90, // todo this should be dynamic to allow for long names
   })`
   line-height: 1;
   margin: 0 10vw 1vw;

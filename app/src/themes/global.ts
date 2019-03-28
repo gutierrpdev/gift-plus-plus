@@ -28,6 +28,7 @@ const global = {
     circle : {
       width: {
         vm : '65vmin',
+        vmCompact: '55vmin',
         pixels: '400px',
       },
     },
