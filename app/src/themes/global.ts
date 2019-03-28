@@ -8,6 +8,10 @@ const global = {
     startPixels: 769,
   },
   colour: {
+    whiteText: '#FFFFFF',
+    blackText: '#000000',
+    darkGrey: '#333333',
+    lightGrey: '#999999',
     brightRed: '#ff3333',
     darkRed: '#cc3333',
   },

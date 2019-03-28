@@ -34,10 +34,11 @@ import { ReceiveGift } from '../src/components/receiving/receive-gift';
 import { CreateGift } from '../src/components/creating/create-gift';
 import { Home } from '../src/screens/home';
 
-// Receiving Part 1
+// Receiving
 import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
+import { LoadingGift } from '../src/components/receiving/loading-gift';
 
 // Creating
 import { CreateGiftStart } from '../src/components/creating/create-gift-start';
@@ -46,6 +47,7 @@ import { SignGift } from '../src/components/creating/sign-gift';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
+import { ProgressBar } from '../src/components/progress-bar';
 
 // Some useful bits to help...
 
@@ -65,6 +67,7 @@ function doNothing() {
 // Styles
 const greyBG = {
   backgroundColor: 'grey',
+  padding: '20px 10px',
 };
 
 const whiteText = {
@@ -96,16 +99,6 @@ storiesOf('Receiving', module)
   ))
   // .add('Remotely', () => <h1>TODO</h1>)
 ;
-
-
-// tslint:disable-next-line
-// const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'
-
-// Create this instance to keep TypeScript happy
-/* const giftPartManager = new GiftPartsManager({
- *   gift: giftThreeParts,
- *   recipientLocation: 'AtMuseum',
- * }); */
 
 storiesOf('Components', module)
   .add('Screen Title', () => <ScreenTitle>Lorem Ipsum</ScreenTitle>)
@@ -272,8 +265,28 @@ storiesOf('Components', module)
       </IdleGiftPart>
     </div>
   ))
-  .add('Progress Loader', () => (
-    <ProgressLoader text={'Loading'} percent={25} />
+  .add('Progress Bars', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <p>White on black</p>
+      <ProgressBar percent={10} height={'5px'} theme={'white-on-black'}/>
+      <p>Black on white</p>
+      <ProgressBar percent={20} height={'10px'} theme={'black-on-white'}/>
+      <p>Grey on black</p>
+      <ProgressBar percent={30} height={'20px'} theme={'grey-on-black'}/>
+    </div>
+  ))
+  .add('Progress Loader - white text', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <ProgressLoader text={'Loading'} colour='white' percent={25} />
+    </div>
+  ))
+  .add('Progress Loader - grey text', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <ProgressLoader text={'Loading'} colour={'light-grey'} percent={25} />
+    </div>
   ))
   .add('Photo Capture', () => (
     <>
@@ -345,6 +358,9 @@ storiesOf('Components/Receiving', module)
   ))
   .add('Reply', () => (
     <ReceiveReply gift={giftThreeParts} visible={true} />
+  ))
+  .add('Loading gift', () => (
+    <LoadingGift percent={37} />
   ))
 ;
 

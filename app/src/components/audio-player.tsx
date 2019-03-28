@@ -282,9 +282,10 @@ class AudioPlayer extends React.PureComponent<Props, State> {
 
           <AudioPanelText>{this.props.text}</AudioPanelText>
           <ProgressBar
-            percentage={this.state.playbackPercentage}
-            theme={'whiteOnBlack'}
+            percent={this.state.playbackPercentage}
+            theme={'white-on-black'}
             showPositionBar={true}
+            height={'3%'}
             /*onSeek={this.onSeek}*/
           />
           <Controls>

@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../themes/global';
 import { ProgressBar } from '../components/progress-bar';
 
-const StyledProgressLoader = styled.div`
+interface Props {
+  text: string;
+  colour: 'white' | 'light-grey';
+  percent: number;
+}
+
+const StyledProgressLoader = styled.div<Props>`
   height: 100%;
   height: 100vh;
   max-width: 90%;
@@ -13,6 +20,12 @@ const StyledProgressLoader = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${(props) => props.colour === 'white' && `
+    color: ${global.colour.whiteText};
+  `}
+  ${(props) => props.colour === 'light-grey' && `
+    color: ${global.colour.lightGrey};
+  `}
 `;
 
 const ProgressTitle = styled.div`
@@ -20,17 +33,23 @@ const ProgressTitle = styled.div`
   text-align: center;
 `;
 
-interface Props {
-  text: string;
-  percent: number;
-}
 
-const ProgressLoader: React.FC<Props> = ({ text, percent }) => {
+const GiftIcon = styled.img`
+  max-width: 30%;
+`;
+
+const ProgressLoader: React.FC<Props> = (props) => {
+
+  const icon = require('../assets/svg/gift.svg');
+
+  const theme = props.colour === 'white' ? 'white-on-black' : 'grey-on-black';
 
   return (
-    <StyledProgressLoader>
-      <ProgressTitle>{text}: {percent}%</ProgressTitle>
-      <ProgressBar percentage={percent} theme={'blackOnWhite'} />
+    <StyledProgressLoader {...props}>
+      <GiftIcon src={icon} />
+      <ProgressTitle>{props.text}</ProgressTitle>
+      <ProgressBar percent={props.percent} theme={theme} height={'10px'} />
+      <ProgressTitle>{props.percent}%</ProgressTitle>
     </StyledProgressLoader>
   );
 

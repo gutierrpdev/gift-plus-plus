@@ -98,7 +98,7 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Saving it</PanelSubTitle>
         <PanelContent>
-          <ProgressLoader text='Saving' percent={saveProgress} />
+          <ProgressLoader text='Saving' percent={saveProgress} colour='white' />
         </PanelContent>
         <Buttons>
           <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>

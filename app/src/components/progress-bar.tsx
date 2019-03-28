@@ -1,12 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../themes/global';
+
 const ProgressBarInner = styled.div<Props>`
-  background-color: ${(props) => props.theme === 'whiteOnBlack' ? 'white' : 'black'};
-  width: ${(props) => props.percentage}%;
+  width: ${(props) => props.percent}%;
   height: 100%;
   position: relative;
-  // border-radius: 10vmin;
+  border-radius: 10vmin;
+
+  ${(props) => props.theme === 'white-on-black' && `
+    background-color: white;
+  `}
+  ${(props) => props.theme === 'black-on-white' && `
+    background-color: black;
+  `}
+  ${(props) => props.theme === 'grey-on-black' && `
+    background-color: ${global.colour.lightGrey};
+  `}
 
   // Optional progress bar
   ${(props) => props.showPositionBar && `
@@ -25,17 +36,18 @@ const ProgressBarInner = styled.div<Props>`
 `;
 
 const StyledProgressBar = styled.div<Props>`
-  background-color: ${(props) => props.theme === 'whiteOnBlack' ? 'black' : 'white'};
-  height: 3%;
+  background-color: ${(props) => props.theme === 'black-on-white' ? 'white' : 'black'};
+  height: ${(props) => props.height};
   width: 100%;
-  /* border-radius: 10vmin; */
-  /* overflow: hidden; */
-  margin: 8% 0;
+  border-radius: 10vmin;
+  overflow: hidden;
+  margin: 3% 0;
 `;
 
 interface Props {
-  percentage: number;
-  theme: 'whiteOnBlack' | 'blackOnWhite';
+  percent: number;
+  height: string; // e.g. '3%'
+  theme: 'white-on-black' | 'black-on-white' | 'grey-on-black';
   showPositionBar?: boolean;
   // onSeek: (e: MouseEvent) => void; // todo hook up seek
 }
