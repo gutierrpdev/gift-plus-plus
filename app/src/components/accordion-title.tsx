@@ -1,10 +1,21 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import SvgDownChevWhite from './svg/down-chev-white';
 
 /***
  * Accordion title
  */
+
+const SvgDownChevWhiteStyled = styled(SvgDownChevWhite)`
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  bottom: -8vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
 
 export interface AccordionTitleProps {
   textSize: 'big' | 'medium' | 'small';
@@ -13,7 +24,7 @@ export interface AccordionTitleProps {
 }
 
 // Gift Part Title
-const AccordionTitle = styled.div<AccordionTitleProps>`
+const AccordionTitleStyle = styled.div<AccordionTitleProps>`
   text-align: center;
   font-family: ${global.fonts.title.family};
   color: white;
@@ -68,20 +79,16 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
       font-family: ${global.fonts.body.family};
       text-transform: uppercase;
     }
-    &:after {
-      content: '';
-      background-image: url( ${require('../assets/svg/down-chev-white.svg')} );
-      background-size: cover;
-      width: 3rem;
-      height: 3rem;
-      position: absolute;
-      bottom: -8vh;
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
   `}
 
 `;
+
+const AccordionTitle: React.FC<AccordionTitleProps> = (props) => (
+  <AccordionTitleStyle {...props}>
+    {props.children}
+    {props.showOpenPrompt && <SvgDownChevWhiteStyled />}
+  </AccordionTitleStyle>
+);
 
 export {
   AccordionTitle,

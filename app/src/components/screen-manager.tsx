@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  backgroundImageUrl?: string;
 }
 
 // Arranges the elements on the screen, using flex
@@ -15,12 +14,7 @@ const ScreenManagerStyle = styled.div<Props>`
   align-items: center;
   justify-content: flex-start;
   position: relative;
-
-  ${(props) => props.backgroundImageUrl && `
-    background-image: url(${props.backgroundImageUrl});
-    background-position: center;
-    background-size: cover;
-  `}
+  overflow: hidden; // Added to ensure svg background is cropped
 `;
 
 const ScreenManager: React.FC<Props> = (props) => {

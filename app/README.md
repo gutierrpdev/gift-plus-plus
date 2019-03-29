@@ -51,3 +51,14 @@ and (if you happen to use `entr`, which is an excellent tool)
 Make sure you regularly check this output.
 
 Alternatively, your editor may be able to help with that kind of thing.
+
+## SVGs
+
+SVGR is used to convert .svg files into React components: https://github.com/smooth-code/svgr
+
+We use a custom template to ensure Typescript compatibility.
+Options are set in app/.svgrrc.js
+
+From the app folder run
+
+    npx @svgr/cli ./src/assets/svg/button-audio-play.svg > ./src/components/svg/play.tsx

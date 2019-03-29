@@ -7,6 +7,8 @@ import { PanelRound, PanelRoundBorderStyle } from './panel-round';
 import { BaseControlButton } from './buttons';
 import { TextResize } from './text-resize';
 
+import SvgIconMicrophone from './svg/icon-microphone';
+
 /**
  * Audio Recorder
  *
@@ -115,7 +117,7 @@ class AudioRecorder extends React.PureComponent<Props, State> {
           </RecordingText>
           <Controls>
             <RecordButton >
-              <img src={require('../assets/svg/icon-microphone.svg')} />
+              <SvgIconMicrophone />
             </RecordButton>
           </Controls>
         </AudioRecorderStyle>

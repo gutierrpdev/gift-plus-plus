@@ -172,13 +172,15 @@ storiesOf('Components', module)
   ))
   .add('Audio player', () => (
     <>
-      <GlobalStyles />
-      <p>Skip forward button</p>
-      <AudioPlayer
-        text={'Lorem ipsum'}
-        forwardButton={'SkipSeconds'}
-        src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
-      />
+      <div style={bgImg}>
+        <GlobalStyles />
+        <p>Skip forward button</p>
+        <AudioPlayer
+          text={'Lorem ipsum'}
+          forwardButton={'SkipSeconds'}
+          src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+        />
+      </div>
       <p>Jump Go to End forward button</p>
       <AudioPlayer
         text={'Lorem ipsum'}

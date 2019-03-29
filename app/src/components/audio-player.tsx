@@ -6,6 +6,12 @@ import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 import { BaseControlButton } from './buttons';
 
+import SvgButtonAudioPlay from './svg/button-audio-play';
+import SvgButtonAudioPause from './svg/button-audio-pause';
+import SvgButtonAudioBack from './svg/button-audio-back';
+import SvgButtonAudioForward from './svg/button-audio-forward';
+import SvgButtonAudioSkip from './svg/button-audio-skip';
+
 /**
  * Audio Player
  *
@@ -256,9 +262,6 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     // Prepare our props
     const { children } = this.props;
     const { isPlaying } = this.state;
-    const playButtonImg = isPlaying ?
-      require('../assets/svg/button-audio-pause.svg') :
-      require('../assets/svg/button-audio-play.svg');
 
     // Setup an incompatibility message
     const incompatibilityMessage = children || (
@@ -291,23 +294,23 @@ class AudioPlayer extends React.PureComponent<Props, State> {
           />
           <Controls>
             <SkipBack onClick={this.skipBackward}>
-              <img src={require('../assets/svg/button-audio-back.svg')} />
+              <SvgButtonAudioBack />
             </SkipBack>
             <Play onClick={this.togglePlay} >
-              <img src={playButtonImg} />
+              {isPlaying ? <SvgButtonAudioPause/> : <SvgButtonAudioPlay/>}
             </Play>
 
             {/* Skip forward seconds */}
             {this.props.forwardButton === 'SkipSeconds' &&
               <SkipForward onClick={this.skipForward}>
-                <img src={require('../assets/svg/button-audio-forward.svg')} />
+                <SvgButtonAudioForward />
               </SkipForward>
             }
 
             {/* Jump to end */}
             {this.props.forwardButton === 'GoToEnd' &&
               <SkipForward onClick={this.goToEnd}>
-                <img src={require('../assets/svg/button-audio-skip.svg')} />
+                <SvgButtonAudioSkip />
               </SkipForward>
             }
 
