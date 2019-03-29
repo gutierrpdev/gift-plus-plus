@@ -30,14 +30,23 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
   // Text Size
   ${(props: AccordionTitleProps) => props.textSize === 'big' && `
     font-size: 10vw;
+    @media (min-width: ${global.desktop.startPixels}px) {
+      font-size: 210%;
+    }
   `}
   ${(props: AccordionTitleProps) => props.textSize === 'medium' && `
     font-size: 6vw;
     margin: 20px auto;
+    @media (min-width: ${global.desktop.startPixels}px) {
+      font-size: 160%;
+    }
   `}
   ${(props: AccordionTitleProps) => props.textSize === 'small' && `
     font-size: 5vw;
     color: black;
+    @media (min-width: ${global.desktop.startPixels}px) {
+      font-size: 150%;
+    }
   `}
 
   // Text Colour
@@ -48,7 +57,6 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
   // Open Prompt
   ${(props: AccordionTitleProps) => props.showOpenPrompt && `
     position: relative;
-    font-size: 10vw;
     &:before {
       content: 'Open';
       position: absolute;
@@ -56,7 +64,7 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
       text-align: center;
       width: 100%;
       left: 0;
-      font-size: 4vw;
+      font-size: 50%;
       font-family: ${global.fonts.body.family};
       text-transform: uppercase;
     }
@@ -64,10 +72,10 @@ const AccordionTitle = styled.div<AccordionTitleProps>`
       content: '';
       background-image: url( ${require('../assets/svg/down-chev-white.svg')} );
       background-size: cover;
-      width: 10vw;
-      height: 8vw;
+      width: 3rem;
+      height: 3rem;
       position: absolute;
-      bottom: -6vh;
+      bottom: -8vh;
       left: 50%;
       transform: translate(-50%, 0);
     }
