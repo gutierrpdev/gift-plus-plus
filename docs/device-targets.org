@@ -21,27 +21,24 @@
 
 ** Modern iPad
    - Modern Safari
-   - Modern Chrome
+   - Modern Chrome (NOTE: No gift creation support)
 
 * Mobile (iOS 10+, Android 5.0+)
 ** iPhone 5s (iOS 10+)
-   (NOTE: Gift creation support iOS 11+ only)
-   - Modern Safari
-   - Modern Chrome
+   - Modern Safari (NOTE: Gift creation support iOS 11+ only)
+   - Modern Chrome (NOTE: No gift creation support)
 
 ** iPhone 6 (iOS 10+)
-   (NOTE: Gift creation support iOS 11+ only)
-   - Modern Safari
-   - Modern Chrome
+   - Modern Safari (NOTE: Gift creation support iOS 11+ only)
+   - Modern Chrome (NOTE: No gift creation support)
 
 ** iPhone 7 (iOS 10+)
-   (NOTE: Gift creation support iOS 11+ only)
-   - Modern Safari
-   - Modern Chrome
+   - Modern Safari (NOTE: Gift creation support iOS 11+ only)
+   - Modern Chrome (NOTE: No gift creation support)
 
 ** iPhone X (iOS 12+)
    - Modern Safari
-   - Modern Chrome
+   - Modern Chrome (NOTE: No gift creation support)
 
 ** Low-Mid-Range (Android 5.0)
    - Native Browser
