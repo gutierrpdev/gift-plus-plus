@@ -5,6 +5,7 @@ import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
 import { CreateGiftScreen } from './screens/create-gift';
+import { HomeScreen } from './screens/home';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -19,6 +20,10 @@ export const Main: React.FC = () => (
 
       <Route exact={true} path='/'>
         <UnderConstruction />
+      </Route>
+
+      <Route exact={true} path='/home'>
+        <HomeScreen />
       </Route>
 
       <Route exact={true} path='/create-gift'>

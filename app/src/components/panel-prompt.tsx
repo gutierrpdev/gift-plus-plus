@@ -4,9 +4,13 @@ import styled from 'styled-components';
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBackgroundStyle } from './panel-round';
 
-const PanelPromptStyle = styled.div`
+interface StyleProps {
+  textColor?: 'white' | 'black';
+}
+
+const PanelPromptStyle = styled.div<StyleProps>`
   overflow: hidden;
-  color: white;
+  color: ${(props) => props.textColor};
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -18,12 +22,13 @@ const PanelPromptStyle = styled.div`
 
 interface Props {
   text: string;
+  textColor?: 'white' | 'black';
   background?: PanelRoundBackgroundStyle;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text, background = 'none', children }) => (
+const PanelPrompt: React.FC<Props> = ({ text, textColor, background = 'none', children }) => (
   <PanelRound background={background}>
-    <PanelPromptStyle>
+    <PanelPromptStyle textColor={textColor}>
       {/* support line breaks */}
       {text.split('\n').map((item, key) => {
         return <PanelText key={key}>{item}</PanelText>;

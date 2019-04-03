@@ -32,7 +32,7 @@ import { TextInput } from '../src/components/inputs/text-input';
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
 import { CreateGift } from '../src/components/creating/create-gift';
-import { Home } from '../src/screens/home';
+import { HomeScreen } from '../src/screens/home';
 
 // Receiving
 import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
@@ -86,7 +86,7 @@ const bgImg = {
 };
 
 storiesOf('Home', module)
-  .add('Home', () => <Home />)
+  .add('Home', () => <HomeScreen />)
 ;
 
 storiesOf('Creating', module)
@@ -111,7 +111,6 @@ storiesOf('Components', module)
         title={'Title'}
         postTitle={'post title'}
         showLogo={true}
-        topPadding={false}
       />
       <p>Big header no logo</p>
       <ScreenHeader
@@ -120,7 +119,6 @@ storiesOf('Components', module)
         title={'Title'}
         postTitle={'post title'}
         showLogo={false}
-        topPadding={false}
       />
       <p>Small header</p>
       <ScreenHeader
@@ -129,7 +127,6 @@ storiesOf('Components', module)
         title={'Title'}
         postTitle={'post title'}
         showLogo={false}
-        topPadding={false}
       />
     </div>
   ))

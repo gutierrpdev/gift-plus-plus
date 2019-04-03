@@ -8,16 +8,7 @@ import { ScreenHeader } from '../screen-header';
 import { CreateGiftStart } from '../creating/create-gift-start';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
-import BgSvg from '../svg/bg';
-
-// Background SVG
-const StyledBgSvg = styled(BgSvg) `
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
-`;
+import { BgSvgFullScreen } from '../svg/bg';
 
 /**
  * Gift Create screen top level component
@@ -57,13 +48,13 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
   return (
 
     <ScreenManager>
-      <StyledBgSvg />
+      <BgSvgFullScreen />
       <GlobalStyles />
 
       {/* Header */}
       {headerState === 'name-unknown' &&
         <ScreenHeader
-          topPadding={true}
+          topPadding={'small'}
           title={`Making\na gift...`}
         />
       }

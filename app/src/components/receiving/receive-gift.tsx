@@ -13,17 +13,7 @@ import { Button, Buttons } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
-import BgSvg from '../svg/bg';
-
-// Background SVG
-const StyledBgSvg = styled(BgSvg) `
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
-`;
-
+import { BgSvgFullScreen } from '../svg/bg';
 
 /**
  * Gift Receive screen top level component
@@ -163,7 +153,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
     return (
       <ScreenManager>
-        <StyledBgSvg />
+        <BgSvgFullScreen />
         <GlobalStyles />
 
         {headerSize === 'big' &&
@@ -173,7 +163,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
             showLogo={false}
-            topPadding={true}
+            topPadding={'small'}
           />
         }
         {headerSize === 'small' &&

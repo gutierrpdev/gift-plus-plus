@@ -10,8 +10,11 @@ const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
   padding: 5% 0 5%;
   z-index: 1;
-  ${(props) => props.topPadding && `
+  ${(props) => props.topPadding === 'small' && `
     padding-top: 10%;
+  `}
+  ${(props) => props.topPadding === 'medium' && `
+    padding-top: 20%;
   `}
   ${(props) => props.background === 'white' && `
     background-color: white;
@@ -25,9 +28,10 @@ interface Props {
   subTitle?: string;
   postSubTitle?: string;
   title?: string;
+  titleSize?: 'normal' | 'very-big';
   postTitle?: string;
   showLogo?: boolean;
-  topPadding?: boolean;
+  topPadding?: 'none' | 'small' | 'medium';
   background?: 'none' | 'white';
 }
 
@@ -42,7 +46,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       {/* support line breaks */}
       {props.title && props.title.split('\n').map((item, key) => {
-        return <ScreenTitle key={key}>{item}</ScreenTitle>;
+        return <ScreenTitle key={key} titleSize={props.titleSize || 'normal'}>{item}</ScreenTitle>;
       })}
 
       {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
