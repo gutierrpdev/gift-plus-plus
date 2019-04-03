@@ -163,6 +163,22 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   }
 
+  function clearClueAndNext() {
+
+    // Get our gift
+    const giftPart: GiftPart = getGiftPart(giftPartIndex);
+
+    // Clear the clue
+    giftPart.clue = '';
+
+    // Set the state
+    setClueIsWritten(false);
+
+    // Next
+    setStatus('finish-message1');
+
+  }
+
   // Part creation is complete
   function handleAllComplete() {
 
@@ -442,7 +458,8 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
             <TextAreaInput placeHolder={'Write a clue'} onTextChanged={handleClueChanged} />
         </PanelContent>
         <Buttons>
-          {clueIsWritten && <Button onClick={() => setStatus('finish-message1')}>Save clue</Button>}
+          {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
+          {clueIsWritten && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
         </Buttons>
       </Panel>
     );
