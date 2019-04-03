@@ -436,7 +436,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   function renderWriteClue() {
     return (
       <Panel>
-        <PanelTitle>Making Part {romanNumeralFromDecimal(1)}</PanelTitle>
+        <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
         <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
             <TextAreaInput placeHolder={'Write a clue'} onTextChanged={handleClueChanged} />
