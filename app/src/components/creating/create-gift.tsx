@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
@@ -7,6 +8,16 @@ import { ScreenHeader } from '../screen-header';
 import { CreateGiftStart } from '../creating/create-gift-start';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
+import BgSvg from '../svg/bg';
+
+// Background SVG
+const StyledBgSvg = styled(BgSvg) `
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+`;
 
 /**
  * Gift Create screen top level component
@@ -43,12 +54,10 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
     setHeaderState('named-small');
   }
 
-  // Background
-  const bgImage = require('../../assets/svg/bg.svg');
-
   return (
 
-    <ScreenManager backgroundImageUrl={bgImage}>
+    <ScreenManager>
+      <StyledBgSvg />
       <GlobalStyles />
 
       {/* Header */}

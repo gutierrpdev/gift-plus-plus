@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { assertNever } from '../../utils/helpers';
 
@@ -12,6 +13,17 @@ import { Button, Buttons } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
+import BgSvg from '../svg/bg';
+
+// Background SVG
+const StyledBgSvg = styled(BgSvg) `
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+`;
+
 
 /**
  * Gift Receive screen top level component
@@ -149,11 +161,9 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       : status === 'Welcome' || status === 'SelectLocation' || status === 'OpenOrSave'
       ? 'big' : 'small';
 
-    // Background
-    const bgImage = (status === 'ShowingParts' ? null : require('../../assets/svg/bg.svg') );
-
     return (
-      <ScreenManager backgroundImageUrl={bgImage}>
+      <ScreenManager>
+        <StyledBgSvg />
         <GlobalStyles />
 
         {headerSize === 'big' &&

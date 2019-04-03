@@ -9,6 +9,7 @@ import { ScreenLogo } from './screen-logo';
 const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
   padding: 5% 0 5%;
+  z-index: 1;
   ${(props) => props.topPadding && `
     padding-top: 10%;
   `}

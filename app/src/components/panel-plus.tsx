@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PanelPrompt } from './panel-prompt';
+import SvgAddCircle from './svg/add-circle';
 
 /***
  * Panel prompt with plus sign
@@ -12,15 +13,17 @@ interface Props {
   onClick: () => void;
 }
 
-const PlusStyle = styled.img`
+const PlusStyle = styled.div`
   margin-top: 10%;
-  max-width: 40%;
+  width: 40%;
   cursor: pointer;
 `;
 
 const PanelPlus: React.FC<Props> = ({ text, onClick }: Props) => (
   <PanelPrompt text={text} background={'transparent-black'}>
-    <PlusStyle src={require('../assets/svg/add-circle.svg')} onClick={onClick} />
+    <PlusStyle onClick={onClick}>
+      <SvgAddCircle />
+    </PlusStyle>
   </PanelPrompt>
 );
 

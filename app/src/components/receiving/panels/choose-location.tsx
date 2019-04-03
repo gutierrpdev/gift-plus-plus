@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
+import SvgPin from '../../svg/pin';
 
 /***
  * Choose location panel
  */
 
-const PinImg = styled.img`
+const PinImg = styled.div`
   margin-top: 5%;
-  max-width: 30%;
+  width: 30%;
 `;
 
  // Define our receiving locations
@@ -49,7 +50,9 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
           text={`Are you at the ${props.museumName} right now?`}
           background={'transparent-black'}
         >
-          <PinImg src={require('../../../assets/svg/pin.svg')} />
+          <PinImg>
+            <SvgPin />
+          </PinImg>
         </PanelPrompt>
       </PanelContent>
       <Buttons>

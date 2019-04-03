@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 import { BaseControlButton } from './buttons';
-import { TextResize } from './text-resize';
+import SvgIconCamera from './svg/icon-camera';
 
 /**
  * Capture photo from users camera
@@ -206,8 +206,8 @@ const PhotoCapture: React.FC<Props> = (props) => {
       <PhotoCaptureStyle>
         <PhotoCaptureText textSize={props.textSize}>{props.text}</PhotoCaptureText>
         <Controls>
-          <CaptureButton >
-            <img src={require('../assets/svg/icon-camera.svg')} onClick={showCamera} />
+          <CaptureButton>
+            <SvgIconCamera onClick={showCamera} />
             <ImageInput
               id='photo-capture-input'
               type='file'

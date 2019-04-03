@@ -10,6 +10,8 @@ import { Gift } from '../../domain';
 import { WaitThen } from '../wait-then';
 import { TextInput } from '../inputs/text-input';
 
+import SvgGift from '../svg/gift';
+
 /***
  * The start of making a gift
  * Several screens that allows a user to move the process
@@ -17,9 +19,9 @@ import { TextInput } from '../inputs/text-input';
  * User enters recipient name
  */
 
-const GiftImg = styled.img`
+const GiftImg = styled.div`
   margin-top: 5%;
-  max-width: 40%;
+  width: 40%;
 `;
 
 
@@ -123,7 +125,9 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
       <>
         <PanelContent>
           <PanelPrompt text='You’re about to make a gift for someone special.' background='transparent-black'>
-            <GiftImg src={require('../../assets/svg/gift-white.svg')} />
+            <GiftImg>
+              <SvgGift colour='white' />
+            </GiftImg>
           </PanelPrompt>
           <WaitThen
             wait={defaultWait}

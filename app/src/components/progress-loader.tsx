@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { global } from '../themes/global';
 import { ProgressBar } from '../components/progress-bar';
 
+import SvgGift from './svg/gift';
+
 interface Props {
   text: string;
   colour: 'white' | 'light-grey';
@@ -34,22 +36,20 @@ const ProgressTitle = styled.div`
   text-align: center;
 `;
 
-const GiftIcon = styled.img`
-  max-width: 30%;
+const GiftIcon = styled.div`
+  width: 30%;
   margin-bottom: 5%;
 `;
 
 const ProgressLoader: React.FC<Props> = (props) => {
 
-  const icon = props.colour === 'white'
-    ? require('../assets/svg/gift-white.svg')
-    : require('../assets/svg/gift-light-grey.svg');
-
   const theme = props.colour === 'white' ? 'white-on-black' : 'grey-on-black';
 
   return (
     <StyledProgressLoader {...props}>
-      <GiftIcon src={icon} />
+      <GiftIcon>
+        <SvgGift colour={props.colour} />
+      </GiftIcon>
       <ProgressTitle>{props.text}</ProgressTitle>
       <ProgressBar percent={props.percent} theme={theme} height='0.4rem' />
       <ProgressTitle>{props.percent}%</ProgressTitle>
