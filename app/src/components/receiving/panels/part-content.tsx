@@ -8,7 +8,6 @@ import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
-import { GiftPartBackground } from '../gift-part-background';
 
 /***
  * Show the gift part content, prompting for clues, etc.
@@ -100,11 +99,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     const furtherPart = (giftPartCount > (props.giftPartIndex + 1));
     const nextPart = props.giftPartIndex + 2; // 1 for the index and 1 as next
 
+    // Check if we have a clue
+    const haveClue = giftPart && giftPart.clue;
 
     switch (section) {
       case 3: // give me a clue
-        // Check if we have a clue
-        const haveClue = giftPart && giftPart.clue;
+
         return (
           <>
             {haveClue && <Button onClick={gotoGiveClue}>Give me a clue</Button>}
@@ -126,6 +126,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 8: // senders audio message
         return (
           <>
+            {haveClue && !audioHasPlayed &&
+              <Button onClick={gotoGiveClue}>Show clue</Button>}
             {audioHasPlayed && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Open part {nextPart}</Button>}
             {audioHasPlayed && !furtherPart &&
