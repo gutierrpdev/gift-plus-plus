@@ -289,7 +289,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
             percent={this.state.playbackPercentage}
             theme={'white-on-black'}
             showPositionBar={true}
-            height={'3%'}
+            height={'0.7vh'}
             /*onSeek={this.onSeek}*/
           />
           <Controls>
