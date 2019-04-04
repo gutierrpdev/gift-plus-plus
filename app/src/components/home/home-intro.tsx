@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { GlobalStyles } from '../../themes/global';
@@ -22,7 +23,7 @@ type Status = 'start' | 'sign-in' | 'choose-location';
 const HomeIntro: React.FC = () => {
 
   // State
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('sign-in');
 
   // Defaults
   const defaultWait = 5;
@@ -47,7 +48,13 @@ const HomeIntro: React.FC = () => {
         {status === 'start' &&
           <>
             <PanelContent>
-              <PanelPrompt text='Every made a mixtape?' background='solid-white' />
+              <PanelPrompt
+                text='Ever made
+                  a mixtape?'
+                textColor='black'
+                textSize={80}
+                background='solid-white'
+              />
             </PanelContent>
             <Buttons />
             <WaitThen
@@ -59,10 +66,17 @@ const HomeIntro: React.FC = () => {
         {status === 'sign-in' &&
           <>
             <PanelContent>
-              <PanelPrompt text='How about from objects in a museum?' background='solid-white' />
+              <PanelPrompt
+                text='How about
+                  from objects
+                  in a museum?'
+                textColor='black'
+                textSize={70}
+                background='solid-white'
+              />
             </PanelContent>
             <Buttons>
-              <Button onClick={() => {setStatus('choose-location'); }}>Sign-in</Button>
+                <Button><Link to='/login'>Sign-in</Link></Button>
               <Button primary={true}>Find out more</Button>{/* todo */}
             </Buttons>
           </>

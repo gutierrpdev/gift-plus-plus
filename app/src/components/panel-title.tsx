@@ -7,8 +7,12 @@ import { TextResize } from './text-resize';
  * A sub title element at the top of panels
  */
 
-const PanelTitle = styled(TextResize).attrs({
-    textSize: 60,
+interface Props {
+  textSize?: number;
+}
+
+const PanelTitle = styled(TextResize).attrs<Props>({
+    textSize: (props: Props) => props.textSize || 60,
   })`
   text-align: center;
   font-family: ${global.fonts.title.family};

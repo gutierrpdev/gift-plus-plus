@@ -113,9 +113,14 @@ const GlobalStyles = createGlobalStyle`
     max-width: ${global.mobile.endPixels}px;
     margin: 0 auto;
   }
+
+  // Make anchors neutral to allow components to style
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
 `;
-
-
 
 // Convert a decimal number to a roman numeral
 function romanNumeralFromDecimal(decimal: number) {

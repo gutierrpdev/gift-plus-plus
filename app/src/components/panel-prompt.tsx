@@ -10,7 +10,7 @@ interface StyleProps {
 
 const PanelPromptStyle = styled.div<StyleProps>`
   overflow: hidden;
-  color: ${(props) => props.textColor};
+  color: ${(props) => props.textColor || 'white'};
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -18,22 +18,24 @@ const PanelPromptStyle = styled.div<StyleProps>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
 `;
 
 interface Props {
   text: string;
   textColor?: 'white' | 'black';
+  textSize?: number;
   background?: PanelRoundBackgroundStyle;
 }
 
-const PanelPrompt: React.FC<Props> = ({ text, textColor, background = 'none', children }) => (
-  <PanelRound background={background}>
-    <PanelPromptStyle textColor={textColor}>
+const PanelPrompt: React.FC<Props> = (props) => (
+  <PanelRound background={props.background || 'none'}>
+    <PanelPromptStyle textColor={props.textColor}>
       {/* support line breaks */}
-      {text.split('\n').map((item, key) => {
-        return <PanelText key={key}>{item}</PanelText>;
+      {props.text.split('\n').map((item, key) => {
+        return <PanelText textSize={props.textSize} key={key}>{item}</PanelText>;
       })}
-      {children}
+      {props.children}
     </PanelPromptStyle>
   </PanelRound>
 );
