@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Gift } from '../src/domain';
 
@@ -86,7 +87,11 @@ const bgImg = {
 };
 
 storiesOf('Home', module)
-  .add('Home', () => <HomeScreen />)
+  .add('Home', () => (
+    <BrowserRouter>
+      <HomeScreen />
+    </BrowserRouter>
+  ))
 ;
 
 storiesOf('Creating', module)
