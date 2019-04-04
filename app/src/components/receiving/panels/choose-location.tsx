@@ -49,6 +49,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
         <PanelPrompt
           text={`Are you at the ${props.museumName} right now?`}
           background={'transparent-black'}
+          allowCompactRound={true}
         >
           <PinImg>
             <SvgPin />

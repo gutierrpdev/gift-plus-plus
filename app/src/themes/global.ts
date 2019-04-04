@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
 const global = {
+  aspectRatio: {
+    iPhone5: '40/71',
+    iPad: '3/4',
+  },
   mobile: {
     endPixels: 768,
   },

@@ -6,7 +6,6 @@ import { TextResize } from './text-resize';
 const ScreenSubTitle = styled(TextResize).attrs({
   textSize: 70,
   })`
-  /* font-size: 7vw; */
   margin: 0 0 3vw;
   @media (min-width: ${global.desktop.startPixels}px) {
     margin: 0 0 15px;
