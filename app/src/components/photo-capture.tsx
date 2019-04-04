@@ -16,10 +16,11 @@ const PhotoCaptureStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 `;
 
 const PhotoCaptureText = styled(PanelText)`
-  height: 70%;
+  height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +36,7 @@ const Controls = styled.div`
 `;
 
 const ImageInput = styled.input`
-  visibility: hidden;
+  display: none;
 `;
 
 // Buttons

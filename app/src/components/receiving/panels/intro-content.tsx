@@ -55,6 +55,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
             src={require('../../../assets/audio/r-intro-content-1.mp3')}
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
+            allowCompactRound={true}
           />
         }
         {!atMuseum &&

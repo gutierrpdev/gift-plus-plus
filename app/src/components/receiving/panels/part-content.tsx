@@ -228,7 +228,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* start */}
         {section === 0 &&
           <>
-            <PanelPrompt text={getIntroText()} background={'transparent-black'}  />
+            <PanelPrompt text={getIntroText()} background={'transparent-black'} allowCompactRound={true} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -249,7 +249,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
-            <PanelPrompt text={getDoYouNeedaClueText()} background={'transparent-black'}/>
+            <PanelPrompt text={getDoYouNeedaClueText()} background={'transparent-black'} allowCompactRound={true} />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -259,23 +259,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* wander/look around */}
         {section === 3 &&
-          <PanelPrompt text={getLookAroundText()} background={'transparent-black'} />
+          <PanelPrompt text={getLookAroundText()} background={'transparent-black'} allowCompactRound={true}  />
         }
 
         {/* show clue */}
         {section === 4 &&
-          <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
+          <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
         }
 
         {/* need help */}
         {section === 5 &&
-          <PanelPrompt text={getNeedHelpText()} background={'transparent-black'}/>
+          <PanelPrompt text={getNeedHelpText()} background={'transparent-black'} allowCompactRound={true} />
         }
 
         {/* here is help */}
         {section === 6 &&
           <>
-            <PanelPrompt text={'Here you go...'} background={'transparent-black'} />
+            <PanelPrompt text={'Here you go...'} background={'transparent-black'} allowCompactRound={true} />
             <WaitThen
               wait={defaultWait}
               andThen={gotoFound}
@@ -300,6 +300,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             src={giftPart.note}
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
+            allowCompactRound={true}
           />
         }
 

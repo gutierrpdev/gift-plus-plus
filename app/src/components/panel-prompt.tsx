@@ -26,10 +26,11 @@ interface Props {
   textColor?: 'white' | 'black';
   textSize?: number;
   background?: PanelRoundBackgroundStyle;
+  allowCompactRound?: boolean;
 }
 
 const PanelPrompt: React.FC<Props> = (props) => (
-  <PanelRound background={props.background || 'none'}>
+  <PanelRound background={props.background || 'none'} allowCompact={props.allowCompactRound || false}>
     <PanelPromptStyle textColor={props.textColor}>
       {/* support line breaks */}
       {props.text.split('\n').map((item, key) => {

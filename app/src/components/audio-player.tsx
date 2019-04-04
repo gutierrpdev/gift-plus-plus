@@ -26,7 +26,7 @@ const AudioPlayerStyle = styled.div`
 `;
 
 const AudioPanelText = styled(PanelText)`
-  height: 40%;
+  height: 50%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -65,6 +65,7 @@ interface Props {
   text: string;
   src: string;
   forwardButton: AudioPlayerForwardButton;
+  allowCompactRound?: boolean;
   onPlaybackComplete?: () => void; // optional callback when audio has completed playback
 }
 
@@ -271,7 +272,7 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     );
 
     return (
-      <PanelRound background={'transparent-black'}>
+      <PanelRound background={'transparent-black'} allowCompact={this.props.allowCompactRound || false}>
         <AudioPlayerStyle>
             <audio
               src={this.props.src}
