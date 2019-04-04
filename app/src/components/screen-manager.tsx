@@ -36,15 +36,26 @@ function setupScreenHeight() {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
+function waitThenSetupScreenHeight() {
+  window.setTimeout(() => {
+    setupScreenHeight();
+  }, 500);
+}
+
 // Hookup the resize event to recalc our values
-window.addEventListener('resize', () => {
-  setupScreenHeight();
-});
+window.onresize = () => {
+  waitThenSetupScreenHeight();
+};
 
 // Fire when fully loaded
-window.addEventListener('load', () => {
+window.onload = () => {
   setupScreenHeight();
-});
+};
+
+// Orientation change
+window.onorientationchange = () => {
+  waitThenSetupScreenHeight();
+};
 
 export {
   ScreenManager,
