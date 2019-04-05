@@ -34,47 +34,76 @@
    - [X] Work offline after first load
    - [X] UI + Logic wired up
 
-** TODO Gift creation [1/6] <2019-03-29 Fri>
-   DEADLINE: <2019-03-29 Fri>
+** TODO Gift creation (frontend) [1/4] <2019-04-12 Fri>
+   DEADLINE: <2019-04-12 Fri>
    - [ ] Work offline
    - [X] Create multiple gift parts
      - Text
      - Images
      - Audio
-   - [ ] Upload media whenever / and as efficiently as possible
-   - [ ] Save to API
-   - [ ] No auth -- save as anonymous user
+   - [ ] Save locally
+     - [ ] Media
+     - [ ] Data
    - [ ] Share via links
      - SMS
      - Email
      - WhatsApp
 
-** TODO Account management (unskinned) [0/7] <2019-04-19 Fri>
+** TODO Account management (frontend) [0/9] <2019-04-19 Fri>
    DEADLINE: <2019-04-19 Fri>
    - [ ] Sign-up
    - [ ] Login
    - [ ] Logout
+   - [ ] Landing flow
+     - [ ] At a museum
+   - [ ] View created gifts
+   - [ ] View received gifts
+   - [ ] Menu / Cross in appropriate places
+     - [ ] Home
+     - [ ] Creating
+     - [ ] Receiving
+   - [ ] Create account / login after creating gift to own it [TBD]
+   - [ ] Create account / login after receiving gift to save in history [TBD]
+
+** TODO Gift creation (backend + intergation) [0/5] <2019-04-25 Thu>
+   DEADLINE: <2019-04-25 Thu>
+   - [ ] Upload media whenever / and as efficiently as possible
+   - [ ] Save to API
+   - [ ] Transcode media to appropriate format
+   - [ ] No auth -- save as anonymous user
+   - [ ] Generate gift share
+
+** TODO Account management (backend + integration) [0/8] <2019-05-03 Fri>
+   DEADLINE: <2019-05-03 Fri>
+   - [ ] Sign-up
+   - [ ] Verify account
+     - [ ] Handle actions on verification
+       - Enable pending gift-shares
+       - Send pending responses
+   - [ ] Login
+   - [ ] Logout
      - Work offline
-   - [ ] Create account / login after creating gift to own it
-   - [ ] Create account / login after receiving gift to save in history
    - [ ] View created gifts
      - Work offline
    - [ ] View received gifts
      - Work offline
+   - [ ] Create account / login after creating gift to own it [TBD]
+   - [ ] Create account / login after receiving gift to save in history [TBD]
 
-** TODO Respond to gifts [0/3] <2019-04-26 Fri>
-   DEADLINE: <2019-04-26 Fri>
+** TODO Respond to gifts [0/3] <2019-05-03 Fri>
+   DEADLINE: <2019-05-03 Fri>
    - [ ] Record / Enter a response (TBD)
    - [ ] Notify about response
      - Email the gift creator, but don't share respondants email address with them
    - [ ] View response
 
-** TODO Production set up [0/1] <2019-05-03 Fri>
-   DEADLINE: <2019-05-03 Fri>
+** TODO Production set up [0/1] <2019-05-17 Fri>
+   DEADLINE: <2019-05-17 Fri>
+   - [ ] Domains
    - [ ] Configure production servers
    - [ ] CI to deploy to production
 
-** TODO Analytics <2019-05-03 Fri>
-   DEADLINE: <2019-05-03 Fri>
+** TODO Analytics <2019-05-17 Fri>
+   DEADLINE: <2019-05-17 Fri>
    - [ ] TBD
    - [ ] MRL???
