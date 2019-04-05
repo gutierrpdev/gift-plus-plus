@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GiftPart } from '../../domain';
-
+import { global } from '../../themes/global';
 import { GiftPartBackground } from './gift-part-background';
 import { AccordionTitle } from '../accordion-title';
 
@@ -28,6 +28,7 @@ const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
   z-index: 0;
   text-align: center;
   justify-content: center;
+  background-color: ${global.colour.blurBackground};
 
   // small - Occupy a small space
   ${(props) => props.displaySize === 'small' && `

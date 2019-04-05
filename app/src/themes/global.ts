@@ -18,6 +18,7 @@ const global = {
     lightGrey: '#999999',
     brightRed: '#ff3333',
     darkRed: '#cc3333',
+    blurBackground: '#333',
   },
   fonts: {
     body: {
@@ -37,7 +38,11 @@ const global = {
       },
     },
     imageReveal : {
-      width: '32.5vmin',
+      width : {
+        vm: '32.5vmin',
+        vmCompact: '27.5vmin',
+        pixels: '200px',
+      },
     },
   },
 };

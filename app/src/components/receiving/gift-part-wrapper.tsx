@@ -1,12 +1,11 @@
-import React/*, { useState, useEffect }*/ from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
+import { global } from '../../themes/global';
 import { Gift, GiftPart } from '../../domain';
 import { romanNumeralFromDecimal } from '../../themes/global';
-/* import { GiftPartsManager } from './gift-parts-manager'; */
 import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingPartContent } from './panels/part-content';
-// import { PanelImageReveal } from '../panel-image-reveal';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
 import { RecipientLocation } from '../receiving/panels/choose-location';
@@ -49,6 +48,7 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
   overflow: hidden;
   position: relative;
   z-index: 1;
+  background-color: ${global.colour.blurBackground};
 
   // Background image as :before to apply blur
   &:before {
