@@ -75,6 +75,11 @@ const whiteText = {
   color: 'white',
 };
 
+const fullScreen = {
+  height: '100vh',
+  width: '100vw',
+};
+
 // const twoGifts = [giftThreeParts, giftTwoParts];
 // const bgImage = import('../src/assets/test.jpg');
 
@@ -142,7 +147,7 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Panel Image Reveal', () => (
-    <div style={greyBG}>
+    <div style={{...greyBG, ...fullScreen}}>
       <PanelImageReveal imageUrl={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
     </div>
   ))
