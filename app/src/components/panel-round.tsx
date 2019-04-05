@@ -20,7 +20,7 @@ const PanelRound = styled.div<Props>`
   width: ${global.components.circle.width.vm};
   /* Target devices with smaller aspect ratio when allowCompact is set */
   ${(props: Props) => props.allowCompact && `
-    @media (min-aspect-ratio: 6/9) {
+    @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
       height: ${global.components.circle.width.vmCompact};
       width: ${global.components.circle.width.vmCompact};
     }
