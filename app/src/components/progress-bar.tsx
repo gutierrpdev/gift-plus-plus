@@ -24,7 +24,7 @@ const ProgressBarInner = styled.div<Props>`
     &:after {
       content: '';
       height: 6vmin;
-      width: 1vmin;
+      width: 0.8vmin;
       background-color: white;
       position: absolute;
       top: -2.5vmin;
