@@ -22,7 +22,7 @@
    - [X] Config
    - [X] CI to deploy to staging
 
-** TODO Gift receiving [5/6] <2019-03-08 Fri>
+** TODO Gift receiving [6/6] <2019-03-08 Fri>
    DEADLINE: <2019-03-08 Fri>
    - [X] Visit unique url for gift
    - [X] Pre-Load gift data from api
@@ -31,13 +31,13 @@
      - Text
      - Images
      - Audio
-   - [ ] Work offline after first load
+   - [X] Work offline after first load
    - [X] UI + Logic wired up
 
-** TODO Gift creation [0/6] <2019-03-29 Fri>
+** TODO Gift creation [1/6] <2019-03-29 Fri>
    DEADLINE: <2019-03-29 Fri>
    - [ ] Work offline
-   - [ ] Create multiple gift parts
+   - [X] Create multiple gift parts
      - Text
      - Images
      - Audio
