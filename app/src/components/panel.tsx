@@ -8,6 +8,7 @@ const PanelContent = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 5; // keep above underlying stucture
+  position: relative;
 `;
 
 // todo: visible might not be required anymore
