@@ -333,6 +333,39 @@ storiesOf('Components', module)
       <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />
     </div>
   ))
+  .add('Sharing links', () => (
+    <>
+      <h1>Sharing links</h1>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href="mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/">Send Email</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a target='_blank' href="https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/">Share on Facebook</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a target='_blank' href="https://twitter.com/home?status=https%3A//thegift.app/">Share on Twitter</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href="whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F" data-action="share/whatsapp/share" target="_blank">Share via Whatsapp (mobile only)</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href="sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app">Share via SMS iOS</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href="sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app">Share via SMS Android</a>
+      </p>
+    </>
+  ))
 ;
 
 
