@@ -8,6 +8,7 @@ import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
 import { ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
+import { InfoPopover } from './info-popover';
 import SvgCloseCircle from './svg/close-circle';
 import SvgClose from './svg/close';
 
@@ -65,8 +66,11 @@ const MenuItemStyle = styled.div`
     border-bottom: 0.4vh dashed ${global.colour.veryLightGrey};
   }
 `;
-const MenuItem: React.FC = (props) => (
-  <MenuItemStyle>
+interface MenuItemProps {
+  onClick?: () => void;
+}
+const MenuItem: React.FC<MenuItemProps> = (props) => (
+  <MenuItemStyle onClick={props.onClick}>
     <TextResize textSize={60}>
       {props.children}
     </TextResize>
@@ -86,12 +90,16 @@ const MenuStyle = styled.div`
   text-align: center;
   z-index: 1;
 `;
-const Menu: React.FC = () => (
+interface MenuProps {
+  openPrivacy: () => void;
+  openHelp: () => void;
+}
+const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
     <MenuItem><Link to='/my-gifts'>Your gifts</Link></MenuItem>
-    <MenuItem><Link to='/help'>Help</Link></MenuItem>
+    <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem><Link to='/sign-in'>Sign-in</Link></MenuItem>
-    <MenuItem><Link to='/privacy'>Privacy</Link></MenuItem>
+    <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem><Link to='/feedback'>Feedback</Link></MenuItem>
   </MenuStyle>
 );
@@ -107,7 +115,6 @@ const HeaderTexts = styled.div`
 const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
   padding: 5% 2%;
-  border: 1px solid green;
   z-index: 2000; // high to aid the menu
   // Smaller padding on tablets
   @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
@@ -157,6 +164,8 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
   // State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   // Functions
   function toggleMenu() {
@@ -164,9 +173,15 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   }
 
   return (
+    <>
     <ScreenHeaderStyle {...props}>
 
-      {isMenuOpen && <Menu />}
+      {isMenuOpen &&
+        <Menu
+          openPrivacy={() => { setPrivacyIsOpen(true); }}
+          openHelp={() => { setHelpIsOpen(true); }}
+        />
+      }
 
       {props.showMenuBurger || true && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
       {isMenuOpen && <SvgCloseStyled onClick={toggleMenu} />}
@@ -189,6 +204,94 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       </HeaderTexts>
 
     </ScreenHeaderStyle>
+
+    {privacyIsOpen &&
+      <InfoPopover
+        onClose={() => { setPrivacyIsOpen(false); }}
+      >
+        <h1>Privacy</h1>
+        <h2>Sub heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
+        Semper feugiat nibh sed pulvinar proin.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+      </InfoPopover>
+    }
+
+    {helpIsOpen &&
+      <InfoPopover
+        onClose={() => { setHelpIsOpen(false); }}
+      >
+        <h1>Help</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
+        Semper feugiat nibh sed pulvinar proin.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+
+        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
+        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
+        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
+        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
+        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
+        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
+        tempor id eu nisl nunc.</p>
+      </InfoPopover>
+    }
+    </>
   );
 };
 

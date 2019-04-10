@@ -130,6 +130,24 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
+  h1, h2 {
+   font-family: ${global.fonts.title.family};
+   font-weight: ${global.fonts.title.bold};
+   margin-bottom: 1em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
 `;
 
 // Convert a decimal number to a roman numeral
