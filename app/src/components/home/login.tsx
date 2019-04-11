@@ -24,13 +24,13 @@ const Login: React.FC = () => {
 
       {/* Header */}
       <ScreenHeader
-        title={`Login`}
+        title={`Sign in`}
       />
 
       {/* Content */}
       <Panel>
 
-        Login
+        Sign in
 
       </Panel>
 

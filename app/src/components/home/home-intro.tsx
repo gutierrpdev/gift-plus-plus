@@ -76,7 +76,7 @@ const HomeIntro: React.FC = () => {
               />
             </PanelContent>
             <Buttons>
-                <Button><Link to='/login'>Sign-in</Link></Button>
+              <Button><Link to='/sign-in'>Sign-in</Link></Button>
               <Button primary={true}>Find out more</Button>{/* todo */}
             </Buttons>
           </>

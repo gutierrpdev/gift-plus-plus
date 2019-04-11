@@ -62,6 +62,7 @@ const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
 const MenuItemStyle = styled.div`
   line-height: 4;
   padding: 6% 0;
+  cursor: pointer;
   &:not(:last-child) {
     border-bottom: 0.4vh dashed ${global.colour.veryLightGrey};
   }
@@ -93,14 +94,15 @@ const MenuStyle = styled.div`
 interface MenuProps {
   openPrivacy: () => void;
   openHelp: () => void;
+  openFeedback: () => void;
 }
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
-    <MenuItem><Link to='/my-gifts'>Your gifts</Link></MenuItem>
+    <MenuItem><Link to='/your-gifts'>Your gifts</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem><Link to='/sign-in'>Sign-in</Link></MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-    <MenuItem><Link to='/feedback'>Feedback</Link></MenuItem>
+    <MenuItem onClick={props.openFeedback}>Feedback</MenuItem>
   </MenuStyle>
 );
 
@@ -166,6 +168,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
+  const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
 
   // Functions
   function toggleMenu() {
@@ -180,6 +183,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         <Menu
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
+          openFeedback={() => { setFeedbackIsOpen(true); }}
         />
       }
 
@@ -205,6 +209,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
     </ScreenHeaderStyle>
 
+    {/* == Privacy == */}
     {privacyIsOpen &&
       <InfoPopover
         onClose={() => { setPrivacyIsOpen(false); }}
@@ -249,6 +254,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       </InfoPopover>
     }
 
+    {/* == Help == */}
     {helpIsOpen &&
       <InfoPopover
         onClose={() => { setHelpIsOpen(false); }}
@@ -289,6 +295,16 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
         Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
         tempor id eu nisl nunc.</p>
+      </InfoPopover>
+    }
+
+    {/* == Feedback == */}
+    {feedbackIsOpen &&
+      <InfoPopover
+        onClose={() => { setFeedbackIsOpen(false); }}
+      >
+        <h1>Feedback</h1>
+        <p>Some notes on leaving feedback.</p>
       </InfoPopover>
     }
     </>

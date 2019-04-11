@@ -21,18 +21,18 @@ export const Main: React.FC = () => (
     <Switch>
 
       <Route exact={true} path='/'>
-        <UnderConstruction />
-      </Route>
-
-      <Route exact={true} path='/home'>
         <HomeScreen />
       </Route>
 
-      <Route exact={true} path='/home-gifts'>
+      <Route exact={true} path='/testing'>
+        <UnderConstruction />
+      </Route>
+
+      <Route exact={true} path='/your-gifts'>
         <HomeGiftsScreen />
       </Route>
 
-      <Route exact={true} path='/login'>
+      <Route exact={true} path='/sign-in'>
         <LoginScreen />
       </Route>
 
