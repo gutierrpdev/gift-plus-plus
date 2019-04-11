@@ -29,6 +29,7 @@ import { ProgressLoader } from '../src/components/progress-loader';
 import { PhotoCapture } from '../src/components/photo-capture';
 import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
+import { InfoPopover } from '../src/components/info-popover';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -364,6 +365,17 @@ storiesOf('Components', module)
         {/* tslint:disable-next-line */}
         <a href="sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app">Share via SMS Android</a>
       </p>
+    </>
+  ))
+  .add('Info Popover', () => (
+    <>
+      <InfoPopover onClose={doNothing}>
+        <h1>Privacy</h1>
+        <h2>Sub heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
+        Semper feugiat nibh sed pulvinar proin.</p>
+      </InfoPopover>
     </>
   ))
 ;
