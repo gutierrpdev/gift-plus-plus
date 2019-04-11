@@ -17,7 +17,6 @@ import SvgButtonAudioSkip from './svg/button-audio-skip';
  *
  */
 
- // Used in player and recorder
 const AudioPlayerStyle = styled.div`
   color: white;
   padding: 20% 5%;
@@ -74,7 +73,7 @@ interface State {
   playbackPercentage: number;
 }
 
-class AudioPlayer extends React.PureComponent<Props, State> {
+export class AudioPlayer extends React.PureComponent<Props, State> {
 
   private static skipForwardSeconds: number = 5;
   private static skipBackwardSeconds: number = 5;
@@ -321,8 +320,3 @@ class AudioPlayer extends React.PureComponent<Props, State> {
     );
   }
 }
-
-export {
-  AudioPlayer,
-  AudioPlayerStyle,
-};
