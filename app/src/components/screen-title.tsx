@@ -7,10 +7,10 @@ export interface ScreenTitleProps {
   titleSize?: 'normal' | 'very-big';
 }
 
-const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>({
-    textSize: (props: ScreenTitleProps) => props.titleSize === 'very-big' ? 210 : 90,
+const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
+    textSize: props.titleSize === 'very-big' ? 210 : 90,
     // todo this should be dynamic to allow for long names
-  })<ScreenTitleProps>`
+  }))<ScreenTitleProps>`
   line-height: 1;
   margin: 0 10vw 1vw;
   @media (min-width: ${global.desktop.startPixels}px) {

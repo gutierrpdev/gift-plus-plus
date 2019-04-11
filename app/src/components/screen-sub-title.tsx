@@ -4,7 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenSubTitle = styled(TextResize).attrs({
-  textSize: 70,
+    textSize: 70,
   })`
   margin: 0 0 3vw;
   @media (min-width: ${global.desktop.startPixels}px) {
