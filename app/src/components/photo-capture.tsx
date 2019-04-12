@@ -6,6 +6,7 @@ import { setImageOrientation,
   calcImageOrientationChange,
   landscapeImageOrientation,
 } from '../utils/image';
+
 import { PanelText } from './panel-text';
 import { PanelRound } from './panel-round';
 import { BaseControlButton } from './buttons';
