@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Gift } from '../src/domain';
+import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
@@ -310,6 +311,105 @@ storiesOf('Components', module)
     />
     </>
   ))
+  .add('Image rotate', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const originalImage: HTMLImageElement = document.getElementById('rotate-img') as HTMLImageElement;
+      const resetImage: HTMLImageElement = document.getElementById('reset-img') as HTMLImageElement;
+
+      // Change orientation
+      setImageOrientation(originalImage.src, 5, (rotatedImageUrl) =>  {
+        resetImage.src = rotatedImageUrl;
+      });
+
+    });
+    const image = require('../src/assets/test.jpg');
+    const imgStyle = {
+      maxWidth: '150px',
+      display: 'block',
+      marginBottom: '10px',
+    };
+    return (
+      <>
+        <p>Rotate the image</p>
+        <img
+          id='rotate-img'
+          src={image}
+          style={imgStyle}
+        />
+        <img
+          id='reset-img'
+          style={imgStyle}
+        />
+      </>
+    );
+  })
+  .add('Image select and rotate', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const fileInput = document.getElementById('file-input');
+      const imageRotateResult = document.getElementById('image-rotate-result');
+      const imageRotateCalc = document.getElementById('image-rotate-calc');
+      const resetImage1: HTMLImageElement = document.getElementById('reset-img1') as HTMLImageElement;
+
+      if (fileInput) {
+
+        fileInput.onchange = (e) => {
+
+          if (e.target) {
+
+            const target = e.target as HTMLInputElement;
+
+            if (target && target.files) {
+
+              const file = target.files[0];
+
+              getImageOrientation(file, (orientation) => {
+
+                if (imageRotateResult) {
+                  imageRotateResult.innerHTML = 'Source image orientation = ' + orientation;
+                }
+
+                const url = URL.createObjectURL(file);
+
+                const change = calcImageOrientationChange(orientation);
+                if (imageRotateCalc) {
+                  imageRotateCalc.innerHTML = 'Orientation calculation = ' + change;
+                }
+
+                setImageOrientation(url, change, (rotatedImageUrl) =>  {
+                  resetImage1.src = rotatedImageUrl;
+                });
+
+              });
+
+            }
+
+          }
+
+        };
+
+      }
+
+    });
+    const imgStyle = {
+      maxWidth: '150px',
+      display: 'block',
+      marginBottom: '10px',
+    };
+    return (
+      <>
+        <p>Select image, detect orientation, then rotate image</p>
+        <input id='file-input' type='file' accept='image/*' />
+        <p id='image-rotate-result' />
+        <p id='image-rotate-calc' />
+        <img
+          id='reset-img1'
+          style={imgStyle}
+        />
+      </>
+    );
+  })
   .add('Text Area Input', () => (
     <div style={greyBG}>
       <GlobalStyles />
