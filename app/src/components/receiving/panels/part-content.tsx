@@ -124,12 +124,16 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <Button onClick={gotoFindObject} primary={true}>OK</Button>
         );
       case 8: // senders audio message
+
+        // Different text based on gift part
+        const openPartText = (props.giftPartIndex === 1) ? 'Open last part' : `Open part ${nextPart}`;
+
         return (
           <>
             {haveClue && !audioHasPlayed &&
               <Button onClick={gotoGiveClue}>Show clue</Button>}
             {audioHasPlayed && furtherPart &&
-              <Button onClick={gotoEndOfGiftPart} primary={true}>Open part {nextPart}</Button>}
+              <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>}
             {audioHasPlayed && !furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
