@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Gift } from '../domain';
 import styled from 'styled-components';
@@ -44,15 +45,17 @@ const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
 
   const giftList = gifts.map((gift, index) => (
     <StyledGift key={index}>
-      <GiftImg>
-        <SvgGift colour='black' />
-      </GiftImg>
-      <GiftTitle>
-        <TextResize textSize={30}>{gift.senderName}</TextResize>
-      </GiftTitle>
-      <GiftStatus>
-        <TextResize textSize={20}>New Today</TextResize>
-      </GiftStatus>
+      <Link to='/gift/5475400c-684c-515f-8343-b9d14340de9c'>
+        <GiftImg>
+          <SvgGift colour='black' />
+        </GiftImg>
+        <GiftTitle>
+          <TextResize textSize={30}>{gift.senderName}</TextResize>
+        </GiftTitle>
+        <GiftStatus>
+          <TextResize textSize={20}>New Today</TextResize>
+        </GiftStatus>
+      </Link>
     </StyledGift>
   ));
 
