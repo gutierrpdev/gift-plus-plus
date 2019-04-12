@@ -63,7 +63,8 @@ export const getImageOrientation = (inputFile: File, callback: (orientation: num
 
 // Changes the orientation of an image
 // Pass in an image URL
-// Inpsired by https://stackoverflow.com/questions/20600800/js-client-side-exif-orientation-rotate-and-mirror-jpeg-images
+// Inpsired by:
+// https://stackoverflow.com/questions/20600800/js-client-side-exif-orientation-rotate-and-mirror-jpeg-images
 export function setImageOrientation(
   srcImageUrl: string,
   srcOrientation: number,
