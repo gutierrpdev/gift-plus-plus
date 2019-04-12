@@ -189,7 +189,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       {props.showMenuBurger || true && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
       {isMenuOpen && <SvgCloseStyled onClick={toggleMenu} />}
-      {props.showCloseButton || true && <SvgCloseCircleStyled />}
+      {/* {props.showCloseButton || true && <SvgCloseCircleStyled />} */}
 
       <HeaderTexts>
 
