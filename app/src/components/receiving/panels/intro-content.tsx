@@ -51,7 +51,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
         {/* todo : set audio paths */}
         {atMuseum &&
           <AudioPlayer
-            text={'A message to you before you start...'}
+            text={'One thing before you start...'}
             src={require('../../../assets/audio/r-intro-content-1.mp3')}
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}
@@ -60,7 +60,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
         }
         {!atMuseum &&
           <AudioPlayer
-            text={'A message to you before we begin...'}
+            text={'One thing before you start...'}
             src={require('../../../assets/audio/r-intro-content-1.mp3')} // todo this should be a different file
             forwardButton={'GoToEnd'}
             onPlaybackComplete={handleAudioPlaybackFinished}

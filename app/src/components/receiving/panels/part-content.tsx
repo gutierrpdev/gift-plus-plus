@@ -107,9 +107,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         return (
           <>
-            {haveClue && <Button onClick={gotoGiveClue}>Give me a clue</Button>}
+            {haveClue && <Button onClick={gotoGiveClue}>Show clue</Button>}
             {!haveClue && <Button onClick={gotoGiveHelp}>Help</Button>}
-            <Button onClick={gotoHereYouGo} primary={true}>OK</Button>
+            <Button onClick={gotoHereYouGo} primary={true}>Found the object</Button>
           </>
         );
       case 4: // more help
@@ -174,7 +174,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function getLookAroundText() {
     switch (props.giftPartIndex) {
       case 0 :
-        return 'Wander round and tap OK when you find it.';
+        return 'Wander round and tap the button when you find it.';
       case 1 :
         return 'Take a wander, when you find it – tap OK';
       case 2 :
