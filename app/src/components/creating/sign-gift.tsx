@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
@@ -11,12 +10,13 @@ import { Buttons, Button } from '../buttons';
 import { Gift } from '../../domain';
 import { TextInput } from '../inputs/text-input';
 import { ProgressLoader } from '../progress-loader';
+import { ShareGift } from '../share-gift';
 
 /***
  * Sign the gift
  */
 
-type Status = 'first-message' | 'enter-name' | 'saving' | 'saving-failed' | 'ready-to-send';
+type Status = 'first-message' | 'enter-name' | 'saving' | 'saving-failed' | 'ready-to-send' | 'share';
 
 interface Props {
   gift: Gift;
@@ -69,12 +69,12 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
           {!isVerifiedUser &&
             <>
               <TextInput placeHolder={'Your first name'} onTextChanged={handleFirstNameChange} />
-              <TextInput placeHolder={'Your email'} inputType={'email'} onTextChanged={handleEmailChange} />
+              {/* <TextInput placeHolder={'Your email'} inputType={'email'} onTextChanged={handleEmailChange} /> */}
             </>
           }
         </PanelContent>
         <Buttons>
-          {senderName && senderEmailAddress &&
+          {senderName /*&& senderEmailAddress*/ &&
             <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>}
         </Buttons>
       </Panel>
@@ -91,8 +91,8 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
 
       // Upload successful
       setSaveProgress(100);
-      setStatus('ready-to-send');
-    }, 1000000);
+      setStatus('share');
+    }, 3000);
 
     return (
       <Panel>
@@ -148,6 +148,22 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
     );
   }
 
+  function renderShare() {
+
+    return (
+      <Panel>
+        <PanelTitle>Share your gift</PanelTitle>
+        {/* <PanelSubTitle>Ready to send</PanelSubTitle> */}
+        <PanelContent>
+          <ShareGift url='https://thegift.app/' />
+        </PanelContent>
+        <Buttons>
+          {/* <Button>OK</Button> */}
+        </Buttons>
+      </Panel>
+    );
+  }
+
   return (
     <>
       {status === 'first-message' && renderFirstMessage()}
@@ -155,6 +171,7 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
       {status === 'saving' && renderSaving()}
       {status === 'saving-failed' && renderSavingFailed()}
       {status === 'ready-to-send' && renderReadyToSend()}
+      {status === 'share' && renderShare()}
     </>
   );
 
