@@ -6,6 +6,8 @@ export const landscapeImageOrientation = 6; // Typical iOS photo orientation
 
 // Get the orientation of a image file
 // Returns a number that represents the orientation.  3 = portrait, 1 = landscape (90 ccw)
+// Inspired by:
+// https://stackoverflow.com/questions/7584794/accessing-jpeg-exif-rotation-data-in-javascript-on-the-client-side
 export const getImageOrientation = (inputFile: File, callback: (orientation: number) => void ) => {
 
   const reader = new FileReader();
@@ -61,6 +63,7 @@ export const getImageOrientation = (inputFile: File, callback: (orientation: num
 
 // Changes the orientation of an image
 // Pass in an image URL
+// Inpsired by https://stackoverflow.com/questions/20600800/js-client-side-exif-orientation-rotate-and-mirror-jpeg-images
 export function setImageOrientation(
   srcImageUrl: string,
   srcOrientation: number,
