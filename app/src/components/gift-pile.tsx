@@ -13,7 +13,7 @@ interface Props {
 const GiftList = styled.div`
   position: relative;
   width: 100%;
-  height: 30%;
+  padding: 2vh 0 2vh 0;
 `;
 
 const StyledGift = styled.div`
@@ -26,13 +26,7 @@ const StyledGift = styled.div`
 
 const GiftImg = styled.div`
   margin: 5% auto 0;
-  width: 80%;
-  transition: padding ease 0.4s;
-  padding: 10%;
-  &:hover {
-    /* width: 80%; */
-    padding: 0%;
-  }
+  width: 70%;
 `;
 
 const GiftTitle = styled.div`

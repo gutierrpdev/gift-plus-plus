@@ -9,6 +9,7 @@ import { AudioRecorder } from '../../components/audio-recorder';
 import { Gift } from '../../domain';
 import { WaitThen } from '../wait-then';
 import { TextInput } from '../inputs/text-input';
+import { Gradient } from '../gradient';
 
 import SvgGift from '../svg/gift';
 
@@ -199,6 +200,7 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
 
     return (
       <>
+        <Gradient />
         <PanelContent>
           {!greetingIsRecorded &&
             <AudioRecorder

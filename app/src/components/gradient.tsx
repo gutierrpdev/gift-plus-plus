@@ -5,9 +5,9 @@ interface GradientProps {
 }
 
 const Gradient = styled.div<GradientProps>`
-  height: 4vmin;
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 17%, rgba(0,0,0,0.7) 27%, rgba(0,0,0,0) 90%);
+  height: 2vmin;
+  background: rgb(0,0,0); /* fallback */
+  background: linear-gradient(180deg,rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.1) 24%, rgba(0,0,0,0) 99%, transparent);
   z-index: 10;
   position: absolute;
   top: 0;

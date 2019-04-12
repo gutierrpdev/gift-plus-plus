@@ -13,6 +13,7 @@ import { WaitThen } from '../wait-then';
 import { PhotoCapture } from '../../components/photo-capture';
 import { TextAreaInput } from '../../components/inputs/textarea-input';
 import { romanNumeralFromDecimal } from '../../themes/global';
+import { Gradient } from '../gradient';
 
 /***
  * Show the creating gift part content
@@ -558,6 +559,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   return (
     <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
+      <Gradient />
       {status === 'first-message' && renderFirstMessage()}
       {status === 'second-message' && renderSecondMessage()}
       {status === 'take-photo' && renderTakePhoto()}
