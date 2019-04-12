@@ -23,7 +23,7 @@ type Status = 'start' | 'sign-in' | 'choose-location';
 const HomeIntro: React.FC = () => {
 
   // State
-  const [status, setStatus] = useState<Status>('sign-in');
+  const [status, setStatus] = useState<Status>('start');
 
   // Defaults
   const defaultWait = 5;
