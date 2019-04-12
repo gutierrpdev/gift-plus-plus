@@ -7,9 +7,9 @@ import { global, calcMobileTextSize, calcDesktopTextSize } from '../../themes/gl
  * Text input field
  */
 
-const TextInputStyled = styled.input.attrs<TextInputProps>({
-    type: (props: TextInputProps) => props.inputType || 'text',
-  })<TextInputProps>`
+const TextInputStyled = styled.input.attrs<TextInputProps>((props) => ({
+    type: props.inputType || 'text',
+  }))<TextInputProps>`
   font-size: ${(props) => calcMobileTextSize( props.textSize || 50 )}vw;
   @media (min-width: ${global.desktop.startPixels}px) {
     font-size: ${(props) => calcDesktopTextSize( props.textSize || 50 ) }%;

@@ -11,9 +11,9 @@ interface Props {
   textSize?: number;
 }
 
-const PanelTitle = styled(TextResize).attrs<Props>({
-    textSize: (props: Props) => props.textSize || 60,
-  })`
+const PanelTitle = styled(TextResize).attrs<Props>((props) => ({
+    textSize: props.textSize || 60,
+  }))`
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
