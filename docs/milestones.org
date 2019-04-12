@@ -1,4 +1,4 @@
-* Milestones [4/11]
+* Milestones [5/12]
 ** DONE Initial project setup [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -22,8 +22,8 @@
    - [X] Config
    - [X] CI to deploy to staging
 
-** TODO Gift receiving [6/6] <2019-03-08 Fri>
-   DEADLINE: <2019-03-08 Fri>
+** DONE Gift receiving [6/6] <2019-03-08 Fri>
+   CLOSED: [2019-04-12 Fri 12:38] DEADLINE: <2019-03-08 Fri>
    - [X] Visit unique url for gift
    - [X] Pre-Load gift data from api
    - [X] Pre-Load gift media
