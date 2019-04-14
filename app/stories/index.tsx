@@ -1,7 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-// import { linkTo } from '@storybook/addon-links';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Gift } from '../src/domain';
@@ -168,7 +166,7 @@ storiesOf('Components', module)
     <div style={{...bgImg, ...whiteText}}>
       <p>One button</p>
       <Buttons>
-        <Button onClick={action('clicked')}>One button</Button>
+        <Button onClick={logSomething}>One button</Button>
       </Buttons>
       <p>Two buttons</p>
       <Buttons>
