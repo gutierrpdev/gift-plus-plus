@@ -23,8 +23,7 @@ const CreateGiftScreen: React.FC = () => {
     parts: [],
   };
 
-  return <CreateGift gift={gift}/>;
-
+  return <CreateGift gift={gift} />;
 };
 
 export {

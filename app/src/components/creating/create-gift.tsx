@@ -4,7 +4,9 @@ import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
-import { CreateGiftStart } from '../creating/create-gift-start';
+import { CreateGiftIntro } from '../creating/intro';
+import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
+import { CreateGiftRecordGreeting } from '../creating/record-greeting';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { BgSvgFullScreen } from '../svg/bg';
@@ -15,35 +17,26 @@ import { Gradient } from '../gradient';
  */
 
 // Current status of this screen
-type Status = 'start' | 'creating-part' | 'sign-gift';
-/* Todo : other parts include verify and send, but these are likely reached from a verification email link
-   and so might be a seperate screen, with the gift already saved */
+type Status =
+  | 'intro'
+  | 'choose-recipient'
+  | 'record-greeting'
+  | 'creating-part'
+  | 'sign-gift'
+;
 
-// Header state
-type HeaderState = 'name-unknown' | 'named-big' | 'named-small';
 
 interface Props {
   gift: Gift;
 }
 
-const CreateGift: React.FC<Props> = ({ gift }) => {
 
-  const [status, setStatus] = useState<Status>('start');
-  const [headerState, setHeaderState] = useState<HeaderState>('name-unknown');
+export const CreateGift: React.FC<Props> = ({ gift }) => {
+  const [status, setStatus] = useState<Status>('intro');
 
-  // Move to section
-  function gotoCreatePart() {
-    setStatus('creating-part');
-  }
-
-  function gotoSignGift() {
-    setStatus('sign-gift');
-  }
-
-  // When the recipient name is set update our header
-  function setRecipientNameSet() {
-    setHeaderState('named-small');
-  }
+  const headerState = (status === 'intro' || status === 'choose-recipient')
+                    ? 'name-unknown'
+                    : 'named-small';
 
   return (
 
@@ -53,60 +46,52 @@ const CreateGift: React.FC<Props> = ({ gift }) => {
 
       {/* Header */}
       {headerState === 'name-unknown' &&
-        <ScreenHeader
-          topPadding={'small'}
-          title={`Making\na gift...`}
-        />
+       <ScreenHeader
+         topPadding={'small'}
+         title={`Making\na gift...`}
+       />
       }
-
-      {/* todo named-big unused */}
-      {/* {headerState === 'named-big' &&
-        <ScreenHeader
-          showLogo={true}
-          postSubTitle={`Making a gift for...`}
-          background={'white'}
-        />
-      } */}
 
       {headerState === 'named-small' &&
-        <ScreenHeader
-          preSubTitle={`Making a gift for`}
-          subTitle={gift.recipientName}
-          background={'white'}
-        />
+       <ScreenHeader
+         preSubTitle={`Making a gift for`}
+         subTitle={gift.recipientName}
+         background={'white'}
+       />
       }
 
-      <Gradient />
-
       {/* Content */}
-      {status === 'start' &&
-        <CreateGiftStart
-          gift={gift}
-          onRecipientNameSet={setRecipientNameSet}
-          onComplete={gotoCreatePart}
-        />
+      {status === 'intro' &&
+       <CreateGiftIntro
+         onComplete={() => setStatus('choose-recipient')}
+       />
+      }
+
+      {status === 'choose-recipient' &&
+       <CreateGiftChooseRecipient
+         onComplete={() => setStatus('record-greeting')}
+       />
+      }
+
+      {status === 'record-greeting' &&
+       <CreateGiftRecordGreeting
+         recipientName={gift.recipientName}
+         onComplete={() => setStatus('creating-part')}
+       />
       }
 
       {status === 'creating-part' &&
-        <CreatingPartContent
-          gift={gift}
-          onComplete={gotoSignGift}
-        />
+       <CreatingPartContent
+         gift={gift}
+         onComplete={() => setStatus('sign-gift')}
+       />
       }
 
-      {/* todo: isVerified and userName */}
       {status === 'sign-gift' &&
-        <SignGift
-          gift={gift}
-          isVerifiedUser={false}
-        />
+       <SignGift />
       }
 
     </ScreenManager>
   );
 
-};
-
-export {
-  CreateGift,
 };

@@ -42,7 +42,9 @@ import { ReceivingPartContent } from '../src/components/receiving/panels/part-co
 import { Working } from '../src/components/working';
 
 // Creating
-import { CreateGiftStart } from '../src/components/creating/create-gift-start';
+import { CreateGiftIntro } from '../src/components/creating/intro';
+import { CreateGiftChooseRecipient } from '../src/components/creating/choose-recipient';
+import { CreateGiftRecordGreeting } from '../src/components/creating/record-greeting';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
 
@@ -531,10 +533,22 @@ storiesOf('Components/Receiving', module)
 
 // Creating components
 storiesOf('Components/Creating', module)
-  .add('Create Gift Start', () => (
+  .add('Intro', () => (
     <>
       <GlobalStyles />
-      <CreateGiftStart gift={emptyGift} onComplete={doNothing} onRecipientNameSet={doNothing} />
+      <CreateGiftIntro onComplete={doNothing} />
+    </>
+  ))
+  .add('Choose Recipient', () => (
+    <>
+      <GlobalStyles />
+      <CreateGiftChooseRecipient onComplete={logSomething} />
+    </>
+  ))
+  .add('Record Greetinf', () => (
+    <>
+      <GlobalStyles />
+      <CreateGiftRecordGreeting recipientName='Nick' onComplete={logSomething} />
     </>
   ))
   .add('Create Gift Part', () => (
@@ -546,23 +560,10 @@ storiesOf('Components/Creating', module)
       />
     </>
   ))
-  .add('Sign gift - anonymous', () => (
+  .add('Sign gift', () => (
     <>
       <GlobalStyles />
-      <SignGift
-        isVerifiedUser={false}
-        gift={giftThreeParts}
-      />
-    </>
-  ))
-  .add('Sign gift - logged in', () => (
-    <>
-      <GlobalStyles />
-      <SignGift
-        isVerifiedUser={true}
-        userName={'Nick'}
-        gift={giftThreeParts}
-      />
+      <SignGift />
     </>
   ))
 ;

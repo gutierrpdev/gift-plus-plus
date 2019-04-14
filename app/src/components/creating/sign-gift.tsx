@@ -12,34 +12,31 @@ import { TextInput } from '../inputs/text-input';
 import { ProgressLoader } from '../progress-loader';
 import { ShareGift } from '../share-gift';
 
-/***
+/**
  * Sign the gift
+ *
+ * TODO: Refactor -- there's a bit too much going on in here. Signing a gift
+ * should probably be distinct from sending and sharing.
  */
 
-type Status = 'first-message' | 'enter-name' | 'saving' | 'saving-failed' | 'ready-to-send' | 'share';
+type Status =
+  | 'first-message'
+  | 'enter-name'
+  | 'saving'
+  | 'saving-failed'
+  | 'ready-to-send'
+  | 'share'
+;
 
-interface Props {
-  gift: Gift;
-  isVerifiedUser: boolean;
-  userName?: string; // User name if logged in user
-}
+interface Props {}
 
-const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
+export const SignGift: React.FC<Props> = () => {
 
   // State
   const [status, setStatus] = useState<Status>('first-message');
   const [saveProgress, setSaveProgress] = useState(50);
   const [senderName, setSenderName] = useState('');
-  const [senderEmailAddress, setSenderEmailAddress] = useState('');
 
-  // Handlers
-  function handleFirstNameChange( name: string ) {
-    setSenderName(name);
-  }
-
-  function handleEmailChange( email: string ) {
-    setSenderEmailAddress(email);
-  }
 
   // Render different bits of content
   function renderFirstMessage() {
@@ -63,19 +60,12 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Sign it</PanelSubTitle>
         <PanelContent>
-          {isVerifiedUser &&
-            <TextInput placeHolder={'Your first name'} defaultValue={userName} onTextChanged={handleFirstNameChange} />
-          }
-          {!isVerifiedUser &&
-            <>
-              <TextInput placeHolder={'Your first name'} onTextChanged={handleFirstNameChange} />
-              {/* <TextInput placeHolder={'Your email'} inputType={'email'} onTextChanged={handleEmailChange} /> */}
-            </>
-          }
+          <TextInput placeHolder={'Your first name'} onTextChanged={setSenderName} />
         </PanelContent>
         <Buttons>
-          {senderName /*&& senderEmailAddress*/ &&
-            <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>}
+          {senderName &&
+           <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>
+          }
         </Buttons>
       </Panel>
     );
@@ -174,9 +164,4 @@ const SignGift: React.FC<Props> = ({ isVerifiedUser, userName }) => {
       {status === 'share' && renderShare()}
     </>
   );
-
-};
-
-export {
-  SignGift,
 };

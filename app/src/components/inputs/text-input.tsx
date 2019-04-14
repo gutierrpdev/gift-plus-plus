@@ -28,7 +28,7 @@ const TextInput: React.FC<TextInputProps> = ( props ) => {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (props.onTextChanged) {
-      props.onTextChanged(event.target.value);
+      props.onTextChanged(event.target.value.trim());
     }
   }
 
