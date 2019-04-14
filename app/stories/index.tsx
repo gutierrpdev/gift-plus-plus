@@ -200,13 +200,19 @@ storiesOf('Components', module)
     <>
       <GlobalStyles />
       <AudioRecorder
+        status={'idle'}
         text={'Record a greeting for Alexandria'}
+        onClick={doNothing}
       />
       <AudioRecorder
+        status={'recording'}
         text={'short'}
+        onClick={doNothing}
       />
       <AudioRecorder
+        status={'processing'}
         text={'this is quite long text and it should sit ok'}
+        onClick={doNothing}
       />
     </>
   ))
@@ -516,7 +522,7 @@ storiesOf('Components/Receiving', module)
     />
   ))
   .add('Reply', () => (
-    <ReceiveReply gift={giftThreeParts} visible={true} />
+    <ReceiveReply gift={giftThreeParts} />
   ))
   .add('Loading gift', () => (
     <Working text='Loading' percent={37} />

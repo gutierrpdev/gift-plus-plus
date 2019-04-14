@@ -46,8 +46,19 @@ const PartContentStyle = styled(Panel)<PartContentStyleProps>`
 
 `;
 
-type Status = 'first-message' | 'second-message' | 'take-photo' | 'pre-record-message' | 'record-message' |
-  'pre-clue-message1' | 'pre-clue-message2' | 'write-clue' | 'finish-message1' | 'finish-message2' | 'send';
+type Status =
+  | 'first-message'
+  | 'second-message'
+  | 'take-photo'
+  | 'pre-record-message'
+  | 'record-message'
+  | 'pre-clue-message1'
+  | 'pre-clue-message2'
+  | 'write-clue'
+  | 'finish-message1'
+  | 'finish-message2'
+  | 'send'
+;
 
 export interface Props {
   gift: Gift; // Pass in the whole gift.  This component will add all necessary parts
@@ -70,9 +81,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   // Defaults
   const defaultWait = 5;
 
-  // Local values
-  let audioRecorder: AudioRecorder;
-
   // Sets all state to initial values
   function resetState() {
     setFirstAudioHasPlayed(false);
@@ -84,16 +92,10 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
   // Start recording audio
   function startRecordingAudio() {
-
-    // Start the recorder
-    audioRecorder.startRecording();
   }
 
   // Stop recording audio
   function stopRecordingAudio() {
-
-    // Start the recorder
-    audioRecorder.stopRecording();
   }
 
   // Returns the gift part based on the index
@@ -128,23 +130,14 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setStatus('pre-record-message');
   }
 
-  function handleAudioRecordingStart() {
-
-    // Set our state
-    setAudioIsRecorded(false);
-    setAudioIsRecording(true);
-
-  }
-
-  function handleAudioRecordingStop( fileUrl: string ) {
-
+  function handleAudioRecorderClick() {
     // Update our state
     setAudioIsRecording(false);
     setAudioIsRecorded(true);
 
     // Store our recording
     const giftPart: GiftPart = getGiftPart(giftPartIndex);
-    giftPart.note = fileUrl;
+    giftPart.note = 'TODO';
   }
 
   function handleAudioRecordFinished() {
@@ -356,44 +349,41 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
       <>
         <PanelContent>
           {!audioIsRecorded &&
-            <>
-            {giftPartIndex === 0 &&
+           <>
+             {giftPartIndex === 0 &&
               <AudioRecorder
+                status={'idle'}
                 text={`Let them know why you chose this object...`}
-                onRecordingStop={handleAudioRecordingStop}
-                onRecordingStart={handleAudioRecordingStart}
-                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+                onClick={handleAudioRecorderClick}
               />
-            }
-            {giftPartIndex === 1 &&
+             }
+             {giftPartIndex === 1 &&
               <AudioRecorder
+                status={'idle'}
                 text={`Tell them why you chose this...`}
-                onRecordingStop={handleAudioRecordingStop}
-                onRecordingStart={handleAudioRecordingStart}
-                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+                onClick={handleAudioRecorderClick}
               />
-            }
-            {giftPartIndex === 2 &&
+             }
+             {giftPartIndex === 2 &&
               <AudioRecorder
+                status={'idle'}
                 text={`And record your final message...`}
-                onRecordingStop={handleAudioRecordingStop}
-                onRecordingStart={handleAudioRecordingStart}
-                ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
+                onClick={handleAudioRecorderClick}
               />
-            }
-            </>
+             }
+           </>
           }
           {audioIsRecorded &&
-            <AudioPlayer
-              text={'Review your recording'}
-              src={''}
-              forwardButton={'SkipSeconds'}
-            />
+           <AudioPlayer
+             text={'Review your recording'}
+             src={''}
+             forwardButton={'SkipSeconds'}
+           />
           }
         </PanelContent>
         <Buttons>
           {!audioIsRecorded && !audioIsRecording &&
-            <Button onClick={() => { startRecordingAudio(); }} primary={true}>Start recording</Button>
+           <Button onClick={() => { startRecordingAudio(); }} primary={true}>Start recording</Button>
           }
           {audioIsRecording && <Button onClick={() => { stopRecordingAudio(); }}>Stop recording</Button>}
           {audioIsRecorded && <Button onClick={() => {setAudioIsRecorded(false); }}>Re-record</Button>}

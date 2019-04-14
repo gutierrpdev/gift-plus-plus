@@ -6,7 +6,7 @@ import { global } from '../themes/global';
  */
 
 export type PanelRoundBackgroundStyle = 'transparent-black' | 'solid-white' | 'none';
-export type PanelRoundBorderStyle = 'dotted' | 'solid-red' | 'none';
+export type PanelRoundBorderStyle = 'dotted' | 'solid-red' | 'solid-grey' | 'none';
 
 export interface Props {
   border?: PanelRoundBorderStyle; // default = 'none'
@@ -57,6 +57,11 @@ const PanelRound = styled.div<Props>`
   ${(props: Props) =>
     props.border === 'solid-red' && `
     border: solid ${global.colour.darkRed};
+  `}
+
+  ${(props: Props) =>
+    props.border === 'solid-grey' && `
+    border: solid ${global.colour.lightGrey};
   `}
 
   ${(props: Props) =>

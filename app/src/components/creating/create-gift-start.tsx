@@ -26,15 +26,23 @@ const GiftImg = styled.div`
 `;
 
 
-type Status = 'first-message' | 'second-message' | 'third-message' | 'enter-recipient' | 'record-greeting';
+type Status =
+  | 'first-message'
+  | 'second-message'
+  | 'third-message'
+  | 'enter-recipient'
+  | 'record-greeting'
+  | 'playback-greeting'
+;
+
 
 interface Props {
   gift: Gift;
-  onRecipientNameSet: () => void;
+  onRecipientNameSet: () => void; // TODO: Remove
   onComplete: () => void;
 }
 
-const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete }) => {
+const CreateGiftStart: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [status, setStatus] = useState<Status>('first-message');
@@ -45,9 +53,6 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
 
   // Defaults
   const defaultWait = 5;
-
-  // Local values
-  let audioRecorder: AudioRecorder;
 
   // Move to section
   function gotoSecondMessage() {
@@ -63,12 +68,6 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
   }
 
   function gotoRecordGreeting() {
-
-    // Notify that the recipient name is set
-    if (onRecipientNameSet) {
-      onRecipientNameSet();
-    }
-
     setStatus('record-greeting');
   }
 
@@ -195,49 +194,57 @@ const CreateGiftStart: React.FC<Props> = ({ gift, onRecipientNameSet, onComplete
 
 
   function renderRecordGreeting() {
-
-    // check audio has already played ala script
-
     return (
       <>
         <Gradient />
         <PanelContent>
-          {!greetingIsRecorded &&
-            <AudioRecorder
-              text={`Record a greeting for ${gift.recipientName}.`}
-              onRecordingStop={handleAudioRecordingStop}
-              onRecordingStart={handleAudioRecordingStart}
-              ref={(recorder: AudioRecorder) => {audioRecorder = recorder; }}
-            />
-          }
-          {greetingIsRecorded &&
-            <AudioPlayer
-              text={'Review your recording'}
-              src={gift.recipientGreeting}
-              forwardButton={'SkipSeconds'}
-            />
-          }
+          <AudioRecorder
+            status={'idle'}
+            text={`Record a greeting for ${gift.recipientName}.`}
+            onClick={() => {}}
+          />
         </PanelContent>
         <Buttons>
-          {!greetingIsRecorded && !greetingIsRecording &&
-            <Button onClick={() => { audioRecorder.startRecording(); }} primary={true}>Start recording</Button>
+          {!greetingIsRecording &&
+            <Button onClick={() => {}} primary={true}>Start recording</Button>
           }
-          {greetingIsRecording && <Button onClick={() => { audioRecorder.stopRecording(); }}>Stop recording</Button>}
-          {greetingIsRecorded && <Button onClick={() => {setGreetingIsRecorded(false); }}>Re-record</Button>}
-          {greetingIsRecorded && <Button primary={true} onClick={finishedThisSection}>Save Greeting</Button>}
+          {greetingIsRecording && <Button onClick={() => {}}>Stop recording</Button>}
         </Buttons>
       </>
     );
   }
 
+
+  function renderPlaybackGreeting() {
+
+    return (
+      <>
+        <Gradient />
+        <PanelContent>
+          <AudioPlayer
+            text={'Review your recording'}
+            src={gift.recipientGreeting}
+            forwardButton={'SkipSeconds'}
+          />
+        </PanelContent>
+        <Buttons>
+          <Button onClick={() => {setGreetingIsRecorded(false); }}>Re-record</Button>
+          <Button primary={true} onClick={finishedThisSection}>Save Greeting</Button>
+        </Buttons>
+      </>
+    );
+  }
+
+
   return (
     <Panel>
 
-        {status === 'first-message' && renderFirstMessage()}
-        {status === 'second-message' && renderSecondMessage()}
-        {status === 'third-message' && renderThirdMessage()}
-        {status === 'enter-recipient' && renderEnterRecipient()}
-        {status === 'record-greeting' && renderRecordGreeting()}
+      {status === 'first-message' && renderFirstMessage()}
+      {status === 'second-message' && renderSecondMessage()}
+      {status === 'third-message' && renderThirdMessage()}
+      {status === 'enter-recipient' && renderEnterRecipient()}
+      {status === 'record-greeting' && renderRecordGreeting()}
+      {status === 'playback-greeting' && renderPlaybackGreeting()}
 
     </Panel>
   );

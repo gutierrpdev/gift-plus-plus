@@ -9,10 +9,6 @@ import { TextResize } from './text-resize';
 
 import SvgIconMicrophone from './svg/icon-microphone';
 
-/**
- * Audio Recorder
- *
- */
 const AudioRecorderStyle = styled.div`
   color: white;
   display: flex;
@@ -36,13 +32,9 @@ const Controls = styled.div`
   align-items: flex-end;
 `;
 
-interface RecordingProps {
-  show: boolean;
-}
-const RecordingText = styled.div<RecordingProps>`
+const RecordingText = styled.div`
   color: ${global.colour.brightRed};
   text-transform: uppercase;
-  visibility: ${(props) => props.show ? 'visible' : 'hidden'};
   text-align: center;
   margin-bottom: 10%;
   font-weight: 300;
@@ -54,94 +46,36 @@ const RecordButton = styled(BaseControlButton)`
   border-radius: 50%;
 `;
 
+
 interface Props {
+  status: 'idle' | 'recording' | 'processing';
   text: string;
-  onRecordingStart?: () => void;
-  onRecordingStop?: (recordedAudioPath: string) => void;
+  onClick: () => void;
 }
 
-interface State {
-  status: AudioRecorderState;
-  hasRecording: boolean;
-}
+export const AudioRecorder: React.FC<Props> = ({ status, text, onClick }) => {
 
-type AudioRecorderState = 'idle' | 'recording';
+  const statusText = (status === 'recording') ? 'Now Recording'
+                   : (status === 'processing') ? 'Processing'
+                   : '';
 
-class AudioRecorder extends React.PureComponent<Props, State> {
+  const border: PanelRoundBorderStyle = (status === 'recording') ? 'solid-red'
+                                      : (status === 'processing') ? 'solid-grey'
+                                      : 'none';
 
-  public state: State = {
-    status: 'idle',
-    hasRecording: false,
-  };
-
-  // Public methods
-  public startRecording() {
-
-    this.setState({
-      status: 'recording',
-    });
-
-    if (this.props.onRecordingStart) {
-      this.props.onRecordingStart();
-    }
-
-  }
-
-  public stopRecording() {
-
-    this.setState({
-      status: 'idle',
-      hasRecording: true,
-    });
-
-    if (this.props.onRecordingStop) {
-      this.props.onRecordingStop('filename'); // todo
-    }
-
-  }
-
-  public render() {
-
-    // Handy values
-    const recording = this.state.status === 'recording';
-    const border: PanelRoundBorderStyle = recording ? 'solid-red' : 'none';
-
-    return (
-      <PanelRound background={'transparent-black'} border={border} onClick={this.handleRecordButton}>
-        <AudioRecorderStyle>
-          <AudioPanelText>{this.props.text}</AudioPanelText>
-          <RecordingText
-            show={recording}
-          >
-            <TextResize textSize={40}>Now Recording</TextResize>
-          </RecordingText>
-          <Controls>
-            <RecordButton >
-              <SvgIconMicrophone />
-            </RecordButton>
-          </Controls>
-        </AudioRecorderStyle>
-
-      </PanelRound>
-    );
-  }
-
-  // Handle Record button press
-  private handleRecordButton = () => {
-
-    switch (this.state.status) {
-      case 'idle' :
-        this.startRecording();
-        break;
-      case 'recording' :
-        this.stopRecording();
-        break;
-    }
-
-  }
-
-}
-
-export {
-  AudioRecorder,
+  return (
+    <PanelRound background={'transparent-black'} border={border} onClick={onClick}>
+      <AudioRecorderStyle>
+        <AudioPanelText>{text}</AudioPanelText>
+        <RecordingText>
+          <TextResize textSize={40}>{statusText}</TextResize>
+        </RecordingText>
+        <Controls>
+          <RecordButton >
+            <SvgIconMicrophone />
+          </RecordButton>
+        </Controls>
+      </AudioRecorderStyle>
+    </PanelRound>
+  );
 };

@@ -11,7 +11,6 @@ import { Buttons, Button } from '../buttons';
  */
 
 interface Props {
-  visible: boolean | false;
   gift: Gift;
 }
 
@@ -26,26 +25,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
   const [hasRecording, setHasRecording] = useState(false);
   const recordText = `Record a message to tell ${props.gift.senderName} what you thought of it`;
 
-  function handleRecordingComplete(recordingAudioPath: string) {
-    alert(recordingAudioPath);
-    setHasRecording(true);
-  }
-
-  // Rerecord the audio
-  function handleReRecord() {
-    // Reset recording state
-    setHasRecording(false);
-  }
-
-  // Process the recording
-  function handleSend() {
-    alert('we have finished, go to the menu'); // todo
-  }
-
-  // No render if not visible
-  if (! props.visible) {
-    return null;
-  }
+  const todo = () => { alert('TODO'); };
 
   return (
     <>
@@ -61,14 +41,13 @@ const ReceiveReply: React.FC<Props> = (props) => {
         <AudioPlayer text={'Listen back to your reply...'} src={''} forwardButton={'GoToEnd'}  />
       }
       {!hasRecording &&
-        <AudioRecorder text={recordText}  onRecordingStop={handleRecordingComplete}  />
+        <AudioRecorder status={'idle'} text={recordText}  onClick={todo} />
       }
 
       <Buttons>
-        <Button onClick={handleReRecord}>Re-record</Button>
-        <Button onClick={handleSend} primary={true}>Send</Button>
+        <Button onClick={todo}>Re-record</Button>
+        <Button onClick={todo} primary={true}>Send</Button>
       </Buttons>
-
     </>
   );
 };
