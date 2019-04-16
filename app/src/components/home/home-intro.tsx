@@ -9,7 +9,7 @@ import { ScreenHeader } from '../screen-header';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
-import { Buttons, Button } from '../buttons';
+import { Buttons, Button  } from '../buttons';
 import { WaitThen } from '../wait-then';
 import { BgSvgFullScreen } from '../svg/bg';
 import SvgGift from '../svg/gift';
@@ -45,7 +45,7 @@ type Status = 'start' | 'sign-in' | 'got-new-gift';
 const HomeIntro: React.FC = () => {
 
   // State
-  const [status, setStatus] = useState<Status>('got-new-gift');
+  const [status, setStatus] = useState<Status>('start');
 
   // Defaults
   const defaultWait = 5;
