@@ -29,6 +29,7 @@ import { PhotoCapture } from '../src/components/photo-capture';
 import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
 import { InfoPopover } from '../src/components/info-popover';
+import { WorkingModal } from '../src/components/working-modal';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -39,7 +40,7 @@ import { HomeScreen } from '../src/screens/home';
 import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
-import { Working } from '../src/components/working';
+import { WorkingProgress } from '../src/components/working-progress';
 
 // Creating
 import { CreateGiftIntro } from '../src/components/creating/intro';
@@ -484,6 +485,13 @@ storiesOf('Components', module)
       </InfoPopover>
     </>
   ))
+  .add('Working Modal', () => (
+    <>
+      <WorkingModal
+        message='Hey, we need to get online to do some magic.'
+      />
+    </>
+  ))
 ;
 
 
@@ -527,7 +535,7 @@ storiesOf('Components/Receiving', module)
     <ReceiveReply gift={giftThreeParts} />
   ))
   .add('Loading gift', () => (
-    <Working text='Loading' percent={37} />
+    <WorkingProgress text='Loading' percent={37} />
   ))
 ;
 

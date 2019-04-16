@@ -23,7 +23,7 @@ interface Props {
   text: string;
 }
 
-const Working: React.FC<Props> = ({ percent, text }) => {
+const WorkingProgress: React.FC<Props> = ({ percent, text }) => {
 
   return (
     <WorkingOuter>
@@ -36,5 +36,5 @@ const Working: React.FC<Props> = ({ percent, text }) => {
 };
 
 export {
-  Working,
+  WorkingProgress,
 };
