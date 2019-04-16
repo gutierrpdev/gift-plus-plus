@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
-import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { TextInput } from '../inputs/text-input';

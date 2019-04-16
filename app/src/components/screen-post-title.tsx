@@ -4,7 +4,7 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenPostTitle = styled(TextResize).attrs({
-  textSize: 30,
+  textSize: 40,
 })`
   margin: 0 0 0.5vw;
   @media (min-width: ${global.desktop.startPixels}px) {

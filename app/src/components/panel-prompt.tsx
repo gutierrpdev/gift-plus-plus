@@ -22,7 +22,7 @@ const PanelPromptStyle = styled.div<StyleProps>`
 `;
 
 interface Props {
-  text: string;
+  text?: string;
   textColor?: 'white' | 'black';
   textSize?: number;
   background?: PanelRoundBackgroundStyle;
@@ -33,7 +33,7 @@ const PanelPrompt: React.FC<Props> = (props) => (
   <PanelRound background={props.background || 'none'} allowCompact={props.allowCompactRound || false}>
     <PanelPromptStyle textColor={props.textColor}>
       {/* support line breaks */}
-      {props.text.split('\n').map((item, key) => {
+      {props.text && props.text.split('\n').map((item, key) => {
         return <PanelText textSize={props.textSize} key={key}>{item}</PanelText>;
       })}
       {props.children}

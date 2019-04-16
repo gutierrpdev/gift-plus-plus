@@ -8,7 +8,7 @@ export interface ScreenTitleProps {
 }
 
 const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
-    textSize: props.titleSize === 'very-big' ? 210 : 90,
+    textSize: props.titleSize === 'very-big' ? 350 : 90,
     // todo this should be dynamic to allow for long names
   }))<ScreenTitleProps>`
   line-height: 1;
