@@ -28,7 +28,7 @@ export interface PartContentProps {
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // section is 0 based incrementer of current stage
-  const [section, setSection] = useState(2);
+  const [section, setSection] = useState(0);
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
 
   // Get some local references
