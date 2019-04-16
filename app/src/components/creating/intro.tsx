@@ -5,7 +5,6 @@ import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons } from '../buttons';
 import { WaitThen } from '../wait-then';
-import { TextInput } from '../inputs/text-input';
 
 import SvgGift from '../svg/gift';
 
@@ -15,9 +14,8 @@ import SvgGift from '../svg/gift';
 
 const GiftImg = styled.div`
   margin-top: 5%;
-  width: 40%;
+  width: 35%;
 `;
-
 
 type Status =
   | 'first-message'
@@ -39,7 +37,11 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
     return (
       <>
         <PanelContent>
-          <PanelPrompt text='You’re about to make a gift for someone special.' background='transparent-black'>
+          <PanelPrompt
+            text='You’re about to make a gift for someone special.'
+            textSize={60}
+            background='transparent-black'
+          >
             <GiftImg>
               <SvgGift colour='white' />
             </GiftImg>

@@ -4,13 +4,17 @@ import styled from 'styled-components';
 import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
+const buttonPaddingVh = 3;
+const buttonsPaddingVh = buttonPaddingVh * 2;
+
 // Container for button(s) used at the bottom of screens
 const Buttons = styled.div`
   display: flex;
   margin: 0;
   align-items: stretch;
   width: 100%;
-  min-height: calc(1em + 4vh); // this is a hack to ensure the buttons section is visible without a button
+  // ensure the buttons section is visible without a button
+  min-height: calc(1em + ${buttonsPaddingVh});
   line-height: 1;
   z-index: 10; // keep above most content
   // Set the height to match the buttons, desktop only
@@ -31,7 +35,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   background-color: ${(props) => props.primary ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'};;
   line-height: 1;
   margin: 0;
-  padding: 2vh 5%;
+  padding: ${buttonPaddingVh}vh 5%;
   text-align: center;
   font-style: italic;
   flex-grow: 1;

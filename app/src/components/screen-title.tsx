@@ -12,7 +12,7 @@ const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
     // todo this should be dynamic to allow for long names
   }))<ScreenTitleProps>`
   line-height: 1;
-  margin: 0 0 1vw;
+  margin: 0 0 1.3vh;
   @media (min-width: ${global.desktop.startPixels}px) {
     margin: 0 0 10px;
   }
