@@ -9,14 +9,15 @@ import { ScreenSubTitle } from './screen-sub-title';
 import { ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
 import { InfoPopover } from './info-popover';
+import { Gradient } from './gradient';
 import SvgCloseCircle from './svg/close-circle';
 import SvgClose from './svg/close';
 
 // Close
 const SvgCloseStyled = styled(SvgClose)`
   width: 10%;
-  top: 1.0%;
-  left: 0.9%;
+  top: 1.3vh;
+  left: 0.8%;
   position: absolute;
   cursor: pointer;
   z-index: 500;
@@ -43,12 +44,12 @@ const MenuBurgerBar = styled.div`
 const MenuBurgerStyle = styled.div`
   width: 6%;
   position: absolute;
-  top: 3%;
+  top: 3vh;
   left: 3%;
   cursor: pointer;
 `;
 interface MenuBurgerProps {
-  onClick: () => void;
+  onClick: () => void;  // Callback when the menu burger is clicked
 }
 const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
   <MenuBurgerStyle onClick={onClick}>
@@ -68,7 +69,7 @@ const MenuItemStyle = styled.div`
   }
 `;
 interface MenuItemProps {
-  onClick?: () => void;
+  onClick?: () => void; // Callback when the menu item is clicked
 }
 const MenuItem: React.FC<MenuItemProps> = (props) => (
   <MenuItemStyle onClick={props.onClick}>
@@ -92,9 +93,9 @@ const MenuStyle = styled.div`
   z-index: 1;
 `;
 interface MenuProps {
-  openPrivacy: () => void;
-  openHelp: () => void;
-  openFeedback: () => void;
+  openPrivacy: () => void; // Callback to open privacy
+  openHelp: () => void; // Callback to open help
+  openFeedback: () => void; // Callback to open feedback
 }
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
@@ -118,6 +119,7 @@ const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
   padding: 5% 2%;
   z-index: 2000; // high to aid the menu
+  position: relative;
   // Smaller padding on tablets
   @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
     padding: 3% 0;
@@ -152,14 +154,14 @@ interface Props {
   showLogo?: boolean;
   showMenuBurger?: boolean;
   showCloseButton?: boolean;
-  preSubTitle?: string;
-  subTitle?: string;
-  postSubTitle?: string;
-  title?: string;
-  titleSize?: 'normal' | 'very-big';
-  postTitle?: string;
-  topPadding?: 'none' | 'small' | 'medium';
-  background?: 'none' | 'white';
+  preSubTitle?: string; // Text above the sub title
+  subTitle?: string; // Smaller Sub title
+  postSubTitle?: string; // Text after the sub title
+  title?: string; // The main Title text
+  postTitle?: string; // Text after the main title
+  titleSize?: 'normal' | 'very-big';  // Title text size
+  topPadding?: 'none' | 'small' | 'medium'; // Padding at the top
+  background?: 'none' | 'white'; // Background colour
 }
 
 const ScreenHeader: React.FC<Props> = (props: Props) => {
@@ -174,6 +176,9 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);
   }
+
+  // Local
+  const showGradient = props.background === 'white';
 
   return (
     <>
@@ -206,6 +211,8 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
 
       </HeaderTexts>
+
+      {showGradient && <Gradient position='bottom' />}
 
     </ScreenHeaderStyle>
 

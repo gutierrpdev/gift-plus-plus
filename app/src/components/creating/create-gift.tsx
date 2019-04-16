@@ -10,7 +10,6 @@ import { CreateGiftRecordGreeting } from '../creating/record-greeting';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { BgSvgFullScreen } from '../svg/bg';
-import { Gradient } from '../gradient';
 
 /**
  * Gift Create screen top level component

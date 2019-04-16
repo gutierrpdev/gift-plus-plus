@@ -9,8 +9,6 @@ import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-recorder';
-import { Gradient } from '../gradient';
-
 
 /**
  * The start of making a gift. User records a greeting to recipient.
@@ -73,7 +71,6 @@ const RecordGreetingPanel: React.FC<{
 
   return (
     <Panel>
-      <Gradient />
       <PanelContent>
         <AudioRecorderComponent
           status={componentStatus}
@@ -95,7 +92,6 @@ const PlaybackGreetingPanel: React.FC<{
   onSaveClicked: () => void;
 }> = ({ url, onReRecordClicked, onSaveClicked }) => (
   <Panel>
-    <Gradient />
     <PanelContent>
       <AudioPlayer
         text={'Review your recording'}

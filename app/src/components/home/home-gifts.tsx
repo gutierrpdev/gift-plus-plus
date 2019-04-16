@@ -9,7 +9,6 @@ import { BgSvgFullScreen } from '../svg/bg';
 import { GiftPile } from '../gift-pile';
 import { Gift } from '../../domain';
 import { PanelTitle } from '../panel-title';
-import { Gradient } from '../gradient';
 import { global } from '../../themes/global';
 import { TextResize } from '../text-resize';
 import SvgAddCircle from '../svg/add-circle';
@@ -90,7 +89,6 @@ const HomeGifts: React.FC = () => {
       />
 
       <ContentBg>
-        <Gradient />
         <Content>
 
           <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>

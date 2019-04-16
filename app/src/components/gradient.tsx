@@ -10,9 +10,10 @@ const Gradient = styled.div<GradientProps>`
   background: linear-gradient(180deg,rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.1) 24%, rgba(0,0,0,0) 99%, transparent);
   z-index: 10;
   position: absolute;
-  top: 0;
   left: 0;
   width: 100%;
+  top: ${(props) => props.position === 'top' ? 0 : 'auto'};
+  bottom: ${(props) => props.position === 'bottom' ? '-2vmin' : 'auto'};
 `;
 
 export {
