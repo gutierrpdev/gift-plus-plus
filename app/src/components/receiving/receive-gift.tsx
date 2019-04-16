@@ -172,6 +172,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
             showLogo={false}
+            background='white'
           />
         }
         {headerSize === 'compact' &&
