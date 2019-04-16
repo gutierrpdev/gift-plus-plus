@@ -69,7 +69,11 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
 
       {status === 'choose-recipient' &&
        <CreateGiftChooseRecipient
-         onComplete={() => setStatus('record-greeting')}
+         onComplete={(recipientName) => {
+           // TODO: deal with gift state properly
+           gift.recipientName = recipientName;
+           setStatus('record-greeting');
+         }}
        />
       }
 

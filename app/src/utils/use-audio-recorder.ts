@@ -58,7 +58,7 @@ export const useAudioRecorder: () => AudioRecorder = () => {
     if (s.kind === 'pending') return;
     if (s.kind === 'preparing') return;
     if (!s.recorder) return;
-    s.recorder.stream.getTracks().forEach(track => track.stop())
+    s.recorder.stream.getTracks().forEach((track) => track.stop());
   }), []);
 
 
