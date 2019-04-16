@@ -48,7 +48,7 @@ const RecordButton = styled(BaseControlButton)`
 
 
 interface Props {
-  status: 'idle' | 'recording' | 'processing';
+  status: 'idle' | 'preparing' | 'recording' | 'processing' | 'error';
   text: string;
   onClick: () => void;
 }
@@ -57,10 +57,14 @@ export const AudioRecorder: React.FC<Props> = ({ status, text, onClick }) => {
 
   const statusText = (status === 'recording') ? 'Now Recording'
                    : (status === 'processing') ? 'Processing'
+                   : (status === 'preparing') ? 'Preparing'
+                   : (status === 'error') ? 'Error'
                    : '';
 
   const border: PanelRoundBorderStyle = (status === 'recording') ? 'solid-red'
+                                      : (status === 'preparing') ? 'solid-grey'
                                       : (status === 'processing') ? 'solid-grey'
+                                      : (status === 'error') ? 'solid-grey'
                                       : 'none';
 
   return (

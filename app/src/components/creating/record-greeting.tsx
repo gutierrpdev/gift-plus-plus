@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { assertNever } from '../../utils/helpers';
+import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder';
+
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
-import { AudioRecorder } from '../../components/audio-recorder';
+import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-recorder';
 import { Gradient } from '../gradient';
 
 
 /**
  * The start of making a gift. User records a greeting to recipient.
  */
-
-type Status =
-  | 'record-greeting'
-  | 'playback-greeting'
-;
 
 
 interface Props {
@@ -25,59 +23,92 @@ interface Props {
 }
 
 export const CreateGiftRecordGreeting: React.FC<Props> = ({ recipientName, onComplete }) => {
-  const [status, setStatus] = useState<Status>('record-greeting');
-  const [recordingUrl, setRecordingUrl] = useState('');
+  const audioRecorder = useAudioRecorder();
 
-  // TODO obvs
-  const audioRecorderStatus = 'idle';
-
-  function renderRecordGreeting() {
+  if (audioRecorder.state === 'audio-ready') {
     return (
-      <>
-        <PanelContent>
-          <AudioRecorder
-            status={audioRecorderStatus}
-            text={`Record a greeting for ${recipientName}.`}
-            onClick={() => {}}
-          />
-        </PanelContent>
-        <Buttons>
-          {audioRecorderStatus === 'idle' &&
-            <Button onClick={() => {}} primary={true}>Start recording</Button>
-          }
-          {audioRecorderStatus !== 'idle' &&
-           <Button onClick={() => {}}>Stop recording</Button>
-          }
-        </Buttons>
-      </>
+      <PlaybackGreetingPanel
+        url={audioRecorder.recordingUrl}
+        onReRecordClicked={audioRecorder.disposeRecording}
+        onSaveClicked={() => onComplete(audioRecorder.recordingUrl)}
+      />
     );
   }
 
+  return (
+    <RecordGreetingPanel
+      text={`Record a greeting for ${recipientName}`}
+      audioRecorder={audioRecorder}
+    />
+  );
+};
 
-  function renderPlaybackGreeting() {
-    return (
-      <>
-        <PanelContent>
-          <AudioPlayer
-            text={'Review your recording'}
-            src={recordingUrl}
-            forwardButton={'SkipSeconds'}
-          />
-        </PanelContent>
-        <Buttons>
-          <Button onClick={() => setStatus('record-greeting')}>Re-record</Button>
-          <Button primary={true} onClick={() => onComplete(recordingUrl)}>Save Greeting</Button>
-        </Buttons>
-      </>
-    );
-  }
 
+
+
+const RecordGreetingPanel: React.FC<{
+  audioRecorder: AudioRecorder;
+  text: string;
+}> = ({ audioRecorder, text }) => {
+  // Convert audio recorder state into a display status for the component
+  const componentStatus = (audioRecorder.state === 'pending') ? 'idle'
+                        : (audioRecorder.state === 'preparing') ? 'preparing'
+                        : (audioRecorder.state === 'ready') ? 'idle'
+                        : (audioRecorder.state === 'audio-ready') ? 'idle'
+                        : (audioRecorder.state === 'recording') ? 'recording'
+                        : (audioRecorder.state === 'processing') ? 'processing'
+                        : (audioRecorder.state === 'error') ? 'error'
+                        : assertNever(audioRecorder);
+
+  const onClick = (audioRecorder.state === 'pending') ? audioRecorder.start
+                : (audioRecorder.state === 'ready') ? audioRecorder.start
+                : (audioRecorder.state === 'recording') ? audioRecorder.stop
+                : (audioRecorder.state === 'error') ? audioRecorder.reset
+                : noop;
+
+  const button = (audioRecorder.state === 'recording') ? (<Button onClick={onClick}>Stop recording</Button>)
+               : (audioRecorder.state === 'processing') ? (<Button onClick={onClick}>Stop recording</Button>)
+               : (audioRecorder.state === 'error') ? (<Button onClick={onClick}>Try again</Button>)
+               : (<Button onClick={onClick} primary={true}>Start recording</Button>);
 
   return (
     <Panel>
       <Gradient />
-      {status === 'record-greeting' && renderRecordGreeting()}
-      {status === 'playback-greeting' && renderPlaybackGreeting()}
+      <PanelContent>
+        <AudioRecorderComponent
+          status={componentStatus}
+          text={text}
+          onClick={onClick}
+        />
+      </PanelContent>
+      <Buttons>
+        {button}
+      </Buttons>
     </Panel>
   );
 };
+
+
+const PlaybackGreetingPanel: React.FC<{
+  url: string;
+  onReRecordClicked: () => void;
+  onSaveClicked: () => void;
+}> = ({ url, onReRecordClicked, onSaveClicked }) => (
+  <Panel>
+    <Gradient />
+    <PanelContent>
+      <AudioPlayer
+        text={'Review your recording'}
+        src={url}
+        forwardButton={'SkipSeconds'}
+      />
+    </PanelContent>
+    <Buttons>
+      <Button onClick={onReRecordClicked}>Re-record</Button>
+      <Button primary={true} onClick={onSaveClicked}>Save Greeting</Button>
+    </Buttons>
+  </Panel>
+);
+
+
+const noop = () => {};

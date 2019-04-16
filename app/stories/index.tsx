@@ -545,7 +545,7 @@ storiesOf('Components/Creating', module)
       <CreateGiftChooseRecipient onComplete={logSomething} />
     </>
   ))
-  .add('Record Greetinf', () => (
+  .add('Record Greeting', () => (
     <>
       <GlobalStyles />
       <CreateGiftRecordGreeting recipientName='Nick' onComplete={logSomething} />
