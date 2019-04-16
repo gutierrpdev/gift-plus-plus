@@ -9,6 +9,7 @@ import { ReceivingPartContent } from './panels/part-content';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
 import { RecipientLocation } from '../receiving/panels/choose-location';
+import { PanelImageReveal } from '../panel-image-reveal';
 
 
 /**
@@ -26,12 +27,12 @@ export interface Props {
 
 interface State {
   activePanelIndex: number; // Which panel is active
-  audioIntroPlayed: boolean;
+  audioIntroPlayed: boolean; // Has the audio player
   hasOpened: boolean;  // Has this part ever been opened?
   isComplete: boolean; // Has the reader finsihed consuming this part
-  blurImage: boolean;
+  blurImage: boolean; // Should the background image be blurred
+  showImagePreview: boolean; // Should the circular preview be visible
 }
-
 
 interface StyledGiftPartProps {
   imageSrc: string;
@@ -76,11 +77,18 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     hasOpened: false,
     isComplete: false,
     blurImage: true,
+    showImagePreview: false,
   };
 
   public unBlurImage = () => {
     this.setState({
       blurImage: false,
+    });
+  }
+
+  public showImagePreview = () => {
+    this.setState({
+      showImagePreview: true,
     });
   }
 
@@ -162,7 +170,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
               giftPartIndex={giftPartIndex}
               onComplete={this.nextPanel}
               recipientLocation={this.props.recipientLocation}
-              revelImage={this.unBlurImage}
+              revealBackgroundImage={this.unBlurImage}
+              revealPreviewImage={this.showImagePreview}
             />}
           </>
         );
@@ -174,7 +183,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
             giftPartIndex={giftPartIndex}
             onComplete={this.nextPanel}
             recipientLocation={this.props.recipientLocation}
-            revelImage={this.unBlurImage}
+            revealBackgroundImage={this.unBlurImage}
+            revealPreviewImage={this.showImagePreview}
           />
         );
       default :
@@ -191,6 +201,8 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       <StyledGiftPart imageSrc={this.props.giftPart.photo} blurImage={this.state.blurImage} >
 
         <Gradient />
+
+        {this.state.showImagePreview && <PanelImageReveal imageUrl={this.props.giftPart.photo} />}
 
         <AccordionTitle
           showOpenPrompt={false}

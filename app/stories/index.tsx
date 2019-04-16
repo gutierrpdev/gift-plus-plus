@@ -498,12 +498,22 @@ storiesOf('Components', module)
 // Receiving components
 storiesOf('Components/Receiving', module)
   .add('Gift Part', () => (
-    <GiftPartWrapper
-      gift={giftThreeParts}
-      giftPart={giftPart}
-      onComplete={doNothing}
-      recipientLocation={'AtMuseum'}
-    />
+    <>
+    {/*hack the height*/}
+    <style>{'\
+      #root > div {\
+        height: 100vh;\
+      }\
+    '}</style>
+      <GiftPartWrapper
+        gift={giftThreeParts}
+        giftPart={giftPart}
+        onComplete={doNothing}
+        recipientLocation={'AtMuseum'}
+      >
+        <PanelImageReveal imageUrl={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
+      </GiftPartWrapper>
+    </>
   ))
   .add('Gift Parts', () => (
     <ScreenManager>
@@ -528,7 +538,8 @@ storiesOf('Components/Receiving', module)
       giftPartIndex={0}
       onComplete={doNothing}
       recipientLocation={'AtMuseum'}
-      revelImage={doNothing}
+      revealBackgroundImage={doNothing}
+      revealPreviewImage={doNothing}
     />
   ))
   .add('Reply', () => (

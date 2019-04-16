@@ -90,7 +90,7 @@ const MenuStyle = styled.div`
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
   text-align: center;
-  z-index: 1;
+  z-index: 20;
 `;
 interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy

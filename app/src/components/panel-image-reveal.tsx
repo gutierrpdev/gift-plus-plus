@@ -19,8 +19,8 @@ const PanelImageRevealStyle = styled.div<PanelImageRevealProps>`
   background-position: center;
   background-size: cover;
   // Possible MS Edge issue with clip path, check for Polyfill alternative
-  clip-path: circle(${(global.components.imageReveal.width)} at center);
-  z-index: -1;
+  clip-path: circle(${(global.components.imageReveal.width.vm)} at center);
+  z-index: 2;
 `;
 
 const PanelImageReveal: React.FC<PanelImageRevealProps> = (props: PanelImageRevealProps) => (

@@ -15,19 +15,20 @@ import { WaitThen } from '../../wait-then';
 
 
 export interface PartContentProps {
-  visible?: boolean;
-  gift: Gift; // Pass in the whole gift rather than just the part as we need some other info (part count, sender name)
+  visible?: boolean; // Should this component be visible
+  gift: Gift; // The gift in question, as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
-  recipientLocation: RecipientLocation;
-  onComplete?: () => void;
-  revelImage: () => void;
+  recipientLocation: RecipientLocation; // At the museum or not
+  onComplete?: () => void; // Callback to call when complete
+  revealBackgroundImage: () => void; // Callback to call to reveal the background image
+  revealPreviewImage: () => void; // Callback to call to reveal the preview image
 }
 
 // Todo : finish question
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // section is 0 based incrementer of current stage
-  const [section, setSection] = useState(0);
+  const [section, setSection] = useState(2);
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
 
   // Get some local references
@@ -57,8 +58,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoFound() {
-    if (props.revelImage) {
-      props.revelImage();
+    if (props.revealBackgroundImage) {
+      props.revealBackgroundImage();
     }
     setSection(7);
   }
@@ -216,18 +217,23 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
   }
 
+  // Calculate some things
   const giftPartPhoto = giftPart ? giftPart.photo : '';
   const defaultWait = 5;
   const showReveal = section >= 1 && section < 7;
+
+  // Check to call the reveal preview callback
+  if (showReveal) {
+    if (props.revealPreviewImage) {
+      props.revealPreviewImage();
+    }
+  }
 
   // Use an index to advance to next statge
   return (
     <Panel visible={props.visible}>
 
       <PanelContent>
-
-        {showReveal && <PanelImageReveal imageUrl={giftPartPhoto} />}
-        {/* <GiftPartBackground giftPart={giftPart} /> */}
 
         {/* start */}
         {section === 0 &&
