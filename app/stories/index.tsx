@@ -15,6 +15,7 @@ import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
 import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
+import { PanelRound } from '../src/components/panel-round';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
@@ -144,6 +145,12 @@ storiesOf('Components', module)
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
+  .add('Panel Round', () => (
+    <div style={greyBG}>
+      <PanelRound border='dotted-white' background='transparent-black' />
+      <PanelRound border='none' background='solid-white' />
+    </div>
+  ))
   .add('Panel Prompt text', () => (
     <div style={greyBG}>
       <PanelPrompt text={'lorem ipsum solus incum'} background={'transparent-black'} />

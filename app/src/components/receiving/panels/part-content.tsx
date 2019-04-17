@@ -248,7 +248,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* start */}
         {section === 0 &&
           <>
-            <PanelPrompt text={getIntroText()} background={'transparent-black'} allowCompactRound={true} />
+            <PanelPrompt
+              text={getIntroText()}
+              background={'transparent-black'}
+              allowCompactRound={true}
+              border='dotted-white'
+            />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -269,7 +274,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* do you know where to lookk/need a clue ? */}
         {section === 2 &&
           <>
-            <PanelPrompt text={getDoYouNeedaClueText()} background={'transparent-black'} allowCompactRound={true} />
+            <PanelPrompt
+              text={getDoYouNeedaClueText()}
+              background={'transparent-black'}
+              allowCompactRound={true}
+              border='dotted-white'
+            />
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
@@ -279,7 +289,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* wander/look around */}
         {section === 3 &&
-          <PanelPrompt text={getLookAroundText()} background={'transparent-black'} allowCompactRound={true}  />
+          <PanelPrompt
+            text={getLookAroundText()}
+            background={'transparent-black'}
+            allowCompactRound={true}
+            border='dotted-white'
+          />
         }
 
         {/* show clue (search) */}

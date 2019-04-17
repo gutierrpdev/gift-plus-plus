@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PanelText } from './panel-text';
-import { PanelRound, PanelRoundBackgroundStyle } from './panel-round';
+import { PanelRound, PanelRoundBackgroundStyle, PanelRoundBorderStyle } from './panel-round';
 
 interface StyleProps {
   textColor?: 'white' | 'black';
@@ -27,10 +27,15 @@ interface Props {
   textSize?: number;
   background?: PanelRoundBackgroundStyle;
   allowCompactRound?: boolean;
+  border?: PanelRoundBorderStyle;
 }
 
 const PanelPrompt: React.FC<Props> = (props) => (
-  <PanelRound background={props.background || 'none'} allowCompact={props.allowCompactRound || false}>
+  <PanelRound
+    background={props.background || 'none'}
+    allowCompact={props.allowCompactRound || false}
+    border={props.border}
+  >
     <PanelPromptStyle textColor={props.textColor}>
       {/* support line breaks */}
       {props.text && props.text.split('\n').map((item, key) => {
