@@ -8,6 +8,7 @@ import { romanNumeralFromDecimal } from '../../themes/global';
 import { GiftPartWrapper } from './gift-part-wrapper';
 import { IdleGiftPart } from './idle-gift-part';
 import { RecipientLocation } from '../receiving/panels/choose-location';
+import { PanelContent } from '../panel';
 
 /**
  * Holds and manages visual Gift Parts
@@ -116,6 +117,7 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
           partStateMap,
         });
       } else {
+        console.log('done');
         setState({
           ...state,
           status: { kind: 'ShowingResponse' },
@@ -165,7 +167,9 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
   if (state.status.kind === 'ShowingResponse') {
     return (
       <StyledGiftPartsManager>
-        <h1>TODO: Respond to gift</h1>
+        <PanelContent>
+          <h3>TODO: Respond to gift</h3>
+        </PanelContent>
       </StyledGiftPartsManager>
     );
   }
