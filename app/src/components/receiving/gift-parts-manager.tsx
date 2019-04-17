@@ -117,7 +117,6 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
           partStateMap,
         });
       } else {
-        console.log('done');
         setState({
           ...state,
           status: { kind: 'ShowingResponse' },

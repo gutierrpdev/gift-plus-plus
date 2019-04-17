@@ -88,7 +88,7 @@ const fullScreen = {
 
 const bgImg = {
   // tslint:disable-next-line
-  backgroundImage: "url(" + "https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg" + ")",
+  backgroundImage: 'url(https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg)',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -317,7 +317,6 @@ storiesOf('Components', module)
         When you’ve found it take a photo to show them.`}
       textSize={30}
       onPhotoTaken={ ( imageUrl: string ) => {
-        console.log({imageUrl});
         const img: HTMLImageElement = document.getElementById('photo-capture-img') as HTMLImageElement;
         img.src = imageUrl;
       }}
@@ -452,31 +451,27 @@ storiesOf('Components', module)
       <h1>Sharing links</h1>
       <p>
         {/* tslint:disable-next-line */}
-        <a href="mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/">Send Email</a>
+        <a href='mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/'>Send Email</a>
       </p>
       <p>
         {/* tslint:disable-next-line */}
-        <a target='_blank' href="https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/">Share on Facebook</a>
+        <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/'>Share on Facebook</a>
       </p>
       <p>
-        {/* tslint:disable-next-line */}
         <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
       </p>
       <p>
-        {/* tslint:disable-next-line */}
-        <a target='_blank' href="https://twitter.com/home?status=https%3A//thegift.app/">Share on Twitter</a>
+        <a target='_blank' href='https://twitter.com/home?status=https%3A//thegift.app/'>Share on Twitter</a>
       </p>
       <p>
         {/* tslint:disable-next-line */}
-        <a href="whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F" data-action="share/whatsapp/share" target="_blank">Share via Whatsapp (mobile only)</a>
+        <a href='whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F' data-action='share/whatsapp/share' target='_blank'>Share via Whatsapp (mobile only)</a>
       </p>
       <p>
-        {/* tslint:disable-next-line */}
-        <a href="sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app">Share via SMS iOS</a>
+        <a href='sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS iOS</a>
       </p>
       <p>
-        {/* tslint:disable-next-line */}
-        <a href="sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app">Share via SMS Android</a>
+        <a href='sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS Android</a>
       </p>
     </>
   ))
@@ -500,6 +495,37 @@ storiesOf('Components', module)
   ))
 ;
 
+// Tests
+storiesOf('Tests', module)
+  .add('Mask', () => (
+    <>
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
+        <defs>
+          <filter id='blurlayer' width='110%' height='100%'>
+            <feGaussianBlur  stdDeviation='4' result='blur'/>
+              {/* tslint:disable-next-line */}
+              <feImage id='feimage' xlinkHref='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' x='0' y='0'  height='300px' width='300px' result='mask' />
+          </filter>
+        </defs>
+      </svg>
+      <svg width='568' height='426'>
+        {/* tslint:disable-next-line */}
+        <image href='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' width='500' height='350' mask='url(#masking2)' />
+      </svg>
+      <svg width='0' height='0'>
+        <defs>
+          <linearGradient id='gradient' x1='0' y1='00%' x2='0' y2='100%'>
+            <stop stop-color='black' offset='0'/>
+            <stop stop-color='white' offset='1'/>
+          </linearGradient>
+          <mask id='masking2' maskUnits='objectBoundingBox' maskContentUnits='objectBoundingBox'>
+            <rect y='0.3' width='1' height='.7' fill='url(#gradient)' />
+            <circle cx='.5' cy='.5' r='.35' fill='white' />
+          </mask>
+        </defs>
+      </svg>
+    </>
+  ));
 
 // Receiving components
 storiesOf('Components/Receiving', module)

@@ -5,6 +5,7 @@ import { global } from '../themes/global';
 
 /***
  * Provides the sneak peak reveal
+ * https://www.html5rocks.com/en/tutorials/masking/adobe/
  */
 interface PanelImageRevealProps {
   imageUrl: string;
