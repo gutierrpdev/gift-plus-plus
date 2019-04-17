@@ -1,7 +1,8 @@
 import React from 'react';
+import uuidv4 from 'uuid/v4';
 import uuidv5 from 'uuid/v5';
 
-import { Gift } from '../domain';
+import { InProgressGift } from '../domain';
 import { CreateGift } from '../components/creating/create-gift';
 
 /**
@@ -10,16 +11,10 @@ import { CreateGift } from '../components/creating/create-gift';
 
 const CreateGiftScreen: React.FC = () => {
 
-  // Create our empty gift structure
-  // todo
-  const gift: Gift = {
-    id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
+  const gift: InProgressGift = {
+    id: uuidv4(),
     kind: 'PersonalGift',
     museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
-    accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
-    senderName: '',
-    recipientName: '',
-    recipientGreeting: '',
     parts: [],
   };
 

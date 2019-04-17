@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Gift } from '../../domain';
+import { InProgressGift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
@@ -26,7 +26,7 @@ type Status =
 
 
 interface Props {
-  gift: Gift;
+  gift: InProgressGift;
 }
 
 
@@ -80,14 +80,22 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
        <CreateGiftRecordAndPlayback
          text={`Record a greeting for ${gift.recipientName}`}
          saveButtonText={'Save Greeting'}
-         onComplete={() => setStatus('creating-part')}
+         onComplete={(greeting) => {
+           // TODO: deal with gift state properly
+           gift.recipientGreeting = greeting;
+           setStatus('creating-part');
+         }}
        />
       }
 
-      {status === 'creating-part' &&
+      {status === 'creating-part' && gift.recipientName !== undefined &&
        <CreatingPartContent
-         gift={gift}
-         onComplete={() => setStatus('sign-gift')}
+         recipientName={gift.recipientName}
+         onComplete={(parts) => {
+           // TODO: deal with gift state properly
+           gift.parts = parts;
+           setStatus('sign-gift');
+         }}
        />
       }
 

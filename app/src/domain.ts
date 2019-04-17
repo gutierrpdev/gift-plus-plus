@@ -35,10 +35,6 @@ export interface InProgressGift {
   museumId: MuseumId;
   senderName?: string;
   recipientName?: string;
-  recipientGreeting?: Blob;
-  parts: Array<{
-    photo?: Blob;
-    note?: Blob;
-    clue?: string;
-  }>;
+  recipientGreeting?: string;
+  parts: GiftPart[];
 }

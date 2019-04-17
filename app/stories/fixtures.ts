@@ -1,15 +1,11 @@
 import uuidv5 from 'uuid/v5';
-import { Gift, GiftPart } from '../src/domain';
+import { Gift, GiftPart, InProgressGift } from '../src/domain';
 
 // Empty gift, for creating
-export const emptyGift: Gift = {
+export const emptyGift: InProgressGift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
   kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
-  accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
-  senderName: '',
-  recipientName: '',
-  recipientGreeting: '',
   parts: [],
 };
 
@@ -68,4 +64,3 @@ export const giftPart: GiftPart = {
   note: require('../src/assets/audio/_1-second-of-silence.mp3'),
   clue: 'Part 1 clue',
 };
-

@@ -7,7 +7,7 @@ import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
-import { Gift, GiftPart } from '../../domain';
+import { GiftPart } from '../../domain';
 import { WaitThen } from '../wait-then';
 import { PhotoCapture } from '../../components/photo-capture';
 import { TextAreaInput } from '../../components/inputs/textarea-input';
@@ -61,14 +61,18 @@ type Status =
 ;
 
 export interface Props {
-  gift: Gift; // Pass in the whole gift.  This component will add all necessary parts
-  onComplete: () => void; // When this component is finished
+  recipientName: string;
+  onComplete: (parts: GiftPart[]) => void; // When this component is finished
 }
 
-const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
+const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => {
+
+  // TODO: Abstract component to deal with one part at a a time
+  // TODO: Abstract individual bits of part-creation out (maybe)
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
+  const [parts, setParts] = useState<GiftPart[]>([]); // TODO: clean the state up -- separate out
   const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
@@ -94,12 +98,12 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   function getGiftPart( index: number ) {
 
     // Return if exists
-    if (gift.parts[index]) {
-      return gift.parts[index];
+    if (parts[index]) {
+      return parts[index];
     }
 
     // Create if not
-    return gift.parts[index] = {
+    return parts[index] = {
       photo: '',
       note: '',
       clue: '',
@@ -161,7 +165,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
 
     // Callback to continue
     if (onComplete) {
-      onComplete();
+      onComplete(parts);
     }
 
   }
@@ -264,7 +268,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
           }
           {giftPartIndex === 1 &&
             <PhotoCapture
-              text={`Have a wander to find the second object for ${gift.recipientName}.
+              text={`Have a wander to find the second object for ${recipientName}.
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them.`}
               textSize={47}
@@ -347,7 +351,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
       <>
         <PanelContent>
           <PanelPrompt
-            text={`Now write a clue to help ${gift.recipientName} find the object`}
+            text={`Now write a clue to help ${recipientName} find the object`}
             background={'transparent-black'}
           />
           {/* note: goto different next section based on gift part index */}
@@ -411,7 +415,7 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Great, you’ve made part one of your gift for ${gift.recipientName}.`}
+              text={`Great, you’ve made part one of your gift for ${recipientName}.`}
               background={'transparent-black'}
             />
           }

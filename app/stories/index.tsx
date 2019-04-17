@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Gift } from '../src/domain';
+import { Gift, InProgressGift } from '../src/domain';
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
 
 // Components
@@ -617,7 +617,7 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreatingPartContent
-        gift={emptyGift}
+        recipientName={'Nick'}
         onComplete={doNothing}
       />
     </>
