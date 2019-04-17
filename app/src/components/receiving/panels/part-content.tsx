@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
-import { PanelImageReveal } from '../../panel-image-reveal';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from './choose-location';
@@ -45,7 +44,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     setSection(3);
   }
 
-  function gotoGiveClue() {
+  function gotoGiveClueSearch() {
     setSection(4);
   }
 
@@ -62,6 +61,14 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       props.revealBackgroundImage();
     }
     setSection(7);
+  }
+
+  function gotoFoundAudio() {
+    setSection(8);
+  }
+
+  function gotoGiveClueFound() {
+    setSection(9);
   }
 
   function gotoEndOfGiftPart() {
@@ -108,7 +115,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         return (
           <>
-            {haveClue && <Button onClick={gotoGiveClue}>Show clue</Button>}
+            {haveClue && <Button onClick={gotoGiveClueSearch}>Show clue</Button>}
             {!haveClue && <Button onClick={gotoGiveHelp}>Help</Button>}
             <Button onClick={gotoHereYouGo} primary={true}>Found the object</Button>
           </>
@@ -132,12 +139,16 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return (
           <>
             {haveClue && !audioHasPlayed &&
-              <Button onClick={gotoGiveClue}>Show clue</Button>}
+              <Button onClick={gotoGiveClueFound}>Show clue</Button>}
             {audioHasPlayed && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>}
             {audioHasPlayed && !furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
+        );
+      case 9: // clue (found)
+        return (
+          <Button onClick={gotoFoundAudio} primary={true}>OK</Button>
         );
       default :
         // One invisible button to occupy space
@@ -218,7 +229,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   // Calculate some things
-  const giftPartPhoto = giftPart ? giftPart.photo : '';
   const defaultWait = 5;
   const showReveal = section >= 1 && section < 7;
 
@@ -272,7 +282,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <PanelPrompt text={getLookAroundText()} background={'transparent-black'} allowCompactRound={true}  />
         }
 
-        {/* show clue */}
+        {/* show clue (search) */}
         {section === 4 &&
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
         }
@@ -312,6 +322,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             onPlaybackComplete={handleAudioPlaybackFinished}
             allowCompactRound={true}
           />
+        }
+
+        {/* show clue (found) */}
+        {section === 9 &&
+          <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
         }
 
       </PanelContent>
