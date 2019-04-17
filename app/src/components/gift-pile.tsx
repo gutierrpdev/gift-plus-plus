@@ -45,7 +45,7 @@ const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
 
   const giftList = gifts.map((gift, index) => (
     <StyledGift key={index}>
-      <Link to='/gift/5475400c-684c-515f-8343-b9d14340de9c'>
+      <Link to={gift.id}>
         <GiftImg>
           <SvgGift colour='black' />
         </GiftImg>
