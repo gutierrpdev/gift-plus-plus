@@ -16,17 +16,23 @@ import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-
 
 
 interface Props {
-  recipientName: string;
+  text: string;
+  saveButtonText: string;
   onComplete: (recordingUrl: string) => void;
 }
 
-export const CreateGiftRecordGreeting: React.FC<Props> = ({ recipientName, onComplete }) => {
+export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
+  text,
+  saveButtonText,
+  onComplete,
+}) => {
   const audioRecorder = useAudioRecorder();
 
   if (audioRecorder.state === 'audio-ready') {
     return (
-      <PlaybackGreetingPanel
+      <PlaybackPanel
         url={audioRecorder.recordingUrl}
+        saveButtonText={saveButtonText}
         onReRecordClicked={audioRecorder.disposeRecording}
         onSaveClicked={() => onComplete(audioRecorder.recordingUrl)}
       />
@@ -34,17 +40,14 @@ export const CreateGiftRecordGreeting: React.FC<Props> = ({ recipientName, onCom
   }
 
   return (
-    <RecordGreetingPanel
-      text={`Record a greeting for ${recipientName}`}
-      audioRecorder={audioRecorder}
-    />
+    <RecordPanel text={text} audioRecorder={audioRecorder} />
   );
 };
 
 
 
 
-const RecordGreetingPanel: React.FC<{
+const RecordPanel: React.FC<{
   audioRecorder: AudioRecorder;
   text: string;
 }> = ({ audioRecorder, text }) => {
@@ -86,11 +89,12 @@ const RecordGreetingPanel: React.FC<{
 };
 
 
-const PlaybackGreetingPanel: React.FC<{
+const PlaybackPanel: React.FC<{
   url: string;
+  saveButtonText: string;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, onReRecordClicked, onSaveClicked }) => (
+}> = ({ url, saveButtonText, onReRecordClicked, onSaveClicked }) => (
   <Panel>
     <PanelContent>
       <AudioPlayer
@@ -101,7 +105,7 @@ const PlaybackGreetingPanel: React.FC<{
     </PanelContent>
     <Buttons>
       <Button onClick={onReRecordClicked}>Re-record</Button>
-      <Button primary={true} onClick={onSaveClicked}>Save Greeting</Button>
+      <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
     </Buttons>
   </Panel>
 );

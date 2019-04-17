@@ -6,7 +6,7 @@ import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
 import { CreateGiftIntro } from '../creating/intro';
 import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
-import { CreateGiftRecordGreeting } from '../creating/record-greeting';
+import { CreateGiftRecordAndPlayback } from '../creating/record-and-playback';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { BgSvgFullScreen } from '../svg/bg';
@@ -77,8 +77,9 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       }
 
       {status === 'record-greeting' &&
-       <CreateGiftRecordGreeting
-         recipientName={gift.recipientName}
+       <CreateGiftRecordAndPlayback
+         text={`Record a greeting for ${gift.recipientName}`}
+         saveButtonText={'Save Greeting'}
          onComplete={() => setStatus('creating-part')}
        />
       }

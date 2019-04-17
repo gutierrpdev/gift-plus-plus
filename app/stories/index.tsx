@@ -46,7 +46,7 @@ import { WorkingProgress } from '../src/components/working-progress';
 // Creating
 import { CreateGiftIntro } from '../src/components/creating/intro';
 import { CreateGiftChooseRecipient } from '../src/components/creating/choose-recipient';
-import { CreateGiftRecordGreeting } from '../src/components/creating/record-greeting';
+import { CreateGiftRecordAndPlayback } from '../src/components/creating/record-and-playback';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
 
@@ -603,10 +603,14 @@ storiesOf('Components/Creating', module)
       <CreateGiftChooseRecipient onComplete={logSomething} />
     </>
   ))
-  .add('Record Greeting', () => (
+  .add('Record and Playback', () => (
     <>
       <GlobalStyles />
-      <CreateGiftRecordGreeting recipientName='Nick' onComplete={logSomething} />
+      <CreateGiftRecordAndPlayback
+        text={'Record something'}
+        saveButtonText={'Save something'}
+        onComplete={logSomething}
+      />
     </>
   ))
   .add('Create Gift Part', () => (

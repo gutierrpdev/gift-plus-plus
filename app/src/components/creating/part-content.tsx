@@ -7,12 +7,13 @@ import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
-import { AudioRecorder } from '../../components/audio-recorder';
 import { Gift, GiftPart } from '../../domain';
 import { WaitThen } from '../wait-then';
 import { PhotoCapture } from '../../components/photo-capture';
 import { TextAreaInput } from '../../components/inputs/textarea-input';
 import { romanNumeralFromDecimal } from '../../themes/global';
+
+import { CreateGiftRecordAndPlayback } from './record-and-playback';
 
 /***
  * Show the creating gift part content
@@ -73,7 +74,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [audioIsRecorded, setAudioIsRecorded] = useState(false);
-  const [audioIsRecording, setAudioIsRecording] = useState(false);
   const [clueIsWritten, setClueIsWritten] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
 
@@ -87,14 +87,6 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setSecondAudioHasPlayed(false);
     setAudioIsRecorded(false);
     setClueIsWritten(false);
-  }
-
-  // Start recording audio
-  function startRecordingAudio() {
-  }
-
-  // Stop recording audio
-  function stopRecordingAudio() {
   }
 
   // Returns the gift part based on the index
@@ -129,17 +121,9 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
     setStatus('pre-record-message');
   }
 
-  function handleAudioRecorderClick() {
-    // Update our state
-    setAudioIsRecording(false);
-    setAudioIsRecorded(true);
-
-    // Store our recording
-    const giftPart: GiftPart = getGiftPart(giftPartIndex);
-    giftPart.note = 'TODO';
-  }
-
   function handleAudioRecordFinished() {
+    // TODO
+    setAudioIsRecorded(true);
     setStatus('pre-clue-message1');
   }
 
@@ -344,51 +328,17 @@ const CreatingPartContent: React.FC<Props> = ({ gift, onComplete }) => {
   }
 
   function renderRecordMessage() {
+    const text = (giftPartIndex === 0) ? 'Let them know why you chose this object...'
+               : (giftPartIndex === 1) ? 'Tell them why you chose this...'
+               : (giftPartIndex === 2) ? 'And record your final message...'
+               : '';
+
     return (
-      <>
-        <PanelContent>
-          {!audioIsRecorded &&
-           <>
-             {giftPartIndex === 0 &&
-              <AudioRecorder
-                status={'idle'}
-                text={`Let them know why you chose this object...`}
-                onClick={handleAudioRecorderClick}
-              />
-             }
-             {giftPartIndex === 1 &&
-              <AudioRecorder
-                status={'idle'}
-                text={`Tell them why you chose this...`}
-                onClick={handleAudioRecorderClick}
-              />
-             }
-             {giftPartIndex === 2 &&
-              <AudioRecorder
-                status={'idle'}
-                text={`And record your final message...`}
-                onClick={handleAudioRecorderClick}
-              />
-             }
-           </>
-          }
-          {audioIsRecorded &&
-           <AudioPlayer
-             text={'Review your recording'}
-             src={''}
-             forwardButton={'SkipSeconds'}
-           />
-          }
-        </PanelContent>
-        <Buttons>
-          {!audioIsRecorded && !audioIsRecording &&
-           <Button onClick={() => { startRecordingAudio(); }} primary={true}>Start recording</Button>
-          }
-          {audioIsRecording && <Button onClick={() => { stopRecordingAudio(); }}>Stop recording</Button>}
-          {audioIsRecorded && <Button onClick={() => {setAudioIsRecorded(false); }}>Re-record</Button>}
-          {audioIsRecorded && <Button onClick={handleAudioRecordFinished} primary={true}>Save message</Button>}
-        </Buttons>
-      </>
+      <CreateGiftRecordAndPlayback
+        text={text}
+        saveButtonText={'Save Message'}
+        onComplete={handleAudioRecordFinished}
+      />
     );
   }
 
