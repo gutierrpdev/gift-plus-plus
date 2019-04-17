@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { assertNever } from '../../utils/helpers';
 
@@ -54,12 +54,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     this.setState({
       status: 'ShowingParts',
     });
-  }
-
-  // Save for later
-  public saveForLater = () => {
-    // todo
-    alert('I would go somewhere else now....');
   }
 
   // Sets the location
@@ -117,7 +111,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           />
         </PanelContent>
         <Buttons>
-          <Button onClick={this.saveForLater}>Save it</Button>
+          <Button><Link to='/your-gifts'>Save it</Link></Button>
           <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
         </Buttons>
       </Panel>
