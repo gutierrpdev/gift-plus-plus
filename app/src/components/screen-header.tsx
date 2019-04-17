@@ -187,8 +187,9 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  // Local
+  // Locals
   const showGradient = props.background === 'white';
+  const screenTitleMarginBottom = props.topPadding === 'large' ? 'medium' : 'small';
 
   return (
     <>
@@ -215,7 +216,15 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
         {/* support line breaks */}
         {props.title && props.title.split('\n').map((item, key) => {
-          return <ScreenTitle key={key} titleSize={props.titleSize || 'normal'}>{item}</ScreenTitle>;
+          return (
+            <ScreenTitle
+              key={key}
+              titleSize={props.titleSize || 'normal'}
+              marginBottom={screenTitleMarginBottom}
+            >
+              {item}
+            </ScreenTitle>
+          );
         })}
 
         {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
