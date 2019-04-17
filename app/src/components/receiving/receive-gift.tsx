@@ -159,11 +159,11 @@ class ReceiveGift extends React.PureComponent<Props, State> {
         {headerSize === 'big' &&
           <ScreenHeader
             subTitle={`Here's your gift`}
-            postSubTitle={`from`}
+            postSubTitle='from'
             title={this.props.gift.senderName}
             postTitle={`at ${this.props.museumName}`}
             showLogo={false}
-            topPadding={'small'}
+            topPadding='large'
           />
         }
         {headerSize === 'small' &&

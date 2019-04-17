@@ -145,6 +145,16 @@ const ScreenHeaderStyle = styled.div<Props>`
       padding: 5% 3%;
     }
   `}
+  ${(props) => props.topPadding === 'large' && `
+    padding-top: 30%;
+    // Smaller padding on smaller ratio screens
+    @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
+      padding: 15% 10% 5%;
+    }
+    @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
+      padding: 10% 6% 3%;
+    }
+  `}
   ${(props) => props.background === 'white' && `
     background-color: white;
   `}
@@ -160,7 +170,7 @@ interface Props {
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
   titleSize?: 'normal' | 'very-big';  // Title text size
-  topPadding?: 'none' | 'small' | 'medium'; // Padding at the top
+  topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
   background?: 'none' | 'white'; // Background colour
 }
 

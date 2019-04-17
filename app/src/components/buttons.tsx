@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
-const buttonPaddingVh = 3;
+const buttonPaddingVh = 2.5;
 const buttonsPaddingVh = buttonPaddingVh * 2;
 
 // Container for button(s) used at the bottom of screens
