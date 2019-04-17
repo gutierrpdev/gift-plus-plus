@@ -309,12 +309,18 @@ storiesOf('Components', module)
   .add('Photo Capture', () => (
     <>
     <GlobalStyles />
-    <PhotoCapture text={'take a photo'}/>
+    <img id='photo-capture-img' style={{maxWidth: '200px'}} />
+    {/* <PhotoCapture text={'take a photo'}/> */}
     <PhotoCapture
       text={`Have a wander to find the second object for Nick.
         Why not visit another part of the museum?
         When you’ve found it take a photo to show them.`}
       textSize={30}
+      onPhotoTaken={ ( imageUrl: string ) => {
+        console.log({imageUrl});
+        const img: HTMLImageElement = document.getElementById('photo-capture-img') as HTMLImageElement;
+        img.src = imageUrl;
+      }}
     />
     </>
   ))

@@ -125,10 +125,10 @@ export function setImageOrientation(
 }
 
 // Determines the required orientation change to make the image landscape
-export function calcImageOrientationChange(currentOrientation: number, requiredOrientation: number = 4): number {
+export function calcImageOrientationChange(currentOrientation: number): number {
   // todo this should be a fancy calculation
-  if ( (currentOrientation === landscapeImageOrientation) && (requiredOrientation === 4) ) {
-    return 5;
+  if (currentOrientation === landscapeImageOrientation) {
+    return 6;
   }
   return -1;
 }
