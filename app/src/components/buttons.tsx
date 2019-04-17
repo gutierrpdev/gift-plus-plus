@@ -14,7 +14,7 @@ const Buttons = styled.div`
   align-items: stretch;
   width: 100%;
   // ensure the buttons section is visible without a button
-  min-height: calc(1em + ${buttonsPaddingVh});
+  min-height: calc(1em + ${buttonsPaddingVh}vh);
   line-height: 1;
   z-index: 10; // keep above most content
   // Set the height to match the buttons, desktop only
