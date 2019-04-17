@@ -46,7 +46,7 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       {/* Header */}
       {headerState === 'name-unknown' &&
        <ScreenHeader
-         topPadding={'small'}
+         topPadding={'medium'}
          title={`Making\na gift...`}
        />
       }

@@ -31,7 +31,7 @@ interface Props {
 export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
   const [status, setStatus] = useState<Status>('first-message');
 
-  const defaultWait = 500;
+  const defaultWait = 5;
 
   function renderFirstMessage() {
     return (
@@ -42,7 +42,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
                   about to make
                   a gift for someone
                   special.'
-            textSize={70}
+            textSize={61}
             background='transparent-black'
           >
             <GiftImg>

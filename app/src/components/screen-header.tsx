@@ -117,7 +117,7 @@ const HeaderTexts = styled.div`
 // Header
 const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
-  padding: 5% 2%;
+  padding: 5% 2% 3%;
   z-index: 2000; // high to aid the menu
   position: relative;
   // Smaller padding on tablets
