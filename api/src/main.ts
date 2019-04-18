@@ -7,6 +7,7 @@
  */
 
 import { Server } from 'http';
+import { inspect } from 'util';
 import { getLogger } from './util-libs/logging';
 
 import { Api } from './api';
@@ -64,8 +65,9 @@ async function main(): Promise<void> {
   // Print info about the running server
   const serverAddress = server.address();
 
-  const runningInfoString = (typeof serverAddress === 'string')
-    ? `API running on ${serverAddress}`
+  const runningInfoString
+    = (serverAddress === null) ? `API running [Shouldn't be possible!]`
+    : (typeof serverAddress === 'string') ? `API running on ${serverAddress}`
     : `API running on ${serverAddress.address}:${serverAddress.port}`
   ;
 
@@ -134,8 +136,14 @@ function registerShutdownHandlers(components: ShutdownableComponent[]): void {
   });
 
   process.on('unhandledRejection', (err) => {
-    logger.error(err);
-    logger.warn('Bailing!! [uncaughtException]');
+    if (err instanceof Error) { // Types imply this isn't possible, but it is.
+      logger.error(err);
+    } else if (err === null || err === undefined) {
+      logger.error(new Error('UnhandledRejection [VOID]'));
+    } else {
+      logger.error(new Error(`UnhandledRejection [${inspect(err)}]`));
+    }
+    logger.warn('Bailing!! [unhandledRejection]');
     shutdown(components).then(() => process.exit(1)).catch(() => process.exit(1));
   });
 }
