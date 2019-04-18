@@ -2,14 +2,12 @@ import {
   CreateGiftRequest,
   createGiftRequestSchema,
   CreateGiftResponse,
+  GetGiftResponse,
 } from '../../common/api-schema';
 import { checkUrl, checkBody } from '../../util-libs/validatation';
 import { ApiRouter } from './router';
 
 export const router = new ApiRouter();
-
-// TODO: DO NOT TRUST URLS PASSED IN. We should have some kind of temp asset id
-// which we turn into a url or something like that.
 
 
 router.post('/gift', async (ctx) => {
@@ -41,7 +39,7 @@ router.get('/gift/:giftId', async (ctx) => {
     return;
   }
 
-  ctx.body = gift;
+  (ctx as { body: GetGiftResponse }).body = gift;
 });
 
 

@@ -4,8 +4,13 @@ import { Lib } from '../src/lib';
 
 // TEMP: Hardcode a test config
 const config = {
+  environment: 'test',
   sqlUri: 'sqlite3://:memory:',
   corsAllowedOrigins: '*',
+  awsAccessKey: 'some-access-key',
+  awsSecretAccessKey: 'some-secret-access-key',
+  awsBucket: 'some-bucket',
+  awsRegion: 'some-region',
 };
 
 // Singleton store of all components we've started that need to be shutdown.

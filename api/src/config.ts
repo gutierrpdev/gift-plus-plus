@@ -37,19 +37,36 @@ class ConfigError extends Error {
 
 export interface Config {
   environment: string;
+
+  // Api
   host: string;
   port: number;
-  sqlUri: string;
   corsAllowedOrigins: string;
+
+  // DB
+  sqlUri: string;
+
+  // Asset Storage
+  awsAccessKey: string;
+  awsSecretAccessKey: string;
+  awsBucket: string;
+  awsRegion: string;
 }
 
 
 export const config: Config = {
   environment: readAsString('ENVIRONMENT'),
+
   host: readAsString('HOST'),
   port: readAsInt('PORT'),
-  sqlUri: readAsString('SQL_URI'),
   corsAllowedOrigins: readAsString('CORS_ALLOWED_ORIGINS'),
+
+  sqlUri: readAsString('SQL_URI'),
+
+  awsAccessKey: readAsString('AWS_ACCESS_KEY'),
+  awsSecretAccessKey: readAsString('AWS_SECRET_ACCESS_KEY'),
+  awsBucket: readAsString('AWS_BUCKET'),
+  awsRegion: readAsString('AWS_REGION'),
 };
 
 // =====================================================================
