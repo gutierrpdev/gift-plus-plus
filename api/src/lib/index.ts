@@ -2,6 +2,7 @@ import * as Knex from 'knex';
 import { prepareDb } from './db';
 import { GiftService } from './services/gift';
 import { StorageService } from './services/storage';
+import { TranscodeService } from './services/transcode';
 
 export interface Config {
   environment: string;
@@ -33,6 +34,7 @@ export class Lib {
 
   public gift: GiftService;
   public storage: StorageService;
+  public transcode: TranscodeService;
 
   /**
    * Private constructor
@@ -51,6 +53,8 @@ export class Lib {
       awsRegion: config.awsRegion,
       prefix: config.environment,
     });
+
+    this.transcode = new TranscodeService();
   }
 
 

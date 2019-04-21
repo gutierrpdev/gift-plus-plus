@@ -63,12 +63,12 @@ export class StorageService {
    *
    * NOTE: The uploaded file is stored in a private temporary location.
    */
-  public async createPreparedUpload(contentType: string): Promise<PreparedUpload> {
+  public async createPreparedUpload(mimeType: string): Promise<PreparedUpload> {
     const uploadData = await this.s3.createPresignedPost({
       Fields: {
         'key': this.generateStorageKey(),
         'acl': 'private',
-        'Content-Type': contentType,
+        'Content-Type': mimeType,
         'Cache-Control': 'private',
       },
       Expires: 60 * 60 * 24,
