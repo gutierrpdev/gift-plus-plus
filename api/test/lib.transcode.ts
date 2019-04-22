@@ -17,14 +17,40 @@ describe('transcodeAudio', () => {
   for (const filename of testFiles) {
     const input = path.join(__dirname, './fixtures/audio/', filename);
 
+    it(`Should transcode from ${filename} file`, async () => {
+      const result = await transcodeService.transcodeAudio(input);
+      should(result).match({ extension: 'm4a', mimeType: 'audio/m4a' });
+    });
+
     it(`Should transcode from ${filename} stream`, async () => {
       const result = await transcodeService.transcodeAudio(fs.createReadStream(input));
       should(result).match({ extension: 'm4a', mimeType: 'audio/m4a' });
     });
+  }
+});
+
+
+describe('transcodeImage', () => {
+  const transcodeService = new TranscodeService();
+
+  const testFiles = [
+    'black.bmp',
+    'black.gif',
+    'black.jpg',
+    'black.png',
+  ];
+
+  for (const filename of testFiles) {
+    const input = path.join(__dirname, './fixtures/images/', filename);
 
     it(`Should transcode from ${filename} file`, async () => {
-      const result = await transcodeService.transcodeAudio(input);
-      should(result).match({ extension: 'm4a', mimeType: 'audio/m4a' });
+      const result = await transcodeService.transcodeImage(input);
+      should(result).match({ extension: 'jpg', mimeType: 'image/jpeg' });
+    });
+
+    it(`Should transcode from ${filename} stream`, async () => {
+      const result = await transcodeService.transcodeImage(fs.createReadStream(input));
+      should(result).match({ extension: 'jpg', mimeType: 'image/jpeg' });
     });
   }
 });

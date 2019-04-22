@@ -1,5 +1,6 @@
 import * as S3 from 'aws-sdk/clients/s3';
 import * as uuidv4 from 'uuid/v4';
+import { ReadStream } from 'fs';
 
 // ------
 // Domain
@@ -8,7 +9,7 @@ import * as uuidv4 from 'uuid/v4';
 interface PreparedUpload {
   postUrl: string;
   postFields: S3.PresignedPost.Fields;
-  fileUri: string;
+  fileUrl: string;
   fileType: string;
 }
 
@@ -17,8 +18,8 @@ function mkPreparedUpload(s3UploadData: S3.PresignedPost): PreparedUpload {
   return {
     postUrl: s3UploadData.url,
     postFields: s3UploadData.fields,
-    fileUri: `${s3UploadData.url}/${s3UploadData.fields.key}`,
-    fileType: s3UploadData.fields['Content-Type'],
+    fileUrl: `${s3UploadData.url}/${s3UploadData.fields.key}`,
+    fileType: s3UploadData.fields.ContentType,
   };
 }
 
@@ -36,6 +37,7 @@ interface StorageServiceConfig {
 export class StorageService {
 
   private s3: S3;
+  private bucket: string;
   private prefix: string;
 
   /**
@@ -53,6 +55,7 @@ export class StorageService {
       region: config.awsRegion,
     });
 
+    this.bucket = config.awsBucket;
     this.prefix = config.prefix;
   }
 
@@ -66,10 +69,11 @@ export class StorageService {
   public async createPreparedUpload(mimeType: string): Promise<PreparedUpload> {
     const uploadData = await this.s3.createPresignedPost({
       Fields: {
-        'key': this.generateStorageKey(),
-        'acl': 'private',
-        'Content-Type': mimeType,
-        'Cache-Control': 'private',
+        Key: this.generateUploadKey(),
+        ACL: 'private',
+        ContentType: mimeType,
+        CacheControl: 'private',
+        ServerSideEncryption: 'AES256',
       },
       Expires: 60 * 60 * 24,
     });
@@ -79,7 +83,46 @@ export class StorageService {
   }
 
 
-  private generateStorageKey(): string {
+  /**
+   * Retrieve an item from our storage.
+   */
+  public async getUserUpload(): Promise<void> {
+    const getObjectRequest = this.s3.getObject({
+      Bucket: this.bucket,
+      Key: '',
+    });
+    await getObjectRequest.promise();
+  }
+
+
+  /**
+   * Upload an asset to our storage.
+   *
+   * Assets are expected to be immutable and are stored publicly with long cache
+   * headers.
+   */
+  public async uploadAsset(name: string, mimeType: string, body: ReadStream): Promise<void> {
+    const managedUpload = this.s3.upload({
+      Bucket: this.bucket,
+      Key: this.generateAssetKey(name),
+      Body: body,
+      ACL: 'public-read',
+      ContentType: mimeType,
+      CacheControl: PUBLIC_CACHING,
+      ServerSideEncryption: 'AES256',
+    });
+    await managedUpload.promise();
+  }
+
+
+  private generateUploadKey(): string {
     return `${this.prefix}/uploads/${uuidv4()}`;
   }
+
+  private generateAssetKey(name: string): string {
+    return `${this.prefix}/assets/${name}`;
+  }
 }
+
+const ONE_YEAR = 31536000; // Seconds
+const PUBLIC_CACHING = `public, max-age=${ONE_YEAR}, stale-while-revalidate=${ONE_YEAR}, stale-if-error=${ONE_YEAR}`;

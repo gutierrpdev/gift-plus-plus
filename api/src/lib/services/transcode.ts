@@ -9,7 +9,7 @@ import * as ffmpeg from 'fluent-ffmpeg';
 import { getLogger } from '../../util-libs/logging';
 
 const logger = getLogger('lib:transcode');
-
+const MAX_FFMPEG_RUNTIME = 60; // 1 min
 
 interface TranscodeResult {
   stream: ReadStream;
@@ -45,7 +45,7 @@ export class TranscodeService {
     logger.debug('OutputPath', filePath);
 
     return new Promise((res, rej) => {
-      ffmpeg({ logger })
+      ffmpeg({ timeout: MAX_FFMPEG_RUNTIME })
         .input(input)
         .output(filePath)
         .duration('00:05:00')
@@ -56,9 +56,9 @@ export class TranscodeService {
           '-movflags',
           '+faststart',
         ])
-        .on('stderr', (line: string) => {
-          logger.debug(`FfmpegStdErr: ${line}`);
-        })
+        // .on('stderr', (line: string) => {
+        //   logger.debug(`FfmpegStdErr: ${line}`);
+        // })
         .on('end', () => {
           const stream = fs.createReadStream(filePath);
           const result = {
@@ -87,6 +87,50 @@ export class TranscodeService {
 
 
   /**
+   * Transcode an image input into jpeg format.
+   *
+   * ffmpeg -i input.png -qscale:v 3 output.jpg
+   *
+   * Consider adding:
+   * - graphics/image magick instead (much better suited!)
    */
-  public transcodeImage(): void {}
+  public async transcodeImage(input: string | ReadStream): Promise<TranscodeResult> {
+    const fileName = `${uuidv4()}.jpg`;
+    const filePath = path.join(os.tmpdir(), fileName);
+
+    logger.debug('OutputPath', filePath);
+
+    return new Promise((res, rej) => {
+      ffmpeg({ timeout: MAX_FFMPEG_RUNTIME })
+        .input(input)
+        .output(filePath)
+        .outputOptions('-qscale:v 3')
+        // .on('stderr', (line: string) => {
+        //   logger.debug(`FfmpegStdErr: ${line}`);
+        // })
+        .on('end', () => {
+          const stream = fs.createReadStream(filePath);
+          const result = {
+            stream,
+            extension: 'jpg',
+            mimeType: 'image/jpeg',
+          };
+          fs.unlink(filePath, (unlinkError) => {
+            if (unlinkError) logger.error(unlinkError, 'CleanupError');
+            logger.debug('TranscodeResult', result);
+            res(result);
+          });
+        })
+        .on('error', (err) => {
+          logger.error(err, 'FfmpegError');
+
+          // If any output was written, attempt to clean it up before returning
+          fs.unlink(filePath, (unlinkError) => {
+            if (unlinkError) logger.debug('CleanupError', unlinkError);
+            rej(err);
+          });
+        })
+        .run();
+    });
+  }
 }
