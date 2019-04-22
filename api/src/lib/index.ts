@@ -54,7 +54,7 @@ export class Lib {
       prefix: config.environment,
     });
 
-    this.transcode = new TranscodeService();
+    this.transcode = new TranscodeService({});
   }
 
 

@@ -17,7 +17,30 @@ interface TranscodeResult {
   mimeType: string;
 }
 
+interface TranscodeConfig {
+  // See below: this is really just here to override for testing atm.
+  disableMaxRuntime?: boolean;
+}
+
+// TODO: Submit PR to fix FluentFfmpeg
+//
+// Unfortunately this ffmpeg library doesn't cleanup it's timers when the
+// process finishes, so if you set a timeout when creating the command (e.g.
+// ffmpeg({ timeout: 60 })) that timer will sit around for 60 secs. This is
+// mostly annoying when trying to run tests as the test suite won't terminate
+// till the event loop is empty.
+//
+// tslint:disable-next-line max-line-length
+// See: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/dcc052ab578bced58ce56e52edf58284688f6e60/lib/processor.js#L466
+
+
 export class TranscodeService {
+
+  private maxRuntime?: number;
+
+  public constructor(config: TranscodeConfig) {
+    this.maxRuntime = (config.disableMaxRuntime) ? undefined : MAX_FFMPEG_RUNTIME;
+  }
 
   /**
    * Transcode an audio input into AAC format in an MP4 container (m4a).
@@ -45,7 +68,7 @@ export class TranscodeService {
     logger.debug('OutputPath', filePath);
 
     return new Promise((res, rej) => {
-      ffmpeg({ timeout: MAX_FFMPEG_RUNTIME })
+      const command = ffmpeg({ logger, timeout: this.maxRuntime })
         .input(input)
         .output(filePath)
         .duration('00:05:00')
@@ -55,33 +78,37 @@ export class TranscodeService {
         .outputOptions([
           '-movflags',
           '+faststart',
-        ])
-        // .on('stderr', (line: string) => {
-        //   logger.debug(`FfmpegStdErr: ${line}`);
-        // })
-        .on('end', () => {
-          const stream = fs.createReadStream(filePath);
-          const result = {
-            stream,
-            extension: 'm4a',
-            mimeType: 'audio/m4a',
-          };
-          fs.unlink(filePath, (unlinkError) => {
-            if (unlinkError) logger.error(unlinkError, 'CleanupError');
-            logger.debug('TranscodeResult', result);
-            res(result);
-          });
-        })
-        .on('error', (err) => {
-          logger.error(err, 'FfmpegError');
+        ]);
 
-          // If any output was written, attempt to clean it up before returning
-          fs.unlink(filePath, (unlinkError) => {
-            if (unlinkError) logger.debug('CleanupError', unlinkError);
-            rej(err);
-          });
-        })
-        .run();
+      command.on('stderr', (line: string) => {
+        logger.debug(`FfmpegStdErr: ${line}`);
+      });
+
+      command.on('end', () => {
+        const stream = fs.createReadStream(filePath);
+        const result = {
+          stream,
+          extension: 'm4a',
+          mimeType: 'audio/m4a',
+        };
+        fs.unlink(filePath, (unlinkError) => {
+          if (unlinkError) logger.error(unlinkError, 'CleanupError');
+          logger.debug('TranscodeResult', result);
+          res(result);
+        });
+      });
+
+      command.on('error', (err) => {
+        logger.error(err, 'FfmpegError');
+
+        // If any output was written, attempt to clean it up before returning
+        fs.unlink(filePath, (unlinkError) => {
+          if (unlinkError) logger.debug('CleanupError', unlinkError);
+          rej(err);
+        });
+      });
+
+      command.run();
     });
   }
 
@@ -101,36 +128,40 @@ export class TranscodeService {
     logger.debug('OutputPath', filePath);
 
     return new Promise((res, rej) => {
-      ffmpeg({ timeout: MAX_FFMPEG_RUNTIME })
+      const command = ffmpeg({ logger, timeout: this.maxRuntime })
         .input(input)
         .output(filePath)
-        .outputOptions('-qscale:v 3')
-        // .on('stderr', (line: string) => {
-        //   logger.debug(`FfmpegStdErr: ${line}`);
-        // })
-        .on('end', () => {
-          const stream = fs.createReadStream(filePath);
-          const result = {
-            stream,
-            extension: 'jpg',
-            mimeType: 'image/jpeg',
-          };
-          fs.unlink(filePath, (unlinkError) => {
-            if (unlinkError) logger.error(unlinkError, 'CleanupError');
-            logger.debug('TranscodeResult', result);
-            res(result);
-          });
-        })
-        .on('error', (err) => {
-          logger.error(err, 'FfmpegError');
+        .outputOptions('-qscale:v 3');
 
-          // If any output was written, attempt to clean it up before returning
-          fs.unlink(filePath, (unlinkError) => {
-            if (unlinkError) logger.debug('CleanupError', unlinkError);
-            rej(err);
-          });
-        })
-        .run();
+      command.on('stderr', (line: string) => {
+        logger.debug(`FfmpegStdErr: ${line}`);
+      });
+
+      command.on('end', () => {
+        const stream = fs.createReadStream(filePath);
+        const result = {
+          stream,
+          extension: 'jpg',
+          mimeType: 'image/jpeg',
+        };
+        fs.unlink(filePath, (unlinkError) => {
+          if (unlinkError) logger.error(unlinkError, 'CleanupError');
+          logger.debug('TranscodeResult', result);
+          res(result);
+        });
+      });
+
+      command.on('error', (err) => {
+        logger.error(err, 'FfmpegError');
+
+        // If any output was written, attempt to clean it up before returning
+        fs.unlink(filePath, (unlinkError) => {
+          if (unlinkError) logger.debug('CleanupError', unlinkError);
+          rej(err);
+        });
+      });
+
+      command.run();
     });
   }
 }
