@@ -27,8 +27,6 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   onComplete,
 }) => {
   const audioRecorder = useAudioRecorder();
-  // HACK HACK HACK
-  audioRecorder.state = 'audio-ready';
 
   if (audioRecorder.state === 'audio-ready') {
     return (
