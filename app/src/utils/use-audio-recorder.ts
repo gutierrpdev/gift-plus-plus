@@ -1,11 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import MediaRecorderPolyfill from 'audio-recorder-polyfill';
 import 'md-gum-polyfill';
 
-import { getLogger } from './logging';
 import { assertNever } from './helpers';
 
-const logger = getLogger('use-audio-recorder');
 const MediaRecorder = window.MediaRecorder || MediaRecorderPolyfill;
 
 
@@ -182,8 +180,30 @@ export const useAudioRecorder: () => AudioRecorder = () => {
   return assertNever(state);
 };
 
-
 /**
- * TODO
+ * Can this device record audio?
+ * Returns boolean
  */
-export const canUseAudioRecorder = () => !!navigator.mediaDevices.getUserMedia;
+export const canUseAudioRecorder = (): boolean => {
+
+  // Check for different implementations on browsers
+  if (navigator.getUserMedia) {
+    return true;
+  } else if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    return true;
+  }
+
+  // Default to no support
+  return false;
+
+};
+
+/***
+ * Is this running in the Safari browser on iOS?
+ * Return true or false
+ */
+export const isSafariOnIos = (): boolean => {
+  const isIos = navigator.userAgent.match(/iPhone|iPad|iPod/i) || false;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  return isIos && isSafari;
+};

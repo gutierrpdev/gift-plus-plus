@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { Gift, InProgressGift } from '../src/domain';
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
 
 // Components
@@ -31,6 +31,8 @@ import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
 import { InfoPopover } from '../src/components/info-popover';
 import { WorkingModal } from '../src/components/working-modal';
+import { MessageModal } from '../src/components/message-modal';
+import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -104,7 +106,14 @@ storiesOf('Home', module)
 ;
 
 storiesOf('Creating', module)
-  .add('Create gift', () => <CreateGift gift={emptyGift} />)
+  .add('Create gift', () => (
+    <>
+      <GlobalStyles />
+      <BrowserRouter>
+        <CreateGift gift={emptyGift} />
+      </BrowserRouter>
+    </>
+  ))
 ;
 
 storiesOf('Receiving', module)
@@ -500,6 +509,18 @@ storiesOf('Components', module)
       />
     </>
   ))
+  .add('Message Modal', () => (
+    <>
+      <GlobalStyles />
+      <MessageModal>
+        <p>There seems to be a problem with the internet.</p>
+        <p>Reboot it.</p>
+        <BrowserRouter>
+          <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+        </BrowserRouter>
+      </MessageModal>
+    </>
+  ))
 ;
 
 // Tests
@@ -532,7 +553,16 @@ storiesOf('Tests', module)
         </defs>
       </svg>
     </>
-  ));
+  ))
+  .add('Audio recorder detection', () => {
+    const canUseAudioRec = canUseAudioRecorder();
+    // console.log(canUseAudioRec);
+    // console.log(navigator.mediaDevices.getUserMedia);
+    return (
+      <p>Can use audio = {canUseAudioRec.toString()}</p>
+    );
+  })
+  ;
 
 // Receiving components
 storiesOf('Components/Receiving', module)

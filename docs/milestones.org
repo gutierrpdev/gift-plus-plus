@@ -49,7 +49,7 @@
      - Email
      - WhatsApp
 
-** TODO Account management (frontend) [3/9] <2019-04-19 Fri>
+** TODO Account management (frontend) [4/9] <2019-04-19 Fri>
    DEADLINE: <2019-04-19 Fri>
    - [ ] Sign-up
    - [ ] Login
@@ -58,16 +58,16 @@
      - [X] At a museum
    - [X] View created gifts
    - [X] View received gifts
-   - [ ] Menu / Cross in appropriate places
-     - [ ] Home
-     - [ ] Creating
-     - [ ] Receiving
+   - [X] Menu / Cross in probably-appropriate places
+     - [X] Home
+     - [X] Creating
+     - [X] Receiving
    - [ ] Create account / login after creating gift to own it [TBD]
    - [ ] Create account / login after receiving gift to save in history [TBD]
 
 ** TODO Gift creation (backend + intergation) [0/5] <2019-04-25 Thu>
    DEADLINE: <2019-04-25 Thu>
-   - [ ] Upload media whenever / and as efficiently as possible
+   - [ ] Upload media
    - [ ] Save to API
    - [ ] Transcode media to appropriate format
    - [ ] No auth -- save as anonymous user

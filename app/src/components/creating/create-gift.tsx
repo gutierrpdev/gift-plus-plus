@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { InProgressGift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
@@ -10,6 +11,9 @@ import { CreateGiftRecordAndPlayback } from '../creating/record-and-playback';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { BgSvgFullScreen } from '../svg/bg';
+import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
+import { MessageModal } from '../../components/message-modal';
+import { Button } from '../../components/buttons';
 
 /**
  * Gift Create screen top level component
@@ -36,6 +40,19 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
   const headerState = (status === 'intro' || status === 'choose-recipient')
                     ? 'name-unknown'
                     : 'named-small';
+
+  // Check if this phone supports recording audio
+  const canRecordAudio = canUseAudioRecorder();
+
+  // If we can't record audio inform and force end
+  if (!canRecordAudio) {
+    return (
+      <MessageModal>
+        <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
+        <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+      </MessageModal>
+    );
+  }
 
   return (
 
