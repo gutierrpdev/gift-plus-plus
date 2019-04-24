@@ -5,6 +5,9 @@ import { global } from '../themes/global';
 
 /***
  * Provides the sneak peak reveal
+ *
+ * Currently we are using clip-path: circle
+ * This is not supported on MS Edge
  * https://www.html5rocks.com/en/tutorials/masking/adobe/
  */
 interface PanelImageRevealProps {
