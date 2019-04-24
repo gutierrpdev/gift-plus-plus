@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import MediaRecorderPolyfill from 'audio-recorder-polyfill';
-import 'md-gum-polyfill';
 
 import { getLogger } from './logging';
 import { assertNever } from './helpers';
@@ -75,9 +74,7 @@ export const useAudioRecorder: () => AudioRecorder = () => {
         setState({ kind: 'preparing' });
 
         // Prepare a media stream
-        navigator.mediaDevices.getUserMedia(
-          { audio: true, video: false },
-        ).then(
+        getUserMedia({ audio: true, video: false }).then(
           (stream) => {
             // Setup a new MediaRecorder
             const recorder = new MediaRecorder(stream);
@@ -184,6 +181,52 @@ export const useAudioRecorder: () => AudioRecorder = () => {
 
 
 /**
- * TODO
+ * A basic simulation of navigator.mediaDevices.getUserMedia which simply
+ * rejects with an error.  We use this on unsupported devices.
+ *
+ * TODO: This should reject with a valid MediaStreamError to maintain consistent
+ * interface.
  */
-export const canUseAudioRecorder = () => !!navigator.mediaDevices.getUserMedia;
+const UnsupportedGetUserMedia: MediaDevices['getUserMedia'] = () => Promise.reject(
+  new Error('getUserMedia is not implemented in this browser'),
+);
+
+
+/**
+ * Basic polyfill for navigator.mediaDevices.getUserMedia.
+ *
+ * Bits from: https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill
+ */
+const getUserMedia: MediaDevices['getUserMedia'] = (() => {
+  // If we have a promise-based navigator.mediaDevices.getUserMedia, use it.
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    return navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+  }
+
+  // Check to see if we have an older-style navigator.getUserMedia
+  const navigatorGetUserMedia = (navigator.getUserMedia ||
+                                 (navigator as any).webkitGetUserMedia ||
+                                 (navigator as any).mozGetUserMedia ||
+                                 (navigator as any).msGetUserMedia);
+
+  // Some browsers just don't implement it - return our promise rejector to keep
+  // a consistent interface.
+  if (!navigatorGetUserMedia) {
+    return UnsupportedGetUserMedia;
+  }
+
+  // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+  const wrappedGetUserMedia: MediaDevices['getUserMedia'] = (constraints) => new Promise(
+    (successCallback, errorCallback) => {
+      navigatorGetUserMedia.call(navigator, constraints, successCallback, errorCallback);
+    },
+  );
+
+  return wrappedGetUserMedia;
+})();
+
+
+/**
+ * Determine whether or not this device should be able to record audio
+ */
+export const canUseAudioRecorder = () => getUserMedia !== UnsupportedGetUserMedia;
