@@ -33,6 +33,7 @@ import { InfoPopover } from '../src/components/info-popover';
 import { WorkingModal } from '../src/components/working-modal';
 import { MessageModal } from '../src/components/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
+import { PageChangeDetect } from '../src/components/page-change-detect';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -519,6 +520,15 @@ storiesOf('Components', module)
           <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
         </BrowserRouter>
       </MessageModal>
+    </>
+  ))
+  .add('Tab close detect', () => (
+    <>
+      <BrowserRouter>
+        <PageChangeDetect />
+          <div><a href='http://www.google.com'>Go to Google</a></div>
+          <Link to='your-gifts'>Go to Your Gifts</Link>
+      </BrowserRouter>
     </>
   ))
 ;

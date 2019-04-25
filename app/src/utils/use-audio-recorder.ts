@@ -197,13 +197,3 @@ export const canUseAudioRecorder = (): boolean => {
   return false;
 
 };
-
-/***
- * Is this running in the Safari browser on iOS?
- * Return true or false
- */
-export const isSafariOnIos = (): boolean => {
-  const isIos = navigator.userAgent.match(/iPhone|iPad|iPod/i) || false;
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  return isIos && isSafari;
-};

@@ -14,6 +14,7 @@ import { BgSvgFullScreen } from '../svg/bg';
 import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
 import { MessageModal } from '../../components/message-modal';
 import { Button } from '../../components/buttons';
+import { PageChangeDetect } from '../page-change-detect';
 
 /**
  * Gift Create screen top level component
@@ -59,6 +60,7 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
     <ScreenManager>
       <BgSvgFullScreen />
       <GlobalStyles />
+      <PageChangeDetect confirmationMessage='Are you sure you want to cancel making your Gift?' />
 
       {/* Header */}
       {headerState === 'name-unknown' &&
