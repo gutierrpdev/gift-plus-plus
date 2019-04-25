@@ -50,7 +50,11 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
     return (
       <Panel>
         <PanelContent>
-          <TextInput placeHolder={'Their first name'} onTextChanged={setRecipientName} />
+          <TextInput
+            placeHolder={'Their first name'}
+            onTextChanged={setRecipientName}
+            onEnterPressed={() => {onComplete(recipientName); }}
+          />
         </PanelContent>
         <Buttons>
           {recipientName &&

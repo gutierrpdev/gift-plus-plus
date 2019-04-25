@@ -60,7 +60,11 @@ export const SignGift: React.FC<Props> = () => {
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Sign it</PanelSubTitle>
         <PanelContent>
-          <TextInput placeHolder={'Your first name'} onTextChanged={setSenderName} />
+          <TextInput
+            placeHolder={'Your first name'}
+            onTextChanged={setSenderName}
+            // onEnterPressed={() => {onComplete(recipientName); }}
+          />
         </PanelContent>
         <Buttons>
           {senderName &&

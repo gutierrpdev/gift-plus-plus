@@ -443,7 +443,7 @@ storiesOf('Components', module)
   .add('Text Area Input', () => (
     <div style={greyBG}>
       <GlobalStyles />
-      <TextAreaInput />
+      <TextAreaInput onEnterPressed={() => {alert('Enter pressed'); }} />
       <TextAreaInput onTextChanged={(text) => logSomething(text)} />
       <TextAreaInput placeHolder={'enter something'} onTextChanged={(text) => logSomething(text)} />
       <TextAreaInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
@@ -459,6 +459,7 @@ storiesOf('Components', module)
         placeHolder={'enter your name'}
         defaultValue={'lorem impsum'}
         onTextChanged={(text) => logSomething(text)}
+        onEnterPressed={() => {alert('enter pressed'); }}
       />
       <p>Email inputs</p><br/>
       <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />

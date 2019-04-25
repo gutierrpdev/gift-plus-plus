@@ -399,7 +399,11 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
         <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
         <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
-            <TextAreaInput placeHolder={'Write a clue'} onTextChanged={handleClueChanged} />
+            <TextAreaInput
+              placeHolder={'Write a clue'}
+              onTextChanged={handleClueChanged}
+              onEnterPressed={handleClueChanged}
+            />
         </PanelContent>
         <Buttons>
           {<Button onClick={() => clearClueAndNext()}>Skip</Button>}

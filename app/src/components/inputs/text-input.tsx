@@ -17,20 +17,39 @@ const TextInputStyled = styled.input.attrs<TextInputProps>((props) => ({
 `;
 
 interface TextInputProps {
-  inputType?: 'text' | 'email';
-  defaultValue?: string;
-  placeHolder?: string;
-  textSize?: number;
-  onTextChanged?: (text: string) => void;
+  inputType?: 'text' | 'email'; // The type of input
+  defaultValue?: string; // The default value to show
+  placeHolder?: string; // Placeholder text to show
+  textSize?: number; // Textsize
+  onTextChanged?: (text: string) => void; // Callback event to call when the text is changed
+  onEnterPressed?: (text: string) => void; // Callback event to call when the enter key is pressed
 }
 
 const TextInput: React.FC<TextInputProps> = ( props ) => {
 
+  // Handle the text change
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+
+    // Check for on change callback event
     if (props.onTextChanged) {
       props.onTextChanged(event.target.value.trim());
     }
+
   }
+
+  // Handle a key press
+  function handleKeyPress(event: React.KeyboardEvent) {
+
+    // Get the value
+    const value = (event.target as HTMLInputElement).value;
+
+    // Check if the enter key is pressed, we have a value, and we have a callback
+    if (props.onEnterPressed && event.key === 'Enter' && value.trim()) {
+      props.onEnterPressed(value.trim());
+    }
+
+  }
+
 
   return (
     <TextInputStyled
@@ -39,6 +58,7 @@ const TextInput: React.FC<TextInputProps> = ( props ) => {
       textSize={props.textSize}
       placeholder={props.placeHolder}
       onChange={handleChange}
+      onKeyPress={handleKeyPress}
     />
   );
 };
