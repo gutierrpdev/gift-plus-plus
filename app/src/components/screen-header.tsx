@@ -353,6 +353,10 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   );
 };
 
+ScreenHeader.defaultProps = {
+  showMenuBurger: true,
+};
+
 export {
   ScreenHeader,
 };
