@@ -35,6 +35,7 @@ import { MessageModal } from '../src/components/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
 import { PageChangeDetect } from '../src/components/page-change-detect';
 import { isIosDeviceUsingChrome } from '../src/utils/helpers';
+import { SignIn } from '../src/components/home/signin';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -103,6 +104,11 @@ storiesOf('Home', module)
   .add('Home', () => (
     <BrowserRouter>
       <HomeScreen />
+    </BrowserRouter>
+  ))
+  .add('Sign in', () => (
+    <BrowserRouter>
+      <SignIn />
     </BrowserRouter>
   ))
 ;

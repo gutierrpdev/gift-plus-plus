@@ -9,12 +9,13 @@ import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { WaitThen } from '../wait-then';
 import { BgSvgFullScreen } from '../svg/bg';
+import { TextInput } from '../inputs/text-input';
 
 /**
  * Login top level component
  */
 
-const Login: React.FC = () => {
+const SignIn: React.FC = () => {
 
   return (
 
@@ -22,16 +23,26 @@ const Login: React.FC = () => {
       <BgSvgFullScreen />
       <GlobalStyles />
 
-      {/* Header */}
       <ScreenHeader
         title={`Sign in`}
+        showMenuBurger={false}
       />
 
-      {/* Content */}
       <Panel>
-
-        Sign in
-
+        <PanelContent>
+          <TextInput
+            placeHolder={'Your email address'}
+            // onTextChanged={setRecipientName}
+            // onEnterPressed={() => {onComplete(recipientName); }}
+          />
+        </PanelContent>
+        <Buttons>
+          {/* {recipientName &&
+           <Button onClick={() => onComplete(recipientName)} primary={true}>
+             Enter
+           </Button>
+          } */}
+        </Buttons>
       </Panel>
 
     </ScreenManager>
@@ -40,5 +51,5 @@ const Login: React.FC = () => {
 };
 
 export {
-  Login,
+  SignIn,
 };

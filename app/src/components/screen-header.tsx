@@ -96,12 +96,13 @@ interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy
   openHelp: () => void; // Callback to open help
   openFeedback: () => void; // Callback to open feedback
+  openSignIn: () => void; // Callback to open SignIn
 }
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
     <MenuItem><Link to='/your-gifts'>Your gifts</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
-    <MenuItem><Link to='/sign-in'>Sign-in</Link></MenuItem>
+    <MenuItem onClick={props.openSignIn}>Sign-in</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem onClick={props.openFeedback}>Feedback</MenuItem>
   </MenuStyle>
@@ -181,6 +182,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
+  const [signInIsOpen, setSignInIsOpen] = useState(false);
 
   // Functions
   function toggleMenu() {
@@ -200,10 +202,11 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
           openFeedback={() => { setFeedbackIsOpen(true); }}
+          openSignIn={() => { setSignInIsOpen(true); }}
         />
       }
 
-      {props.showMenuBurger || true && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
+      {props.showMenuBurger && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
       {isMenuOpen && <SvgCloseStyled onClick={toggleMenu} />}
       {/* {props.showCloseButton || true && <SvgCloseCircleStyled />} */}
 
@@ -333,6 +336,19 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         <p>Some notes on leaving feedback.</p>
       </InfoPopover>
     }
+
+
+    {/* == SignIn == */}
+    {signInIsOpen &&
+      <InfoPopover
+        onClose={() => { setSignInIsOpen(false); }}
+      >
+        <h1>Signin</h1>
+        <p>Some notes on leaving feedback.</p>
+      </InfoPopover>
+    }
+
+
     </>
   );
 };
