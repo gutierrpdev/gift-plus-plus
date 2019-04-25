@@ -29,3 +29,12 @@ export function isIosDevice(): boolean {
 
   return false;
 }
+
+
+/***
+ * Returns if this is an iOS device using Chrome
+ */
+export function isIosDeviceUsingChrome(): boolean {
+  // CriOS is unique to Chrome on Safari
+  return !!navigator.userAgent.match('CriOS');
+}

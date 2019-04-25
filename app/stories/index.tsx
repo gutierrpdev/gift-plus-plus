@@ -34,6 +34,7 @@ import { WorkingModal } from '../src/components/working-modal';
 import { MessageModal } from '../src/components/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
 import { PageChangeDetect } from '../src/components/page-change-detect';
+import { isIosDeviceUsingChrome } from '../src/utils/helpers';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -570,6 +571,12 @@ storiesOf('Tests', module)
     // console.log(navigator.mediaDevices.getUserMedia);
     return (
       <p>Can use audio = {canUseAudioRec.toString()}</p>
+    );
+  })
+  .add('Is Chrome on iOS', () => {
+    const chromeOnIos = isIosDeviceUsingChrome();
+    return (
+      <p>Is Chrome on iOS = {chromeOnIos.toString()}</p>
     );
   })
   ;

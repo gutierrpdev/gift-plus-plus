@@ -15,6 +15,7 @@ import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
 import { MessageModal } from '../../components/message-modal';
 import { Button } from '../../components/buttons';
 import { PageChangeDetect } from '../page-change-detect';
+import { isIosDeviceUsingChrome } from '../../utils/helpers';
 
 /**
  * Gift Create screen top level component
@@ -45,15 +46,30 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
   // Check if this phone supports recording audio
   const canRecordAudio = canUseAudioRecorder();
 
-  // If we can't record audio inform and force end
-  if (!canRecordAudio) {
+  // If this is an iOS device using Chrome prompt the user to use Safari, as they will have it
+  if (isIosDeviceUsingChrome()) {
+
     return (
       <MessageModal>
-        <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
-        <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+        <p>You are using the Chrome browser which doesn't allow you to record audio.</p>
+        <p>Please open your Safari browser which will allow you to create a Gift.</p>
       </MessageModal>
     );
+
+  } else {
+
+    // If we can't record audio inform and force end
+    if (!canRecordAudio) {
+      return (
+        <MessageModal>
+          <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
+          <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+        </MessageModal>
+      );
+    }
+
   }
+
 
   return (
 
