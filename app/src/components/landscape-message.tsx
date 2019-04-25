@@ -19,7 +19,9 @@ export const LandscapeMessage: React.FC = () => {
 
   // Return whether the screen is landscape
   function getIsLandscape(): boolean {
-    return window.innerWidth > window.innerHeight;
+    // Note: dont compare width vs height, as when the keyboard appears on mobile the height can be < width
+    // Note: dont use window.matchMedia('(orientation: landscape)') as it gives false results
+    return window.orientation === 90 || window.orientation === -90;
   }
 
   // Updates the state with the current orientation
