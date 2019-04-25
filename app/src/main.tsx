@@ -8,6 +8,7 @@ import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
 import { LoginScreen } from './screens/login';
+import { LandscapeMessage } from './components/landscape-message';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -18,6 +19,7 @@ import { LoginScreen } from './screens/login';
 
 export const Main: React.FC = () => (
   <Router>
+    <LandscapeMessage />
     <Switch>
 
       <Route exact={true} path='/'>

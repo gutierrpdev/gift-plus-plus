@@ -38,3 +38,11 @@ export function isIosDeviceUsingChrome(): boolean {
   // CriOS is unique to Chrome on Safari
   return !!navigator.userAgent.match('CriOS');
 }
+
+/***
+ * Returns is this is a mobile device
+ */
+export function isMobileDevice(): boolean {
+  /* tslint:disable-next-line max-line-length */
+  return !!(/Android|webOS|iPhone|iPad|iPod|BB10|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(navigator.userAgent || ''));
+}

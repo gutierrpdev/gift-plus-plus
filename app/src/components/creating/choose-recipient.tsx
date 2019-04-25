@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';

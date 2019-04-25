@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import { global } from '../themes/global';
 
 const Outer = styled.div`
-  background-color: ${global.colour.lightGrey};
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  background-color: ${global.colour.lightGrey};
   display: flex;
   align-items: center;
+  z-index: 9999;
 `;
 
 const Inner = styled.div`
@@ -16,6 +20,7 @@ const Inner = styled.div`
   margin: 0 auto;
   max-width: 300px;
   color: black;
+  text-align: center;
 `;
 
 interface Props {
