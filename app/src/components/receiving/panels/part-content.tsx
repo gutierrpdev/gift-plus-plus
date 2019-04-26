@@ -85,7 +85,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     if (section === 3) {
 
       // Check if we have a clue
-      if (giftPart && giftPart.clue) {
+      if (giftPart && giftPart.clue.trim()) {
         // Skip
         setSection(5);
       } else {
@@ -108,7 +108,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     const nextPart = props.giftPartIndex + 2; // 1 for the index and 1 as next
 
     // Check if we have a clue
-    const haveClue = giftPart && giftPart.clue;
+    const haveClue = giftPart && giftPart.clue.trim();
 
     switch (section) {
       case 3: // give me a clue
