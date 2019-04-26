@@ -5,6 +5,7 @@ import { TextResize } from './text-resize';
 
 const ScreenPostTitle = styled(TextResize).attrs({
   textSize: 40,
+  scaleDownForSmallDevices: true,
 })`
   margin: 0 0 0.5vw;
   @media (min-width: ${global.desktop.startPixels}px) {

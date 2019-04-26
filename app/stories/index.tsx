@@ -331,21 +331,21 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Photo Capture', () => (
-    <>
-    <GlobalStyles />
-    <img id='photo-capture-img' style={{maxWidth: '200px'}} />
-    {/* <PhotoCapture text={'take a photo'}/> */}
-    <PhotoCapture
-      text={`Have a wander to find the second object for Nick.
-        Why not visit another part of the museum?
-        When you’ve found it take a photo to show them.`}
-      textSize={30}
-      onPhotoTaken={ ( imageUrl: string ) => {
-        const img: HTMLImageElement = document.getElementById('photo-capture-img') as HTMLImageElement;
-        img.src = imageUrl;
-      }}
-    />
-    </>
+    <ScreenManager>
+      <GlobalStyles />
+      <img id='photo-capture-img' style={{maxWidth: '200px'}} />
+      {/* <PhotoCapture text={'take a photo'}/> */}
+      <PhotoCapture
+        text={`Have a wander to find the second object for Nick.
+          Why not visit another part of the museum?
+          When you’ve found it take a photo to show them.`}
+        textSize={42}
+        onPhotoTaken={ ( imageUrl: string ) => {
+          const img: HTMLImageElement = document.getElementById('photo-capture-img') as HTMLImageElement;
+          img.src = imageUrl;
+        }}
+      />
+    </ScreenManager>
   ))
   .add('Image rotate', () => {
     document.addEventListener('DOMContentLoaded', () => {

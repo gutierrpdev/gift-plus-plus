@@ -271,7 +271,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
               text={`Have a wander to find the second object for ${recipientName}.
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them.`}
-              textSize={47}
+              textSize={42}
               onPhotoTaken={handlePhotoTaken}
               showCamera={showCamera}
             />

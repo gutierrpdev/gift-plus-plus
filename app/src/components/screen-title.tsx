@@ -10,6 +10,7 @@ export interface ScreenTitleProps {
 
 const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
     textSize: props.titleSize === 'very-big' ? 350 : 90,
+    scaleDownForSmallDevices: true,
     // todo text size should be dynamic calculated to allow for long names
   }))<ScreenTitleProps>`
   line-height: 1;
