@@ -108,7 +108,7 @@ storiesOf('Home', module)
   ))
   .add('Sign in', () => (
     <BrowserRouter>
-      <SignIn />
+      <SignIn onCloseButtonClick={doNothing} />
     </BrowserRouter>
   ))
 ;

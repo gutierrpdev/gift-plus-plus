@@ -10,8 +10,10 @@ import { ScreenLogo } from './screen-logo';
 import { InfoPopover } from './info-popover';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
-import SvgCloseCircle from './svg/close-circle';
+import { SignIn } from './home/signin';
+import { HeaderCloseButton } from './home/header-close-button';
 import SvgClose from './svg/close';
+
 
 /***
  * Global screen header
@@ -25,15 +27,6 @@ const SvgCloseStyled = styled(SvgClose)`
   position: absolute;
   cursor: pointer;
   z-index: 500;
-`;
-
-// Close circle
-const SvgCloseCircleStyled = styled(SvgCloseCircle)`
-  width: 8%;
-  top: 2.5%;
-  right: 2%;
-  position: absolute;
-  cursor: pointer;
 `;
 
 
@@ -137,7 +130,8 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       {props.showMenuBurger && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
       {isMenuOpen && <SvgCloseStyled onClick={toggleMenu} />}
-      {props.showCloseButton && <SvgCloseCircleStyled />}
+
+      {props.showCloseButton && <HeaderCloseButton />}
 
       <HeaderTexts>
 
@@ -269,14 +263,10 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
     {/* == SignIn == */}
     {signInIsOpen &&
-      <InfoPopover
-        onClose={() => { setSignInIsOpen(false); }}
-      >
-        <h1>Signin</h1>
-        <p>Some notes on leaving feedback.</p>
-      </InfoPopover>
+      <SignIn
+        onCloseButtonClick={() => { setSignInIsOpen(false); }}
+      />
     }
-
 
     </>
   );

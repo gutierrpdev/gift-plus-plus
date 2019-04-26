@@ -28,12 +28,12 @@ const InfoPopoverInner = styled.div`
   overflow: scroll;
 `;
 
-interface InfoPopoverProps {
+interface Props {
   onClose: () => void;
 }
 
 // Info Popover component
-const InfoPopover: React.FC<InfoPopoverProps> = (props) => {
+const InfoPopover: React.FC<Props> = (props) => {
 
   function handleClose() {
     if (props.onClose) {
