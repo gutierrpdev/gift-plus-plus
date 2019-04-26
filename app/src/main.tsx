@@ -7,7 +7,6 @@ import { ReceiveGiftScreen } from './screens/receive-gift';
 import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
-import { LoginScreen } from './screens/login';
 import { LandscapeMessage } from './components/landscape-message';
 
 /**
@@ -32,10 +31,6 @@ export const Main: React.FC = () => (
 
       <Route exact={true} path='/your-gifts'>
         <HomeGiftsScreen />
-      </Route>
-
-      <Route exact={true} path='/sign-in'>
-        <LoginScreen />
       </Route>
 
       <Route exact={true} path='/create-gift'>
