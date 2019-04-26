@@ -26,6 +26,7 @@ const SignIn: React.FC = () => {
       <ScreenHeader
         title={`Sign in`}
         showMenuBurger={false}
+        showCloseButton={true}
       />
 
       <Panel>
