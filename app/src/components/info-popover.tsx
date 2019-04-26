@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
+import { BaseModal } from './modal';
 import SvgCloseCircle from './svg/close-circle';
 
 // Close circle
@@ -13,14 +14,8 @@ const SvgCloseCircleStyled = styled(SvgCloseCircle)`
   z-index: 10;
 `;
 
-const InfoPopoverOuter = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+const InfoPopoverOuter = styled(BaseModal)`
   background-color: white;
-  z-index: 5000;
 `;
 
 const InfoPopoverInner = styled.div`

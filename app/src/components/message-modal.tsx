@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BaseModal } from './modal';
 
 import { global } from '../themes/global';
 
-const Outer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+const Outer = styled(BaseModal)`
   background-color: ${global.colour.lightGrey};
   display: flex;
   align-items: center;
-  z-index: 9999;
 `;
 
 const Inner = styled.div`

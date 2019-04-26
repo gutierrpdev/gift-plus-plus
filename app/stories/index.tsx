@@ -501,7 +501,8 @@ storiesOf('Components', module)
     </>
   ))
   .add('Info Popover', () => (
-    <>
+    <ScreenManager>
+      <GlobalStyles />
       <InfoPopover onClose={doNothing}>
         <h1>Privacy</h1>
         <h2>Sub heading</h2>
@@ -509,17 +510,19 @@ storiesOf('Components', module)
         labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
         Semper feugiat nibh sed pulvinar proin.</p>
       </InfoPopover>
-    </>
+    </ScreenManager>
   ))
   .add('Working Modal', () => (
-    <>
+    <ScreenManager>
+      <GlobalStyles />
       <WorkingModal
         message='Hey, we need to get online to do some magic.'
+        status='Saving...'
       />
-    </>
+    </ScreenManager>
   ))
   .add('Message Modal', () => (
-    <>
+    <ScreenManager>
       <GlobalStyles />
       <MessageModal>
         <p>There seems to be a problem with the internet.</p>
@@ -528,7 +531,7 @@ storiesOf('Components', module)
           <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
         </BrowserRouter>
       </MessageModal>
-    </>
+    </ScreenManager>
   ))
   .add('Tab close detect', () => (
     <>

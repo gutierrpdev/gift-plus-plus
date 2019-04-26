@@ -2,12 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import { BaseModal } from './modal';
 import { TextResize } from './text-resize';
 
-const Outer = styled.div`
-  background-color: ${global.colour.darkGrey};
-  width: 100%;
-  height: 100vh;
+import SvgGift from './svg/gift';
+
+const GiftImg = styled.div`
+  margin: 5% auto 10%;
+  width: 35%;
+`;
+
+const Outer = styled(BaseModal)`
+  background-color: ${global.colour.lightGrey};
   display: flex;
   align-items: center;
 `;
@@ -16,18 +22,37 @@ const Inner = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: 300px;
+  justify-items: center;
+  text-align: center;
+`;
+
+const Message = styled(TextResize)`
+
+`;
+
+const Status = styled(TextResize)`
+  margin: 10% 0 0;
 `;
 
 interface Props {
   message: string; // The message to show the user
+  status?: string; // Optional status, e.g. 'Saving...'
 }
 
-const WorkingModal: React.FC<Props> = ({ message }) => {
+const WorkingModal: React.FC<Props> = ({ message, status }) => {
 
   return (
     <Outer>
       <Inner>
-        <TextResize>{message}</TextResize>
+
+        <GiftImg>
+          <SvgGift colour='white' />
+        </GiftImg>
+
+        <Message>{message}</Message>
+
+        {status && <Status textSize={30}>{status}</Status>}
+
       </Inner>
     </Outer>
   );
