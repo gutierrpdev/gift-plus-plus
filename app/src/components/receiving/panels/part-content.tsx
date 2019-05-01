@@ -259,6 +259,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               background={'transparent-black'}
               allowCompactRound={true}
               border='dotted-white'
+              onClick={handleContinue}
             />
             <WaitThen
               wait={defaultWait}
@@ -285,6 +286,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               background={'transparent-black'}
               allowCompactRound={true}
               border='dotted-white'
+              onClick={handleContinue}
             />
             <WaitThen
               wait={defaultWait}
@@ -316,7 +318,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* here is help */}
         {section === 6 &&
           <>
-            <PanelPrompt text={'Here you go...'} background={'transparent-black'} allowCompactRound={true} />
+            <PanelPrompt
+              text={'Here you go...'}
+              background={'transparent-black'}
+              allowCompactRound={true}
+              onClick={gotoFound}
+            />
             <WaitThen
               wait={defaultWait}
               andThen={gotoFound}
