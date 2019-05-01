@@ -1,7 +1,7 @@
 import React from 'react';
+import history from '../src/utils/router-history';
 import { storiesOf } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
 
@@ -589,7 +589,27 @@ storiesOf('Tests', module)
       <p>Is Chrome on iOS = {chromeOnIos.toString()}</p>
     );
   })
-  ;
+  .add('Hash Router', () => {
+    function pushToHistory() {
+      history.push('/test1');
+    }
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route path='/test1'>
+            <p>This is 1</p>
+          </Route>
+          <Route  path='/test2'>
+            <p>This is 2</p>
+          </Route>
+        </Switch>
+        <div><Link to='test1'>Goto 1</Link></div>
+        <div><Link to='test2'>Goto 2</Link></div>
+        <div><Button onClick={pushToHistory}>Go to 1 via history.push</Button></div>
+      </Router>
+    );
+  })
+;
 
 // Receiving components
 storiesOf('Components/Receiving', module)
