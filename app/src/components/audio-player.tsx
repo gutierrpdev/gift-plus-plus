@@ -65,6 +65,7 @@ interface Props {
   src: string;
   forwardButton: AudioPlayerForwardButton;
   allowCompactRound?: boolean;
+  onPlaybackStarted?: () => void; // optional callback when audio playback is started
   onPlaybackComplete?: () => void; // optional callback when audio has completed playback
 }
 
@@ -133,7 +134,7 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
 
         // End of audio file
 
-        // Update the statu/UI
+        // Update the state/UI
         this.setState({
           isPlaying: false,
           playbackPercentage: 100,
@@ -168,6 +169,10 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     // Bail if no audio
     if (!this.audio) {
       return;
+    }
+
+    if (this.props.onPlaybackStarted) {
+      this.props.onPlaybackStarted();
     }
 
     if (this.audio.paused && this.audio.src) {

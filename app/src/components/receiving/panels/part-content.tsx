@@ -28,16 +28,22 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // section is 0 based incrementer of current stage
   const [section, setSection] = useState(0);
-  const [audioHasPlayed, setAudioHasPlayed] = useState(false);
+  const [audioPlaybackStarted, setAudioPlaybackStarted] = useState(false);
+  const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
 
   // Get some local references
   const giftPart: GiftPart = props.gift.parts[props.giftPartIndex];
   const giftPartCount: number = props.gift.parts.length;
   const giftSenderName: string = props.gift.senderName;
 
+  // Our audio player has started playback
+  function handleAudioPlaybackStarted() {
+    setAudioPlaybackStarted(true);
+  }
+
   // Our audio player has finished
   function handleAudioPlaybackFinished() {
-    setAudioHasPlayed(true);
+    setAudioPlaybackComplete(true);
   }
 
   function gotoFindObject() {
@@ -138,11 +144,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         return (
           <>
-            {haveClue && !audioHasPlayed &&
+            {haveClue && !audioPlaybackComplete &&
               <Button onClick={gotoGiveClueFound}>Show clue</Button>}
-            {audioHasPlayed && furtherPart &&
+            {audioPlaybackStarted && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>}
-            {audioHasPlayed && !furtherPart &&
+            {audioPlaybackStarted && !furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
         );
@@ -334,6 +340,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             text={getPlaySendersMessage()}
             src={giftPart.note}
             forwardButton={'GoToEnd'}
+            onPlaybackStarted={handleAudioPlaybackStarted}
             onPlaybackComplete={handleAudioPlaybackFinished}
             allowCompactRound={true}
           />
