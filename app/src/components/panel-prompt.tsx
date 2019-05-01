@@ -22,12 +22,13 @@ const PanelPromptStyle = styled.div<StyleProps>`
 `;
 
 interface Props {
-  text?: string;
-  textColor?: 'white' | 'black';
-  textSize?: number;
-  background?: PanelRoundBackgroundStyle;
-  allowCompactRound?: boolean;
-  border?: PanelRoundBorderStyle;
+  text?: string; // Text to show
+  textColor?: 'white' | 'black'; // Text Colour
+  textSize?: number; // Text size
+  background?: PanelRoundBackgroundStyle; // Backgroud style
+  allowCompactRound?: boolean; // Allow more compact rounds for smaller devices
+  border?: PanelRoundBorderStyle; // Border style
+  onClick?: () => void; // Action to take when clicked
 }
 
 const PanelPrompt: React.FC<Props> = (props) => (
@@ -35,6 +36,7 @@ const PanelPrompt: React.FC<Props> = (props) => (
     background={props.background || 'none'}
     allowCompact={props.allowCompactRound || false}
     border={props.border}
+    onClick={props.onClick}
   >
     <PanelPromptStyle textColor={props.textColor}>
       {/* support line breaks */}

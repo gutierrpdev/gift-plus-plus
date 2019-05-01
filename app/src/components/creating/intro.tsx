@@ -44,6 +44,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
                   special.'
             textSize={61}
             background='transparent-black'
+            onClick={() => setStatus('second-message')}
           >
             <GiftImg>
               <SvgGift colour='white' />
@@ -68,6 +69,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
             text={`It might take two minutes. It might take twenty.
               It’s what you choose.`}
             background={'transparent-black'}
+            onClick={onComplete}
           />
           <WaitThen
             wait={defaultWait}

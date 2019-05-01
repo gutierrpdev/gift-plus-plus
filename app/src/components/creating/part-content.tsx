@@ -204,7 +204,11 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
       <>
         <PanelContent>
           {giftPartIndex === 0 &&
-            <PanelPrompt text={'Time to choose your first object from the museum'} background={'transparent-black'}/>
+            <PanelPrompt
+              text={'Time to choose your first object from the museum'}
+              background={'transparent-black'}
+              onClick={() => { setStatus('second-message'); }}
+            />
           }
           <WaitThen
             wait={defaultWait}
@@ -347,26 +351,24 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
   }
 
   function renderPreClueMessage1() {
+
+    // note: goto different next section based on gift part index
+    const next = giftPartIndex === 0 ?
+              () => { setStatus('pre-clue-message2'); } :
+              () => { setStatus('write-clue'); };
+
     return (
       <>
         <PanelContent>
           <PanelPrompt
             text={`Now write a clue to help ${recipientName} find the object`}
             background={'transparent-black'}
+            onClick={next}
           />
-          {/* note: goto different next section based on gift part index */}
-          {giftPartIndex === 0 &&
-            <WaitThen
-              wait={defaultWait}
-              andThen={() => { setStatus('pre-clue-message2'); }}
-            />
-          }
-          {giftPartIndex > 0  &&
-            <WaitThen
-              wait={defaultWait}
-              andThen={() => { setStatus('write-clue'); }}
-            />
-          }
+          <WaitThen
+            wait={defaultWait}
+            andThen={next}
+          />
         </PanelContent>
         <Buttons />
       </>
@@ -381,6 +383,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
             <PanelPrompt
               text={`Mention the gallery you’re in... or something they can ask museum staff if they get really stuck.`}
               background={'transparent-black'}
+              onClick={() => { setStatus('write-clue'); }}
             />
           }
           <WaitThen
@@ -399,11 +402,11 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
         <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
         <PanelSubTitle>Write a clue</PanelSubTitle>
         <PanelContent>
-            <TextAreaInput
-              placeHolder={'Write a clue'}
-              onTextChanged={handleClueChanged}
-              onEnterPressed={handleClueChanged}
-            />
+          <TextAreaInput
+            placeHolder={'Write a clue'}
+            onTextChanged={handleClueChanged}
+            onEnterPressed={handleClueChanged}
+          />
         </PanelContent>
         <Buttons>
           {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
@@ -414,6 +417,22 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
   }
 
   function renderFinishMessage1() {
+
+    // goto different next section based on gift part index
+    // Return the function to call next
+    const next = () => {
+      switch (giftPartIndex) {
+        case 0 :
+          return setStatus('finish-message2');
+        case 1 :
+          return setStatus('send');
+        case 2 :
+          return handleAllComplete();
+        default :
+          return {};
+      }
+    };
+
     return (
       <>
         <PanelContent>
@@ -421,33 +440,20 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
             <PanelPrompt
               text={`Great, you’ve made part one of your gift for ${recipientName}.`}
               background={'transparent-black'}
+              onClick={next}
             />
           }
           {giftPartIndex === 1 &&
             <PanelPrompt
               text={`Done!`}
               background={'transparent-black'}
+              onClick={next}
             />
           }
-          {/* note: goto different next section based on gift part index */}
-          {giftPartIndex === 0 &&
-            <WaitThen
-              wait={defaultWait}
-              andThen={() => { setStatus('finish-message2'); }}
-            />
-          }
-          {giftPartIndex === 1 &&
-            <WaitThen
-              wait={defaultWait}
-              andThen={() => { setStatus('send'); }}
-            />
-          }
-          {giftPartIndex === 2 &&
-            <WaitThen
-              wait={defaultWait}
-              andThen={() => { handleAllComplete(); }}
-            />
-          }
+          <WaitThen
+            wait={defaultWait}
+            andThen={next}
+          />
         </PanelContent>
         <Buttons />
       </>
@@ -462,6 +468,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
             <PanelPrompt
               text={`They’re going to love it.`}
               background={'transparent-black'}
+              onClick={() => { setStatus('send'); }}
             />
           }
           <WaitThen
