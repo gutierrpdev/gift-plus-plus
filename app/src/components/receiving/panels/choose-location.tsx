@@ -1,21 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
-import SvgPin from '../../svg/pin';
 
 /***
  * Choose location panel
  */
 
-const PinImg = styled.div`
-  margin-top: 5%;
-  width: 30%;
-`;
-
- // Define our receiving locations
+// Define our receiving locations
 export type RecipientLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
 
 export interface ChooseLocationProps {
@@ -50,11 +43,7 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
           text={`Are you at the ${props.museumName} right now?`}
           background={'transparent-black'}
           allowCompactRound={true}
-        >
-          <PinImg>
-            <SvgPin />
-          </PinImg>
-        </PanelPrompt>
+        />
       </PanelContent>
       <Buttons>
         <Button onClick={handleNotAtMuseum}>No</Button>
