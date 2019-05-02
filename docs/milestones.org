@@ -1,4 +1,4 @@
-* Milestones [5/12]
+* Milestones [6/13]
 ** DONE Initial project setup [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -34,9 +34,8 @@
    - [X] Work offline after first load
    - [X] UI + Logic wired up
 
-** TODO Gift creation (frontend) [3/4] <2019-04-12 Fri>
-   DEADLINE: <2019-04-12 Fri>
-   - [ ] Work offline
+** DONE Gift creation (frontend) [3/4] <2019-04-12 Fri>
+   CLOSED: [2019-05-02 Thu 12:10] DEADLINE: <2019-04-12 Fri>
    - [X] Create multiple gift parts
      - Text
      - Images
@@ -49,8 +48,8 @@
      - Email
      - WhatsApp
 
-** TODO Gift creation (backend + intergation) [1/5] <2019-04-25 Thu>
-   DEADLINE: <2019-04-25 Thu>
+** TODO Gift creation (backend + intergation) [1/5] <2019-05-10 Fri>
+   DEADLINE: <2019-05-10 Fri>
    - [ ] Upload media
    - [ ] Save to API
    - [X] Transcode media to appropriate format
@@ -79,8 +78,13 @@
    - [ ] Polish
    - [ ] Event tracking
 
-** TODO Account management (frontend) [4/9] <2019-04-19 Fri>
-   DEADLINE: <2019-04-19 Fri>
+** TODO Production set up [0/3] <2019-05-17 Fri>
+   DEADLINE: <2019-05-17 Fri>
+   - [ ] Domains
+   - [ ] Configure production servers
+   - [ ] CI to deploy to production
+
+** TODO Account management (frontend) [4/9]
    - [ ] Sign-up
    - [ ] Login
    - [ ] Logout
@@ -95,8 +99,7 @@
    - [ ] Create account / login after creating gift to own it [TBD]
    - [ ] Create account / login after receiving gift to save in history [TBD]
 
-** TODO Account management (backend + integration) [0/8] <2019-05-03 Fri>
-   DEADLINE: <2019-05-03 Fri>
+** TODO Account management (backend + integration) [0/8]
    - [ ] Sign-up
    - [ ] Verify account
      - [ ] Handle actions on verification
@@ -112,15 +115,8 @@
    - [ ] Create account / login after creating gift to own it [TBD]
    - [ ] Create account / login after receiving gift to save in history [TBD]
 
-** TODO Respond to gifts [0/3] <2019-05-03 Fri>
-   DEADLINE: <2019-05-03 Fri>
+** TODO Respond to gifts [0/3]
    - [ ] Record / Enter a response (TBD)
    - [ ] Notify about response
      - Email the gift creator, but don't share respondants email address with them
    - [ ] View response
-
-** TODO Production set up [0/1] <2019-05-17 Fri>
-   DEADLINE: <2019-05-17 Fri>
-   - [ ] Domains
-   - [ ] Configure production servers
-   - [ ] CI to deploy to production
