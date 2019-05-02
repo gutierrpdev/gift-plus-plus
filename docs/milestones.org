@@ -49,6 +49,36 @@
      - Email
      - WhatsApp
 
+** TODO Gift creation (backend + intergation) [1/5] <2019-04-25 Thu>
+   DEADLINE: <2019-04-25 Thu>
+   - [ ] Upload media
+   - [ ] Save to API
+   - [X] Transcode media to appropriate format
+   - [ ] No auth -- save as anonymous user
+   - [ ] Generate gift share
+
+** TODO Analytics <2019-05-17 Fri>
+   DEADLINE: <2019-05-17 Fri>
+   - [ ] In-app event logging
+   - [ ] Api-core event logging
+   - [ ] Submit events (when possible) to server
+   - [ ] Determine questions/stats required for "live" insight
+   - [ ] Create scripts to provide "live"-insight
+
+** TODO MVP Full frontend + Backend <2019-05-17 Fri>
+   DEADLINE: <2019-05-17 Fri>
+   - [ ] Landing flow
+   - [ ] Receiving museum gift
+     - [ ] Work offline
+   - [ ] Receiving a personal gift
+     - [ ] Work offline
+   - [ ] Creating a gift
+     - [ ] Work offline
+   - [ ] Routing / back-button history
+     - [ ] Prevent navigation away from creation process
+   - [ ] Polish
+   - [ ] Event tracking
+
 ** TODO Account management (frontend) [4/9] <2019-04-19 Fri>
    DEADLINE: <2019-04-19 Fri>
    - [ ] Sign-up
@@ -64,14 +94,6 @@
      - [X] Receiving
    - [ ] Create account / login after creating gift to own it [TBD]
    - [ ] Create account / login after receiving gift to save in history [TBD]
-
-** TODO Gift creation (backend + intergation) [0/5] <2019-04-25 Thu>
-   DEADLINE: <2019-04-25 Thu>
-   - [ ] Upload media
-   - [ ] Save to API
-   - [ ] Transcode media to appropriate format
-   - [ ] No auth -- save as anonymous user
-   - [ ] Generate gift share
 
 ** TODO Account management (backend + integration) [0/8] <2019-05-03 Fri>
    DEADLINE: <2019-05-03 Fri>
@@ -102,8 +124,3 @@
    - [ ] Domains
    - [ ] Configure production servers
    - [ ] CI to deploy to production
-
-** TODO Analytics <2019-05-17 Fri>
-   DEADLINE: <2019-05-17 Fri>
-   - [ ] TBD
-   - [ ] MRL???
