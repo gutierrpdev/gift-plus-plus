@@ -140,7 +140,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 8: // senders audio message
 
         // Different text based on gift part
-        const openPartText = (props.giftPartIndex === 1) ? 'Open last part' : `Open part ${nextPart}`;
+        // Note: This is never shown on the last part, so no need to consider that case
+        const openPartText = (props.giftPartIndex === 1) ? 'Open last part' : 'Open part two';
 
         return (
           <>
