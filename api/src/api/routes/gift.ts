@@ -4,6 +4,7 @@ import {
   CreateGiftResponse,
   GetGiftResponse,
 } from '../../common/api-schema';
+import { assertNever } from '../../util-libs/prelude';
 import { checkUrl, checkBody } from '../../util-libs/validatation';
 import { ApiRouter } from './router';
 
@@ -41,12 +42,3 @@ router.get('/gift/:giftId', async (ctx) => {
 
   (ctx as { body: GetGiftResponse }).body = gift;
 });
-
-
-/**
- *  Simple Typescript helper to ensure we haven't accidentally missed possible
- *  cases while doing switch statements / fall-through if statements etc.
- */
-export function assertNever(x: never): never {
-  throw new Error(`Unexpected object: ${x}`);
-}

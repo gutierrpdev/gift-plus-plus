@@ -24,6 +24,10 @@ interface PreparedUpload {
   fileType: string;
 }
 
+type PreparedUploadResult =
+  | { kind: 'Success', data: PreparedUpload }
+  | { kind: 'BadMimeType' };
+
 
 
 interface StorageServiceConfig {
@@ -67,13 +71,12 @@ export class StorageService {
    *
    * NOTE: The uploaded file is stored in a private temporary location.
    */
-  public async createPreparedUpload(mimeType: string): Promise<PreparedUpload> {
+  public async createPreparedUpload(mimeType: string): Promise<PreparedUploadResult> {
     const suffix = mime.getExtension(mimeType);
 
     if (!suffix) {
-      const msg = `Unknown mime-type: ${mimeType}`;
-      logger.warn(msg);
-      throw new Error(msg);
+      logger.warn(`Unknown mime-type: ${mimeType}`);
+      return { kind: 'BadMimeType' };
     }
 
     const fileName = `${uuidv4()}.${suffix}`;
@@ -90,11 +93,14 @@ export class StorageService {
     });
 
     return {
-      postUrl: uploadData.url,
-      postFields: uploadData.fields,
-      fileName,
-      fileUrl: `${uploadData.url}/${uploadData.fields.key}`,
-      fileType: uploadData.fields.ContentType,
+      kind: 'Success',
+      data: {
+        postUrl: uploadData.url,
+        postFields: uploadData.fields,
+        fileName,
+        fileUrl: `${uploadData.url}/${uploadData.fields.Key}`,
+        fileType: mimeType,
+      },
     };
   }
 

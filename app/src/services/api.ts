@@ -3,8 +3,13 @@ import {
   CreateGiftRequest,
   CreateGiftResponse,
   createGiftResponseSchema,
+
   GetGiftResponse,
   getGiftResponseSchema,
+
+  CreatePreparedUploadRequest,
+  CreatePreparedUploadResponse,
+  createPreparedUploadResponseSchema,
 } from '../common/api-schema';
 
 // TEMP: Mock Data
@@ -14,6 +19,8 @@ import { mockGifts } from './mock';
 // We re-export any types the Api is responsible for from here.
 export type CreateGiftResponse = CreateGiftResponse;
 export type GetGiftResponse = GetGiftResponse;
+export type CreatePreparedUploadResponse = CreatePreparedUploadResponse;
+
 
 /**
  * The Api is responsible for all communication with the Gift Api.
@@ -29,6 +36,9 @@ export class Api {
   ) {}
 
 
+  /**
+   * Retrieve a gift by id
+   */
   public async getGift(giftId: string): Promise<ApiResult<GetGiftResponse>> {
     // TEMP: Mock Data
     if (mockGifts.has(giftId)) {
@@ -41,6 +51,9 @@ export class Api {
   }
 
 
+  /**
+   * Create a gift
+   */
   public async createGift(data: CreateGiftRequest): Promise<ApiResult<CreateGiftResponse>> {
     const url = `${this.apiUrl}/gift`;
     const request = new Request(url, {
@@ -49,6 +62,24 @@ export class Api {
       body: JSON.stringify(data),
     });
     return getApiResult<CreateGiftResponse>(request, createGiftResponseSchema);
+  }
+
+
+  /**
+   * Generate a new prepared-upload
+   *
+   * This contains info necessary to post a file directly to our storage.
+   */
+  public async createPreparedUpload(
+    data: CreatePreparedUploadRequest,
+  ): Promise<ApiResult<CreatePreparedUploadResponse>> {
+    const url = `${this.apiUrl}/prepared-upload`;
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return getApiResult<CreatePreparedUploadResponse>(request, createPreparedUploadResponseSchema);
   }
 }
 

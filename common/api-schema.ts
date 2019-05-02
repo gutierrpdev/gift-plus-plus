@@ -1,3 +1,56 @@
+// =====================================================================
+//                          PreparedUpload
+// =====================================================================
+
+export interface CreatePreparedUploadRequest {
+  mimeType: string;
+}
+
+export const createPreparedUploadRequestSchema = {
+  properties: {
+    mimeType: { type: 'string', minLength: 1 },
+  },
+  required: [
+    'mimeType',
+  ],
+};
+
+
+export interface CreatePreparedUploadResponse {
+  postUrl: string;
+  postFields: { [key: string]: string; };
+  fileName: string;
+  fileUrl: string;
+  fileType: string;
+}
+
+export const createPreparedUploadResponseSchema = {
+  properties: {
+    postUrl: { type: 'string', minLength: 1 },
+    postFields:  {
+      type: 'object',
+      properties: {},
+      additionalProperties: { type: 'string' },
+    },
+    fileName: { type: 'string', minLength: 1 },
+    fileUrl: { type: 'string', minLength: 1 },
+    fileType: { type: 'string', minLength: 1 },
+  },
+  required: [
+    'postUrl',
+    'postFields',
+    'fileName',
+    'fileUrl',
+    'fileType',
+  ],
+};
+
+
+
+// =====================================================================
+//                              Gift
+// =====================================================================
+
 export interface GetGiftResponse {
   id: string;
   kind: 'MuseumGift' | 'PersonalGift';

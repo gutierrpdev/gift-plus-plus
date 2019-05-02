@@ -3,7 +3,7 @@ import { Api } from '../src/api';
 import { Lib } from '../src/lib';
 
 // TEMP: Hardcode a test config
-const config = {
+export const config = {
   environment: 'test',
   sqlUri: 'sqlite3://:memory:',
   corsAllowedOrigins: '*',

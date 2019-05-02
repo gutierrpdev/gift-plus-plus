@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as should from 'should';
 import { TranscodeService } from '../src/lib/services/transcode';
 
-describe('transcode', () => {
+describe('lib:transcode', () => {
   const transcodeService = new TranscodeService({ disableMaxRuntime: true });
 
 

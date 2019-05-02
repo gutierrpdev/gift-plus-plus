@@ -22,7 +22,7 @@ const testGiftData = {
 };
 
 
-describe('/gift', () => {
+describe('api:gift', () => {
   let server: Server;
 
   before(async () => {
