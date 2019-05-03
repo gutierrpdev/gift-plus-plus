@@ -43,7 +43,7 @@ import { CreateGift } from '../src/components/creating/create-gift';
 import { HomeScreen } from '../src/screens/home';
 
 // Receiving
-import { ReceivingChooseLocation } from '../src/components/receiving/panels/choose-location';
+import { ChooseLocation } from '../src/components/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 import { WorkingProgress } from '../src/components/working-progress';
@@ -625,7 +625,7 @@ storiesOf('Components/Receiving', module)
         gift={giftThreeParts}
         giftPart={giftPart}
         onComplete={doNothing}
-        recipientLocation={'AtMuseum'}
+        recipientLocation={'at-museum'}
       >
         <PanelImageReveal imageUrl={'https://farm2.static.flickr.com/1913/45667899311_3d3e3a88d8_b.jpg'} />
       </GiftPartWrapper>
@@ -634,15 +634,15 @@ storiesOf('Components/Receiving', module)
   .add('Gift Parts', () => (
     <ScreenManager>
       <GlobalStyles />
-      <GiftPartsManager gift={giftThreeParts} recipientLocation={'AtMuseum'} />
+      <GiftPartsManager gift={giftThreeParts} recipientLocation={'at-museum'} />
     </ScreenManager>
   ))
-  .add('Choose location', () => <ReceivingChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
+  .add('Choose location', () => <ChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
   .add('Intro', () => (
     <ReceivingIntroContent
       visible={true}
       onComplete={doNothing}
-      recipientLocation={'AtMuseum'}
+      recipientLocation={'at-museum'}
       audioIntroPlayed={true}
       handleAudioIntroPlayed={doNothing}
     />
@@ -653,7 +653,7 @@ storiesOf('Components/Receiving', module)
       gift={giftThreeParts}
       giftPartIndex={0}
       onComplete={doNothing}
-      recipientLocation={'AtMuseum'}
+      recipientLocation={'at-museum'}
       revealBackgroundImage={doNothing}
       revealPreviewImage={doNothing}
     />

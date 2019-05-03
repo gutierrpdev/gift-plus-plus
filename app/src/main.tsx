@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from '../src/utils/router-history';
 
 import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
@@ -17,7 +18,7 @@ import { LandscapeMessage } from './components/landscape-message';
  */
 
 export const Main: React.FC = () => (
-  <Router>
+  <Router history={history}>
     <LandscapeMessage />
     <Switch>
 
@@ -25,11 +26,12 @@ export const Main: React.FC = () => (
         <HomeScreen />
       </Route>
 
+      {/* todo: remove /testing */}
       <Route exact={true} path='/testing'>
         <UnderConstruction />
       </Route>
 
-      <Route exact={true} path='/your-gifts'>
+      <Route exact={true} path='/home'>
         <HomeGiftsScreen />
       </Route>
 

@@ -8,7 +8,7 @@ import { GlobalStyles } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
-import { ReceivingChooseLocation, RecipientLocation } from '../receiving/panels/choose-location';
+import { ChooseLocation, RecipientLocation } from '../choose-location';
 import { Button, Buttons } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
@@ -37,7 +37,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public state: State = {
     status: 'Welcome',
-    recipientLocation: 'Unknown',
+    recipientLocation: 'unknown',
     compactHeader: false,
   };
 
@@ -60,7 +60,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   public handleSetLocation = (recipientLocation: RecipientLocation) => {
 
     // Determine the next stage based on the location
-    const nextStage: ReceiveGiftStatus = recipientLocation === 'NotAtMuseum'
+    const nextStage: ReceiveGiftStatus = recipientLocation === 'not-at-museum'
       ? 'OpenOrSave'
       : 'ShowingParts';
 
@@ -111,7 +111,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           />
         </PanelContent>
         <Buttons>
-          <Button><Link to='/your-gifts'>Save it</Link></Button>
+          <Button><Link to='/'>Save it</Link></Button>
           <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
         </Buttons>
       </Panel>
@@ -129,7 +129,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public renderSelectLocation() {
     return (
-      <ReceivingChooseLocation
+      <ChooseLocation
         museumName={this.props.museumName}
         doSetLocation={this.handleSetLocation}
       />

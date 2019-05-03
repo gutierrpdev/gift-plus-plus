@@ -7,7 +7,7 @@ import { romanNumeralFromDecimal } from '../../themes/global';
 
 import { GiftPartWrapper } from './gift-part-wrapper';
 import { IdleGiftPart } from './idle-gift-part';
-import { RecipientLocation } from '../receiving/panels/choose-location';
+import { RecipientLocation } from '../choose-location';
 import { PanelContent } from '../panel';
 
 /**

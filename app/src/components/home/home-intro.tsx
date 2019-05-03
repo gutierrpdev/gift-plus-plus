@@ -13,11 +13,20 @@ import { Buttons, Button  } from '../buttons';
 import { WaitThen } from '../wait-then';
 import { BgSvgFullScreen } from '../svg/bg';
 import SvgGift from '../svg/gift';
+import { ChooseLocation, RecipientLocation } from '../choose-location';
+import {
+    getHasSeenHomeIntro,
+    setHasSeenHomeIntro,
+    getHasSeenHomeHowAbout,
+    setHasSeenHomeHowAbout,
+    getSessionRecipientLocation,
+    setSessionRecipientLocation,
+} from '../../utils/local';
+import history from '../../utils/router-history';
 
 /**
  * Home screen top level component
  */
-
 
 const GiftImg = styled.div`
   margin-bottom: 1vh;
@@ -36,7 +45,7 @@ const GiftImg = styled.div`
 `;
 
 // Current status of this screen
-type Status = 'start' | 'sign-in' | 'got-new-gift';
+type Status = 'none' | 'start' | 'how-about' | 'choose-location' | 'got-new-gift';
 /* Todo : other parts include verify and send, but these are likely reached from a verification email link
    and so might be a seperate screen, with the gift already saved */
 
@@ -45,10 +54,101 @@ type Status = 'start' | 'sign-in' | 'got-new-gift';
 const HomeIntro: React.FC = () => {
 
   // State
-  const [status, setStatus] = useState<Status>('start');
+  const [status, setStatus] = useState<Status>('none');
+  // Default to stored recipientLocation value
+  const [recipientLocation, setRecipientLocation] = useState<RecipientLocation>(getSessionRecipientLocation);
 
   // Defaults
   const defaultWait = 5;
+  const museumName = 'Brighton Museum & Art Gallery'; // todo: get from entry URL
+
+  // Checks our current status and shows the correct next state
+  function showNextScreen(nextStatus: Status) {
+
+    // console.log({nextStatus});
+
+    if (nextStatus === 'start') {
+
+      // Have we already seen the intro?
+      getHasSeenHomeIntro() ? showNextScreen('how-about') : setStatus('start');
+
+    } else if (nextStatus === 'how-about') {
+
+      setHasSeenHomeIntro(true);
+
+      // Have we already seen this part?
+      getHasSeenHomeHowAbout() ? showNextScreen('choose-location') : setStatus('how-about');
+
+    } else if (nextStatus === 'choose-location') {
+
+      setHasSeenHomeHowAbout(true);
+
+      // console.log({recipientLocation});
+
+      if (recipientLocation === 'unknown') {
+
+        // Show the choose location screen
+        setStatus('choose-location');
+
+      } else {
+
+        showNextScreen('got-new-gift');
+
+      }
+
+    } else if (nextStatus === 'got-new-gift') {
+
+      // console.log({recipientLocation});
+
+      if (recipientLocation === 'at-museum') {
+
+        // todo: check if we have a new gift.  If not go to /home
+
+        // Go to start
+        setStatus('got-new-gift');
+
+      } else if (recipientLocation === 'not-at-museum') {
+
+        // console.log('home');
+
+        // Go to the home screen
+        history.push('/home');
+
+      }
+
+    } else {
+      // console.log('none');
+      // Safety net
+      setStatus('none');
+    }
+
+  }
+
+  // Handle the location set
+  function handleSetLocation(location: RecipientLocation): void {
+
+    // console.log({location});
+
+    // Set state
+    setRecipientLocation(location);
+
+    // Set session
+    setSessionRecipientLocation(location);
+
+    // Updated UI to the next screen
+    // Set choose-location as this handle location checking
+    setTimeout(() => {
+      showNextScreen('got-new-gift');
+      // console.log({status});
+    }, 2000);
+
+  }
+
+  // Start
+  // console.log({status});
+  if (status === 'none') {
+    showNextScreen('start');
+  }
 
   return (
 
@@ -60,7 +160,7 @@ const HomeIntro: React.FC = () => {
       <ScreenHeader
         topPadding={'medium'}
         title={`Gift`}
-        postTitle={'at Brighton Museum & Art Gallery'}
+        postTitle={`at ${museumName}`}
         titleSize={'very-big'}
       />
 
@@ -76,17 +176,18 @@ const HomeIntro: React.FC = () => {
                 textColor='black'
                 textSize={80}
                 background='solid-white'
+                onClick={() => {showNextScreen('how-about'); }}
               />
             </PanelContent>
             <Buttons />
             <WaitThen
               wait={defaultWait}
-              andThen={() => { setStatus('sign-in'); }}
+              andThen={() => { setStatus('how-about'); }}
             />
           </>
         }
 
-        {status === 'sign-in' &&
+        {status === 'how-about' &&
           <>
             <PanelContent>
               <PanelPrompt
@@ -96,14 +197,22 @@ const HomeIntro: React.FC = () => {
                 textColor='black'
                 textSize={70}
                 background='solid-white'
+                onClick={() => {showNextScreen('choose-location'); }}
               />
             </PanelContent>
             <Buttons />
             <WaitThen
               wait={defaultWait}
-              andThen={() => { setStatus('got-new-gift'); }}
+              andThen={() => {showNextScreen('choose-location'); }}
             />
           </>
+        }
+
+        {status === 'choose-location' &&
+          <ChooseLocation
+            museumName={museumName}
+            doSetLocation={handleSetLocation}
+          />
         }
 
         {status === 'got-new-gift' &&

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Panel, PanelContent } from '../../panel';
-import { PanelPrompt } from '../../panel-prompt';
-import { Buttons, Button } from '../../buttons';
+import { Panel, PanelContent } from './panel';
+import { PanelPrompt } from './panel-prompt';
+import { Buttons, Button } from './buttons';
 
 /***
  * Choose location panel
  */
 
 // Define our receiving locations
-export type RecipientLocation = 'Unknown' | 'AtMuseum' | 'NotAtMuseum';
+export type RecipientLocation = 'unknown' | 'at-museum' | 'not-at-museum';
 
 export interface ChooseLocationProps {
   visible?: boolean;
@@ -17,23 +17,19 @@ export interface ChooseLocationProps {
   doSetLocation: (recipientLocation: RecipientLocation) => void; // Callback to the parent
 }
 
-// Todo : finish question
-const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
+const ChooseLocation: React.FC<ChooseLocationProps> = (props) => {
 
-  function handleAtMuseum() {
-    // Set Location callback
+  function handleAtMuseum(): void {
     if (props.doSetLocation) {
-      props.doSetLocation('AtMuseum');
+      props.doSetLocation('at-museum');
     }
 
   }
 
-  function handleNotAtMuseum() {
-    // Set Location callback
+  function handleNotAtMuseum(): void {
     if (props.doSetLocation) {
-      props.doSetLocation('NotAtMuseum');
+      props.doSetLocation('not-at-museum');
     }
-
   }
 
   return (
@@ -54,5 +50,5 @@ const ReceivingChooseLocation: React.FC<ChooseLocationProps> = (props) => {
 };
 
 export {
-  ReceivingChooseLocation,
+  ChooseLocation,
 };

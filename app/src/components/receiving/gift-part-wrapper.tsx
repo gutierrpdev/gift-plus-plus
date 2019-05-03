@@ -8,7 +8,7 @@ import { ReceivingIntroContent } from './panels/intro-content';
 import { ReceivingPartContent } from './panels/part-content';
 import { AccordionTitle } from '../accordion-title';
 import { Gradient } from '../gradient';
-import { RecipientLocation } from '../receiving/panels/choose-location';
+import { RecipientLocation } from '../choose-location';
 import { PanelImageReveal } from '../panel-image-reveal';
 
 

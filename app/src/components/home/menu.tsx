@@ -69,15 +69,18 @@ const MenuStyle = styled.div`
   text-align: center;
   z-index: 20;
 `;
+
 interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy
   openHelp: () => void; // Callback to open help
   openFeedback: () => void; // Callback to open feedback
   openSignIn: () => void; // Callback to open SignIn
 }
+
+// Link 'Home' to / (and not /home) so that any new visitors to the app will get the intro experience
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
-    <MenuItem><Link to='/your-gifts'>Your gifts</Link></MenuItem>
+    <MenuItem><Link to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openSignIn}>Sign-in</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>

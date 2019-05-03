@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
-import { RecipientLocation } from './choose-location';
+import { RecipientLocation } from '../../choose-location';
 
 /***
  * Show the intro content
@@ -20,7 +20,7 @@ export interface IntroContentProps {
 // Todo : finish question
 const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
 
-  const atMuseum = (props.recipientLocation === 'AtMuseum');
+  const atMuseum = (props.recipientLocation === 'at-museum');
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
   function handleContinue() {
