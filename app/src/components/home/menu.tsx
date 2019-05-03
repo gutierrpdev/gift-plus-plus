@@ -82,7 +82,6 @@ const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
     <MenuItem><Link to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
-    <MenuItem onClick={props.openSignIn}>Sign-in</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem onClick={props.openFeedback}>Feedback</MenuItem>
   </MenuStyle>
