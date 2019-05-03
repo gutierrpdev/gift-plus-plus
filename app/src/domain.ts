@@ -7,7 +7,7 @@
 type Id = string;
 type MuseumId = Id;
 type AccountId = Id;
-type GiftId = Id;
+export type GiftId = Id;
 type PhotoUrl = string;
 type AudioRecordingUrl = string;
 

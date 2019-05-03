@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import SvgGift from './svg/gift';
 import { global } from '../themes/global';
 import { TextResize } from './text-resize';
+import { GiftId } from '../domain';
+import { track, viewGiftClickedEvent } from '../utils/events';
 
 interface Props {
   gifts: Gift[];
@@ -43,9 +45,13 @@ const GiftStatus = styled.div`
 
 const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
 
+  function giftClick( giftId: GiftId ): void {
+    track(viewGiftClickedEvent( {giftId} ));
+  }
+
   const giftList = gifts.map((gift, index) => (
     <StyledGift key={index}>
-      <Link to={gift.id}>
+      <Link to={gift.id} onClick={() => {giftClick(gift.id); }}>
         <GiftImg>
           <SvgGift colour='black' />
         </GiftImg>
