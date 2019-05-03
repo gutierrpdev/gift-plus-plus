@@ -74,7 +74,6 @@ interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy
   openHelp: () => void; // Callback to open help
   openFeedback: () => void; // Callback to open feedback
-  openSignIn: () => void; // Callback to open SignIn
 }
 
 // Link 'Home' to / (and not /home) so that any new visitors to the app will get the intro experience

@@ -10,7 +10,6 @@ import { ScreenLogo } from './screen-logo';
 import { InfoPopover } from './info-popover';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
-import { SignIn } from './home/signin';
 import { HeaderCloseButton } from './home/header-close-button';
 import SvgClose from './svg/close';
 
@@ -104,7 +103,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
-  const [signInIsOpen, setSignInIsOpen] = useState(false);
 
   // Functions
   function toggleMenu() {
@@ -124,7 +122,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
           openFeedback={() => { setFeedbackIsOpen(true); }}
-          openSignIn={() => { setSignInIsOpen(true); }}
         />
       }
 
@@ -258,14 +255,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         <h1>Feedback</h1>
         <p>Some notes on leaving feedback.</p>
       </InfoPopover>
-    }
-
-
-    {/* == SignIn == */}
-    {signInIsOpen &&
-      <SignIn
-        onCloseButtonClick={() => { setSignInIsOpen(false); }}
-      />
     }
 
     </>
