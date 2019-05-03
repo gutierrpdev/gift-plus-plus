@@ -16,6 +16,7 @@ import { MessageModal } from '../../components/message-modal';
 import { Button } from '../../components/buttons';
 import { PageChangeDetect } from '../page-change-detect';
 import { isIosDeviceUsingChrome } from '../../utils/helpers';
+import { track, giftRecipientEnteredEvent } from '../../utils/events';
 
 /**
  * Gift Create screen top level component
@@ -37,6 +38,7 @@ interface Props {
 
 
 export const CreateGift: React.FC<Props> = ({ gift }) => {
+
   const [status, setStatus] = useState<Status>('intro');
 
   const headerState = (status === 'intro' || status === 'choose-recipient')
@@ -106,6 +108,7 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
          onComplete={(recipientName) => {
            // TODO: deal with gift state properly
            gift.recipientName = recipientName;
+           track(giftRecipientEnteredEvent( {giftId: gift.id} ));
            setStatus('record-greeting');
          }}
        />
@@ -125,12 +128,13 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
 
       {status === 'creating-part' && gift.recipientName !== undefined &&
        <CreatingPartContent
-         recipientName={gift.recipientName}
-         onComplete={(parts) => {
-           // TODO: deal with gift state properly
-           gift.parts = parts;
-           setStatus('sign-gift');
-         }}
+          gift={gift}
+          recipientName={gift.recipientName}
+          onComplete={(parts) => {
+            // TODO: deal with gift state properly
+            gift.parts = parts;
+            setStatus('sign-gift');
+          }}
        />
       }
 

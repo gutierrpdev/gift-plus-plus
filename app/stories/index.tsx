@@ -694,6 +694,7 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreatingPartContent
+        gift={emptyGift}
         recipientName={'Nick'}
         onComplete={doNothing}
       />

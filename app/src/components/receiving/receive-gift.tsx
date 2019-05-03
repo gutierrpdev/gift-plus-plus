@@ -14,6 +14,7 @@ import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { BgSvgFullScreen } from '../svg/bg';
+import { track, receivingGiftLocationSelectedEvent } from '../../utils/events';
 
 /**
  * Gift Receive screen top level component
@@ -58,6 +59,9 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   // Sets the location
   public handleSetLocation = (recipientLocation: RecipientLocation) => {
+
+    // todo: we may have already selected the location and stored it, us that, but ensure tracking the event is called
+    track(receivingGiftLocationSelectedEvent( {giftId: this.props.gift.id, location: recipientLocation} ));
 
     // Determine the next stage based on the location
     const nextStage: ReceiveGiftStatus = recipientLocation === 'not-at-museum'

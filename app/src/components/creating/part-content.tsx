@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { InProgressGift } from '../../domain';
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
@@ -12,12 +13,14 @@ import { WaitThen } from '../wait-then';
 import { PhotoCapture } from '../../components/photo-capture';
 import { TextAreaInput } from '../../components/inputs/textarea-input';
 import { romanNumeralFromDecimal } from '../../themes/global';
-
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
+import { track, giftPartCompletedEvent } from '../../utils/events';
 
 /***
  * Show the creating gift part content
  */
+
+export type CreateGiftNextStep = 'wrap-up' | 'add-more';
 
 interface PartContentStyleProps {
   backgroundImage?: string; // data or url
@@ -62,10 +65,11 @@ type Status =
 
 export interface Props {
   recipientName: string;
+  gift: InProgressGift;
   onComplete: (parts: GiftPart[]) => void; // When this component is finished
 }
 
-const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => {
+const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete }) => {
 
   // TODO: Abstract component to deal with one part at a a time
   // TODO: Abstract individual bits of part-creation out (maybe)
@@ -163,6 +167,9 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
   // Part creation is complete
   function handleAllComplete() {
 
+    // Note: part number is 1 based, rather than index 0 based.
+    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'wrap-up'} ));
+
     // Callback to continue
     if (onComplete) {
       onComplete(parts);
@@ -179,6 +186,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
     // Set the index
     setGiftPartIndex(1);
 
+    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
+
     // Note no first message for part 2, jump to second part
     setStatus('second-message');
   }
@@ -191,6 +200,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, onComplete }) => 
 
     // Set the index
     setGiftPartIndex(2);
+
+    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
     // Note no first message for part 2, jump to second part
     setStatus('second-message');
