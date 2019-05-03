@@ -1,8 +1,6 @@
 import React from 'react';
 import {Prompt} from 'react-router-dom';
 
-import { isIosDevice } from '../utils/helpers';
-
 /***
  * Detects when the page reloads/closes/moves away
  * Note: We do not detect or intefere with browser back as would be a bad user experience
