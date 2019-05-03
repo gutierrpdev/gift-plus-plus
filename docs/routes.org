@@ -1,0 +1,19 @@
+* App Routes
+
+** /
+App root
+Shows intro on first visit, asks it at the museum, goes to /home if all visited
+
+** /home
+User home
+Intro text, gift pile, create gift
+
+** /testing
+Testing
+During dev only.  A quick entry point (sans Storybook) to test something
+
+** /create-gift
+Start to create a gift
+
+** /gift/:giftId
+Receive a gift
