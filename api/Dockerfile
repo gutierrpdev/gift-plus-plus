@@ -2,13 +2,13 @@
 # BASE
 # ====
 
-FROM node:10-alpine as base
+FROM node:11 as base
 
-# Needed for bcrypt (TODO: ensure this stuff isn't in the final image,
-# or use node-native bcrypt)
-# RUN apk --no-cache add --virtual builds-deps build-base python
+RUN apt-get update; \
+    apt-get install -y --no-install-recommends \
+      ffmpeg # FFMPEG for media transcoding
 
-RUN adduser -D -g '' -h /app app
+RUN adduser --gecos '' --disabled-password --disabled-login --home /app app
 
 USER app:app
 WORKDIR /app
