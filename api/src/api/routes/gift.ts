@@ -13,11 +13,54 @@ export const router = new ApiRouter();
 
 router.post('/gift', async (ctx) => {
   const body = await checkBody<CreateGiftRequest>(ctx, createGiftRequestSchema);
-  const result = await ctx.lib.gift.create(body);
+
+  // Transcode the assets...
+
+  const rgUpload = await ctx.lib.storage.getUserUpload(body.recipientGreeting);
+  const rgTranscodeResult = await ctx.lib.transcode.transcodeAudio(rgUpload);
+  const rgAsset = await ctx.lib.storage.uploadAsset(
+    `${Math.round(Date.now())}.${rgTranscodeResult.extension}`,
+    rgTranscodeResult.stream,
+  );
+
+  const assetReplacedParts: Array<{ photo: string, note: string, clue: string }> = [];
+
+  for (const part of body.parts) {
+    const photoUpload = await ctx.lib.storage.getUserUpload(part.photo);
+    const photoTranscodeResult = await ctx.lib.transcode.transcodeImage(photoUpload);
+    const photoAsset = await ctx.lib.storage.uploadAsset(
+      `${Math.round(Date.now())}.${photoTranscodeResult.extension}`,
+      photoTranscodeResult.stream,
+    );
+
+    const noteUpload = await ctx.lib.storage.getUserUpload(part.note);
+    const noteTranscodeResult = await ctx.lib.transcode.transcodeAudio(noteUpload);
+    const noteAsset = await ctx.lib.storage.uploadAsset(
+      `${Math.round(Date.now())}.${noteTranscodeResult.extension}`,
+      noteTranscodeResult.stream,
+    );
+
+    assetReplacedParts.push({
+      photo: photoAsset,
+      note: noteAsset,
+      clue: part.clue,
+    });
+  }
+
+  const result = await ctx.lib.gift.create({
+    id: body.id,
+    kind: 'PersonalGift',
+    accountId: 'TODO',
+    museumId: body.museumId,
+    senderName: body.senderName,
+    recipientName: body.recipientName,
+    recipientGreeting: rgAsset,
+    parts: assetReplacedParts,
+  });
 
   if (result.kind === 'Success') {
     ctx.status = 201;
-    (ctx as { body: CreateGiftResponse }).body = body;
+    (ctx as { body: CreateGiftResponse }).body = result.data;
     return;
   }
 

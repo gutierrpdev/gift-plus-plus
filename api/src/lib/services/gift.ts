@@ -61,7 +61,11 @@ export class GiftService {
       parts: JSON.stringify(gift.parts),
     });
 
-    return { kind: 'Success' };
+    const createdGift = await this.findById(gift.id);
+
+    if (!createdGift) throw new Error(`Couldn't find the gift we just created! ${gift.id}`);
+
+    return { kind: 'Success', data: createdGift };
   }
 
 
@@ -96,7 +100,7 @@ export class GiftService {
 // -------
 
 type GiftCreateResult =
-  | { kind: 'Success' }
+  | { kind: 'Success', data: Gift }
   | { kind: 'IdAlreadyExists' }
 ;
 

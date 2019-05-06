@@ -51,6 +51,10 @@ export const createPreparedUploadResponseSchema = {
 //                              Gift
 // =====================================================================
 
+// --------
+// Get Gift
+// --------
+
 export interface GetGiftResponse {
   id: string;
   kind: 'MuseumGift' | 'PersonalGift';
@@ -101,10 +105,53 @@ export const getGiftResponseSchema = {
   ],
 };
 
-// For now, these are all the same...
+// -----------
+// Create Gift
+// -----------
 
-export type CreateGiftRequest = GetGiftResponse;
-export const createGiftRequestSchema = getGiftResponseSchema;
+export interface CreateGiftRequest {
+  id: string;
+  museumId: string;
+  senderName: string;
+  recipientName: string;
+  recipientGreeting: string;
+  parts: Array<{
+    photo: string;
+    note: string;
+    clue: string;
+  }>;
+}
+
+export const createGiftRequestSchema = {
+  properties: {
+    id: { type: 'string', format: 'uuid' },
+    museumId: { type: 'string', format: 'uuid' },
+    senderName: { type: 'string', minLength: 1 },
+    recipientName: { type: 'string', minLength: 1 },
+    recipientGreeting: { type: 'string' },
+    parts: { type: 'array', minItems: 1, maxItems: 3, items: {
+      type: 'object',
+      properties: {
+        photo: { type: 'string' },
+        note: { type: 'string' },
+        clue: { type: 'string' },
+      },
+      required: [
+        'photo',
+        'note',
+        'clue',
+      ],
+    }},
+  },
+  required: [
+    'id',
+    'museumId',
+    'senderName',
+    'recipientName',
+    'recipientGreeting',
+    'parts',
+  ],
+};
 
 export type CreateGiftResponse = GetGiftResponse;
 export const createGiftResponseSchema = getGiftResponseSchema;
