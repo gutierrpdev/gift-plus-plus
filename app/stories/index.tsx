@@ -703,7 +703,7 @@ storiesOf('Components/Creating', module)
   .add('Sign gift', () => (
     <>
       <GlobalStyles />
-      <SignGift />
+      <SignGift onComplete={logSomething} />
     </>
   ))
 ;

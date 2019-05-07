@@ -31,7 +31,6 @@ export interface Gift {
 
 export interface InProgressGift {
   id: GiftId;
-  kind: 'PersonalGift';
   museumId: MuseumId;
   senderName?: string;
   recipientName?: string;

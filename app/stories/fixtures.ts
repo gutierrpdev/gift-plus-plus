@@ -4,7 +4,6 @@ import { Gift, GiftPart, InProgressGift } from '../src/domain';
 // Empty gift, for creating
 export const emptyGift: InProgressGift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
-  kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
   parts: [],
 };

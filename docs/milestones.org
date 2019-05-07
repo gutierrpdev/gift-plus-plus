@@ -76,6 +76,9 @@
    - [ ] Routing / back-button history
      - [ ] Prevent navigation away from creation process
    - [ ] Polish
+     - [ ] All links work
+     - [ ] All error-cases are handled as well as possible
+     - [ ] All feedback to user makes sense and is friendly
    - [ ] Event tracking
 
 ** TODO Production set up [0/3] <2019-05-17 Fri>

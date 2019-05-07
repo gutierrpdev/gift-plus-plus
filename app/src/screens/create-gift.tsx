@@ -4,7 +4,7 @@ import uuidv5 from 'uuid/v5';
 
 import { InProgressGift } from '../domain';
 import { CreateGift } from '../components/creating/create-gift';
-import { track, viewGiftClickedEvent } from '../utils/events';
+import { track, newGiftStartedEvent } from '../utils/events';
 
 /**
  * Create gift screen
@@ -14,12 +14,11 @@ const CreateGiftScreen: React.FC = () => {
 
   const gift: InProgressGift = {
     id: uuidv4(),
-    kind: 'PersonalGift',
     museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
     parts: [],
   };
 
-  track(viewGiftClickedEvent( {giftId: gift.id} ));
+  track(newGiftStartedEvent({ giftId: gift.id }));
 
   return <CreateGift gift={gift} />;
 };

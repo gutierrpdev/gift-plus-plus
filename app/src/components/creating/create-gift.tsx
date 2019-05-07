@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { InProgressGift } from '../../domain';
+import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
+import { isIosDeviceUsingChrome } from '../../utils/helpers';
+import { track, giftRecipientEnteredEvent } from '../../utils/events';
+
+import { PageChangeDetect } from '../page-change-detect';
 import { GlobalStyles } from '../../themes/global';
+import { BgSvgFullScreen } from '../svg/bg';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
+import { MessageModal } from '../../components/message-modal';
+import { Button } from '../../components/buttons';
+
 import { CreateGiftIntro } from '../creating/intro';
 import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
 import { CreateGiftRecordAndPlayback } from '../creating/record-and-playback';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
-import { BgSvgFullScreen } from '../svg/bg';
-import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
-import { MessageModal } from '../../components/message-modal';
-import { Button } from '../../components/buttons';
-import { PageChangeDetect } from '../page-change-detect';
-import { isIosDeviceUsingChrome } from '../../utils/helpers';
-import { track, giftRecipientEnteredEvent } from '../../utils/events';
+import { SaveGift } from '../creating/save-gift';
+import { ShareGift } from '../creating/share-gift';
+
 
 /**
  * Gift Create screen top level component
@@ -29,6 +34,8 @@ type Status =
   | 'record-greeting'
   | 'creating-part'
   | 'sign-gift'
+  | 'save-gift'
+  | 'share-gift'
 ;
 
 
@@ -139,7 +146,15 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       }
 
       {status === 'sign-gift' &&
-       <SignGift />
+       <SignGift onComplete={() => setStatus('save-gift')} />
+      }
+
+      {status === 'save-gift' &&
+       <SaveGift onComplete={() => setStatus('share-gift')} />
+      }
+
+      {status === 'share-gift' &&
+       <ShareGift url={'https://todo.giftapp.com'} />
       }
 
     </ScreenManager>
