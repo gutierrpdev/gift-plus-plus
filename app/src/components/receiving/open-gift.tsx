@@ -8,7 +8,7 @@ import { PanelRound } from '../panel-round';
 import { TextResize } from './../text-resize';
 import SvgGift from '../svg/gift';
 
-/***
+/**
  * Open gift
  */
 
@@ -38,7 +38,6 @@ export interface Props {
   onComplete?: () => void;
 }
 
-// Todo : finish question
 const ReceivingOpenGift: React.FC<Props> = (props) => {
 
   function handleOpenGift() {

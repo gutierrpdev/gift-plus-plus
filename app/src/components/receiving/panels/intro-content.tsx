@@ -6,7 +6,7 @@ import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { InProgressGift } from '../../../domain';
 
-/***
+/**
  * Show the intro content
  */
 
@@ -18,7 +18,6 @@ export interface IntroContentProps {
   handleAudioIntroPlayed: () => void;
 }
 
-// Todo : finish question
 const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
 
   const atMuseum = (props.recipientLocation === 'at-museum');

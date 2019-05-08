@@ -13,7 +13,7 @@ import {
   receivingGiftFoundPartEvent,
 } from '../../../utils/events';
 
-/***
+/**
  * Show the gift part content, prompting for clues, etc.
  */
 
@@ -27,10 +27,9 @@ export interface PartContentProps {
   revealPreviewImage: () => void; // Callback to call to reveal the preview image
 }
 
-// Todo : finish question
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
-  // section is 0 based incrementer of current stage
+  // Section is 0 based incrementer of current stage
   const [section, setSection] = useState(0);
   const [audioPlaybackStarted, setAudioPlaybackStarted] = useState(false);
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
@@ -98,8 +97,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function handleContinue() {
-
-    // todo: check for skip in global state, show button below
 
     // Check for special section conditions
     if (section === 3) {
