@@ -40,7 +40,7 @@
    - Modern Safari
    - Modern Chrome (NOTE: No gift creation support)
 
-** Low-Mid-Range (Android 5.0)
+** Low-Mid-Range (Android 5.0) [Moto E = 5.1]
    - Native Browser
    - Modern Firefox
    - Modern Chrome
