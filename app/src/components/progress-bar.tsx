@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import { global } from '../themes/global';
 
+/**
+ * Progress bar component
+ */
+
 const ProgressBarInner = styled.div<Props>`
   width: ${(props) => props.percent}%;
   height: 100%;
@@ -40,7 +44,6 @@ const StyledProgressBar = styled.div<Props>`
   height: ${(props) => props.height};
   width: 100%;
   border-radius: 10vmin;
-  /* overflow: hidden; */ /* this causes the progress bar to be hidden */
   margin: 6% 0;
 `;
 
@@ -49,22 +52,13 @@ interface Props {
   height: string; // e.g. '3%' or '10px'
   theme: 'white-on-black' | 'black-on-white' | 'grey-on-black';
   showPositionBar?: boolean;
-  // onSeek: (e: MouseEvent) => void; // todo hook up seek
 }
 
-const ProgressBar: React.FC<Props> = (props) => {
-
-  // function handleSeek(e: MouseEvent) {
-  //   console.log(e);
-  // }
-
-  return (
-    <StyledProgressBar {...props}>
-      <ProgressBarInner {...props} />
-    </StyledProgressBar>
-  );
-
-};
+const ProgressBar: React.FC<Props> = (props) => (
+  <StyledProgressBar {...props}>
+    <ProgressBarInner {...props} />
+  </StyledProgressBar>
+);
 
 export {
   ProgressBar,
