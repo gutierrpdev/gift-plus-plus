@@ -210,16 +210,20 @@ storiesOf('Components', module)
         <GlobalStyles />
         <p>Skip forward button</p>
         <AudioPlayer
-          text={'Lorem ipsum'}
-          forwardButton={'SkipSeconds'}
+          message={'Lorem ipsum'}
+          forwardButtonType={'skip-seconds'}
           src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+          giftId={giftThreeParts.id}
+          eventReference=''
         />
       </div>
       <p>Jump Go to End forward button</p>
       <AudioPlayer
-        text={'Lorem ipsum'}
-        forwardButton={'GoToEnd'}
+        message={'Lorem ipsum'}
+        forwardButtonType={'go-to-end'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
+        giftId={giftThreeParts.id}
+        eventReference=''
       />
     </>
   ))
@@ -640,6 +644,7 @@ storiesOf('Components/Receiving', module)
   .add('Choose location', () => <ChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
   .add('Intro', () => (
     <ReceivingIntroContent
+      gift={giftThreeParts}
       visible={true}
       onComplete={doNothing}
       recipientLocation={'at-museum'}
@@ -677,15 +682,20 @@ storiesOf('Components/Creating', module)
   .add('Choose Recipient', () => (
     <>
       <GlobalStyles />
-      <CreateGiftChooseRecipient onComplete={logSomething} />
+      <CreateGiftChooseRecipient
+        gift={giftThreeParts}
+        onComplete={logSomething}
+      />
     </>
   ))
   .add('Record and Playback', () => (
     <>
       <GlobalStyles />
       <CreateGiftRecordAndPlayback
+        gift={giftThreeParts}
         text={'Record something'}
         saveButtonText={'Save something'}
+        eventReference='event-id'
         onComplete={logSomething}
       />
     </>

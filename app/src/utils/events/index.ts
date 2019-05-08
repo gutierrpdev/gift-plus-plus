@@ -9,8 +9,9 @@
  */
 export function track( { name, payload }: {name: string, payload: {}} ) {
   const event = createAppEvent(name, payload);
+  // tslint:disable-next-line no-console
   console.log(event);
-  // do something with the event
+  // todo do something with the event
 }
 
 // Re-export all our event definitions

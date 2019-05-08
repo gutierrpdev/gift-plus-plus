@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 import { assertNever } from '../../utils/helpers';
 import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder';
+import { InProgressGift } from '../../domain';
 
 import { Panel, PanelContent } from '../panel';
-import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-recorder';
+import {
+  track,
+  audioRecordingStartedEvent,
+  audioRecordingStoppedEvent,
+  audioReRecordedEvent,
+  audioKeptEvent,
+} from '../../utils/events';
+
 
 /**
  * The start of making a gift. User records a greeting to recipient.
@@ -18,29 +25,61 @@ import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-
 interface Props {
   text: string;
   saveButtonText: string;
+  gift: InProgressGift;
+  eventReference: string;
   onComplete: (recordingUrl: string) => void;
 }
 
 export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   text,
   saveButtonText,
+  gift,
+  eventReference,
   onComplete,
 }) => {
   const audioRecorder = useAudioRecorder();
+
+  function handleReRecord() {
+
+    // Track the event
+    track(audioReRecordedEvent( {giftId: gift.id, audioType: eventReference} ));
+
+    // Fire
+    if (audioRecorder.state === 'audio-ready') {
+      audioRecorder.disposeRecording();
+    }
+
+  }
+
+  function handleSaveRecording(file: string) {
+
+    // Track the event
+    track(audioKeptEvent( {giftId: gift.id, audioType: eventReference} ));
+
+    // Finish
+    onComplete(file);
+
+  }
 
   if (audioRecorder.state === 'audio-ready') {
     return (
       <PlaybackPanel
         url={audioRecorder.recordingUrl}
         saveButtonText={saveButtonText}
-        onReRecordClicked={audioRecorder.disposeRecording}
-        onSaveClicked={() => onComplete(audioRecorder.recordingUrl)}
+        gift={gift}
+        onReRecordClicked={handleReRecord}
+        onSaveClicked={() => handleSaveRecording(audioRecorder.recordingUrl)}
       />
     );
   }
 
   return (
-    <RecordPanel text={text} audioRecorder={audioRecorder} />
+    <RecordPanel
+      text={text}
+      audioRecorder={audioRecorder}
+      gift={gift}
+      eventReference={eventReference}
+    />
   );
 };
 
@@ -50,7 +89,9 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
 const RecordPanel: React.FC<{
   audioRecorder: AudioRecorder;
   text: string;
-}> = ({ audioRecorder, text }) => {
+  gift: InProgressGift;
+  eventReference: string;
+}> = ({ audioRecorder, text, gift, eventReference }) => {
   // Convert audio recorder state into a display status for the component
   const componentStatus = (audioRecorder.state === 'pending') ? 'idle'
                         : (audioRecorder.state === 'preparing') ? 'preparing'
@@ -67,10 +108,31 @@ const RecordPanel: React.FC<{
                 : (audioRecorder.state === 'error') ? audioRecorder.reset
                 : noop;
 
-  const button = (audioRecorder.state === 'recording') ? (<Button onClick={onClick}>Stop recording</Button>)
-               : (audioRecorder.state === 'processing') ? (<Button onClick={onClick}>Stop recording</Button>)
+  const button = (audioRecorder.state === 'recording') ? (<Button onClick={handleStopRecord}>Stop recording</Button>)
+               : (audioRecorder.state === 'processing') ? (<Button onClick={handleStopRecord}>Stop recording</Button>)
                : (audioRecorder.state === 'error') ? (<Button onClick={onClick}>Try again</Button>)
-               : (<Button onClick={onClick} primary={true}>Start recording</Button>);
+               : (<Button onClick={handleStartRecord} primary={true}>Start recording</Button>);
+
+  function handleStartRecord() {
+
+    // Track the event
+    track(audioRecordingStartedEvent( {giftId: gift.id, audioType: eventReference} ));
+
+    // Fire
+    onClick();
+
+  }
+
+  function handleStopRecord() {
+
+    // Track the event
+    track(audioRecordingStoppedEvent( {giftId: gift.id, audioType: eventReference} ));
+
+    // Fire
+    onClick();
+
+  }
+
 
   return (
     <Panel>
@@ -92,15 +154,18 @@ const RecordPanel: React.FC<{
 const PlaybackPanel: React.FC<{
   url: string;
   saveButtonText: string;
+  gift: InProgressGift;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, saveButtonText, onReRecordClicked, onSaveClicked }) => (
+}> = ({ url, saveButtonText, gift, onReRecordClicked, onSaveClicked }) => (
   <Panel>
     <PanelContent>
       <AudioPlayer
-        text={'Review your recording'}
+        message={'Review your recording'}
         src={url}
-        forwardButton={'SkipSeconds'}
+        forwardButtonType={'skip-seconds'}
+        giftId={gift.id}
+        eventReference={'creating-review-greeting'}
       />
     </PanelContent>
     <Buttons>

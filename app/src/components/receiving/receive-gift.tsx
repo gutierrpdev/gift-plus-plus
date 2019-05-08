@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { assertNever } from '../../utils/helpers';
 
@@ -14,7 +13,13 @@ import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { BgSvgFullScreen } from '../svg/bg';
-import { track, receivingGiftLocationSelectedEvent } from '../../utils/events';
+import {
+  track,
+  receivingGiftLocationSelectedEvent,
+  receivingGiftSaveForLaterEvent,
+  receivingGiftOpenItNowEvent,
+} from '../../utils/events';
+import history from '../../utils/router-history';
 
 /**
  * Gift Receive screen top level component
@@ -51,6 +56,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   // Gift has been opened
   public openGift = () => {
+    track(receivingGiftOpenItNowEvent( {giftId: this.props.gift.id} ));
     this.setCompactHeader();
     this.setState({
       status: 'ShowingParts',
@@ -73,6 +79,16 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       recipientLocation,
       status: nextStage,
     });
+
+  }
+
+  public handleSaveForLaterClick = () => {
+
+    // Record the event
+    track(receivingGiftSaveForLaterEvent( {giftId: this.props.gift.id} ));
+
+    // Go to the homepage
+    history.push('/');
 
   }
 
@@ -115,7 +131,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           />
         </PanelContent>
         <Buttons>
-          <Button><Link to='/'>Save it</Link></Button>
+          <Button onClick={this.handleSaveForLaterClick}>Save it</Button>
           <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
         </Buttons>
       </Panel>

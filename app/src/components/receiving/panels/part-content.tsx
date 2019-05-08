@@ -7,6 +7,11 @@ import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
+import {
+  track,
+  receivingGiftClueRequestedEvent,
+  receivingGiftFoundPartEvent,
+} from '../../../utils/events';
 
 /***
  * Show the gift part content, prompting for clues, etc.
@@ -51,6 +56,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoGiveClueSearch() {
+
+    // Record the event
+    track(receivingGiftClueRequestedEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
+
+    // Show the section
     setSection(4);
   }
 
@@ -59,6 +69,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function gotoHereYouGo() {
+
+    // Record the event
+    track(receivingGiftFoundPartEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
+
+    // Show the section
     setSection(6);
   }
 
@@ -345,12 +360,14 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* play audio */}
         {section === 8 &&
           <AudioPlayer
-            text={getPlaySendersMessage()}
+            message={getPlaySendersMessage()}
             src={giftPart.note}
-            forwardButton={'GoToEnd'}
+            forwardButtonType={'go-to-end'}
+            allowCompactRound={true}
+            giftId={props.gift.id}
+            eventReference='receiving-part-content-play-sender-message'
             onPlaybackStarted={handleAudioPlaybackStarted}
             onPlaybackComplete={handleAudioPlaybackFinished}
-            allowCompactRound={true}
           />
         }
 

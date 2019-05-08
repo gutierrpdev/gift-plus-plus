@@ -14,7 +14,7 @@ import { PhotoCapture } from '../../components/photo-capture';
 import { TextAreaInput } from '../../components/inputs/textarea-input';
 import { romanNumeralFromDecimal } from '../../themes/global';
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
-import { track, giftPartCompletedEvent } from '../../utils/events';
+import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
 
 /***
  * Show the creating gift part content
@@ -237,25 +237,31 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-              text={'Listen while you look for your first object...'}
+              message={'Listen while you look for your first object...'}
               src={require('../../../src/assets/audio/c-choose-part-1.mp3')}
-              forwardButton={'GoToEnd'}
+              forwardButtonType={'go-to-end'}
+              giftId={gift.id}
+              eventReference={'creating-part-look-first-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
           {giftPartIndex === 1 &&
             <AudioPlayer
-              text={'Time to choose a second object...'}
+              message={'Time to choose a second object...'}
               src={require('../../../src/assets/audio/c-choose-part-2.mp3')}
-              forwardButton={'GoToEnd'}
+              forwardButtonType={'go-to-end'}
+              giftId={gift.id}
+              eventReference={'creating-part-look-second-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
           {giftPartIndex === 2 &&
             <AudioPlayer
-              text={'Time to look for a final object...'}
+              message={'Time to look for a final object...'}
               src={require('../../../src/assets/audio/c-choose-part-3.mp3')}
-              forwardButton={'GoToEnd'}
+              forwardButtonType={'go-to-end'}
+              giftId={gift.id}
+              eventReference={'creating-part-look-third-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -277,7 +283,12 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <PhotoCapture
               text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
-              onPhotoTaken={handlePhotoTaken}
+              onPhotoTaken={(fileUrl: string) => {
+                // Process the photo
+                handlePhotoTaken(fileUrl);
+                // Call the event
+                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-1-photo'} ));
+              }}
               showCamera={showCamera}
             />
           }
@@ -287,14 +298,24 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them.`}
               textSize={42}
-              onPhotoTaken={handlePhotoTaken}
+              onPhotoTaken={(fileUrl: string) => {
+                // Process the photo
+                handlePhotoTaken(fileUrl);
+                // Call the event
+                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-2-photo'} ));
+              }}
               showCamera={showCamera}
             />
           }
           {giftPartIndex === 2 &&
             <PhotoCapture
               text={`Choose your last object and take a photo.`}
-              onPhotoTaken={handlePhotoTaken}
+              onPhotoTaken={(fileUrl: string) => {
+                // Process the photo
+                handlePhotoTaken(fileUrl);
+                // Call the event
+                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-3-photo'} ));
+              }}
               showCamera={showCamera}
             />
           }
@@ -313,25 +334,31 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-                text={`Let them know why you chose this object...`}
+                message={`Let them know why you chose this object...`}
                 src={require('../../../src/assets/audio/c-let-them-know-part-1.mp3')}
-                forwardButton={'GoToEnd'}
+                forwardButtonType={'go-to-end'}
+                giftId={gift.id}
+                eventReference={'creating-part-why-choosen-first-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
           {giftPartIndex === 1 &&
             <AudioPlayer
-                text={`Tell them why you chose this...`}
+                message={`Tell them why you chose this...`}
                 src={require('../../../src/assets/audio/c-let-them-know-part-2.mp3')}
-                forwardButton={'GoToEnd'}
+                forwardButtonType={'go-to-end'}
+                giftId={gift.id}
+                eventReference={'creating-part-why-choosen-second-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
           {giftPartIndex === 2 &&
             <AudioPlayer
-                text={`And record your final message...`}
+                message={`And record your final message...`}
                 src={require('../../../src/assets/audio/c-let-them-know-part-3.mp3')}
-                forwardButton={'GoToEnd'}
+                forwardButtonType={'go-to-end'}
+                giftId={gift.id}
+                eventReference={'creating-part-why-choosen-third-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
@@ -354,8 +381,10 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
     return (
       <CreateGiftRecordAndPlayback
+        gift={gift}
         text={text}
         saveButtonText={'Save Message'}
+        eventReference='create-gift-part-why-this-object'
         onComplete={handleAudioRecordFinished}
       />
     );

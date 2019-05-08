@@ -112,29 +112,32 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
 
       {status === 'choose-recipient' &&
        <CreateGiftChooseRecipient
-         onComplete={(recipientName) => {
-           // TODO: deal with gift state properly
-           gift.recipientName = recipientName;
-           track(giftRecipientEnteredEvent( {giftId: gift.id} ));
-           setStatus('record-greeting');
-         }}
+          gift={gift}
+          onComplete={(recipientName) => {
+            // TODO: deal with gift state properly
+            gift.recipientName = recipientName;
+            track(giftRecipientEnteredEvent( {giftId: gift.id} ));
+            setStatus('record-greeting');
+          }}
        />
       }
 
       {status === 'record-greeting' &&
-       <CreateGiftRecordAndPlayback
-         text={`Record a greeting for ${gift.recipientName}`}
-         saveButtonText={'Save Greeting'}
-         onComplete={(greeting) => {
-           // TODO: deal with gift state properly
-           gift.recipientGreeting = greeting;
-           setStatus('creating-part');
-         }}
-       />
+        <CreateGiftRecordAndPlayback
+          gift={gift}
+          text={`Record a greeting for ${gift.recipientName}`}
+          saveButtonText={'Save Greeting'}
+          eventReference={'create-gift-record-greeting'}
+          onComplete={(greeting) => {
+            // TODO: deal with gift state properly
+            gift.recipientGreeting = greeting;
+            setStatus('creating-part');
+          }}
+        />
       }
 
       {status === 'creating-part' && gift.recipientName !== undefined &&
-       <CreatingPartContent
+        <CreatingPartContent
           gift={gift}
           recipientName={gift.recipientName}
           onComplete={(parts) => {
@@ -142,19 +145,22 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
             gift.parts = parts;
             setStatus('sign-gift');
           }}
-       />
+        />
       }
 
       {status === 'sign-gift' &&
-       <SignGift onComplete={() => setStatus('save-gift')} />
+        <SignGift onComplete={() => setStatus('save-gift')} />
       }
 
       {status === 'save-gift' &&
-       <SaveGift onComplete={() => setStatus('share-gift')} />
+        <SaveGift
+          gift={gift}
+          onComplete={() => setStatus('share-gift')}
+        />
       }
 
       {status === 'share-gift' &&
-       <ShareGift url={'https://todo.giftapp.com'} />
+        <ShareGift url={'https://todo.giftapp.com'} />
       }
 
     </ScreenManager>

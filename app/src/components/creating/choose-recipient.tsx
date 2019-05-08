@@ -4,6 +4,7 @@ import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
 import { TextInput } from '../inputs/text-input';
+import { InProgressGift } from '../../domain';
 
 /**
  * The start of making a gift. User enters recipient name.
@@ -16,10 +17,11 @@ type Status =
 
 
 interface Props {
+  gift: InProgressGift; // Current gift
   onComplete: (recipientName: string) => void;
 }
 
-export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
+export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete }) => {
   const [status, setStatus] = useState<Status>('audio-message');
   const [recipientName, setRecipientName] = useState('');
   const [audioHasPlayed, setAudioHasPlayed] = useState(false);
@@ -29,9 +31,11 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
       <>
         <PanelContent>
           <AudioPlayer
-            text={'Who are you going to choose?'}
+            message={'Who are you going to choose?'}
             src={require('../../../src/assets/audio/c-start-gift.mp3')}
-            forwardButton={'GoToEnd'}
+            forwardButtonType={'go-to-end'}
+            giftId={gift.id}
+            eventReference={'choose-recipient'}
             onPlaybackComplete={() => setAudioHasPlayed(true)}
           />
         </PanelContent>

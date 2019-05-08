@@ -159,6 +159,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
           <>
             {index === 0 &&
             <ReceivingIntroContent
+              gift={this.props.gift}
               onComplete={this.nextPanel}
               recipientLocation={this.props.recipientLocation}
               audioIntroPlayed={this.state.audioIntroPlayed}

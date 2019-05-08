@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { InProgressGift } from '../../domain';
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
@@ -7,6 +8,7 @@ import { PanelPrompt } from '../panel-prompt';
 import { PanelRound } from '../panel-round';
 import { Buttons, Button } from '../buttons';
 import { ProgressLoader } from '../progress-loader';
+import { track, savingGiftAttemptedEvent, savingGiftSucceededEvent, savingGiftFailedEvent } from '../../utils/events';
 
 /**
  * Save the gift
@@ -18,10 +20,11 @@ type Status =
 ;
 
 interface Props {
+  gift: InProgressGift;
   onComplete: () => void;
 }
 
-export const SaveGift: React.FC<Props> = ({ onComplete }) => {
+export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [status, setStatus] = useState<Status>('saving');
@@ -30,14 +33,20 @@ export const SaveGift: React.FC<Props> = ({ onComplete }) => {
 
   function renderSaving() {
 
+    // todo these tracking events might want to move to the API interface, MKK?
+    track(savingGiftAttemptedEvent( {giftId: gift.id} ));
+
     // Todo : this should be the upload to API
     setTimeout( () => {
-      // Upload not successful
+
+      // !! Upload not successful !!
       // setSaveProgress(50);
       // setStatus('saving-failed');
+      // track(savingGiftFailedEvent( {giftId: gift.id} ));
 
       // Upload successful
       setSaveProgress(100);
+      track(savingGiftSucceededEvent( {giftId: gift.id} ));
       onComplete();
     }, 3000);
 

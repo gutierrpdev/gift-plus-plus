@@ -4,6 +4,7 @@ import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from '../../choose-location';
+import { InProgressGift } from '../../../domain';
 
 /***
  * Show the intro content
@@ -13,6 +14,7 @@ export interface IntroContentProps {
   visible?: boolean;
   recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
+  gift: InProgressGift;
   onComplete?: () => void;
   handleAudioIntroPlayed: () => void;
 }
@@ -51,18 +53,22 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
         {/* todo : set audio paths */}
         {atMuseum &&
           <AudioPlayer
-            text={'One thing before you start...'}
+            message={'One thing before you start...'}
             src={require('../../../assets/audio/r-intro-content-1.mp3')}
-            forwardButton={'GoToEnd'}
-            onPlaybackComplete={handleAudioPlaybackFinished}
+            forwardButtonType={'go-to-end'}
             allowCompactRound={true}
+            giftId={props.gift.id}
+            eventReference={'receiving-intro-at-museum'}
+            onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
         {!atMuseum &&
           <AudioPlayer
-            text={'One thing before you start...'}
+            message={'One thing before you start...'}
             src={require('../../../assets/audio/r-intro-content-1.mp3')} // todo this should be a different file
-            forwardButton={'GoToEnd'}
+            forwardButtonType={'go-to-end'}
+            giftId={props.gift.id}
+            eventReference={'receiving-intro-not-at-museum'}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }

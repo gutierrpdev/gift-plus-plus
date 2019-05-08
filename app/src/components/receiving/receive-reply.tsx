@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Gift } from '../../domain';
 import { AccordionTitle } from '../accordion-title';
-import { AudioPlayer, AudioPlayerForwardButton } from '../audio-player';
+import { AudioPlayer, AudioPlayerForwardButtonType } from '../audio-player';
 import { AudioRecorder } from '../audio-recorder';
 import { Buttons, Button } from '../buttons';
 
@@ -38,10 +38,16 @@ const ReceiveReply: React.FC<Props> = (props) => {
       </AccordionTitle>
 
       {hasRecording &&
-        <AudioPlayer text={'Listen back to your reply...'} src={''} forwardButton={'GoToEnd'}  />
+        <AudioPlayer
+          message={'Listen back to your reply...'}
+          src={''}
+          forwardButtonType={'go-to-end'}
+          giftId={props.gift.id}
+          eventReference={'reply-listen-back'}
+        />
       }
       {!hasRecording &&
-        <AudioRecorder status={'idle'} text={recordText}  onClick={todo} />
+        <AudioRecorder status={'idle'} text={recordText} onClick={todo} />
       }
 
       <Buttons>
