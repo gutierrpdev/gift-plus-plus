@@ -35,7 +35,6 @@ const OpenText = styled(TextResize).attrs({
 `;
 
 export interface Props {
-  visible?: boolean;
   onComplete?: () => void;
 }
 
@@ -49,7 +48,7 @@ const ReceivingOpenGift: React.FC<Props> = (props) => {
   }
 
   return (
-    <Panel visible={props.visible}>
+    <Panel>
       <PanelContent>
         <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
           <OpenPanel>

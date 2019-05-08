@@ -11,7 +11,6 @@ import { InProgressGift } from '../../../domain';
  */
 
 export interface IntroContentProps {
-  visible?: boolean;
   recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
   gift: InProgressGift;
@@ -46,7 +45,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
   }
 
   return (
-    <Panel visible={props.visible}>
+    <Panel>
 
       <PanelContent>
 

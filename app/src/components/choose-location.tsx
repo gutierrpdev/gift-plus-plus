@@ -12,7 +12,6 @@ import { Buttons, Button } from './buttons';
 export type RecipientLocation = 'unknown' | 'at-museum' | 'not-at-museum';
 
 export interface ChooseLocationProps {
-  visible?: boolean;
   museumName: string;
   doSetLocation: (recipientLocation: RecipientLocation) => void; // Callback to the parent
 }
@@ -33,7 +32,7 @@ const ChooseLocation: React.FC<ChooseLocationProps> = (props) => {
   }
 
   return (
-    <Panel visible={props.visible}>
+    <Panel>
       <PanelContent>
         <PanelPrompt
           text={`Are you at the ${props.museumName} right now?`}

@@ -11,9 +11,8 @@ const PanelContent = styled.div`
   position: relative;
 `;
 
-// todo: visible might not be required anymore
-const Panel = styled.div<PanelProps>`
-  display: ${(props) => props.visible === false ? 'none' : 'flex'};
+const Panel = styled.div`
+  display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 100%;
@@ -22,10 +21,6 @@ const Panel = styled.div<PanelProps>`
   z-index: 3;
   position: relative;
 `;
-
-interface PanelProps {
-  visible?: boolean;
-}
 
 export {
   PanelContent,

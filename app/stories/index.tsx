@@ -645,7 +645,6 @@ storiesOf('Components/Receiving', module)
   .add('Intro', () => (
     <ReceivingIntroContent
       gift={giftThreeParts}
-      visible={true}
       onComplete={doNothing}
       recipientLocation={'at-museum'}
       audioIntroPlayed={true}
@@ -654,7 +653,6 @@ storiesOf('Components/Receiving', module)
   ))
   .add('Content', () => (
     <ReceivingPartContent
-      visible={true}
       gift={giftThreeParts}
       giftPartIndex={0}
       onComplete={doNothing}

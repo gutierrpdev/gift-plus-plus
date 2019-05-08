@@ -19,7 +19,6 @@ import {
 
 
 export interface PartContentProps {
-  visible?: boolean; // Should this component be visible
   gift: Gift; // The gift in question, as we need some other info (part count, sender name)
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation; // At the museum or not
@@ -263,7 +262,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // Use an index to advance to next statge
   return (
-    <Panel visible={props.visible}>
+    <Panel>
 
       <PanelContent>
 
