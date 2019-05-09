@@ -52,7 +52,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   // E.g. Currently ReceiveGift and it's children must NEVER save the gift as
   // the asset urls in it are only temporary.
 
-  return <ReceiveGift gift={preloadedAssetGift} museumName={'Brighton & Hove Museum'} />;
+  return <ReceiveGift gift={preloadedAssetGift} museumName={'Brighton Museum'} />;
 };
 
 

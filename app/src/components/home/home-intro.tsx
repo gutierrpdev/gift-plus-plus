@@ -60,7 +60,7 @@ const HomeIntro: React.FC = () => {
 
   // Defaults
   const defaultWait = 5;
-  const museumName = 'Brighton Museum & Art Gallery'; // todo: get from entry URL
+  const museumName = 'Brighton Museum'; // todo: get from entry URL
 
   // Checks our current status and shows the correct next state
   function showNextScreen(nextStatus: Status) {
