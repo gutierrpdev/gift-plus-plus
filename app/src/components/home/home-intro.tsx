@@ -32,16 +32,6 @@ const GiftImg = styled.div`
   margin-bottom: 1vh;
   width: 40%;
   position: relative;
-  &:after {
-    content: '';
-    background-color: ${global.colour.darkRed};
-    width: 3vh;
-    height: 3vh;
-    position: absolute;
-    border-radius: 50%;
-    top: 0;
-    right: -2vw;
-  }
 `;
 
 // Current status of this screen
