@@ -40,7 +40,7 @@ mockGifts.set(uuidv5('https://api.gift.com/gift/test-2', uuidv5.URL), {
   kind: 'MuseumGift',
   museumId: uuidv5('https://api.gift.com/museum/test-1', uuidv5.URL),
   accountId: uuidv5('https://api.gift.com/account/test-1', uuidv5.URL),
-  senderName: 'Darren',
+  senderName: 'Brighton Museum',
   recipientName: 'Michael',
   recipientGreeting: 'https://s3.eu-west-2.amazonaws.com/bt-gift-app/staging/app-uploads/c879827b-3c84-47cc-8ee5-37955449b0e1/9db1dc38-4424-419d-b469-3f14b134ba9b-recipientName.m4a',
   parts: [

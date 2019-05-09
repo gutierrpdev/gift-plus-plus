@@ -165,6 +165,11 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       : status === 'Welcome' || status === 'SelectLocation' || status === 'OpenOrSave'
       ? 'big' : 'small';
 
+    // Only include museum name for personal gift
+    const museumName = this.props.gift.kind === 'PersonalGift'
+      ? `at ${this.props.museumName}`
+      : '';
+
     return (
       <ScreenManager>
         <BgSvgFullScreen />
@@ -175,7 +180,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             subTitle={`Here's your gift`}
             postSubTitle='from'
             title={this.props.gift.senderName}
-            postTitle={`at ${this.props.museumName}`}
+            postTitle={museumName}
             showLogo={false}
             topPadding='large'
           />
@@ -184,7 +189,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           <ScreenHeader
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
-            postTitle={`at ${this.props.museumName}`}
+            postTitle={museumName}
             showLogo={false}
             background='white'
           />
