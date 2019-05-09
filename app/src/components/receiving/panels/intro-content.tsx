@@ -4,7 +4,7 @@ import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from '../../choose-location';
-import { InProgressGift } from '../../../domain';
+import { Gift } from '../../../domain';
 
 /**
  * Show the intro content
@@ -13,14 +13,14 @@ import { InProgressGift } from '../../../domain';
 export interface IntroContentProps {
   recipientLocation: RecipientLocation;
   audioIntroPlayed: boolean;
-  gift: InProgressGift;
+  gift: Gift;
   onComplete?: () => void;
   handleAudioIntroPlayed: () => void;
 }
 
 const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
 
-  const atMuseum = (props.recipientLocation === 'at-museum');
+  // State
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
 
   function handleContinue() {
@@ -43,33 +43,37 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
     }
   }
 
+  // Local
+  const atMuseum = (props.recipientLocation === 'at-museum');
+  const museumGift = (props.gift.kind === 'MuseumGift');
+  // TODO: update these audio files
+  const audioFile = atMuseum
+    ? museumGift
+      ? require('../../../assets/audio/r-intro-content-1.mp3')
+      : require('../../../assets/audio/r-intro-content-1.mp3')
+    // not at museum
+    : museumGift
+      ? require('../../../assets/audio/r-intro-content-1.mp3')
+      : require('../../../assets/audio/r-intro-content-1.mp3');
+  const eventReference = atMuseum
+    ? 'receiving-intro-at-museum'
+    : 'receiving-intro-not-at-museum';
+
   return (
     <Panel>
 
       <PanelContent>
 
-        {/* todo : set audio paths */}
-        {atMuseum &&
-          <AudioPlayer
-            message={'One thing before you start...'}
-            src={require('../../../assets/audio/r-intro-content-1.mp3')}
-            forwardButtonType={'go-to-end'}
-            allowCompactRound={true}
-            giftId={props.gift.id}
-            eventReference={'receiving-intro-at-museum'}
-            onPlaybackComplete={handleAudioPlaybackFinished}
-          />
-        }
-        {!atMuseum &&
-          <AudioPlayer
-            message={'One thing before you start...'}
-            src={require('../../../assets/audio/r-intro-content-1.mp3')} // todo this should be a different file
-            forwardButtonType={'go-to-end'}
-            giftId={props.gift.id}
-            eventReference={'receiving-intro-not-at-museum'}
-            onPlaybackComplete={handleAudioPlaybackFinished}
-          />
-        }
+        <AudioPlayer
+          message={'One thing before you start...'}
+          src={audioFile}
+          forwardButtonType={'go-to-end'}
+          allowCompactRound={true}
+          giftId={props.gift.id}
+          eventReference={eventReference}
+          onPlaybackComplete={handleAudioPlaybackFinished}
+        />
+
       </PanelContent>
 
       <Buttons>
