@@ -17,8 +17,8 @@ import { ChooseLocation, RecipientLocation } from '../choose-location';
 import {
     getHasSeenHomeIntro,
     setHasSeenHomeIntro,
-    getHasSeenHomeHowAbout,
-    setHasSeenHomeHowAbout,
+    getHasUnopenedMuseumGift,
+    setHasUnopenedMuseumGift,
     getSessionRecipientLocation,
     setSessionRecipientLocation,
 } from '../../utils/local';
@@ -70,18 +70,15 @@ const HomeIntro: React.FC = () => {
     if (nextStatus === 'start') {
 
       // Have we already seen the intro?
-      getHasSeenHomeIntro() ? showNextScreen('how-about') : setStatus('start');
+      getHasSeenHomeIntro() ? showNextScreen('choose-location') : setStatus('start');
 
     } else if (nextStatus === 'how-about') {
 
-      setHasSeenHomeIntro(true);
-
-      // Have we already seen this part?
-      getHasSeenHomeHowAbout() ? showNextScreen('choose-location') : setStatus('how-about');
+      setStatus('how-about');
 
     } else if (nextStatus === 'choose-location') {
 
-      setHasSeenHomeHowAbout(true);
+      setHasSeenHomeIntro(true);
 
       // console.log({recipientLocation});
 
@@ -104,8 +101,19 @@ const HomeIntro: React.FC = () => {
 
         // todo: check if we have a new gift.  If not go to /home
 
-        // Go to start
-        setStatus('got-new-gift');
+        // Do we have a new museum gift?
+        if (hasUnopenedMuseumGift()) {
+
+          // Go to start
+          setStatus('got-new-gift');
+          console.log('status set');
+
+        } else {
+
+          // Go to the home screen
+          history.push('/home');
+
+        }
 
       } else if (recipientLocation === 'not-at-museum') {
 
@@ -129,19 +137,31 @@ const HomeIntro: React.FC = () => {
 
     // console.log({location});
 
+    // Store in session
+    setSessionRecipientLocation(location);
+
     // Set state
     setRecipientLocation(location);
 
-    // Set session
-    setSessionRecipientLocation(location);
-
     // Updated UI to the next screen
     // Set choose-location as this handle location checking
-    setTimeout(() => {
-      showNextScreen('got-new-gift');
-      // console.log({status});
-    }, 2000);
+    // setTimeout(() => {
+    // console.log({status});
+    showNextScreen('got-new-gift');
+    // }, 2000);
 
+  }
+
+  // Check if the user has unopneded gift from the museum
+  function hasUnopenedMuseumGift(): boolean {
+    // Todo: this might be an API look up
+    console.log(getHasUnopenedMuseumGift());
+    return getHasUnopenedMuseumGift();
+  }
+
+  function handleOpenGift() {
+    // Set the museum gift as read
+    setHasUnopenedMuseumGift(false);
   }
 
   // Start
@@ -226,14 +246,19 @@ const HomeIntro: React.FC = () => {
                 <GiftImg>
                   <SvgGift colour='black' />
                 </GiftImg>
-                <PanelText textSize={60}>You’ve got a new gift from Brighton Museum</PanelText>
+                <PanelText textSize={60}>You’ve got a new gift from {museumName}</PanelText>
               </PanelPrompt>
 
             </PanelContent>
             <Buttons>
               <Button><Link to='/create-gift'>Create a Gift</Link></Button>
               <Button primary={true}>
-                <Link to='/gift/5475400c-684c-515f-8343-b9d14340de9c'>Show museum's Gift</Link>{/* todo */}
+                <Link
+                  onClick={handleOpenGift}
+                  to='/gift/5475400c-684c-515f-8343-b9d14340de9c'
+                >
+                  Show museum's Gift
+                </Link>{/* todo: real url */}
               </Button>
             </Buttons>
           </>

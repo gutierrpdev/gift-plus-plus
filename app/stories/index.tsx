@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { BrowserRouter, HashRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
+import { setPrefix, getLocalItem, setLocalItem, getSessionItem, setSessionItem } from '../src/utils/storage';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
@@ -611,6 +612,28 @@ storiesOf('Tests', module)
         <div><Link to='test2'>Goto 2</Link></div>
         <div><Button onClick={pushToHistory}>Go to 1 via history.push</Button></div>
       </Router>
+    );
+  })
+  .add('Local storage', () => {
+
+    // We need to reliably read a true value when set via local storage, or when there is nothing in local storage
+    function getIt(key: string): boolean {
+      return getLocalItem<boolean>(key) === undefined ? true : !!getLocalItem<boolean>(key);
+    }
+
+    setPrefix('sb');
+    const nothing: boolean = getIt('nothing1');
+
+    setLocalItem('set', true);
+    const set = getIt('set');
+    setLocalItem('set', false);
+    const setAgain = getIt('set');
+    return (
+      <>
+        <p>Check item never stored: should be true = {nothing.toString()}</p>
+        <p>Check set item: should be true = {set.toString()}</p>
+        <p>Check set again item: should be false = {setAgain.toString()}</p>
+      </>
     );
   })
 ;

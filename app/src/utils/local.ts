@@ -7,29 +7,32 @@ import { setPrefix, getLocalItem, setLocalItem, getSessionItem, setSessionItem }
 import { RecipientLocation } from '../components/choose-location';
 
 // Cache-busting prefix for different versions
-setPrefix('1'); // todo : this should probably come from the config
+setPrefix('v1'); // todo : this should probably come from the config
 
+// HasSeenHomeIntro
 export function getHasSeenHomeIntro(): boolean {
   return !!getLocalItem<boolean>('hasSeenHomeIntro');
 }
-
 export function setHasSeenHomeIntro(hasSeen: boolean): void {
   setLocalItem('hasSeenHomeIntro', hasSeen);
 }
 
-export function getHasSeenHomeHowAbout(): boolean {
-  return !!getLocalItem<boolean>('hasSeenHomeHowAbout');
+// HasUnopenedMuseumGift
+export function getHasUnopenedMuseumGift(): boolean {
+  // Default to true
+  return getLocalItem<boolean>('hasUnopenedMuseumGift') === undefined
+    ? true
+    : !!getLocalItem<boolean>('hasUnopenedMuseumGift');
+}
+export function setHasUnopenedMuseumGift(opened: boolean): void {
+  setLocalItem('hasUnopenedMuseumGift', opened);
 }
 
-export function setHasSeenHomeHowAbout(hasSeen: boolean): void {
-  setLocalItem('hasSeenHomeHowAbout', hasSeen);
-}
-
+// SessionRecipientLocation
 export function getSessionRecipientLocation(): RecipientLocation {
   // Default to unknown
   return getSessionItem<RecipientLocation>('recipientLocation') || 'unknown';
 }
-
 export function setSessionRecipientLocation(recipientLocation: RecipientLocation): void {
   setSessionItem('recipientLocation', recipientLocation);
 }
