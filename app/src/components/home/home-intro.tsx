@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -47,6 +47,11 @@ const HomeIntro: React.FC = () => {
   const [status, setStatus] = useState<Status>('none');
   // Default to stored recipientLocation value
   const [recipientLocation, setRecipientLocation] = useState<RecipientLocation>(getSessionRecipientLocation);
+
+  // Listen for change on location, and re-trigger showNextScreen when selected
+  useEffect(() => {
+    showNextScreen(status);
+  }, [recipientLocation]);
 
   // Defaults
   const defaultWait = 5;
@@ -121,12 +126,7 @@ const HomeIntro: React.FC = () => {
     // Set state
     setRecipientLocation(location);
 
-    // Updated UI to the next screen
-    // Set choose-location as this handle location checking
-    // setTimeout(() => {
-    // console.log({status});
-    showNextScreen('got-new-gift');
-    // }, 2000);
+    // No need to update state/status/UI as useEffect will do this based on setRecipientLocation update
 
   }
 
