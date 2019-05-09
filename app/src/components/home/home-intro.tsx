@@ -224,7 +224,6 @@ const HomeIntro: React.FC = () => {
                 </GiftImg>
                 <PanelText textSize={60}>You’ve got a new gift from {museumName}</PanelText>
               </PanelPrompt>
-
             </PanelContent>
             <Buttons>
               <Button><Link to='/create-gift'>Create a Gift</Link></Button>
