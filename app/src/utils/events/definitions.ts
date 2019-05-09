@@ -23,27 +23,30 @@ export const appStartedEvent = () => ({
 // Auth
 // ----
 
-export const registrationAttemptedEvent = () => ({ name: 'registration-attempted' });
+// todo: when auth added
 
-export const registrationSucceededEvent = () => ({ name: 'registration-succeeded' });
-export const registrationFailedEvent = () => ({ name: 'registration-failed' });
+// export const registrationAttemptedEvent = () => ({ name: 'registration-attempted' });
 
-export const signInAttemptedEvent = () => ({ name: 'sign-in-attempted' });
-export const signInSucceededEvent = () => ({ name: 'sign-in-succeeded' });
-export const signInFailedEvent = () => ({ name: 'sign-in-failed' });
+// export const registrationSucceededEvent = () => ({ name: 'registration-succeeded' });
+// export const registrationFailedEvent = () => ({ name: 'registration-failed' });
 
-export const signOutAttemptedEvent = () => ({ name: 'sign-out-attempted' });
-export const signOutSucceededEvent = () => ({ name: 'sign-out-succeeded' });
-export const signOutFailedEvent = () => ({ name: 'sign-out-failed' });
+// export const signInAttemptedEvent = () => ({ name: 'sign-in-attempted' });
+// export const signInSucceededEvent = () => ({ name: 'sign-in-succeeded' });
+// export const signInFailedEvent = () => ({ name: 'sign-in-failed' });
+
+// export const signOutAttemptedEvent = () => ({ name: 'sign-out-attempted' });
+// export const signOutSucceededEvent = () => ({ name: 'sign-out-succeeded' });
+// export const signOutFailedEvent = () => ({ name: 'sign-out-failed' });
 
 
 // -----------
 // Home Screen
 // -----------
 
-export const viewHomeScreenEvent = () => ({ name: 'view-home-screen' });
-export const viewReceivedGiftsTabEvent = () => ({ name: 'view-received-gifts-tab' });
-export const viewSentGiftsTabEvent = () => ({ name: 'view-sent-gifts-tab' });
+// home-screen-viewed - standard
+
+export const viewHomeScreenEvent = () => ({ name: 'home-new-viewed' });
+// todo: export const viewHomeScreenEvent = () => ({ name: 'home-known-viewed' });
 
 export const viewGiftClickedEvent = ( { giftId }: {giftId: GiftId } ) => ({
   name: 'view-gift-clicked',
@@ -60,26 +63,9 @@ export const newGiftStartedEvent = ( { giftId }: {giftId: GiftId } ) => ({
   payload: { giftId },
 });
 
-// delete - we dont have this now
-// export const existingGiftContinuedEvent = ( { giftId }: {giftId: GiftId } ) => ({
-//   name: 'existing-gift-continued',
-//   payload: { giftId },
-// });
+// Add : browser prompt for away
 
-// todo: not sure how in terms of JS tech?  On callback on leave tab
-// export const giftAbandonedEvent = ( { giftId }: {giftId: GiftId } )=> ({
-//   name: 'gift-abandoned',
-//   payload: { giftId },
-// });
-
-// we dont have this now
-// delete -  double check we don't have this
-// export const giftSavedForLaterEvent = ( { giftId }: {giftId: GiftId } )=> ({
-//   name: 'gift-saved-for-later',
-//   payload: { giftId },
-// });
-
-// todo, do we want this?
+// add this
 // export const viewSendingGiftPanelEvent = ({ giftId, panelName }) => ({
 //   name: 'view-sending-gift-panel',
 //   payload: { giftId, panelName },
@@ -100,6 +86,8 @@ export const giftPartCompletedEvent = (
   payload: { giftId, partNumber, nextStep },
 });
 
+// add: gift completed by user
+
 export const savingGiftAttemptedEvent = ( { giftId }: {giftId: GiftId } ) => ({
   name: 'saving-gift-attempted',
   payload: { giftId },
@@ -113,11 +101,12 @@ export const savingGiftFailedEvent = ( { giftId }: {giftId: GiftId } ) => ({
   payload: { giftId },
 });
 
-// Potential new events
-// giftShareClicked
-// giftMenuItemClicked
+// add: share-screen-viewed
+// add: share-option-clicked: instagram
+// add: menu-item-clicked : menu-item : source-panel
+// add: creating-outro-panel viewed
 
-// we dont have this now, todo but check for alternative
+// add this one:
 // export const giftCompleteGoHomePressedEvent = ( { giftId }: {giftId: GiftId } )=> ({
 //   name: 'gift-complete-go-home-pressed',
 //   payload: { giftId },
@@ -128,7 +117,7 @@ export const savingGiftFailedEvent = ( { giftId }: {giftId: GiftId } ) => ({
 // Gift Receiving
 // --------------
 
-// todo, do we want this?
+// add
 // export const viewReceivingGiftPanelEvent = ({ giftId, panelName }) => ({
 //   name: 'view-receiving-gift-panel',
 //   payload: { giftId, panelName },
@@ -176,11 +165,10 @@ export const receivingGiftFoundPartEvent = ({ giftId, partNumber }: { giftId: Gi
 //   payload: { giftId },
 // });
 
-// todo review an alternaive for this, TBD
-// export const giftReceiveCompleteGoHomePressedEvent = ( { giftId }: {giftId: GiftId } )=> ({
-//   name: 'gift-receive-complete-go-home-pressed',
-//   payload: { giftId },
-// });
+export const giftReceiveCompleteGoHomePressedEvent = ( { giftId }: {giftId: GiftId } ) => ({
+  name: 'gift-receive-complete-go-home-pressed',
+  payload: { giftId },
+});
 
 
 // -----
@@ -198,11 +186,10 @@ export const audioPausedEvent = ({ giftId, audioType }: { giftId: GiftId, audioT
   payload: { giftId, audioType },
 });
 
-// No stop now
-// export const audioStoppedEvent = ({ giftId, audioType }) => ({
-//   name: 'audio-stopped',
-//   payload: { giftId, audioType },
-// });
+// fire both always
+// audio-playback-skipped-forward
+// audio-playback-skipped-back
+// audio-playback-completed
 
 export const audioRecordingStartedEvent = ({ giftId, audioType }: { giftId: GiftId, audioType: string }) => ({
   name: 'audio-recording-started',
@@ -233,15 +220,3 @@ export const photoTakenEvent = ({ giftId, photoType }: { giftId: GiftId, photoTy
   name: 'photo-taken',
   payload: { giftId, photoType },
 });
-
-
-// note: These are no longer used as we have no feedback from the phone internal camera UI
-// export const photoKeepEvent = ({ giftId, photoType }: { giftId: GiftId, photoType: string }) => ({
-//   name: 'photo-keep',
-//   payload: { giftId, photoType },
-// });
-
-// export const photoRetakeEvent = ({ giftId, photoType} : { giftId: GiftId, photoType: string }) => ({
-//   name: 'photo-retake',
-//   payload: { giftId, photoType },
-// });

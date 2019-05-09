@@ -10,15 +10,15 @@ import { Gift } from '../../../domain';
  * Show the intro content
  */
 
-export interface IntroContentProps {
+export interface Props {
   recipientLocation: RecipientLocation;
-  audioIntroPlayed: boolean;
+  audioIntroPlayed: boolean; // todo check this
   gift: Gift;
   onComplete?: () => void;
   handleAudioIntroPlayed: () => void;
 }
 
-const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
+const ReceivingIntroContent: React.FC<Props> = (props) => {
 
   // State
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
@@ -46,6 +46,7 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
   // Local
   const atMuseum = (props.recipientLocation === 'at-museum');
   const museumGift = (props.gift.kind === 'MuseumGift');
+
   // TODO: update these audio files
   const audioFile = atMuseum
     ? museumGift
@@ -55,9 +56,14 @@ const ReceivingIntroContent: React.FC<IntroContentProps> = (props) => {
     : museumGift
       ? require('../../../assets/audio/r-intro-content-1.mp3')
       : require('../../../assets/audio/r-intro-content-1.mp3');
+
   const eventReference = atMuseum
-    ? 'receiving-intro-at-museum'
-    : 'receiving-intro-not-at-museum';
+    ? museumGift
+      ? 'receiving-intro-at-museum-museum-gift'
+      : 'receiving-intro-at-museum-personal-gift'
+    : museumGift
+      ? 'receiving-intro-not-at-museum-museum-gift'
+      : 'receiving-intro-not-at-museum-personal-gift';
 
   return (
     <Panel>

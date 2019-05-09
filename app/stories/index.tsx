@@ -48,6 +48,7 @@ import { ChooseLocation } from '../src/components/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 import { WorkingProgress } from '../src/components/working-progress';
+import { ReceivingOutroContent } from '../src/components/receiving/panels/outro-content';
 
 // Creating
 import { CreateGiftIntro } from '../src/components/creating/intro';
@@ -111,6 +112,9 @@ storiesOf('Home', module)
     <BrowserRouter>
       <SignIn onCloseButtonClick={doNothing} />
     </BrowserRouter>
+  ))
+  .add('Loading gift', () => (
+    <WorkingProgress text='Loading' percent={37} />
   ))
 ;
 
@@ -687,8 +691,11 @@ storiesOf('Components/Receiving', module)
   .add('Reply', () => (
     <ReceiveReply gift={giftThreeParts} />
   ))
-  .add('Loading gift', () => (
-    <WorkingProgress text='Loading' percent={37} />
+  .add('Outro', () => (
+    <ReceivingOutroContent
+      recipientLocation={'at-museum'}
+      gift={giftThreeParts}
+    />
   ))
 ;
 

@@ -9,6 +9,7 @@ import { GiftPartWrapper } from './gift-part-wrapper';
 import { IdleGiftPart } from './idle-gift-part';
 import { RecipientLocation } from '../choose-location';
 import { PanelContent } from '../panel';
+import { ReceivingOutroContent } from '../receiving/panels/outro-content';
 
 /**
  * Holds and manages visual Gift Parts
@@ -36,7 +37,8 @@ interface State {
 type ManagerStatus =
   | { kind: 'ShowingAllParts' }
   | { kind: 'OnePartOpen', activePart: GiftPart }
-  | { kind: 'ShowingResponse' };
+  | { kind: 'ShowingResponse' }
+  | { kind: 'ShowingOutro' };
 
 interface GiftPartState {
   isDisabled: boolean;
@@ -119,7 +121,7 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
       } else {
         setState({
           ...state,
-          status: { kind: 'ShowingResponse' },
+          status: { kind: 'ShowingOutro' },
         });
       }
     };
@@ -170,6 +172,15 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
           <h3>TODO: Respond to gift</h3>
         </PanelContent>
       </StyledGiftPartsManager>
+    );
+  }
+
+  if (state.status.kind === 'ShowingOutro') {
+    return (
+      <ReceivingOutroContent
+        recipientLocation={'at-museum'}
+        gift={gift}
+      />
     );
   }
 
