@@ -169,7 +169,7 @@ storiesOf('Components', module)
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
   .add('Panel Round', () => (
     <div style={greyBG}>
-      <PanelRound border='dotted-white' background='transparent-black' />
+      <PanelRound border='none' background='transparent-black' />
       <PanelRound border='none' background='solid-white' />
     </div>
   ))

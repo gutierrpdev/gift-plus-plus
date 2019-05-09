@@ -6,7 +6,7 @@ import { global } from '../themes/global';
  */
 
 export type PanelRoundBackgroundStyle = 'transparent-black' | 'solid-white' | 'none';
-export type PanelRoundBorderStyle = 'dotted-white' | 'solid-red' | 'solid-grey' | 'none';
+export type PanelRoundBorderStyle = 'solid-red' | 'solid-grey' | 'none';
 
 export interface Props {
   border?: PanelRoundBorderStyle; // default = 'none'
@@ -47,11 +47,6 @@ const PanelRound = styled.div<Props>`
       @media (min-width: ${global.desktop.startPixels}px) {
         border: solid transparent;
       }
-  `}
-
-  ${(props: Props) =>
-    props.border === 'dotted-white' && `
-      border: dashed white 0.6vh;
   `}
 
   ${(props: Props) =>

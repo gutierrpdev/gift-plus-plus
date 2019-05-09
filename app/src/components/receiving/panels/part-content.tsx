@@ -270,7 +270,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               text={getIntroText()}
               background={'transparent-black'}
               allowCompactRound={true}
-              border='dotted-white'
               onClick={handleContinue}
             />
             <WaitThen
@@ -297,7 +296,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               text={getDoYouNeedaClueText()}
               background={'transparent-black'}
               allowCompactRound={true}
-              border='dotted-white'
               onClick={handleContinue}
             />
             <WaitThen
@@ -313,7 +311,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             text={getLookAroundText()}
             background={'transparent-black'}
             allowCompactRound={true}
-            border='dotted-white'
           />
         }
 
