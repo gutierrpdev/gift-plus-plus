@@ -222,17 +222,17 @@ const HomeIntro: React.FC = () => {
                 <GiftImg>
                   <SvgGift colour='black' />
                 </GiftImg>
-                <PanelText textSize={60}>You’ve got a new gift from {museumName}</PanelText>
+                <PanelText textSize={60}>You’ve got a gift from {museumName}</PanelText>
               </PanelPrompt>
             </PanelContent>
             <Buttons>
-              <Button><Link to='/create-gift'>Create a Gift</Link></Button>
+              <Button><Link to='/create-gift'>Create own gift</Link></Button>
               <Button primary={true}>
                 <Link
                   onClick={handleOpenGift}
                   to='/gift/5475400c-684c-515f-8343-b9d14340de9c'
                 >
-                  Show museum's Gift
+                  Show museum gift
                 </Link>{/* todo: real url */}
               </Button>
             </Buttons>
