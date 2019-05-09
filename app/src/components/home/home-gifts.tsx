@@ -69,15 +69,15 @@ const HomeGifts: React.FC = () => {
 
   const gift1Part = {...emptyGift,
     id: '/gift/cdfc5287-9d03-5c70-94f1-755d4480bfac',
-    senderName: '1 Part Example Gift',
+    senderName: '1 Part Personal Gift',
   };
   const gift2Part = {...emptyGift,
     id: '/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c',
-    senderName: '2 Part Example Gift',
+    senderName: '2 Part Museum Gift',
   };
   const gift3Part = {...emptyGift,
     id: '/gift/5475400c-684c-515f-8343-b9d14340de9c',
-    senderName: '3 Part Example Gift',
+    senderName: '3 Part Personal Gift',
   };
 
   giftsIn.push(

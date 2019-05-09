@@ -37,7 +37,7 @@ mockGifts.set(uuidv5('https://api.gift.com/gift/test-1', uuidv5.URL), {
 // 2e73df73-4faf-5c0a-abaa-c3717fd3ef7c
 mockGifts.set(uuidv5('https://api.gift.com/gift/test-2', uuidv5.URL), {
   id: uuidv5('https://api.gift.com/gift/test-2', uuidv5.URL),
-  kind: 'PersonalGift',
+  kind: 'MuseumGift',
   museumId: uuidv5('https://api.gift.com/museum/test-1', uuidv5.URL),
   accountId: uuidv5('https://api.gift.com/account/test-1', uuidv5.URL),
   senderName: 'Darren',
