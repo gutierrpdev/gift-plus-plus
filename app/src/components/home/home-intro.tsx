@@ -65,8 +65,6 @@ const HomeIntro: React.FC = () => {
   // Checks our current status and shows the correct next state
   function showNextScreen(nextStatus: Status) {
 
-    // console.log({nextStatus});
-
     if (nextStatus === 'start') {
 
       // Have we already seen the intro?
@@ -79,8 +77,6 @@ const HomeIntro: React.FC = () => {
     } else if (nextStatus === 'choose-location') {
 
       setHasSeenHomeIntro(true);
-
-      // console.log({recipientLocation});
 
       if (recipientLocation === 'unknown') {
 
@@ -95,8 +91,6 @@ const HomeIntro: React.FC = () => {
 
     } else if (nextStatus === 'got-new-gift') {
 
-      // console.log({recipientLocation});
-
       if (recipientLocation === 'at-museum') {
 
         // todo: check if we have a new gift.  If not go to /home
@@ -106,7 +100,6 @@ const HomeIntro: React.FC = () => {
 
           // Go to start
           setStatus('got-new-gift');
-          console.log('status set');
 
         } else {
 
@@ -117,15 +110,12 @@ const HomeIntro: React.FC = () => {
 
       } else if (recipientLocation === 'not-at-museum') {
 
-        // console.log('home');
-
         // Go to the home screen
         history.push('/home');
 
       }
 
     } else {
-      // console.log('none');
       // Safety net
       setStatus('none');
     }
@@ -134,8 +124,6 @@ const HomeIntro: React.FC = () => {
 
   // Handle the location set
   function handleSetLocation(location: RecipientLocation): void {
-
-    // console.log({location});
 
     // Store in session
     setSessionRecipientLocation(location);
@@ -155,7 +143,6 @@ const HomeIntro: React.FC = () => {
   // Check if the user has unopneded gift from the museum
   function hasUnopenedMuseumGift(): boolean {
     // Todo: this might be an API look up
-    console.log(getHasUnopenedMuseumGift());
     return getHasUnopenedMuseumGift();
   }
 
@@ -164,8 +151,7 @@ const HomeIntro: React.FC = () => {
     setHasUnopenedMuseumGift(false);
   }
 
-  // Start
-  // console.log({status});
+  // Start, default to first screen
   if (status === 'none') {
     showNextScreen('start');
   }
