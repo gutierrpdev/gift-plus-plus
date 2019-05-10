@@ -42,6 +42,10 @@ const ButtonStyle = styled.button<ButtonProps>`
   flex-basis: 0;
   border: none;
   cursor: pointer;
+  opacity: 0.95;
+  &:active, &:hover {
+    opacity: 1;
+  }
 `;
 
 const Button: React.FC<ButtonProps> = (props) => {
