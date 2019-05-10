@@ -29,8 +29,11 @@ interface Props {
 
 
 export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
+
+  // State
   const [status, setStatus] = useState<Status>('first-message');
 
+  // Locals
   const defaultWait = 5;
 
   function renderFirstMessage() {
@@ -41,7 +44,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
             text='You’re
                   about to make
                   a gift for someone
-                  special.'
+                  special'
             textSize={61}
             background='transparent-black'
             onClick={() => setStatus('second-message')}
@@ -67,7 +70,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
         <PanelContent>
           <PanelPrompt
             text={`It might take two minutes. It might take twenty.
-              It’s what you choose.`}
+              It’s up to you`}
             background={'transparent-black'}
             onClick={onComplete}
           />

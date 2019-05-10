@@ -216,7 +216,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={'Time to choose your first object from the museum'}
+              text={`Thanks! Time to choose your first object for ${recipientName}`}
               background={'transparent-black'}
               onClick={() => { setStatus('second-message'); }}
             />
@@ -282,7 +282,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PhotoCapture
-              text={`If you’ve found your first object, take a photo so they can see what you’ve chosen.`}
+              text={`If you’ve found your first object, take a photo so they can see what you’ve chosen`}
               onPhotoTaken={(fileUrl: string) => {
                 // Process the photo
                 handlePhotoTaken(fileUrl);
@@ -334,7 +334,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-                message={`Let them know why you chose this object...`}
+                message={`OK. You've taken a photo`}
                 src={require('../../../src/assets/audio/c-let-them-know-part-1.mp3')}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -374,7 +374,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   }
 
   function renderRecordMessage() {
-    const text = (giftPartIndex === 0) ? 'Let them know why you chose this object...'
+    const text = (giftPartIndex === 0) ? `Let ${recipientName} know why you chose this object...`
                : (giftPartIndex === 1) ? 'Tell them why you chose this...'
                : (giftPartIndex === 2) ? 'And record your final message...'
                : '';
