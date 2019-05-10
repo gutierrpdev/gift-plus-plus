@@ -106,11 +106,10 @@ export const savingGiftFailedEvent = ( { giftId }: {giftId: GiftId } ) => ({
 // add: menu-item-clicked : menu-item : source-panel
 // add: creating-outro-panel viewed
 
-// add this one:
-// export const giftCompleteGoHomePressedEvent = ( { giftId }: {giftId: GiftId } )=> ({
-//   name: 'gift-complete-go-home-pressed',
-//   payload: { giftId },
-// });
+export const giftCompleteGoHomePressedEvent = ( { giftId }: {giftId: GiftId } ) => ({
+  name: 'gift-complete-go-home-pressed',
+  payload: { giftId },
+});
 
 
 // --------------

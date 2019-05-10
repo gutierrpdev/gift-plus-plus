@@ -56,6 +56,7 @@ import { CreateGiftChooseRecipient } from '../src/components/creating/choose-rec
 import { CreateGiftRecordAndPlayback } from '../src/components/creating/record-and-playback';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
+import { ShareGift } from '../src/components/creating/share-gift';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
@@ -739,9 +740,15 @@ storiesOf('Components/Creating', module)
     </>
   ))
   .add('Sign gift', () => (
-    <>
+    <ScreenManager>
       <GlobalStyles />
       <SignGift onComplete={logSomething} />
-    </>
+    </ScreenManager>
+  ))
+  .add('Share gift', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <ShareGift recipientName='Nick' url='https://www.blasttheory.co.uk/projects/gift/' />
+    </ScreenManager>
   ))
 ;

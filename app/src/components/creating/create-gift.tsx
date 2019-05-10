@@ -160,7 +160,7 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       }
 
       {status === 'share-gift' &&
-        <ShareGift url={'https://todo.giftapp.com'} />
+        <ShareGift recipientName='Nick' url={'https://todo.giftapp.com'} />
       }
 
     </ScreenManager>
