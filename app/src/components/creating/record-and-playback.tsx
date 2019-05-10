@@ -24,6 +24,7 @@ import {
 
 interface Props {
   text: string;
+  playbackMessage?: string;
   saveButtonText: string;
   gift: InProgressGift;
   eventReference: string;
@@ -32,6 +33,7 @@ interface Props {
 
 export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   text,
+  playbackMessage = 'Review your recording',
   saveButtonText,
   gift,
   eventReference,
@@ -64,6 +66,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   if (audioRecorder.state === 'audio-ready') {
     return (
       <PlaybackPanel
+        playbackMessage={playbackMessage}
         url={audioRecorder.recordingUrl}
         saveButtonText={saveButtonText}
         gift={gift}
@@ -153,15 +156,16 @@ const RecordPanel: React.FC<{
 
 const PlaybackPanel: React.FC<{
   url: string;
+  playbackMessage: string;
   saveButtonText: string;
   gift: InProgressGift;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, saveButtonText, gift, onReRecordClicked, onSaveClicked }) => (
+}> = ({ url, playbackMessage, saveButtonText, gift, onReRecordClicked, onSaveClicked }) => (
   <Panel>
     <PanelContent>
       <AudioPlayer
-        message={'Review your recording'}
+        message={playbackMessage}
         src={url}
         forwardButtonType={'skip-seconds'}
         giftId={gift.id}

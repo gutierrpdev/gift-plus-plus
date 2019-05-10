@@ -296,7 +296,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             <PhotoCapture
               text={`Have a wander to find the second object for ${recipientName}.
                 Why not visit another part of the museum?
-                When you’ve found it take a photo to show them.`}
+                When you’ve found it take a photo to show them`}
               textSize={42}
               onPhotoTaken={(fileUrl: string) => {
                 // Process the photo
@@ -309,7 +309,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           }
           {giftPartIndex === 2 &&
             <PhotoCapture
-              text={`Choose your last object and take a photo.`}
+              text={`Choose your last object and take a photo`}
               onPhotoTaken={(fileUrl: string) => {
                 // Process the photo
                 handlePhotoTaken(fileUrl);
@@ -381,6 +381,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
     return (
       <CreateGiftRecordAndPlayback
+        playbackMessage={'Listen back to your message...'}
         gift={gift}
         text={text}
         saveButtonText={'Save Message'}
@@ -421,7 +422,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Mention the gallery you’re in... or something they can ask museum staff if they get really stuck.`}
+              text={`Mention the gallery you’re in... or something they can ask museum staff if they get really stuck`}
               background={'transparent-black'}
               onClick={() => { setStatus('write-clue'); }}
             />
@@ -478,7 +479,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Great, you’ve made part one of your gift for ${recipientName}.`}
+              text={`Great, you’ve made part one of your gift for ${recipientName}`}
               background={'transparent-black'}
               onClick={next}
             />
@@ -506,7 +507,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`They’re going to love it.`}
+              text={`They’re going to love it`}
               background={'transparent-black'}
               onClick={() => { setStatus('send'); }}
             />
@@ -527,7 +528,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Do you want to add part two or send it as it is? You can choose up to three.`}
+              text={`Do you want to add part two or send it as it is? You can choose up to three`}
               background={'transparent-black'}
             />
           }
