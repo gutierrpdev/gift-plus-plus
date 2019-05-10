@@ -9,23 +9,29 @@ import { Buttons, Button } from '../buttons';
 import { isIosDevice } from '../../utils/helpers';
 
 const ShareLink = styled.a`
+  display: block;
   margin-bottom: 3vh;
   font-weight: bold;
 `;
 
+const Shares = styled.div`
+  margin: 10vh 0 0;
+`;
 
 /**
  * Share the gift
  */
 
 interface Props {
-  url: string;
+  recipientName: string; // Receipient name to show
+  url: string; // URL to share
+  onComplete: () => void; // Callback to call when complete
 }
 
-export const ShareGift: React.FC<Props> = ({ url }) => {
+export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) => {
 
   // Encode the URL for sharing
-  const shareTitle = 'Here is a gift from Nick';
+  const shareTitle = `Here is a gift from ${recipientName}`;
 
   // Prepare all of the URLS
   const emailLink = encodeURI(`mailto:?&subject=${shareTitle}&body=${shareTitle} ${url}`);
@@ -39,25 +45,35 @@ export const ShareGift: React.FC<Props> = ({ url }) => {
   const androidSmsLink = encodeURI(`sms:?&body=${shareTitle} ${url}`);
   const smsLink = isIosDevice() ? iosSmsLink : androidSmsLink;
 
+  function handleContinue() {
+    // Check for callback
+    if (onComplete) {
+      onComplete();
+    }
+  }
+
   return (
     <Panel>
       <PanelTitle>Share your gift</PanelTitle>
       <PanelContent>
-        <ShareLink href={emailLink}>Share via Email</ShareLink>
-        <ShareLink target='_blank' href={facebookLink}>Share on Facebook</ShareLink>
-        <ShareLink href={fbMessengerLink}>Share In Facebook Messenger (mobile only)</ShareLink>
-        <ShareLink target='_blank' href={twitterLink}>Share on Twitter</ShareLink>
-        <ShareLink
-          href={whatsAppsLink}
-          data-action='share/whatsapp/share'
-          target='_blank'
-        >
-          Share via Whatsapp (mobile only)
-        </ShareLink>
-        <ShareLink href={smsLink}>Share via SMS</ShareLink>
+        <PanelSubTitle>Share my gift with {recipientName}</PanelSubTitle>
+        <Shares>
+          <ShareLink href={emailLink}>Share via Email</ShareLink>
+          <ShareLink target='_blank' href={facebookLink}>Share on Facebook</ShareLink>
+          <ShareLink href={fbMessengerLink}>Share In Facebook Messenger (mobile only)</ShareLink>
+          <ShareLink target='_blank' href={twitterLink}>Share on Twitter</ShareLink>
+          <ShareLink
+            href={whatsAppsLink}
+            data-action='share/whatsapp/share'
+            target='_blank'
+          >
+            Share via Whatsapp (mobile only)
+          </ShareLink>
+          <ShareLink href={smsLink}>Share via SMS</ShareLink>
+        </Shares>
       </PanelContent>
       <Buttons>
-        {/* <Button>OK</Button> */}
+        <Button onClick={handleContinue}>Continue</Button>
       </Buttons>
     </Panel>
   );

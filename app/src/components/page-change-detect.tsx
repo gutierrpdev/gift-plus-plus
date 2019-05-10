@@ -7,18 +7,20 @@ import {Prompt} from 'react-router-dom';
  */
 
 interface Props {
+  enabled: boolean; // Enable or disable the whole control
   promptOnReloadAndClose?: boolean;  // Prompts the user on reload and close
   promptOnRouterLinkClick?: boolean; // Prompts the user if they click a router link
   confirmationMessage?: string; // Optional confirmation message
 }
 
 const PageChangeDetect: React.FC<Props> = ({
-    promptOnReloadAndClose = true,
-    promptOnRouterLinkClick = true,
-    confirmationMessage = 'Are you sure you want to leave?',
-  }) => {
+  enabled = true,
+  promptOnReloadAndClose = true,
+  promptOnRouterLinkClick = true,
+  confirmationMessage = 'Are you sure you want to leave?',
+}) => {
 
-  if (promptOnReloadAndClose) {
+  if (enabled && promptOnReloadAndClose) {
 
     // Note: This does not work on iOS, despite using 'pagehide' event
     const eventName = 'beforeunload';
@@ -35,7 +37,7 @@ const PageChangeDetect: React.FC<Props> = ({
 
   }
 
-  if (promptOnRouterLinkClick) {
+  if (enabled && promptOnRouterLinkClick) {
 
     // Use a router prompt to detect users clicking to a new URL
     return (

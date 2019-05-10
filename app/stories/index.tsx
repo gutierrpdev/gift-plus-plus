@@ -1,10 +1,10 @@
 import React from 'react';
 import history from '../src/utils/router-history';
 import { storiesOf } from '@storybook/react';
-import { BrowserRouter, HashRouter, Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
-import { setPrefix, getLocalItem, setLocalItem, getSessionItem, setSessionItem } from '../src/utils/storage';
+import { setPrefix, getLocalItem, setLocalItem } from '../src/utils/storage';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
@@ -56,6 +56,7 @@ import { CreateGiftChooseRecipient } from '../src/components/creating/choose-rec
 import { CreateGiftRecordAndPlayback } from '../src/components/creating/record-and-playback';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
+import { ShareGift } from '../src/components/creating/share-gift';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
@@ -739,9 +740,19 @@ storiesOf('Components/Creating', module)
     </>
   ))
   .add('Sign gift', () => (
-    <>
+    <ScreenManager>
       <GlobalStyles />
       <SignGift onComplete={logSomething} />
-    </>
+    </ScreenManager>
+  ))
+  .add('Share gift', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <ShareGift
+        recipientName='Nick'
+        url='https://www.blasttheory.co.uk/projects/gift/'
+        onComplete={doNothing}
+      />
+    </ScreenManager>
   ))
 ;
