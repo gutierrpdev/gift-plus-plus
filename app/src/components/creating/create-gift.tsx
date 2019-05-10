@@ -21,6 +21,7 @@ import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { SaveGift } from '../creating/save-gift';
 import { ShareGift } from '../creating/share-gift';
+import { ReceivingOutro } from '../creating/outro';
 
 
 /**
@@ -36,6 +37,7 @@ type Status =
   | 'sign-gift'
   | 'save-gift'
   | 'share-gift'
+  | 'outro'
 ;
 
 
@@ -79,13 +81,21 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
 
   }
 
+  // Shall we allow navigation away based on the current state
+  function canNavigateAway() {
+    return status === 'outro';
+  }
+
 
   return (
 
     <ScreenManager>
       <BgSvgFullScreen />
       <GlobalStyles />
-      <PageChangeDetect confirmationMessage='Are you sure you want to cancel making your Gift?' />
+      <PageChangeDetect
+        enabled={!canNavigateAway()}
+        confirmationMessage='Are you sure you want to cancel making your Gift?'
+      />
 
       {/* Header */}
       {headerState === 'name-unknown' &&
@@ -160,7 +170,17 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       }
 
       {status === 'share-gift' &&
-        <ShareGift recipientName='Nick' url={'https://todo.giftapp.com'} />
+        <ShareGift
+          recipientName={gift.recipientName || ''}
+          url={'https://todo.giftapp.com'}
+          onComplete={() => setStatus('outro')}
+        />
+      }
+
+      {status === 'outro' &&
+        <ReceivingOutro
+          gift={gift}
+        />
       }
 
     </ScreenManager>

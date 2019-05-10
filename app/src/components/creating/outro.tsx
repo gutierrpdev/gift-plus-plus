@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../../components/audio-player';
-import { Gift } from '../../domain';
+import { InProgressGift } from '../../domain';
 import history from '../../utils/router-history';
 import { track, giftCompleteGoHomePressedEvent } from '../../utils/events';
 
@@ -12,10 +12,10 @@ import { track, giftCompleteGoHomePressedEvent } from '../../utils/events';
  */
 
 export interface Props {
-  gift: Gift;
+  gift: InProgressGift;
 }
 
-const ReceivingOutroContent: React.FC<Props> = ({ gift }) => {
+const ReceivingOutro: React.FC<Props> = ({ gift }) => {
 
   // State
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
@@ -37,7 +37,7 @@ const ReceivingOutroContent: React.FC<Props> = ({ gift }) => {
       <PanelContent>
         <AudioPlayer
           message='Thank you...'
-          src={require('../../../assets/audio/r-outro-local.mp3')}
+          src={require('../../assets/audio/r-outro-local.mp3')}
           forwardButtonType={'go-to-end'}
           giftId={gift.id}
           eventReference={'create-gift-outro-audio'}
@@ -55,5 +55,5 @@ const ReceivingOutroContent: React.FC<Props> = ({ gift }) => {
 };
 
 export {
-  ReceivingOutroContent,
+  ReceivingOutro,
 };

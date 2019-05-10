@@ -1,10 +1,10 @@
 import React from 'react';
 import history from '../src/utils/router-history';
 import { storiesOf } from '@storybook/react';
-import { BrowserRouter, HashRouter, Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
-import { setPrefix, getLocalItem, setLocalItem, getSessionItem, setSessionItem } from '../src/utils/storage';
+import { setPrefix, getLocalItem, setLocalItem } from '../src/utils/storage';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
@@ -546,7 +546,7 @@ storiesOf('Components', module)
   .add('Tab close detect', () => (
     <>
       <BrowserRouter>
-        <PageChangeDetect />
+        <PageChangeDetect enabled={false} />
           <div><a href='http://www.google.com'>Go to Google</a></div>
           <Link to='your-gifts'>Go to Your Gifts</Link>
       </BrowserRouter>
@@ -748,7 +748,11 @@ storiesOf('Components/Creating', module)
   .add('Share gift', () => (
     <ScreenManager>
       <GlobalStyles />
-      <ShareGift recipientName='Nick' url='https://www.blasttheory.co.uk/projects/gift/' />
+      <ShareGift
+        recipientName='Nick'
+        url='https://www.blasttheory.co.uk/projects/gift/'
+        onComplete={doNothing}
+      />
     </ScreenManager>
   ))
 ;

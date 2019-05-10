@@ -60,7 +60,7 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
           </PanelRound>
         </PanelContent>
         <Buttons>
-          <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button>
+          {/* <Button onClick={() => setStatus('saving')} primary={true}>Enter</Button> */}
         </Buttons>
       </Panel>
     );

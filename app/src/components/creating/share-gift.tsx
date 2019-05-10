@@ -23,11 +23,12 @@ const Shares = styled.div`
  */
 
 interface Props {
-  recipientName: string;
-  url: string;
+  recipientName: string; // Receipient name to show
+  url: string; // URL to share
+  onComplete: () => void; // Callback to call when complete
 }
 
-export const ShareGift: React.FC<Props> = ({ recipientName, url }) => {
+export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) => {
 
   // Encode the URL for sharing
   const shareTitle = `Here is a gift from ${recipientName}`;
@@ -43,6 +44,13 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url }) => {
   const iosSmsLink = encodeURI(`sms:&body=${shareTitle} ${url}`);
   const androidSmsLink = encodeURI(`sms:?&body=${shareTitle} ${url}`);
   const smsLink = isIosDevice() ? iosSmsLink : androidSmsLink;
+
+  function handleContinue() {
+    // Check for callback
+    if (onComplete) {
+      onComplete();
+    }
+  }
 
   return (
     <Panel>
@@ -65,7 +73,7 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url }) => {
         </Shares>
       </PanelContent>
       <Buttons>
-        <Button>Continue</Button>
+        <Button onClick={handleContinue}>Continue</Button>
       </Buttons>
     </Panel>
   );
