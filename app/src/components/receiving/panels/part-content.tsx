@@ -232,8 +232,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function getPreFindText() {
     switch (props.giftPartIndex) {
       case 0 :
-      case 1 :
         return 'Well done!';
+      case 1 :
+        return 'Good work!';
       case 2 :
         return 'Excellent';
       default :
