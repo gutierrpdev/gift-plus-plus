@@ -53,6 +53,12 @@ export const viewGiftClickedEvent = ( { giftId }: {giftId: GiftId } ) => ({
   payload: { giftId },
 });
 
+// location: 'at-museum' | 'somewhere-else'
+export const homeLocationSelectedEvent = ({location }: { location: string }) => ({
+  name: 'home-location-selected',
+  payload: { location },
+});
+
 
 // -------------
 // Gift Creation

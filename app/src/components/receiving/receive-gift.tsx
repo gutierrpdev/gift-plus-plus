@@ -14,6 +14,10 @@ import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { BgSvgFullScreen } from '../svg/bg';
 import {
+  getSessionRecipientLocation,
+  setSessionRecipientLocation,
+} from '../../utils/local';
+import {
   track,
   receivingGiftLocationSelectedEvent,
   receivingGiftSaveForLaterEvent,
@@ -43,7 +47,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public state: State = {
     status: 'Welcome',
-    recipientLocation: 'unknown',
+    recipientLocation: getSessionRecipientLocation(), // Default to the stored session value
     compactHeader: false,
   };
 
@@ -68,6 +72,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
     // todo: we may have already selected the location and stored it, us that, but ensure tracking the event is called
     track(receivingGiftLocationSelectedEvent( {giftId: this.props.gift.id, location: recipientLocation} ));
+
+    setSessionRecipientLocation(recipientLocation);
 
     // Determine the next stage based on the location
     const nextStage: ReceiveGiftStatus = recipientLocation === 'not-at-museum'
@@ -148,6 +154,14 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   }
 
   public renderSelectLocation() {
+
+    // If we already have a location stored jump to the next stage
+    if (this.state.recipientLocation !== 'unknown') {
+      this.setState({
+        status: 'ShowingParts',
+      });
+    }
+
     return (
       <ChooseLocation
         museumName={this.props.museumName}

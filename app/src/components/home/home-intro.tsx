@@ -22,6 +22,10 @@ import {
     getSessionRecipientLocation,
     setSessionRecipientLocation,
 } from '../../utils/local';
+import {
+  track,
+  homeLocationSelectedEvent,
+} from '../../utils/events';
 import history from '../../utils/router-history';
 
 /**
@@ -120,13 +124,16 @@ const HomeIntro: React.FC = () => {
   // Handle the location set
   function handleSetLocation(location: RecipientLocation): void {
 
+    // Record event
+    track(homeLocationSelectedEvent( {location: recipientLocation} ));
+
     // Store in session
     setSessionRecipientLocation(location);
 
     // Set state
     setRecipientLocation(location);
 
-    // No need to update state/status/UI as useEffect will do this based on setRecipientLocation update
+    // Note: No need to update state/status/UI as useEffect will do this based on setRecipientLocation update
 
   }
 
