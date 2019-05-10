@@ -545,7 +545,7 @@ storiesOf('Components', module)
   .add('Tab close detect', () => (
     <>
       <BrowserRouter>
-        <PageChangeDetect />
+        <PageChangeDetect enabled={true} />
           <div><a href='http://www.google.com'>Go to Google</a></div>
           <Link to='your-gifts'>Go to Your Gifts</Link>
       </BrowserRouter>
@@ -662,7 +662,7 @@ storiesOf('Components/Receiving', module)
       </GiftPartWrapper>
     </>
   ))
-  .add('Gift Parts', () => (
+  .add('Gift Parts Manager', () => (
     <ScreenManager>
       <GlobalStyles />
       <GiftPartsManager gift={giftThreeParts} recipientLocation={'at-museum'} />
