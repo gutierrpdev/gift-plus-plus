@@ -9,7 +9,6 @@ import { GiftPartWrapper } from './gift-part-wrapper';
 import { IdleGiftPart } from './idle-gift-part';
 import { RecipientLocation } from '../choose-location';
 import { PanelContent } from '../panel';
-import { ReceivingOutroContent } from '../receiving/panels/outro-content';
 
 /**
  * Holds and manages visual Gift Parts
@@ -36,9 +35,8 @@ interface State {
 
 type ManagerStatus =
   | { kind: 'ShowingAllParts' }
-  | { kind: 'OnePartOpen', activePart: GiftPart }
-  | { kind: 'ShowingResponse' }
-  | { kind: 'ShowingOutro' };
+  | { kind: 'OnePartOpen', activePart: GiftPart };
+  // | { kind: 'ShowingResponse' };
 
 interface GiftPartState {
   isDisabled: boolean;
@@ -118,12 +116,12 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
           status: { kind: 'OnePartOpen', activePart: nextPart },
           partStateMap,
         });
-      } else {
+      } /*else {
         setState({
           ...state,
-          status: { kind: 'ShowingOutro' },
+          status: { kind: 'ShowingResponse' },
         });
-      }
+      } */
     };
 
     return (
@@ -165,24 +163,15 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
   }
 
 
-  if (state.status.kind === 'ShowingResponse') {
-    return (
-      <StyledGiftPartsManager>
-        <PanelContent>
-          <h3>TODO: Respond to gift</h3>
-        </PanelContent>
-      </StyledGiftPartsManager>
-    );
-  }
-
-  if (state.status.kind === 'ShowingOutro') {
-    return (
-      <ReceivingOutroContent
-        recipientLocation={'at-museum'}
-        gift={gift}
-      />
-    );
-  }
+  // if (state.status.kind === 'ShowingResponse') {
+  //   return (
+  //     <StyledGiftPartsManager>
+  //       <PanelContent>
+  //         <h3>TODO: Respond to gift</h3>
+  //       </PanelContent>
+  //     </StyledGiftPartsManager>
+  //   );
+  // }
 
   return assertNever(state.status);
 };

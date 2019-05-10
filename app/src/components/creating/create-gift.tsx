@@ -21,7 +21,7 @@ import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { SaveGift } from '../creating/save-gift';
 import { ShareGift } from '../creating/share-gift';
-import { ReceivingOutro } from '../creating/outro';
+import { CreatingOutro } from '../creating/outro';
 
 
 /**
@@ -178,7 +178,7 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
       }
 
       {status === 'outro' &&
-        <ReceivingOutro
+        <CreatingOutro
           gift={gift}
         />
       }

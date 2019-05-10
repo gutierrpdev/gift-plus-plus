@@ -15,7 +15,7 @@ export interface Props {
   gift: InProgressGift;
 }
 
-const ReceivingOutro: React.FC<Props> = ({ gift }) => {
+const CreatingOutro: React.FC<Props> = ({ gift }) => {
 
   // State
   const [audioPlaybackFinished, setAudioPlaybackFinished] = useState(false);
@@ -55,5 +55,5 @@ const ReceivingOutro: React.FC<Props> = ({ gift }) => {
 };
 
 export {
-  ReceivingOutro,
+  CreatingOutro,
 };

@@ -7,10 +7,12 @@ import { AudioPlayer } from '../../../components/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen } from '../../wait-then';
+import history from '../../../utils/router-history';
 import {
   track,
   receivingGiftClueRequestedEvent,
   receivingGiftFoundPartEvent,
+  giftReceiveCompleteGoHomePressedEvent,
 } from '../../../utils/events';
 
 /**
@@ -32,11 +34,14 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   const [section, setSection] = useState(0); // Note: Section is 0 based incrementer of current stage
   const [audioPlaybackStarted, setAudioPlaybackStarted] = useState(false);
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
+  const [outroAudioPlaybackFinished, setOutroAudioPlaybackFinished] = useState(false);
 
   // Get some local references
   const giftPart: GiftPart = props.gift.parts[props.giftPartIndex];
   const giftPartCount: number = props.gift.parts.length;
   const giftSenderName: string = props.gift.senderName;
+  const atMuseum = (props.recipientLocation === 'at-museum');
+  const museumGift = (props.gift.kind === 'MuseumGift');
 
   // Our audio player has started playback
   function handleAudioPlaybackStarted() {
@@ -89,11 +94,37 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     setSection(9);
   }
 
-  function gotoEndOfGiftPart() {
-    if (props.onComplete) {
-      props.onComplete();
-    }
+  function gotoOutro() {
+    setSection(10);
   }
+
+  function gotoEndOfGiftPart() {
+
+    // If on the last part show the outro
+    const lastGiftPart = (props.giftPartIndex + 1 === giftPartCount);
+    if (lastGiftPart) {
+      gotoOutro();
+    } else {
+
+      // Callback
+      if (props.onComplete) {
+        props.onComplete();
+      }
+
+    }
+
+  }
+
+  function handleOutroContinue() {
+
+    // Track go home event
+    track(giftReceiveCompleteGoHomePressedEvent( {giftId: props.gift.id} ));
+
+    // Go to the home screen
+    history.push('/home');
+
+  }
+
 
   function handleContinue() {
 
@@ -165,6 +196,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 9: // clue (found)
         return (
           <Button onClick={gotoFoundAudio} primary={true}>OK</Button>
+        );
+      case 11: // outro audio
+        return (
+          <>
+            {outroAudioPlaybackFinished && <Button primary={true} onClick={handleOutroContinue}>Continue</Button>}
+          </>
         );
       default :
         // One invisible button to occupy space
@@ -247,7 +284,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 0 :
         // Text changes based on gift count and sender name
         const partCount = giftPartCount > 1 ? 'first' : '';
-        return `${giftSenderName}’s ${partCount} message to you...`;
+        return `${giftSenderName}’s ${partCount} message for you...`;
       case 1 :
         return `${giftSenderName}’s message to you...`;
       case 2 :
@@ -255,6 +292,28 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       default :
         return '';
     }
+  }
+
+  function getOutroAudioPlayerReference() {
+    return atMuseum
+      ? museumGift
+        ? 'receiving-outro-at-museum-museum-gift'
+        : 'receiving-outro-at-museum-personal-gift'
+      : museumGift
+        ? 'receiving-outro-not-at-museum-museum-gift'
+        : 'receiving-outro-not-at-museum-personal-gift';
+  }
+
+  function getOutroAudioFile() {
+    // todo update these audio files
+    return atMuseum
+      ? museumGift
+        ? require('../../../assets/audio/r-outro-local.mp3')
+        : require('../../../assets/audio/r-outro-local.mp3')
+      // not at museum
+      : museumGift
+        ? require('../../../assets/audio/r-outro-local.mp3')
+        : require('../../../assets/audio/r-outro-local.mp3');
   }
 
   // Calculate some things
@@ -378,6 +437,32 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* show clue (found) */}
         {section === 9 &&
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
+        }
+
+        {/* outro - you've unwrapped the whole gift */}
+        {section === 10 &&
+        <>
+          <PanelPrompt
+            text='You’ve unwrapped the whole gift'
+            background={'transparent-black'}
+          />
+          <WaitThen
+            wait={defaultWait}
+            andThen={handleContinue}
+          />
+        </>
+        }
+
+        {/* outro - audio */}
+        {section === 11 &&
+        <AudioPlayer
+          message='Ready for the last bit?'
+          src={getOutroAudioFile()}
+          forwardButtonType={'go-to-end'}
+          giftId={props.gift.id}
+          eventReference={getOutroAudioPlayerReference()}
+          onPlaybackComplete={() => {setOutroAudioPlaybackFinished(true); }}
+        />
         }
 
       </PanelContent>

@@ -48,7 +48,6 @@ import { ChooseLocation } from '../src/components/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
 import { WorkingProgress } from '../src/components/working-progress';
-import { ReceivingOutroContent } from '../src/components/receiving/panels/outro-content';
 
 // Creating
 import { CreateGiftIntro } from '../src/components/creating/intro';
@@ -691,12 +690,6 @@ storiesOf('Components/Receiving', module)
   ))
   .add('Reply', () => (
     <ReceiveReply gift={giftThreeParts} />
-  ))
-  .add('Outro', () => (
-    <ReceivingOutroContent
-      recipientLocation={'at-museum'}
-      gift={giftThreeParts}
-    />
   ))
 ;
 
