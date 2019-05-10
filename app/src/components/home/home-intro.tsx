@@ -230,7 +230,7 @@ const HomeIntro: React.FC = () => {
               <Button primary={true}>
                 <Link
                   onClick={handleOpenGift}
-                  to='/gift/5475400c-684c-515f-8343-b9d14340de9c'
+                  to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'
                 >
                   Show museum gift
                 </Link>{/* todo: real url */}
