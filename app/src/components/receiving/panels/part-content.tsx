@@ -122,7 +122,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
     // Is there a part after this one
     const furtherPart = (giftPartCount > (props.giftPartIndex + 1));
-    const nextPart = props.giftPartIndex + 2; // 1 for the index and 1 as next
 
     // Check if we have a clue
     const haveClue = giftPart && giftPart.clue.trim();
@@ -180,9 +179,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     switch (props.giftPartIndex) {
       case 0 :
         // Text changes based on gift count
-        return giftPartCount === 1 ?
-          'This is a sneak peek of your gift.' :
-          'This is a sneak peek of the first object in your gift.';
+        return giftPartCount === 1
+          ? 'This is a sneak peek of your gift.'
+          : 'This is a sneak peek of the first object in your gift.';
       case 1 :
         return 'Here’s a preview of the second object in your gift...';
       case 2 :
@@ -199,7 +198,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 1 :
         return 'Any ideas?';
       case 2 :
-        return 'Time to see if you can track it down.';
+        return 'Time to see if you can track it down';
       default :
         return '';
     }
@@ -208,11 +207,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function getLookAroundText() {
     switch (props.giftPartIndex) {
       case 0 :
-        return 'Wander round and tap the button when you find it.';
+        return 'Wander round and tap the button when you find it';
       case 1 :
-        return 'Take a wander, when you find it – tap OK';
+        return 'Take a wander. When you find the object tap the button';
       case 2 :
-        return 'Tap OK when you find it.';
+        return 'Tap the button when you find it';
       default :
         return '';
     }
@@ -225,7 +224,19 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 1 :
         return 'Oh dear. Find someone in the museum to help?';
       case 2 :
-        return 'The last one! Ask someone in the museum.';
+        return 'The last one! Ask someone in the museum';
+      default :
+        return '';
+    }
+  }
+
+  function getPreFindText() {
+    switch (props.giftPartIndex) {
+      case 0 :
+      case 1 :
+        return 'Well done!';
+      case 2 :
+        return 'Excellent';
       default :
         return '';
     }
@@ -236,11 +247,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 0 :
         // Text changes based on gift count and sender name
         const partCount = giftPartCount > 1 ? 'first' : '';
-        return `Play ${giftSenderName}’s ${partCount} message...`;
+        return `${giftSenderName}’s ${partCount} message to you...`;
       case 1 :
-        return `Play ${giftSenderName}’s message...`;
+        return `${giftSenderName}’s message to you...`;
       case 2 :
-        return `Play ${giftSenderName}’s final message...`;
+        return `${giftSenderName}’s final message to you...`;
       default :
         return '';
     }
@@ -328,7 +339,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {section === 6 &&
           <>
             <PanelPrompt
-              text={'Here you go...'}
+              text={getPreFindText()}
               background={'transparent-black'}
               allowCompactRound={true}
               onClick={gotoFound}

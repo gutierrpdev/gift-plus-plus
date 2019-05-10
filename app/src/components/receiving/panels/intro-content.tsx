@@ -71,7 +71,7 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
       <PanelContent>
 
         <AudioPlayer
-          message={'One thing before you start...'}
+          message={'Start here...'}
           src={audioFile}
           forwardButtonType={'go-to-end'}
           allowCompactRound={true}
