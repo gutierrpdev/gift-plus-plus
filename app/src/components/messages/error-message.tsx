@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { GlobalStyles } from '../../themes/global';
 import { Buttons, Button } from '../buttons';
 import { ScreenMessage } from './screen-message';
+import { ScreenManager } from '../screen-manager';
 import { TextResize } from '../text-resize';
 
 /**
  * Error Message component
+ * This will be shown instead of any other content
  */
 
 interface Props {
@@ -20,19 +23,26 @@ const DeviceButtons = styled(Buttons)`
   left: 0;
 `;
 
+const ErrorTextResize = styled(TextResize)`
+  margin-bottom: 1vh;
+`;
+
 const ErrorMessage: React.FC<Props> = ({ extraMessage }) => (
-  <ScreenMessage>
+  <ScreenManager>
+    <ScreenMessage>
+      <GlobalStyles />
 
-    <TextResize>There was a problem.</TextResize>
-    {extraMessage && <TextResize>{extraMessage}</TextResize>}
-    <TextResize>Cancel to return to the Gift homepage</TextResize>
+      <ErrorTextResize>There was a problem.</ErrorTextResize>
+      {extraMessage && <ErrorTextResize>{extraMessage}</ErrorTextResize>}
+      <ErrorTextResize>Cancel to return to the Gift homepage</ErrorTextResize>
 
-    <DeviceButtons>
-      <Button><Link to='/'>Cancel</Link></Button>
-      <Button><a href={window.location.href}>Try again</a></Button>
-    </DeviceButtons>
+      <DeviceButtons>
+        <Button colour='black'><Link to='/'>Cancel</Link></Button>
+        <Button colour='black'><a href={window.location.href}>Try again</a></Button>
+      </DeviceButtons>
 
-  </ScreenMessage>
+    </ScreenMessage>
+  </ScreenManager>
 );
 
 export {

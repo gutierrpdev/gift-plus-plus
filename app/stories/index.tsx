@@ -195,19 +195,20 @@ storiesOf('Components', module)
     </div>
   ))
   .add('Buttons', () => (
-    <div style={{...bgImg, ...whiteText}}>
-      <p>One button</p>
-      <Buttons>
-        <Button onClick={logSomething}>One button</Button>
-      </Buttons>
-      <p>Two buttons</p>
-      <Buttons>
-        <Button>Button 1</Button>
-        <Button primary={true}>Button 2</Button>
-      </Buttons>
-      <p>There is a gradient below</p>
-      <Gradient />
-    </div>
+      <div style={{...bgImg, ...whiteText}}>
+        <GlobalStyles />
+        <p>One button</p>
+        <Buttons>
+          <Button onClick={logSomething}>One button</Button>
+        </Buttons>
+        <p>Two buttons</p>
+        <Buttons>
+          <Button>Button 1</Button>
+          <Button primary={true}>Button 2</Button>
+        </Buttons>
+        <p>There is a gradient below</p>
+        <Gradient />
+      </div>
   ))
   .add('Wait and Then', () => (
     <div>

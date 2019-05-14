@@ -30,7 +30,7 @@ const UnsupportedDevice: React.FC<Props> = ({ message }) => {
     <>
       <ScreenMessage message={message}>
         <DeviceButtons>
-          <Button onClick={() => { setDeviceListIsOpen(true); }}>Show supported devices</Button>
+          <Button colour='black' onClick={() => { setDeviceListIsOpen(true); }}>Show supported devices</Button>
         </DeviceButtons>
       </ScreenMessage>
     {deviceListIsOpen &&

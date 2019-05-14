@@ -52,7 +52,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
 
       <Buttons>
         <Button onClick={todo}>Re-record</Button>
-        <Button onClick={todo} primary={true}>Send</Button>
+        <Button onClick={todo}>Send</Button>
       </Buttons>
     </>
   );
