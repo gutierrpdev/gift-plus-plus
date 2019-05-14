@@ -40,7 +40,7 @@ const GiftImg = styled.div`
 `;
 
 interface Props {
-  message: string;
+  message?: string; // Optinal message to show.  Some components will extend this one and provide ther own text.
 }
 
 const ScreenMessage: React.FC<Props> = ({ message, children }) => {
@@ -55,7 +55,7 @@ const ScreenMessage: React.FC<Props> = ({ message, children }) => {
             <SvgGift colour='grey' />
           </GiftImg>
 
-          <TextResize>{message}</TextResize>
+          {message && <TextResize>{message}</TextResize>}
 
           {children}
 

@@ -10,6 +10,7 @@ import { GetGiftResponse } from '../services/api';
 
 import { ReceiveGift } from '../components/receiving/receive-gift';
 import { WorkingProgress } from '../components/messages/working-progress';
+import { ErrorMessage } from '../components/messages/error-message';
 
 const logger = getLogger('receive-gift');
 
@@ -30,19 +31,19 @@ export const ReceiveGiftScreen: React.FC = () => {
 
 
   if (getGiftTask.kind === 'running') return <WorkingProgress text='Running' percent={0} />;
-  if (getGiftTask.kind === 'failure') return <h1>Error (Gift): TODO</h1>;
+  if (getGiftTask.kind === 'failure') return <ErrorMessage />;
 
   const apiResult = getGiftTask.result;
 
   if (apiResult.kind === 'http-error' && apiResult.response.status === 404) {
-    return <h1>NotFound (Gift): TODO</h1>;
+    return <ErrorMessage extraMessage='Gift not found' />;
   }
-  if (apiResult.kind !== 'ok') return <h1>Error (Gift): TODO</h1>;
+  if (apiResult.kind !== 'ok') return <ErrorMessage />;
 
   if (preloadState.status === 'running') {
     return <WorkingProgress text='Loading' percent={Math.round(totalProgress(preloadState) * 100)} />;
   }
-  if (preloadState.status === 'error') return <h1>Error (Assets): TODO</h1>;
+  if (preloadState.status === 'error') return <ErrorMessage extraMessage='Assets not found' />;
 
   const giftResponse = apiResult.data;
   const preloadedAssetGift = substituteAssetUrls(giftResponse, preloadState.urlData);

@@ -39,6 +39,7 @@ import { isIosDeviceUsingChrome } from '../src/utils/helpers';
 import { SignIn } from '../src/components/home/signin';
 import { ScreenMessage } from '../src/components/messages/screen-message';
 import { UnsupportedDevice } from '../src/components/messages/unsupported-device';
+import { ErrorMessage } from '../src/components/messages/error-message';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -467,6 +468,14 @@ storiesOf('Components/Messages', module)
     <>
       <GlobalStyles />
       <UnsupportedDevice message='This device is not supported' />
+    </>
+  ))
+  .add('Error message', () => (
+    <>
+      <GlobalStyles />
+      <Router history={history}>
+        <ErrorMessage extraMessage='There has been an error' />
+      </Router>
     </>
   ));
 

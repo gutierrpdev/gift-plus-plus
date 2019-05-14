@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { ErrorMessage } from '../components/messages/error-message';
+
 export const NotFound: React.FC = () => (
-  <>
-    <h1>Sorry, we couldn't find that page</h1>
-    <p>TODO!!!</p>
-  </>
+  <ErrorMessage extraMessage='That page cannot be found.' />
 );

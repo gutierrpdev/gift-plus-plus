@@ -8,7 +8,7 @@ import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
 import { LandscapeMessage } from './components/messages/landscape-message';
-import { UnsupportedDevice } from './components/messages/unsupported-device';
+import { ErrorMessage } from './components/messages/error-message';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -28,8 +28,8 @@ export const Main: React.FC = () => (
 
       {/* todo: remove /testing */}
       <Route exact={true} path='/testing'>
-        <UnsupportedDevice
-          message='Lorem ipsum dolor sit amet,
+        <ErrorMessage
+          extraMessage='Lorem ipsum dolor sit amet,
           consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
         />
