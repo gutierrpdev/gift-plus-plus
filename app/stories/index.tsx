@@ -113,9 +113,6 @@ storiesOf('Home', module)
       <SignIn onCloseButtonClick={doNothing} />
     </BrowserRouter>
   ))
-  .add('Loading gift', () => (
-    <WorkingProgress text='Loading' percent={37} />
-  ))
 ;
 
 storiesOf('Creating', module)
@@ -130,7 +127,7 @@ storiesOf('Creating', module)
 ;
 
 storiesOf('Receiving', module)
-  .add('At museum', () => (
+  .add('3 part Museum gift', () => (
     <ReceiveGift gift={giftThreeParts} museumName={'Brighton & Hove Museum'} />
   ))
   // .add('Remotely', () => <h1>TODO</h1>)
@@ -209,6 +206,255 @@ storiesOf('Components', module)
       <Gradient />
     </div>
   ))
+  .add('Wait and Then', () => (
+    <div>
+      <WaitThen
+        wait={2}
+        andThen={logSomething}
+      />
+    </div>
+  ))
+  .add('Gradient', () => (
+    <div>
+      <Gradient />
+    </div>
+  ))
+  .add('Accordion Title', () => (
+    <div style={greyBG}>
+      <p>Big with Open</p>
+      <AccordionTitle showOpenPrompt={true} textSize={'big'} textColour={'black'}>Big</AccordionTitle>
+      <p>Mediun</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'black'}>Mediun</AccordionTitle>
+      <p>Small</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'small'} textColour={'black'}>Small</AccordionTitle>
+      <p>Medium &amp; White</p>
+      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'white'}>
+        Medium &amp; White
+      </AccordionTitle>
+    </div>
+  ))
+  .add('Progress Bars', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <p>White on black</p>
+      <ProgressBar percent={10} height={'5px'} theme={'white-on-black'}/>
+      <p>Black on white</p>
+      <ProgressBar percent={20} height={'10px'} theme={'black-on-white'}/>
+      <p>Grey on black</p>
+      <ProgressBar percent={30} height={'20px'} theme={'grey-on-black'}/>
+    </div>
+  ))
+  .add('Text Area Input', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <TextAreaInput onEnterPressed={() => {alert('Enter pressed'); }} />
+      <TextAreaInput onTextChanged={(text) => logSomething(text)} />
+      <TextAreaInput placeHolder={'enter something'} onTextChanged={(text) => logSomething(text)} />
+      <TextAreaInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
+    </div>
+  ))
+  .add('Text Input', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <p>Text inputs</p><br/>
+      <TextInput onTextChanged={(text) => logSomething(text)} />
+      <TextInput placeHolder={'enter your name'} onTextChanged={(text) => logSomething(text)} />
+      <TextInput
+        placeHolder={'enter your name'}
+        defaultValue={'lorem impsum'}
+        onTextChanged={(text) => logSomething(text)}
+        onEnterPressed={() => {alert('enter pressed'); }}
+      />
+      <p>Email inputs</p><br/>
+      <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />
+    </div>
+  ))
+  .add('Sharing links', () => (
+    <>
+      <h1>Sharing links</h1>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href='mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/'>Send Email</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/'>Share on Facebook</a>
+      </p>
+      <p>
+        <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
+      </p>
+      <p>
+        <a target='_blank' href='https://twitter.com/home?status=https%3A//thegift.app/'>Share on Twitter</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href='whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F' data-action='share/whatsapp/share' target='_blank'>Share via Whatsapp (mobile only)</a>
+      </p>
+      <p>
+        <a href='sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS iOS</a>
+      </p>
+      <p>
+        <a href='sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS Android</a>
+      </p>
+    </>
+  ))
+  .add('Tab close detect', () => (
+    <>
+      <BrowserRouter>
+        <PageChangeDetect enabled={true} />
+          <div><a href='http://www.google.com'>Go to Google</a></div>
+          <Link to='your-gifts'>Go to Your Gifts</Link>
+      </BrowserRouter>
+    </>
+  ))
+;
+
+// Tests
+storiesOf('Ideas and tests', module)
+  .add('Mask', () => (
+    <>
+      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
+        <defs>
+          <filter id='blurlayer' width='110%' height='100%'>
+            <feGaussianBlur  stdDeviation='4' result='blur'/>
+              {/* tslint:disable-next-line */}
+              <feImage id='feimage' xlinkHref='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' x='0' y='0'  height='300px' width='300px' result='mask' />
+          </filter>
+        </defs>
+      </svg>
+      <svg width='568' height='426'>
+        {/* tslint:disable-next-line */}
+        <image href='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' width='500' height='350' mask='url(#masking2)' />
+      </svg>
+      <svg width='0' height='0'>
+        <defs>
+          <linearGradient id='gradient' x1='0' y1='00%' x2='0' y2='100%'>
+            <stop stop-color='black' offset='0'/>
+            <stop stop-color='white' offset='1'/>
+          </linearGradient>
+          <mask id='masking2' maskUnits='objectBoundingBox' maskContentUnits='objectBoundingBox'>
+            <rect y='0.3' width='1' height='.7' fill='url(#gradient)' />
+            <circle cx='.5' cy='.5' r='.35' fill='white' />
+          </mask>
+        </defs>
+      </svg>
+    </>
+  ))
+  .add('Audio recorder detection', () => {
+    const canUseAudioRec = canUseAudioRecorder();
+    // console.log(canUseAudioRec);
+    // console.log(navigator.mediaDevices.getUserMedia);
+    return (
+      <p>Can use audio = {canUseAudioRec.toString()}</p>
+    );
+  })
+  .add('Is Chrome on iOS', () => {
+    const chromeOnIos = isIosDeviceUsingChrome();
+    return (
+      <p>Is Chrome on iOS = {chromeOnIos.toString()}</p>
+    );
+  })
+  .add('Hash Router', () => {
+    function pushToHistory() {
+      history.push('/test1');
+    }
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route path='/test1'>
+            <p>This is 1</p>
+          </Route>
+          <Route  path='/test2'>
+            <p>This is 2</p>
+          </Route>
+        </Switch>
+        <div><Link to='test1'>Goto 1</Link></div>
+        <div><Link to='test2'>Goto 2</Link></div>
+        <div><Button onClick={pushToHistory}>Go to 1 via history.push</Button></div>
+      </Router>
+    );
+  })
+  .add('Local storage', () => {
+
+    // We need to reliably read a true value when set via local storage, or when there is nothing in local storage
+    function getIt(key: string): boolean {
+      return getLocalItem<boolean>(key) === undefined ? true : !!getLocalItem<boolean>(key);
+    }
+
+    setPrefix('sb');
+    const nothing: boolean = getIt('nothing1');
+
+    setLocalItem('set', true);
+    const set = getIt('set');
+    setLocalItem('set', false);
+    const setAgain = getIt('set');
+    return (
+      <>
+        <p>Check item never stored: should be true = {nothing.toString()}</p>
+        <p>Check set item: should be true = {set.toString()}</p>
+        <p>Check set again item: should be false = {setAgain.toString()}</p>
+      </>
+    );
+  })
+;
+
+// Loaders
+storiesOf('Components/Loaders', module)
+  .add('Loading gift', () => (
+    <WorkingProgress text='Loading' percent={37} />
+  ))
+  .add('Progress Loader - white text', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <ProgressLoader text={'Loading'} colour='white' percent={25} />
+    </div>
+  ))
+  .add('Progress Loader - grey text', () => (
+    <div style={greyBG}>
+      <GlobalStyles />
+      <ProgressLoader text={'Loading'} colour={'light-grey'} percent={25} />
+    </div>
+  ))
+;
+
+// Modals
+storiesOf('Components/Modals', module)
+  .add('Info Popover', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <InfoPopover onClose={doNothing}>
+        <h1>Privacy</h1>
+        <h2>Sub heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
+        Semper feugiat nibh sed pulvinar proin.</p>
+      </InfoPopover>
+    </ScreenManager>
+  ))
+  .add('Working Modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <WorkingModal
+        message='Hey, we need to get online to do some magic.'
+        status='Saving...'
+      />
+    </ScreenManager>
+  ))
+  .add('Message Modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <MessageModal>
+        <p>There seems to be a problem with the internet.</p>
+        <p>Reboot it.</p>
+        <BrowserRouter>
+          <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+        </BrowserRouter>
+      </MessageModal>
+    </ScreenManager>
+  ));
+
+// Media
+storiesOf('Components/Media', module)
   .add('Audio player', () => (
     <>
       <div style={bgImg}>
@@ -251,93 +497,6 @@ storiesOf('Components', module)
         onClick={doNothing}
       />
     </>
-  ))
-  .add('Wait and Then', () => (
-    <div>
-      <WaitThen
-        wait={2}
-        andThen={logSomething}
-      />
-    </div>
-  ))
-  .add('Gradient', () => (
-    <div>
-      <Gradient />
-    </div>
-  ))
-  .add('Accordion Title', () => (
-    <div style={greyBG}>
-      <p>Big with Open</p>
-      <AccordionTitle showOpenPrompt={true} textSize={'big'} textColour={'black'}>Big</AccordionTitle>
-      <p>Mediun</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'black'}>Mediun</AccordionTitle>
-      <p>Small</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'small'} textColour={'black'}>Small</AccordionTitle>
-      <p>Medium &amp; White</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'white'}>
-        Medium &amp; White
-      </AccordionTitle>
-    </div>
-  ))
-  .add('Idle Gift Part', () => (
-    <div style={greyBG}>
-      <p>Small</p>
-      <IdleGiftPart
-        part={giftPart}
-        displaySize={'small'}
-        isDisabled={false}
-        onClick={alertClicked}
-        showOpenPrompt={false}
-        textColour={'black'}
-      >
-        Small
-      </IdleGiftPart>
-      <p>Medium &amp; disabled</p>
-      <IdleGiftPart
-        part={giftPart}
-        displaySize={'medium'}
-        isDisabled={true}
-        onClick={alertClicked}
-        showOpenPrompt={false}
-        textColour={'black'}
-      >
-        Medium
-      </IdleGiftPart>
-      <p>Big &amp; open</p>
-      <IdleGiftPart
-        part={giftPart}
-        displaySize={'medium'}
-        isDisabled={false}
-        onClick={alertClicked}
-        showOpenPrompt={true}
-        textColour={'black'}
-      >
-        Big
-      </IdleGiftPart>
-    </div>
-  ))
-  .add('Progress Bars', () => (
-    <div style={greyBG}>
-      <GlobalStyles />
-      <p>White on black</p>
-      <ProgressBar percent={10} height={'5px'} theme={'white-on-black'}/>
-      <p>Black on white</p>
-      <ProgressBar percent={20} height={'10px'} theme={'black-on-white'}/>
-      <p>Grey on black</p>
-      <ProgressBar percent={30} height={'20px'} theme={'grey-on-black'}/>
-    </div>
-  ))
-  .add('Progress Loader - white text', () => (
-    <div style={greyBG}>
-      <GlobalStyles />
-      <ProgressLoader text={'Loading'} colour='white' percent={25} />
-    </div>
-  ))
-  .add('Progress Loader - grey text', () => (
-    <div style={greyBG}>
-      <GlobalStyles />
-      <ProgressLoader text={'Loading'} colour={'light-grey'} percent={25} />
-    </div>
   ))
   .add('Photo Capture', () => (
     <ScreenManager>
@@ -454,196 +613,48 @@ storiesOf('Components', module)
         />
       </>
     );
-  })
-  .add('Text Area Input', () => (
-    <div style={greyBG}>
-      <GlobalStyles />
-      <TextAreaInput onEnterPressed={() => {alert('Enter pressed'); }} />
-      <TextAreaInput onTextChanged={(text) => logSomething(text)} />
-      <TextAreaInput placeHolder={'enter something'} onTextChanged={(text) => logSomething(text)} />
-      <TextAreaInput defaultValue={'lorem impsum'} onTextChanged={(text) => logSomething(text)} />
-    </div>
-  ))
-  .add('Text Input', () => (
-    <div style={greyBG}>
-      <GlobalStyles />
-      <p>Text inputs</p><br/>
-      <TextInput onTextChanged={(text) => logSomething(text)} />
-      <TextInput placeHolder={'enter your name'} onTextChanged={(text) => logSomething(text)} />
-      <TextInput
-        placeHolder={'enter your name'}
-        defaultValue={'lorem impsum'}
-        onTextChanged={(text) => logSomething(text)}
-        onEnterPressed={() => {alert('enter pressed'); }}
-      />
-      <p>Email inputs</p><br/>
-      <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />
-    </div>
-  ))
-  .add('Sharing links', () => (
-    <>
-      <h1>Sharing links</h1>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a href='mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/'>Send Email</a>
-      </p>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/'>Share on Facebook</a>
-      </p>
-      <p>
-        <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
-      </p>
-      <p>
-        <a target='_blank' href='https://twitter.com/home?status=https%3A//thegift.app/'>Share on Twitter</a>
-      </p>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a href='whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F' data-action='share/whatsapp/share' target='_blank'>Share via Whatsapp (mobile only)</a>
-      </p>
-      <p>
-        <a href='sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS iOS</a>
-      </p>
-      <p>
-        <a href='sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS Android</a>
-      </p>
-    </>
-  ))
-  .add('Info Popover', () => (
-    <ScreenManager>
-      <GlobalStyles />
-      <InfoPopover onClose={doNothing}>
-        <h1>Privacy</h1>
-        <h2>Sub heading</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
-        Semper feugiat nibh sed pulvinar proin.</p>
-      </InfoPopover>
-    </ScreenManager>
-  ))
-  .add('Working Modal', () => (
-    <ScreenManager>
-      <GlobalStyles />
-      <WorkingModal
-        message='Hey, we need to get online to do some magic.'
-        status='Saving...'
-      />
-    </ScreenManager>
-  ))
-  .add('Message Modal', () => (
-    <ScreenManager>
-      <GlobalStyles />
-      <MessageModal>
-        <p>There seems to be a problem with the internet.</p>
-        <p>Reboot it.</p>
-        <BrowserRouter>
-          <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
-        </BrowserRouter>
-      </MessageModal>
-    </ScreenManager>
-  ))
-  .add('Tab close detect', () => (
-    <>
-      <BrowserRouter>
-        <PageChangeDetect enabled={true} />
-          <div><a href='http://www.google.com'>Go to Google</a></div>
-          <Link to='your-gifts'>Go to Your Gifts</Link>
-      </BrowserRouter>
-    </>
-  ))
-;
+  });
 
-// Tests
-storiesOf('Tests', module)
-  .add('Mask', () => (
-    <>
-      <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
-        <defs>
-          <filter id='blurlayer' width='110%' height='100%'>
-            <feGaussianBlur  stdDeviation='4' result='blur'/>
-              {/* tslint:disable-next-line */}
-              <feImage id='feimage' xlinkHref='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' x='0' y='0'  height='300px' width='300px' result='mask' />
-          </filter>
-        </defs>
-      </svg>
-      <svg width='568' height='426'>
-        {/* tslint:disable-next-line */}
-        <image href='https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg' width='500' height='350' mask='url(#masking2)' />
-      </svg>
-      <svg width='0' height='0'>
-        <defs>
-          <linearGradient id='gradient' x1='0' y1='00%' x2='0' y2='100%'>
-            <stop stop-color='black' offset='0'/>
-            <stop stop-color='white' offset='1'/>
-          </linearGradient>
-          <mask id='masking2' maskUnits='objectBoundingBox' maskContentUnits='objectBoundingBox'>
-            <rect y='0.3' width='1' height='.7' fill='url(#gradient)' />
-            <circle cx='.5' cy='.5' r='.35' fill='white' />
-          </mask>
-        </defs>
-      </svg>
-    </>
-  ))
-  .add('Audio recorder detection', () => {
-    const canUseAudioRec = canUseAudioRecorder();
-    // console.log(canUseAudioRec);
-    // console.log(navigator.mediaDevices.getUserMedia);
-    return (
-      <p>Can use audio = {canUseAudioRec.toString()}</p>
-    );
-  })
-  .add('Is Chrome on iOS', () => {
-    const chromeOnIos = isIosDeviceUsingChrome();
-    return (
-      <p>Is Chrome on iOS = {chromeOnIos.toString()}</p>
-    );
-  })
-  .add('Hash Router', () => {
-    function pushToHistory() {
-      history.push('/test1');
-    }
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route path='/test1'>
-            <p>This is 1</p>
-          </Route>
-          <Route  path='/test2'>
-            <p>This is 2</p>
-          </Route>
-        </Switch>
-        <div><Link to='test1'>Goto 1</Link></div>
-        <div><Link to='test2'>Goto 2</Link></div>
-        <div><Button onClick={pushToHistory}>Go to 1 via history.push</Button></div>
-      </Router>
-    );
-  })
-  .add('Local storage', () => {
-
-    // We need to reliably read a true value when set via local storage, or when there is nothing in local storage
-    function getIt(key: string): boolean {
-      return getLocalItem<boolean>(key) === undefined ? true : !!getLocalItem<boolean>(key);
-    }
-
-    setPrefix('sb');
-    const nothing: boolean = getIt('nothing1');
-
-    setLocalItem('set', true);
-    const set = getIt('set');
-    setLocalItem('set', false);
-    const setAgain = getIt('set');
-    return (
-      <>
-        <p>Check item never stored: should be true = {nothing.toString()}</p>
-        <p>Check set item: should be true = {set.toString()}</p>
-        <p>Check set again item: should be false = {setAgain.toString()}</p>
-      </>
-    );
-  })
-;
 
 // Receiving components
 storiesOf('Components/Receiving', module)
+  .add('Idle Gift Part', () => (
+    <div style={greyBG}>
+      <p>Small</p>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'small'}
+        isDisabled={false}
+        onClick={alertClicked}
+        showOpenPrompt={false}
+        textColour={'black'}
+      >
+        Small
+      </IdleGiftPart>
+      <p>Medium &amp; disabled</p>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'medium'}
+        isDisabled={true}
+        onClick={alertClicked}
+        showOpenPrompt={false}
+        textColour={'black'}
+      >
+        Medium
+      </IdleGiftPart>
+      <p>Big &amp; open</p>
+      <IdleGiftPart
+        part={giftPart}
+        displaySize={'medium'}
+        isDisabled={false}
+        onClick={alertClicked}
+        showOpenPrompt={true}
+        textColour={'black'}
+      >
+        Big
+      </IdleGiftPart>
+    </div>
+  ))
   .add('Gift Part', () => (
     <>
     {/*hack the height*/}
