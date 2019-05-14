@@ -2,13 +2,13 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../src/utils/router-history';
 
-import { UnderConstruction } from './screens/under-construction';
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
 import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
-import { LandscapeMessage } from './components/landscape-message';
+import { LandscapeMessage } from './components/messages/landscape-message';
+import { UnsupportedDevice } from './components/messages/unsupported-device';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -28,7 +28,11 @@ export const Main: React.FC = () => (
 
       {/* todo: remove /testing */}
       <Route exact={true} path='/testing'>
-        <UnderConstruction />
+        <UnsupportedDevice
+          message='Lorem ipsum dolor sit amet,
+          consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        />
       </Route>
 
       <Route exact={true} path='/home'>

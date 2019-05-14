@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
-import { ProgressLoader } from './progress-loader';
+import { global } from '../../themes/global';
+import { ProgressLoader } from '../progress-loader';
 
 const WorkingOuter = styled.div`
   background-color: ${global.colour.darkGrey};

@@ -6,8 +6,8 @@ import { InProgressGift } from '../../domain';
 
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
-import { AudioPlayer } from '../../components/audio-player';
-import { AudioRecorder as AudioRecorderComponent } from '../../components/audio-recorder';
+import { AudioPlayer } from '../media/audio-player';
+import { AudioRecorder as AudioRecorderComponent } from '../media/audio-recorder';
 import {
   track,
   audioRecordingStartedEvent,

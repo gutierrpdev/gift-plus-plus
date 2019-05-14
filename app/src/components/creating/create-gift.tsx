@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 
 import { InProgressGift } from '../../domain';
 import { canUseAudioRecorder } from '../../utils/use-audio-recorder';
-import { isIosDeviceUsingChrome } from '../../utils/helpers';
 import { track, giftRecipientEnteredEvent } from '../../utils/events';
 
-import { PageChangeDetect } from '../page-change-detect';
+import { PageChangeDetect } from '../messages/page-change-detect';
 import { GlobalStyles } from '../../themes/global';
 import { BgSvgFullScreen } from '../svg/bg';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
-import { MessageModal } from '../../components/message-modal';
+import { MessageModal } from '../modals/message-modal';
 import { Button } from '../../components/buttons';
 
 import { CreateGiftIntro } from '../creating/intro';
@@ -57,28 +56,14 @@ export const CreateGift: React.FC<Props> = ({ gift }) => {
   // Check if this phone supports recording audio
   const canRecordAudio = canUseAudioRecorder();
 
-  // If this is an iOS device using Chrome prompt the user to use Safari, as they will have it
-  if (isIosDeviceUsingChrome()) {
-
+  // If we can't record audio inform and force end
+  if (!canRecordAudio) {
     return (
       <MessageModal>
-        <p>You are using the Chrome browser which doesn't allow you to record audio.</p>
-        <p>Please open your Safari browser which will allow you to create a Gift.</p>
+        <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
+        <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
       </MessageModal>
     );
-
-  } else {
-
-    // If we can't record audio inform and force end
-    if (!canRecordAudio) {
-      return (
-        <MessageModal>
-          <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
-          <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
-        </MessageModal>
-      );
-    }
-
   }
 
   // Shall we allow navigation away based on the current state

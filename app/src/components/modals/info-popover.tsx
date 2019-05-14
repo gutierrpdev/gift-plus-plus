@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BaseModal } from './modal';
-import SvgCloseCircle from './svg/close-circle';
+import { BaseModal } from './base-modal';
+import SvgCloseCircle from '../svg/close-circle';
 
 // Close circle
 const SvgCloseCircleStyled = styled(SvgCloseCircle)`

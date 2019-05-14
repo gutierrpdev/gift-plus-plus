@@ -20,23 +20,25 @@ import { PanelRound } from '../src/components/panel-round';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
-import { AudioPlayer } from '../src/components/audio-player';
-import { AudioRecorder } from '../src/components/audio-recorder';
-import { WaitThen } from '../src/components/wait-then';
+import { AudioPlayer } from '../src/components/media/audio-player';
+import { AudioRecorder } from '../src/components/media/audio-recorder';
+import { WaitThen } from '../src/components/utils/wait-then';
 import { Gradient } from '../src/components/gradient';
 import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
 import { ProgressLoader } from '../src/components/progress-loader';
-import { PhotoCapture } from '../src/components/photo-capture';
+import { PhotoCapture } from '../src/components/media/photo-capture';
 import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
-import { InfoPopover } from '../src/components/info-popover';
-import { WorkingModal } from '../src/components/working-modal';
-import { MessageModal } from '../src/components/message-modal';
+import { InfoPopover } from '../src/components/modals/info-popover';
+import { WorkingModal } from '../src/components/modals/working-modal';
+import { MessageModal } from '../src/components/modals/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
-import { PageChangeDetect } from '../src/components/page-change-detect';
+import { PageChangeDetect } from '../src/components/messages/page-change-detect';
 import { isIosDeviceUsingChrome } from '../src/utils/helpers';
 import { SignIn } from '../src/components/home/signin';
+import { ScreenMessage } from '../src/components/messages/screen-message';
+import { UnsupportedDevice } from '../src/components/messages/unsupported-device';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -47,7 +49,7 @@ import { HomeScreen } from '../src/screens/home';
 import { ChooseLocation } from '../src/components/choose-location';
 import { ReceivingIntroContent } from '../src/components/receiving/panels/intro-content';
 import { ReceivingPartContent } from '../src/components/receiving/panels/part-content';
-import { WorkingProgress } from '../src/components/working-progress';
+import { WorkingProgress } from '../src/components/messages/working-progress';
 
 // Creating
 import { CreateGiftIntro } from '../src/components/creating/intro';
@@ -451,6 +453,21 @@ storiesOf('Components/Modals', module)
         </BrowserRouter>
       </MessageModal>
     </ScreenManager>
+  ));
+
+// Message
+storiesOf('Components/Messages', module)
+  .add('Screen Message', () => (
+    <>
+      <GlobalStyles />
+      <ScreenMessage message='This is a generic screen message' />
+    </>
+  ))
+  .add('Unsupported Device', () => (
+    <>
+      <GlobalStyles />
+      <UnsupportedDevice message='This device is not supported' />
+    </>
   ));
 
 // Media

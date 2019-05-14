@@ -10,7 +10,7 @@ import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
 import { Buttons, Button  } from '../buttons';
-import { WaitThen } from '../wait-then';
+import { WaitThen } from '../utils/wait-then';
 import { BgSvgFullScreen } from '../svg/bg';
 import SvgGift from '../svg/gift';
 import { ChooseLocation, RecipientLocation } from '../choose-location';

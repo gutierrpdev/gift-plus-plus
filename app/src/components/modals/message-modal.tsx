@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseModal } from './modal';
+import { BaseModal } from './base-modal';
 
-import { global } from '../themes/global';
+import { global } from '../../themes/global';
 
 const Outer = styled(BaseModal)`
   background-color: ${global.colour.lightGrey};

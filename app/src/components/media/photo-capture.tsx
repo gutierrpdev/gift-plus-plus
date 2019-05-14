@@ -5,12 +5,12 @@ import { setImageOrientation,
   getImageOrientation,
   calcImageOrientationChange,
   landscapeImageOrientation,
-} from '../utils/image';
+} from '../../utils/image';
 
-import { PanelText } from './panel-text';
-import { PanelRound } from './panel-round';
-import { BaseControlButton } from './buttons';
-import SvgIconCamera from './svg/icon-camera';
+import { PanelText } from '../panel-text';
+import { PanelRound } from '../panel-round';
+import { BaseControlButton } from '../buttons';
+import SvgIconCamera from '../svg/icon-camera';
 
 /**
  * Capture photo from users camera

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
-import { PanelText } from './panel-text';
-import { PanelRound, PanelRoundBorderStyle } from './panel-round';
-import { BaseControlButton } from './buttons';
-import { TextResize } from './text-resize';
+import { global } from '../../themes/global';
+import { PanelText } from '../panel-text';
+import { PanelRound, PanelRoundBorderStyle } from '../panel-round';
+import { BaseControlButton } from '../buttons';
+import { TextResize } from '../text-resize';
 
-import SvgIconMicrophone from './svg/icon-microphone';
+import SvgIconMicrophone from '../svg/icon-microphone';
 
 const AudioRecorderStyle = styled.div`
   color: white;

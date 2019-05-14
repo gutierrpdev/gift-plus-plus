@@ -7,7 +7,7 @@ import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
 import { ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
-import { InfoPopover } from './info-popover';
+import { InfoPopover } from './modals/info-popover';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';

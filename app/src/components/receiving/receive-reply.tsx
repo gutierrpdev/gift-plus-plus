@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Gift } from '../../domain';
 import { AccordionTitle } from '../accordion-title';
-import { AudioPlayer, AudioPlayerForwardButtonType } from '../audio-player';
-import { AudioRecorder } from '../audio-recorder';
+import { AudioPlayer, AudioPlayerForwardButtonType } from '../media/audio-player';
+import { AudioRecorder } from '../media/audio-recorder';
 import { Buttons, Button } from '../buttons';
 
 /***

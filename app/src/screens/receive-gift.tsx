@@ -9,7 +9,7 @@ import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
 
 import { ReceiveGift } from '../components/receiving/receive-gift';
-import { WorkingProgress } from '../components/working-progress';
+import { WorkingProgress } from '../components/messages/working-progress';
 
 const logger = getLogger('receive-gift');
 

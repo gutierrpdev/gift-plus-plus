@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { isMobileDevice } from '../utils/helpers';
-import { MessageModal } from './message-modal';
+import { isMobileDevice } from '../../utils/helpers';
+import { MessageModal } from '../modals/message-modal';
 
 /***
  * Shows a message when mobile device is in landscape orientation

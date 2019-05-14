@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer } from '../../../components/audio-player';
+import { AudioPlayer } from '../../media/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
-import { WaitThen } from '../../wait-then';
+import { WaitThen } from '../../utils/wait-then';
 import history from '../../../utils/router-history';
 import {
   track,

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons } from '../buttons';
-import { WaitThen } from '../wait-then';
+import { WaitThen } from '../utils/wait-then';
 
 import SvgGift from '../svg/gift';
 

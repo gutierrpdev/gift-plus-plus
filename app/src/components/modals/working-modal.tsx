@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../themes/global';
-import { BaseModal } from './modal';
-import { TextResize } from './text-resize';
+import { global } from '../../themes/global';
+import { BaseModal } from './base-modal';
+import { TextResize } from '../text-resize';
 
-import SvgGift from './svg/gift';
+import SvgGift from '../svg/gift';
 
 const GiftImg = styled.div`
   margin: 5% auto 10%;

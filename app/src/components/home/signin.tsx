@@ -8,7 +8,7 @@ import { TextInput } from '../inputs/text-input';
 import { TextResize } from '../text-resize';
 import { PanelTitle } from '../panel-title';
 import { HeaderCloseButton } from './header-close-button';
-import { BaseModal } from '../modal';
+import { BaseModal } from '../modals/base-modal';
 
 /**
  * Sign in component

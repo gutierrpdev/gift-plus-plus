@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
-import { AudioPlayer } from '../../../components/audio-player';
+import { AudioPlayer } from '../../media/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift } from '../../../domain';
 

@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ProgressBar } from './progress-bar';
-import { PanelText } from './panel-text';
-import { PanelRound } from './panel-round';
-import { BaseControlButton } from './buttons';
-import { track, audioPlayingEvent, audioPausedEvent } from '../utils/events';
-import { GiftId } from '../domain';
+import { ProgressBar } from '../progress-bar';
+import { PanelText } from '../panel-text';
+import { PanelRound } from '../panel-round';
+import { BaseControlButton } from '../buttons';
+import { track, audioPlayingEvent, audioPausedEvent } from '../../utils/events';
+import { GiftId } from '../../domain';
 
-import SvgButtonAudioPlay from './svg/button-audio-play';
-import SvgButtonAudioPause from './svg/button-audio-pause';
-import SvgButtonAudioBack from './svg/button-audio-back';
-import SvgButtonAudioForward from './svg/button-audio-forward';
-import SvgButtonAudioSkip from './svg/button-audio-skip';
+import SvgButtonAudioPlay from '../svg/button-audio-play';
+import SvgButtonAudioPause from '../svg/button-audio-pause';
+import SvgButtonAudioBack from '../svg/button-audio-back';
+import SvgButtonAudioForward from '../svg/button-audio-forward';
+import SvgButtonAudioSkip from '../svg/button-audio-skip';
 
 /**
  * Audio Player
