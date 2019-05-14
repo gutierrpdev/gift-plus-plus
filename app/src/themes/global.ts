@@ -14,9 +14,10 @@ const global = {
   colour: {
     whiteText: '#FFFFFF',
     blackText: '#000000',
+    lightGreyText: '#777777',
     darkGrey: '#333333',
     lightGrey: '#999999',
-    veryLightGrey: '#cccccc',
+    veryLightGrey: '#dddddd',
     brightRed: '#ff3333',
     darkRed: '#cc3333',
     blurBackground: '#333',

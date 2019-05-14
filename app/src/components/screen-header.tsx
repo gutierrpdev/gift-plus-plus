@@ -11,22 +11,11 @@ import { InfoPopover } from './modals/info-popover';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
-import SvgClose from './svg/close';
 
 
 /***
  * Global screen header
  */
-
-// Close
-const SvgCloseStyled = styled(SvgClose)`
-  width: 10%;
-  top: 1.3vh;
-  left: 0.8%;
-  position: absolute;
-  cursor: pointer;
-  z-index: 500;
-`;
 
 
 // Texts wrapper
@@ -104,14 +93,14 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
 
+  // Locals
+  const showGradient = props.background === 'white';
+  const screenTitleMarginBottom = props.topPadding === 'large' ? 'medium' : 'small';
+
   // Functions
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);
   }
-
-  // Locals
-  const showGradient = props.background === 'white';
-  const screenTitleMarginBottom = props.topPadding === 'large' ? 'medium' : 'small';
 
   return (
     <>
@@ -122,11 +111,11 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
           openFeedback={() => { setFeedbackIsOpen(true); }}
+          onCloseClick={() => { setIsMenuOpen(false); }}
         />
       }
 
       {props.showMenuBurger && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
-      {isMenuOpen && <SvgCloseStyled onClick={toggleMenu} />}
 
       {props.showCloseButton && <HeaderCloseButton />}
 
