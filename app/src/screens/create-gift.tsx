@@ -1,12 +1,13 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
-import uuidv5 from 'uuid/v5';
+import { Link } from 'react-router-dom';
 
-import { InProgressGift } from '../domain';
-import { CreateGift } from '../components/creating/create-gift';
-import { track, newGiftStartedEvent } from '../utils/events';
 import { isIosDeviceUsingChrome } from '../utils/helpers';
+import { canUseAudioRecorder } from '../utils/use-audio-recorder';
+
+import { Button } from '../components/buttons';
+import { MessageModal } from '../components/modals/message-modal';
 import { UnsupportedDevice } from '../components/messages/unsupported-device';
+import { CreateGift } from '../components/creating/create-gift';
 
 /**
  * Create gift screen
@@ -18,27 +19,24 @@ const CreateGiftScreen: React.FC = () => {
 
   // If this is an iOS device using Chrome prompt the user to use Safari, as they will have it
   if (isIosDeviceUsingChrome()) {
-
     return (
       <UnsupportedDevice message='Please open Gift in Safari on this device' />
     );
-
   }
 
-  // Everything seems set so setup new gift
-
-  // Create out new gift
-  const gift: InProgressGift = {
-    id: uuidv4(),
-    museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
-    parts: [],
-  };
-
-  // Track new gift
-  track(newGiftStartedEvent({ giftId: gift.id }));
+  // TODO
+  // If we can't record audio inform and force end
+  if (!canUseAudioRecorder()) {
+    return (
+      <MessageModal>
+        <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
+        <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
+      </MessageModal>
+    );
+  }
 
   // Show
-  return <CreateGift gift={gift} />;
+  return <CreateGift />;
 };
 
 export {

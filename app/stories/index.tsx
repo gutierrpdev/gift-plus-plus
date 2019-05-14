@@ -123,7 +123,7 @@ storiesOf('Creating', module)
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <CreateGift gift={emptyGift} />
+        <CreateGift />
       </BrowserRouter>
     </>
   ))
