@@ -5,6 +5,7 @@ const global = {
     iPhone5: '40/71',
     iPad: '3/4',
   },
+  borderRadius : '2.5vh',
   mobile: {
     endPixels: 768,
   },

@@ -58,7 +58,7 @@ const ButtonStyle = styled.button<ButtonProps>`
     opacity: 1;
   }
   &:only-child {
-    border-radius: 2.5vh;
+    border-radius: ${global.borderRadius};
   }
   &:not(:only-child) {
     &:nth-child(1) {

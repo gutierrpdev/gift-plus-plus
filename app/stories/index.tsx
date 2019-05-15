@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import history from '../src/utils/router-history';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
@@ -445,15 +445,35 @@ storiesOf('Components/Modals', module)
       </InformationWindow>
     </ScreenManager>
   ))
-  .add('Working Modal', () => (
-    <ScreenManager>
-      <GlobalStyles />
-      <WorkingModal
-        message='Hey, we need to get online to do some magic.'
-        status='Saving...'
-      />
-    </ScreenManager>
-  ))
+  .add('Working Modal', () => {
+
+    function getModal() {
+
+      // const [stage, setStage] = useState(1);
+
+      // setTimeout(() => {
+      //   setStage(2);
+      // }, 1000);
+
+      return (
+        <WorkingModal
+          iconType='working'
+          message='Working...'
+          buttonText='OK'
+        />
+      );
+    }
+
+    return (
+      /* use a real screen to test over */
+      <BrowserRouter>
+        <HomeScreen />
+
+        {getModal()}
+
+      </BrowserRouter>
+    );
+  })
   .add('Message Modal', () => (
     <ScreenManager>
       <GlobalStyles />
