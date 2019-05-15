@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import { BaseModal } from './base-modal';
 import SvgCloseCircle from '../svg/close-circle';
 
+/**
+ * Popover Information component.
+ * Used for showing information such as Privacy
+ */
+
 // Close circle
 const SvgCloseCircleStyled = styled(SvgCloseCircle)`
   width: 8%;
@@ -26,6 +31,7 @@ const InfoPopoverInner = styled.div`
   height: 100%;
   padding: 10% 12%;
   overflow: scroll;
+  box-sizing: border-box;
 `;
 
 interface Props {

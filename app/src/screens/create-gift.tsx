@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { isIosDeviceUsingChrome } from '../utils/helpers';
 import { canUseAudioRecorder } from '../utils/use-audio-recorder';
 
-import { Button } from '../components/buttons';
-import { MessageModal } from '../components/modals/message-modal';
 import { UnsupportedDevice } from '../components/messages/unsupported-device';
 import { CreateGift } from '../components/creating/create-gift';
 
@@ -24,14 +21,10 @@ const CreateGiftScreen: React.FC = () => {
     );
   }
 
-  // TODO
   // If we can't record audio inform and force end
   if (!canUseAudioRecorder()) {
     return (
-      <MessageModal>
-        <p>Your phone doesn't seem to allow you to record audio, so you can't create a gift.</p>
-        <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
-      </MessageModal>
+      <UnsupportedDevice message={`Your phone doesn't seem to allow you to record audio, so you can't create a gift`} />
     );
   }
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Buttons, Button } from '../buttons';
 import { ScreenMessage } from './screen-message';
+import { ScreenManager } from '../screen-manager';
 import { InfoPopover } from '../modals/info-popover';
 import { SupportedDeviceList } from '../information/device-list';
 
@@ -19,6 +20,7 @@ const DeviceButtons = styled(Buttons)`
   position: absolute;
   bottom: 0;
   left: 0;
+  box-sizing: border-box;
 `;
 
 const UnsupportedDevice: React.FC<Props> = ({ message }) => {
@@ -27,7 +29,7 @@ const UnsupportedDevice: React.FC<Props> = ({ message }) => {
   const [deviceListIsOpen, setDeviceListIsOpen] = useState(false);
 
   return (
-    <>
+    <ScreenManager>
       <ScreenMessage message={message}>
         <DeviceButtons>
           <Button colour='black' onClick={() => { setDeviceListIsOpen(true); }}>Show supported devices</Button>
@@ -38,7 +40,7 @@ const UnsupportedDevice: React.FC<Props> = ({ message }) => {
         <SupportedDeviceList />
       </InfoPopover>
     }
-    </>
+    </ScreenManager>
   );
 
 };
