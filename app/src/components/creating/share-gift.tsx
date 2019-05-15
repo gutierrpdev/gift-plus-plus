@@ -35,9 +35,7 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) =
 
   // Prepare all of the URLS
   const emailLink = encodeURI(`mailto:?&subject=${shareTitle}&body=${shareTitle} ${url}`);
-  const facebookLink = encodeURI(`https://www.facebook.com/sharer/sharer.php?u=${url}`);
   const fbMessengerLink = encodeURI(`fb-messenger://share/?link=${url}`);
-  const twitterLink = encodeURI(`https://twitter.com/home?status=${url}`);
   const whatsAppsLink = encodeURI(`whatsapp://send?text=${shareTitle} ${url}`);
 
   // Different format for iOS SMS
@@ -59,9 +57,7 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) =
         <PanelSubTitle>Share my gift with {recipientName}</PanelSubTitle>
         <Shares>
           <ShareLink href={emailLink}>Share via Email</ShareLink>
-          <ShareLink target='_blank' href={facebookLink}>Share on Facebook</ShareLink>
           <ShareLink href={fbMessengerLink}>Share In Facebook Messenger (mobile only)</ShareLink>
-          <ShareLink target='_blank' href={twitterLink}>Share on Twitter</ShareLink>
           <ShareLink
             href={whatsAppsLink}
             data-action='share/whatsapp/share'
