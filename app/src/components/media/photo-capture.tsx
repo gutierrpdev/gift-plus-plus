@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { LocalFile } from '../../domain';
+
 import { setImageOrientation,
   getImageOrientation,
   calcImageOrientationChange,
@@ -54,7 +56,7 @@ interface Props {
   text: string;
   textSize?: number;
   showCamera?: boolean;
-  onPhotoTaken?: ( fileUrl: string ) => void;
+  onPhotoTaken?: (imageFile: LocalFile) => void;
 }
 
 const PhotoCapture: React.FC<Props> = (props) => {
@@ -76,50 +78,36 @@ const PhotoCapture: React.FC<Props> = (props) => {
 
   // Handle the change of file on the input
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    // Nothing to do if we don't have anyone listening
+    if (!props.onPhotoTaken) return;
 
-    // Get the file from the list
-    if (e.target.files) {
+    // Nothing to do if we don't have any files
+    // TODO: should this be an error condition of some kind?
+    if (!e.target.files) return;
 
-      // Get the file
-      const file = e.target.files[0]; // Assuming one file
+    const onPhotoTaken = props.onPhotoTaken; // Help the typechecker realise this is defined
 
-      // Convert the file to a object url for performance in the browser
-      let url = URL.createObjectURL(file);
+    const imageFile = e.target.files[0]; // Assuming one file
+    const imageUrl = URL.createObjectURL(imageFile);
+    const mimeType = imageFile.type;
 
-      // Some pictures will be landscape and will need converting to portrait
-      // Get the current orientation and correct if necessary
-      getImageOrientation(file, (orientation) => {
+    // Some pictures will be landscape and will need converting to portrait
+    // Get the current orientation and correct if necessary
+    getImageOrientation(imageFile, (orientation) => {
 
-        if (orientation === landscapeImageOrientation) { // Landscape
+      if (orientation === landscapeImageOrientation) { // Landscape
+        const change = calcImageOrientationChange(orientation);
 
-          // Get the current orientation
-          const change = calcImageOrientationChange(orientation);
-
-          setImageOrientation(url, change, (rotatedImageUrl: string) =>  {
-
-            url = rotatedImageUrl;
-
-            // If we have a callback issue the url to it
-            if (props.onPhotoTaken) {
-              props.onPhotoTaken( url );
-            }
-
-          });
-
-        } else {
-
-          // If we have a callback issue the url to it
-          if (props.onPhotoTaken) {
-            props.onPhotoTaken( url );
-          }
-
-        }
-
-      });
-
-    }
-
+        setImageOrientation(imageUrl, change, (rotatedImageUrl) => {
+          URL.revokeObjectURL(imageUrl); // Cleanup unused resource
+          onPhotoTaken({ url: URL.createObjectURL(rotatedImageUrl), mimeType });
+        });
+      } else {
+        onPhotoTaken({ url: imageUrl, mimeType });
+      }
+    });
   }
+
 
   return (
     <PanelRound background={'transparent-black'}>

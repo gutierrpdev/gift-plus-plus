@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import MediaRecorderPolyfill from 'audio-recorder-polyfill';
 
+import { LocalFile } from '../domain';
 import { assertNever } from './helpers';
 
 const MediaRecorder = window.MediaRecorder || MediaRecorderPolyfill;
@@ -15,7 +16,7 @@ export type AudioRecorder =
   | { state: 'ready'; start: () => void; }
   | { state: 'recording'; stop: () => void; }
   | { state: 'processing' }
-  | { state: 'audio-ready'; recordingUrl: string; disposeRecording: () => void; }
+  | { state: 'audio-ready'; file: LocalFile; disposeRecording: () => void; }
   | { state: 'error'; error: AudioRecorderError; reset: () => void; }
 ;
 
@@ -33,7 +34,7 @@ type State =
   | { kind: 'ready'; recorder: MediaRecorder }
   | { kind: 'recording'; recorder: MediaRecorder }
   | { kind: 'processing'; recorder: MediaRecorder }
-  | { kind: 'audio-ready'; recorder: MediaRecorder; recordingUrl: string }
+  | { kind: 'audio-ready'; recorder: MediaRecorder; file: LocalFile }
   | { kind: 'error'; recorder?: MediaRecorder; error: AudioRecorderError }
 ;
 
@@ -80,8 +81,11 @@ export const useAudioRecorder: () => AudioRecorder = () => {
             // Handle recording ready
             recorder.addEventListener('dataavailable', (e) => {
               const event = e as BlobEvent;
-              const fileUrl = URL.createObjectURL(event.data);
-              setState({ kind: 'audio-ready', recordingUrl: fileUrl, recorder });
+              const file = {
+                url: URL.createObjectURL(event.data),
+                mimeType: event.data.type,
+              };
+              setState({ kind: 'audio-ready', file, recorder });
             });
 
             // Handle error
@@ -151,10 +155,10 @@ export const useAudioRecorder: () => AudioRecorder = () => {
   if (state.kind === 'audio-ready') {
     return {
       state: 'audio-ready',
-      recordingUrl: state.recordingUrl,
+      file: state.file,
       disposeRecording: () => {
         setState({ kind: 'ready', recorder: state.recorder });
-        URL.revokeObjectURL(state.recordingUrl);
+        URL.revokeObjectURL(state.file.url);
       },
     };
   }

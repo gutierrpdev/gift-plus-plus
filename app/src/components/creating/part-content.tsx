@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { InProgressGift } from '../../domain';
+import { LocalFile, InProgressGift, InProgressGiftPart } from '../../domain';
+
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
-import { GiftPart } from '../../domain';
 import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
-import { TextAreaInput } from '../../components/inputs/textarea-input';
+import { TextAreaInput } from '../inputs/textarea-input';
 import { romanNumeralFromDecimal } from '../../themes/global';
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
+
 import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
 
 /***
@@ -60,13 +61,13 @@ type Status =
   | 'write-clue'
   | 'finish-message1'
   | 'finish-message2'
-  | 'send'
+  | 'send-or-add-more'
 ;
 
 export interface Props {
   recipientName: string;
-  gift: InProgressGift;
-  onComplete: (parts: GiftPart[]) => void; // When this component is finished
+  gift: InProgressGift; // TODO: Remove this? -- only gift.id is used, and that's just for events.
+  onComplete: (parts: InProgressGiftPart[]) => void;
 }
 
 const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete }) => {
@@ -76,13 +77,13 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
   // State
   const [giftPartIndex, setGiftPartIndex] = useState(0); // The current gift part index
-  const [parts, setParts] = useState<GiftPart[]>([]); // TODO: clean the state up -- separate out
+  const [parts, setParts] = useState<InProgressGiftPart[]>([]); // TODO: clean the state up -- separate out
+  const [currentPart, setCurrentPart] = useState<Partial<InProgressGiftPart>>({});
+
   const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
-  const [audioIsRecorded, setAudioIsRecorded] = useState(false);
-  const [clueIsWritten, setClueIsWritten] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
 
   // Defaults
@@ -93,117 +94,64 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     setFirstAudioHasPlayed(false);
     setShowCamera(false);
     setSecondAudioHasPlayed(false);
-    setAudioIsRecorded(false);
-    setClueIsWritten(false);
+    setCurrentPart({});
   }
 
-  // Returns the gift part based on the index
-  // Creates the gift part if it doesn't already exist
-  function getGiftPart( index: number ) {
 
-    // Return if exists
-    if (parts[index]) {
-      return parts[index];
-    }
-
-    // Create if not
-    return parts[index] = {
-      photo: '',
-      note: '',
-      clue: '',
-    };
-
-  }
-
-  // Handle the photo being taken
-  function handlePhotoTaken( fileUrl: string ) {
-
-    // Record the photo file
-    const giftPart: GiftPart = getGiftPart(giftPartIndex);
-    giftPart.photo = fileUrl;
-
-    // Set the background of this component
-    setBackgroundImage(fileUrl);
-
-    // Move to next section
+  function handlePhotoTaken(file: LocalFile) {
+    setCurrentPart({ ...currentPart, photo: file });
+    // Use this image as the background of the component
+    setBackgroundImage(file.url);
     setStatus('pre-record-message');
   }
 
-  function handleAudioRecordFinished() {
-    // TODO
-    setAudioIsRecorded(true);
+
+  function handleAudioRecordFinished(file: LocalFile) {
+    setCurrentPart({ ...currentPart, note: file });
     setStatus('pre-clue-message1');
   }
 
-  function handleClueChanged( clue: string ) {
 
-    // Get our gift
-    const giftPart: GiftPart = getGiftPart(giftPartIndex);
-
-    // Set the clue
-    giftPart.clue = clue;
-
-    // Set the state
-    setClueIsWritten(true);
-
+  function handleClueChanged(clue: string) {
+    setCurrentPart({ ...currentPart, clue });
   }
+
 
   function clearClueAndNext() {
-
-    // Get our gift
-    const giftPart: GiftPart = getGiftPart(giftPartIndex);
-
-    // Clear the clue
-    giftPart.clue = '';
-
-    // Set the state
-    setClueIsWritten(false);
-
-    // Next
+    setCurrentPart({ ...currentPart, clue: '' });
     setStatus('finish-message1');
-
   }
+
 
   // Part creation is complete
   function handleAllComplete() {
-
+    parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
     // Note: part number is 1 based, rather than index 0 based.
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'wrap-up'} ));
-
-    // Callback to continue
-    if (onComplete) {
-      onComplete(parts);
-    }
-
+    onComplete(parts);
   }
 
   // Start on part 2
   function handleStartPart2() {
-
-    // Setup the second part
+    parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
     resetState();
-
-    // Set the index
     setGiftPartIndex(1);
 
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
-    // Note no first message for part 2, jump to second part
+    // Note no first message for part 2, jump to second section
     setStatus('second-message');
   }
 
   // Start on part 3
   function handleStartPart3() {
-
-    // Setup the second part
+    parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
     resetState();
-
-    // Set the index
     setGiftPartIndex(2);
 
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
-    // Note no first message for part 2, jump to second part
+    // Note no first message for part 3, jump to second section
     setStatus('second-message');
   }
 
@@ -283,10 +231,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <PhotoCapture
               text={`If you’ve found your first object, take a photo so they can see what you’ve chosen`}
-              onPhotoTaken={(fileUrl: string) => {
-                // Process the photo
-                handlePhotoTaken(fileUrl);
-                // Call the event
+              onPhotoTaken={(file) => {
+                handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-1-photo'} ));
               }}
               showCamera={showCamera}
@@ -298,10 +244,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 Why not visit another part of the museum?
                 When you’ve found it take a photo to show them`}
               textSize={42}
-              onPhotoTaken={(fileUrl: string) => {
-                // Process the photo
-                handlePhotoTaken(fileUrl);
-                // Call the event
+              onPhotoTaken={(file) => {
+                handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-2-photo'} ));
               }}
               showCamera={showCamera}
@@ -310,10 +254,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 2 &&
             <PhotoCapture
               text={`Choose your last object and take a photo`}
-              onPhotoTaken={(fileUrl: string) => {
-                // Process the photo
-                handlePhotoTaken(fileUrl);
-                // Call the event
+              onPhotoTaken={(file) => {
+                handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-3-photo'} ));
               }}
               showCamera={showCamera}
@@ -451,7 +393,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         </PanelContent>
         <Buttons>
           {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
-          {clueIsWritten && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
+          {currentPart.clue && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
         </Buttons>
       </Panel>
     );
@@ -466,7 +408,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         case 0 :
           return setStatus('finish-message2');
         case 1 :
-          return setStatus('send');
+          return setStatus('send-or-add-more');
         case 2 :
           return handleAllComplete();
         default :
@@ -509,12 +451,12 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             <PanelPrompt
               text={`They’re going to love it`}
               background={'transparent-black'}
-              onClick={() => { setStatus('send'); }}
+              onClick={() => { setStatus('send-or-add-more'); }}
             />
           }
           <WaitThen
             wait={defaultWait}
-            andThen={() => { setStatus('send'); }}
+            andThen={() => { setStatus('send-or-add-more'); }}
           />
         </PanelContent>
         <Buttons />
@@ -522,7 +464,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     );
   }
 
-  function renderSend() {
+  function renderSendOrAddMore() {
     return (
       <>
         <PanelContent>
@@ -564,7 +506,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
       {status === 'write-clue' && renderWriteClue()}
       {status === 'finish-message1' && renderFinishMessage1()}
       {status === 'finish-message2' && renderFinishMessage2()}
-      {status === 'send' && renderSend()}
+      {status === 'send-or-add-more' && renderSendOrAddMore()}
     </PartContentStyle>
   );
 

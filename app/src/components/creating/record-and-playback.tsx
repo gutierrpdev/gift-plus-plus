@@ -2,7 +2,7 @@ import React from 'react';
 
 import { assertNever } from '../../utils/helpers';
 import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder';
-import { InProgressGift } from '../../domain';
+import { InProgressGift, LocalFile } from '../../domain';
 
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
@@ -28,7 +28,7 @@ interface Props {
   saveButtonText: string;
   gift: InProgressGift;
   eventReference: string;
-  onComplete: (recordingUrl: string) => void;
+  onComplete: (audioFile: LocalFile) => void;
 }
 
 export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
@@ -41,37 +41,21 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
 }) => {
   const audioRecorder = useAudioRecorder();
 
-  function handleReRecord() {
-
-    // Track the event
-    track(audioReRecordedEvent( {giftId: gift.id, audioType: eventReference} ));
-
-    // Fire
-    if (audioRecorder.state === 'audio-ready') {
-      audioRecorder.disposeRecording();
-    }
-
-  }
-
-  function handleSaveRecording(file: string) {
-
-    // Track the event
-    track(audioKeptEvent( {giftId: gift.id, audioType: eventReference} ));
-
-    // Finish
-    onComplete(file);
-
-  }
-
   if (audioRecorder.state === 'audio-ready') {
     return (
       <PlaybackPanel
         playbackMessage={playbackMessage}
-        url={audioRecorder.recordingUrl}
+        url={audioRecorder.file.url}
         saveButtonText={saveButtonText}
         gift={gift}
-        onReRecordClicked={handleReRecord}
-        onSaveClicked={() => handleSaveRecording(audioRecorder.recordingUrl)}
+        onReRecordClicked={() => {
+          track(audioReRecordedEvent({ giftId: gift.id, audioType: eventReference }));
+          audioRecorder.disposeRecording();
+        }}
+        onSaveClicked={() => {
+          track(audioKeptEvent({ giftId: gift.id, audioType: eventReference }));
+          onComplete(audioRecorder.file);
+        }}
       />
     );
   }
@@ -115,6 +99,7 @@ const RecordPanel: React.FC<{
                : (audioRecorder.state === 'processing') ? (<Button onClick={handleStopRecord}>Stop recording</Button>)
                : (audioRecorder.state === 'error') ? (<Button onClick={onClick}>Try again</Button>)
                : (<Button onClick={handleStartRecord} primary={true}>Start recording</Button>);
+
 
   function handleStartRecord() {
 
