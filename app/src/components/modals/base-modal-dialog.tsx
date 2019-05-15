@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 /***
- * This is a base modal that others can inherit to ensure consistent behvaiour
- *
+ * This is a base modal dialog.
+ * Others can inherit the style to ensure consistent resuable behvaiour.
  */
 
-const BaseModal = styled.div`
+const BaseModalDialog = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -15,5 +15,5 @@ const BaseModal = styled.div`
 `;
 
 export {
-  BaseModal,
+  BaseModalDialog,
 };

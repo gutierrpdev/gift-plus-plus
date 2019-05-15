@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Buttons, Button } from '../buttons';
 import { ScreenMessage } from './screen-message';
 import { ScreenManager } from '../screen-manager';
-import { InfoPopover } from '../modals/info-popover';
+import { InformationWindow } from '../modals/information-window';
 import { SupportedDeviceList } from '../information/device-list';
 
 /**
@@ -36,9 +36,9 @@ const UnsupportedDevice: React.FC<Props> = ({ message }) => {
         </DeviceButtons>
       </ScreenMessage>
     {deviceListIsOpen &&
-      <InfoPopover onClose={() => {setDeviceListIsOpen(false); }}>
+      <InformationWindow onClose={() => {setDeviceListIsOpen(false); }}>
         <SupportedDeviceList />
-      </InfoPopover>
+      </InformationWindow>
     }
     </ScreenManager>
   );

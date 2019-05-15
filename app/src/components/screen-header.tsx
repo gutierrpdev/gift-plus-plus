@@ -7,7 +7,7 @@ import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
 import { ScreenPostTitle } from './screen-post-title';
 import { ScreenLogo } from './screen-logo';
-import { InfoPopover } from './modals/info-popover';
+import { InformationWindow } from './modals/information-window';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
@@ -182,7 +182,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
     {/* == Privacy == */}
     {privacyIsOpen &&
-      <InfoPopover
+      <InformationWindow
         onClose={() => { setPrivacyIsOpen(false); }}
       >
         <h1>Privacy</h1>
@@ -222,12 +222,12 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
         Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
         tempor id eu nisl nunc.</p>
-      </InfoPopover>
+      </InformationWindow>
     }
 
     {/* == Help == */}
     {helpIsOpen &&
-      <InfoPopover
+      <InformationWindow
         onClose={() => { setHelpIsOpen(false); }}
       >
         <h1>Help</h1>
@@ -266,17 +266,17 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
         Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
         tempor id eu nisl nunc.</p>
-      </InfoPopover>
+      </InformationWindow>
     }
 
     {/* == Feedback == */}
     {feedbackIsOpen &&
-      <InfoPopover
+      <InformationWindow
         onClose={() => { setFeedbackIsOpen(false); }}
       >
         <h1>Feedback</h1>
         <p>Some notes on leaving feedback.</p>
-      </InfoPopover>
+      </InformationWindow>
     }
 
     </>

@@ -30,7 +30,7 @@ import { ProgressLoader } from '../src/components/progress-loader';
 import { PhotoCapture } from '../src/components/media/photo-capture';
 import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
-import { InfoPopover } from '../src/components/modals/info-popover';
+import { InformationWindow } from '../src/components/modals/information-window';
 import { WorkingModal } from '../src/components/modals/working-modal';
 import { MessageModal } from '../src/components/modals/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
@@ -433,16 +433,16 @@ storiesOf('Components/Loaders', module)
 
 // Modals
 storiesOf('Components/Modals', module)
-  .add('Info Popover', () => (
+  .add('Information Window', () => (
     <ScreenManager>
       <GlobalStyles />
-      <InfoPopover onClose={doNothing}>
+      <InformationWindow onClose={doNothing}>
         <h1>Privacy</h1>
         <h2>Sub heading</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
         Semper feugiat nibh sed pulvinar proin.</p>
-      </InfoPopover>
+      </InformationWindow>
     </ScreenManager>
   ))
   .add('Working Modal', () => (

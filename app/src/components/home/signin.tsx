@@ -8,13 +8,13 @@ import { TextInput } from '../inputs/text-input';
 import { TextResize } from '../text-resize';
 import { PanelTitle } from '../panel-title';
 import { HeaderCloseButton } from './header-close-button';
-import { BaseModal } from '../modals/base-modal';
+import { BaseModalWindow } from '../modals/base-modal-window';
 
 /**
  * Sign in component
  */
 
-const Outer = styled(BaseModal)`
+const Outer = styled(BaseModalWindow)`
   background-color: white;
 `;
 

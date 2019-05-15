@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BaseModal } from './base-modal';
+import { BaseModalWindow } from './base-modal-window';
 import SvgCloseCircle from '../svg/close-circle';
 
 /**
@@ -19,11 +19,11 @@ const SvgCloseCircleStyled = styled(SvgCloseCircle)`
   z-index: 10;
 `;
 
-const InfoPopoverOuter = styled(BaseModal)`
+const Outer = styled(BaseModalWindow)`
   background-color: white;
 `;
 
-const InfoPopoverInner = styled.div`
+const Inner = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -39,7 +39,7 @@ interface Props {
 }
 
 // Info Popover component
-const InfoPopover: React.FC<Props> = (props) => {
+const InformationWindow: React.FC<Props> = (props) => {
 
   function handleClose() {
     if (props.onClose) {
@@ -48,15 +48,15 @@ const InfoPopover: React.FC<Props> = (props) => {
   }
 
   return (
-    <InfoPopoverOuter>
+    <Outer>
       <SvgCloseCircleStyled onClick={handleClose} />
-      <InfoPopoverInner>
+      <Inner>
         {props.children}
-      </InfoPopoverInner>
-    </InfoPopoverOuter>
+      </Inner>
+    </Outer>
   );
 };
 
 export {
-  InfoPopover,
+  InformationWindow,
 };

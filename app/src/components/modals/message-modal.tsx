@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseModal } from './base-modal';
+import { BaseModalWindow } from './base-modal-window';
 
 import { global } from '../../themes/global';
 
-const Outer = styled(BaseModal)`
+const Outer = styled(BaseModalWindow)`
   background-color: ${global.colour.lightGrey};
   display: flex;
   align-items: center;

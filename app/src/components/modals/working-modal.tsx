@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../../themes/global';
-import { BaseModal } from './base-modal';
+import { BaseModalDialog } from './base-modal-dialog';
 import { TextResize } from '../text-resize';
 
 import SvgGift from '../svg/gift';
@@ -12,7 +12,7 @@ const GiftImg = styled.div`
   width: 35%;
 `;
 
-const Outer = styled(BaseModal)`
+const Outer = styled(BaseModalDialog)`
   background-color: ${global.colour.lightGrey};
   display: flex;
   align-items: center;
@@ -27,7 +27,6 @@ const Inner = styled.div`
 `;
 
 const Message = styled(TextResize)`
-
 `;
 
 const Status = styled(TextResize)`
