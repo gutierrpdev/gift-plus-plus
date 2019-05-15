@@ -410,13 +410,13 @@ storiesOf('Components/Loaders', module)
   .add('Progress Loader - white text', () => (
     <div style={greyBG}>
       <GlobalStyles />
-      <ProgressLoader text={'Loading'} colour='white' percent={25} />
+      <ProgressLoader text={'Loading'} colourTheme='white' percent={25} />
     </div>
   ))
   .add('Progress Loader - grey text', () => (
     <div style={greyBG}>
       <GlobalStyles />
-      <ProgressLoader text={'Loading'} colour={'light-grey'} percent={25} />
+      <ProgressLoader text={'Loading'} colourTheme={'light-grey'} percent={25} />
     </div>
   ))
 ;

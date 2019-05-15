@@ -8,7 +8,7 @@ import SvgGift from './svg/gift';
 
 interface Props {
   text: string;
-  colour: 'white' | 'light-grey';
+  colourTheme: 'white' | 'light-grey';
   percent: number;
 }
 
@@ -23,10 +23,10 @@ const StyledProgressLoader = styled.div<Props>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  ${(props) => props.colour === 'white' && `
+  ${(props) => props.colourTheme === 'white' && `
     color: ${global.colour.whiteText};
   `}
-  ${(props) => props.colour === 'light-grey' && `
+  ${(props) => props.colourTheme === 'light-grey' && `
     color: ${global.colour.lightGrey};
   `}
 `;
@@ -43,15 +43,19 @@ const GiftIcon = styled.div`
 
 const ProgressLoader: React.FC<Props> = (props) => {
 
-  const theme = props.colour === 'white' ? 'white-on-black' : 'grey-on-black';
+  // Progress bar theme
+  const theme = props.colourTheme === 'white' ? 'white-on-black' : 'grey-on-black';
+
+  // Gift SVG colour
+  const colour = props.colourTheme === 'white' ? global.colour.whiteText : global.colour.lightGrey;
 
   return (
     <StyledProgressLoader {...props}>
       <GiftIcon>
-        <SvgGift colour={props.colour} />
+        <SvgGift colour={colour} />
       </GiftIcon>
       <ProgressTitle>{props.text}</ProgressTitle>
-      <ProgressBar percent={props.percent} theme={theme} height='0.4rem' />
+      <ProgressBar percent={props.percent} theme={theme} height='0.3rem' />
       <ProgressTitle>{props.percent}%</ProgressTitle>
     </StyledProgressLoader>
   );

@@ -28,7 +28,7 @@ const WorkingProgress: React.FC<Props> = ({ percent, text }) => {
   return (
     <WorkingOuter>
       <WorkingInner>
-        <ProgressLoader text={text} colour={'light-grey'} percent={percent} />
+        <ProgressLoader text={text} colourTheme={'light-grey'} percent={percent} />
       </WorkingInner>
     </WorkingOuter>
   );

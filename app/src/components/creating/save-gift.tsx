@@ -56,7 +56,7 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
         <PanelSubTitle>Saving it</PanelSubTitle>
         <PanelContent>
           <PanelRound background='transparent-black'>
-            <ProgressLoader text='Saving' percent={saveProgress} colour='white' />
+            <ProgressLoader text='Saving' percent={saveProgress} colourTheme='white' />
           </PanelRound>
         </PanelContent>
         <Buttons>
