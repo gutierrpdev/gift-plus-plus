@@ -164,6 +164,16 @@ storiesOf('Components', module)
         postTitle={'post title'}
         showLogo={false}
       />
+      <p>Small header with message</p>
+      <ScreenHeader
+        subTitle={`Sub title`}
+        postSubTitle={`post sub title`}
+        title={'Title'}
+        postTitle={'post title'}
+        showLogo={false}
+        message='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua.'
+      />
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)

@@ -16,7 +16,7 @@ interface Props {
 const GiftList = styled.div`
   position: relative;
   width: 100%;
-  padding: 2vh 0 2vh 0;
+  padding: 3vh 0 2vh 0;
 `;
 
 const StyledGift = styled.div`
@@ -38,9 +38,17 @@ const GiftTitle = styled.div`
   margin-bottom: 0.5vh;
 `;
 
-const GiftStatus = styled.div`
+const GiftStatus = styled(TextResize)`
   font-family: ${global.fonts.title.family};
   font-style: italic
+`;
+
+const GiftFrom = styled(TextResize)`
+  margin-bottom: 2%;
+`;
+
+const SenderName = styled(TextResize)`
+  margin-bottom: 4%;
 `;
 
 const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
@@ -56,11 +64,10 @@ const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
           <SvgGift colour='black' />
         </GiftImg>
         <GiftTitle>
-          <TextResize textSize={30}>{gift.senderName}</TextResize>
+          <GiftFrom textSize={30}>from</GiftFrom>
+          <SenderName textSize={30}>{gift.senderName}</SenderName>
         </GiftTitle>
-        <GiftStatus>
-          <TextResize textSize={20}>New Today</TextResize>
-        </GiftStatus>
+        <GiftStatus textSize={30}>New</GiftStatus>
       </Link>
     </StyledGift>
   ));

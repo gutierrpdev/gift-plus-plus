@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
+  allowScroll?: boolean; // Can the page be scrolled, or fix the viewport?
 }
 
 // Arranges the elements on the screen, using flex
 const ScreenManagerStyle = styled.div<Props>`
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100); // Set in JS
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,12 +14,17 @@ const ScreenManagerStyle = styled.div<Props>`
   justify-content: flex-start;
   position: relative;
   overflow: hidden; // Added to ensure svg background is cropped
+
+  ${(props: Props) => !props.allowScroll && `
+    height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100); // Set in JS
+  `}
 `;
 
-const ScreenManager: React.FC<Props> = (props) => {
+const ScreenManager: React.FC<Props> = ( { allowScroll = false, children } ) => {
   return (
-    <ScreenManagerStyle {...props}>
-      {props.children}
+    <ScreenManagerStyle allowScroll={allowScroll}>
+      {children}
     </ScreenManagerStyle>
   );
 };

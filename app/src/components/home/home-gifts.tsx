@@ -16,7 +16,7 @@ import SvgAddCircle from '../svg/add-circle';
 import uuidv5 from 'uuid/v5';
 
 const PlusStyle = styled.div`
-  margin: 0 auto 0;
+  margin: 3% auto 0;
   width: 20%;
   cursor: pointer;
 `;
@@ -31,13 +31,14 @@ const GiftsNotSent = styled.div`
 
 const LineSpacer = styled.div`
   margin: 3vh 0 5vh 0;
-  border-bottom: 0.4vh dashed ${global.colour.veryLightGrey};
+  border-bottom: 0.1vh solid rgba(0,0,0,0.5);
 `;
 
 const Content = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  padding-top: 3%;
 `;
 
 const ContentBg = styled.div`
@@ -88,17 +89,25 @@ const HomeGifts: React.FC = () => {
 
   const sentGiftCount = 0;
   const hasSentGifts = sentGiftCount > 0;
+  const museumName = 'Brighton Museum'; // todo: get from entry URL
 
   return (
 
-    <ScreenManager>
+    <ScreenManager allowScroll={true}>
       <BgSvgFullScreen />
       <GlobalStyles />
 
       {/* Header */}
       <ScreenHeader
-        background='white'
-        subTitle={`Your gifts`}
+        background='transparent-white'
+        topPadding={'small'}
+        title={`Gift`}
+        postTitle={`at ${museumName}`}
+        titleSize={'big'}
+        message='Think of someone special
+          and create a playlist for them
+          from objects around the
+          museum'
       />
 
       <ContentBg>
@@ -120,7 +129,7 @@ const HomeGifts: React.FC = () => {
           }
           {!hasSentGifts &&
             <GiftsNotSent>
-              <TextResize textSize={60}>
+              <TextResize textSize={50}>
                 You've not sent any gifts<br/>
                 Make one now?
               </TextResize>

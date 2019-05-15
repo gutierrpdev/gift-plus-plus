@@ -11,6 +11,7 @@ import { InfoPopover } from './modals/info-popover';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
+import { TextResize } from './text-resize';
 
 
 /***
@@ -25,6 +26,17 @@ const HeaderTexts = styled.div`
   left: 10%;
 `;
 
+// Message
+const HeaderMessage = styled.div`
+  margin: 8% auto;
+  width: 80%;
+  text-align: center;
+`;
+
+const HeaderMessageTextResize = styled(TextResize)`
+  line-height: 1.3;
+`;
+
 // Header
 const ScreenHeaderStyle = styled.div<Props>`
   width: 100%;
@@ -36,7 +48,7 @@ const ScreenHeaderStyle = styled.div<Props>`
     padding: 3% 0;
   }
   ${(props) => props.topPadding === 'small' && `
-    padding-top: 10%;
+    padding-top: 7%;
     // Smaller padding on mobiles
     @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
       padding: 2% 2%;
@@ -69,6 +81,9 @@ const ScreenHeaderStyle = styled.div<Props>`
   ${(props) => props.background === 'white' && `
     background-color: white;
   `}
+  ${(props) => props.background === 'transparent-white' && `
+    background-color: rgba(255,255,255, 0.8);
+  `}
 `;
 
 interface Props {
@@ -80,9 +95,11 @@ interface Props {
   postSubTitle?: string; // Text after the sub title
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
-  titleSize?: 'normal' | 'very-big';  // Title text size
+  message?: string; // Optional message to show under the header.
+  // Message is Included here to ensure it sits within the same background element
+  titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
   topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
-  background?: 'none' | 'white'; // Background colour
+  background?: 'none' | 'transparent-white' | 'white'; // Background colour
 }
 
 const ScreenHeader: React.FC<Props> = (props: Props) => {
@@ -142,6 +159,22 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
 
       </HeaderTexts>
+
+      {props.message &&
+        <HeaderMessage>
+          {/* support line breaks */}
+          {props.message && props.message.split('\n').map((item, key) => {
+            return (
+              <HeaderMessageTextResize
+                textSize={50}
+                key={key}
+              >
+                {item}
+              </HeaderMessageTextResize>
+            );
+          })}
+        </HeaderMessage>
+      }
 
       {showGradient && <Gradient position='bottom' />}
 
