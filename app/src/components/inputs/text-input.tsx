@@ -53,6 +53,7 @@ const TextInput: React.FC<TextInputProps> = ( props ) => {
 
   return (
     <TextInputStyled
+      autoFocus={true}
       inputType={props.inputType}
       defaultValue={props.defaultValue}
       textSize={props.textSize}

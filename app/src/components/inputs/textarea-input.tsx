@@ -52,6 +52,7 @@ const TextAreaInput: React.FC<Props> = ( props ) => {
 
   return (
     <TextAreaStyled
+      autoFocus={true}
       defaultValue={props.defaultValue}
       textSize={props.textSize}
       placeholder={props.placeHolder}
