@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import uuidv4 from 'uuid/v4';
 import uuidv5 from 'uuid/v5';
 
-import { InProgressGift } from '../../domain';
+import { InProgressGift, Gift } from '../../domain';
 import { track, newGiftStartedEvent, giftRecipientEnteredEvent } from '../../utils/events';
 
 import { PageChangeDetect } from '../messages/page-change-detect';
@@ -44,6 +44,7 @@ interface Props {}
 export const CreateGift: React.FC<Props> = () => {
 
   const [status, setStatus] = useState<Status>('intro');
+  const [newGift, setNewGift] = useState<Gift | null>(null); // TODO: TEMP: refactor
 
   const [gift, setGift] = useState<InProgressGift>({
     id: uuidv4(),
@@ -146,14 +147,17 @@ export const CreateGift: React.FC<Props> = () => {
       {status === 'save-gift' &&
        <SaveGift
          gift={gift}
-         onComplete={() => setStatus('share-gift')}
+         onComplete={(newlyCreatedGift) => {
+           setNewGift(newlyCreatedGift);
+           setStatus('share-gift');
+         }}
        />
       }
 
-      {status === 'share-gift' &&
+      {status === 'share-gift' && newGift &&
        <ShareGift
-         recipientName={gift.recipientName || ''}
-         url={'https://todo.giftapp.com'}
+         recipientName={newGift.recipientName}
+         url={mkShareLink(newGift)}
          onComplete={() => setStatus('outro')}
        />
       }
@@ -168,3 +172,9 @@ export const CreateGift: React.FC<Props> = () => {
   );
 
 };
+
+
+// TODO!!!
+function mkShareLink(gift: Gift) {
+  return `${window.location.protocol}//${window.location.host}/gift/${gift.id}`;
+}
