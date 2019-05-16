@@ -308,12 +308,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     // todo update these audio files
     return atMuseum
       ? museumGift
-        ? require('../../../assets/audio/r-outro-local.mp3')
-        : require('../../../assets/audio/r-outro-local.mp3')
+        ? require('../../../assets/audio/r-outro-local.m4a')
+        : require('../../../assets/audio/r-outro-local.m4a')
       // not at museum
       : museumGift
-        ? require('../../../assets/audio/r-outro-local.mp3')
-        : require('../../../assets/audio/r-outro-local.mp3');
+        ? require('../../../assets/audio/r-outro-local.m4a')
+        : require('../../../assets/audio/r-outro-local.m4a');
   }
 
   // Calculate some things

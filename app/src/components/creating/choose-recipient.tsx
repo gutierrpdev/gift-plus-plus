@@ -38,7 +38,7 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete })
 
           <AudioPlayer
             message={'Who are you going to choose?'}
-            src={require('../../../src/assets/audio/c-start-gift.mp3')}
+            src={require('../../../src/assets/audio/c-start-gift.m4a')}
             forwardButtonType={'go-to-end'}
             giftId={gift.id}
             eventReference={'choose-recipient'}

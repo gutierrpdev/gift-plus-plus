@@ -16,21 +16,21 @@ export const giftThreeParts: Gift = {
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
-  recipientGreeting: require('../src/assets/audio/_1-second-of-silence.mp3'),
+  recipientGreeting: require('./assets/1-second-of-silence.m4a'),
   parts: [
     {
-      photo: require('../src/assets/test.jpg'),
-      note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+      photo: require('./assets/test.jpg'),
+      note: require('./assets/1-second-of-silence.m4a'),
       clue: 'Part 1 clue',
     },
     {
-      photo: require('../src/assets/test.jpg'),
-      note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+      photo: require('./assets/test.jpg'),
+      note: require('./assets/1-second-of-silence.m4a'),
       clue: 'Part 2 clue',
     },
     {
-      photo: require('../src/assets/test.jpg'),
-      note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+      photo: require('./assets/test.jpg'),
+      note: require('./assets/1-second-of-silence.m4a'),
       clue: 'Part 3 clue',
     },
   ],
@@ -43,23 +43,23 @@ export const giftTwoParts: Gift = {
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
-  recipientGreeting: require('../src/assets/audio/_1-second-of-silence.mp3'),
+  recipientGreeting: require('./assets/1-second-of-silence.m4a'),
   parts: [
     {
       photo: 'https://picsum.photos/300/300/?random',
-      note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+      note: require('./assets/1-second-of-silence.m4a'),
       clue: 'Part 1 clue',
     },
     {
       photo: 'https://picsum.photos/300/300/?random',
-      note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+      note: require('./assets/1-second-of-silence.m4a'),
       clue: 'Part 2 clue',
     },
   ],
 };
 
 export const giftPart: GiftPart = {
-  photo: require('../src/assets/test.jpg'),
-  note: require('../src/assets/audio/_1-second-of-silence.mp3'),
+  photo: require('./assets/test.jpg'),
+  note: require('./assets/1-second-of-silence.m4a'),
   clue: 'Part 1 clue',
 };

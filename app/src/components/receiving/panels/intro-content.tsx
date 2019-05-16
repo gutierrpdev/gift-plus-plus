@@ -50,12 +50,12 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
   // TODO: update these audio files
   const audioFile = atMuseum
     ? museumGift
-      ? require('../../../assets/audio/r-intro-content-1.mp3')
-      : require('../../../assets/audio/r-intro-content-1.mp3')
+      ? require('../../../assets/audio/r-intro-content-1.m4a')
+      : require('../../../assets/audio/r-intro-content-1.m4a')
     // not at museum
     : museumGift
-      ? require('../../../assets/audio/r-intro-content-1.mp3')
-      : require('../../../assets/audio/r-intro-content-1.mp3');
+      ? require('../../../assets/audio/r-intro-content-1.m4a')
+      : require('../../../assets/audio/r-intro-content-1.m4a');
 
   const eventReference = atMuseum
     ? museumGift
