@@ -1,15 +1,21 @@
-// TODO: Decide best way of code sharing for domain objects api/app. Maybe just
-// do it through types provided by a ClientApi library. This defines the app's
-// view of the domain. There's no reason the internal representation in the
-// paltform/api should correspond to it's external interface, so we shouldn't
-// couple them.
+/**
+ * Domain
+ *
+ * This file defines the app's view of the domain. This is considered distinct
+ * from the platform/api and should not be directly coupled.
+ */
 
-type Id = string;
-type MuseumId = Id;
-type AccountId = Id;
+export type Id = string;
+export type MuseumId = Id;
+export type AccountId = Id;
 export type GiftId = Id;
-type PhotoUrl = string;
-type AudioRecordingUrl = string;
+export type PhotoUrl = string;
+export type AudioRecordingUrl = string;
+
+export interface LocalFile {
+  url: string;
+  mimeType: string;
+}
 
 export interface GiftPart {
   photo: PhotoUrl;
@@ -29,11 +35,17 @@ export interface Gift {
 }
 
 
+export interface InProgressGiftPart {
+  photo: LocalFile;
+  note: LocalFile;
+  clue: string;
+}
+
 export interface InProgressGift {
   id: GiftId;
   museumId: MuseumId;
   senderName?: string;
   recipientName?: string;
-  recipientGreeting?: string;
-  parts: GiftPart[];
+  recipientGreeting?: LocalFile;
+  parts: InProgressGiftPart[];
 }

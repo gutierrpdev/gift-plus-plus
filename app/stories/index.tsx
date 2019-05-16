@@ -585,9 +585,9 @@ storiesOf('Components/Media', module)
           Why not visit another part of the museum?
           When you’ve found it take a photo to show them.`}
         textSize={42}
-        onPhotoTaken={ ( imageUrl: string ) => {
-          const img: HTMLImageElement = document.getElementById('photo-capture-img') as HTMLImageElement;
-          img.src = imageUrl;
+        onPhotoTaken={(imageFile) => {
+          const img = document.getElementById('photo-capture-img') as HTMLImageElement;
+          img.src = imageFile.url;
         }}
       />
     </ScreenManager>
@@ -595,8 +595,8 @@ storiesOf('Components/Media', module)
   .add('Image rotate', () => {
     document.addEventListener('DOMContentLoaded', () => {
 
-      const originalImage: HTMLImageElement = document.getElementById('rotate-img') as HTMLImageElement;
-      const resetImage: HTMLImageElement = document.getElementById('reset-img') as HTMLImageElement;
+      const originalImage = document.getElementById('rotate-img') as HTMLImageElement;
+      const resetImage = document.getElementById('reset-img') as HTMLImageElement;
 
       // Change orientation
       setImageOrientation(originalImage.src, 5, (rotatedImageUrl) =>  {
@@ -793,7 +793,7 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreateGiftChooseRecipient
-        gift={giftThreeParts}
+        gift={emptyGift}
         onComplete={logSomething}
       />
     </>
@@ -802,11 +802,11 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreateGiftRecordAndPlayback
-        gift={giftThreeParts}
+        gift={emptyGift}
         text={'Record something'}
         saveButtonText={'Save something'}
         eventReference='event-id'
-        onComplete={logSomething}
+        onComplete={(audioFile) => logSomething(audioFile.url)}
       />
     </>
   ))

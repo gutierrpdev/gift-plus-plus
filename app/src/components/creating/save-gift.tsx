@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { InProgressGift } from '../../domain';
 import { Panel, PanelContent } from '../panel';
@@ -9,6 +9,8 @@ import { PanelRound } from '../panel-round';
 import { Buttons, Button } from '../buttons';
 import { ProgressLoader } from '../progress-loader';
 import { track, savingGiftAttemptedEvent, savingGiftSucceededEvent, savingGiftFailedEvent } from '../../utils/events';
+
+import { api } from '../../services';
 
 /**
  * Save the gift
@@ -30,6 +32,18 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
   const [status, setStatus] = useState<Status>('saving');
   const [saveProgress, setSaveProgress] = useState(50);
 
+  useEffect(() => {
+    (async () => {
+      if (!gift.recipientGreeting) throw new Error('Bad Gift');
+
+      const recipientGreetingPU = await api.createPreparedUpload({
+        mimeType: gift.recipientGreeting.mimeType,
+      });
+    })()
+      .then(console.log)
+      .catch(console.error);
+
+  }, []);
 
   function renderSaving() {
 
