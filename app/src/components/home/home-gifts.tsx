@@ -9,11 +9,23 @@ import { BgSvgFullScreen } from '../svg/bg';
 import { GiftPile } from '../gift-pile';
 import { Gift } from '../../domain';
 import { PanelTitle } from '../panel-title';
-import { global } from '../../themes/global';
 import { TextResize } from '../text-resize';
 import SvgAddCircle from '../svg/add-circle';
+import SvgGift from '../svg/gift';
 
 import uuidv5 from 'uuid/v5';
+
+const OpenMuseumGift = styled.div`
+  text-align: center;
+`;
+const OpenMuseumGiftSvg = styled.div`
+  margin: 5% auto 0;
+  width: 20%;
+`;
+const OpenYourGift = styled.div`
+  line-height: 1.3;
+  margin-bottom: 8%;
+`;
 
 const PlusStyle = styled.div`
   margin: 3% auto 0;
@@ -23,7 +35,7 @@ const PlusStyle = styled.div`
 
 const GiftsNotSent = styled.div`
   text-align: center;
-  margin: 4vh auto 4vh;
+  margin: 4vh auto 10vh; // Extra spacing at the end to avoid clash with brower chrome
   div {
     line-height: 1.3;
   }
@@ -114,10 +126,28 @@ const HomeGifts: React.FC = () => {
       <ContentBg>
         <Content>
 
+          {/* TEMP REMOVE
           <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
           <GiftPile
             gifts={giftsIn}
-          />
+          />*/}
+
+          <OpenMuseumGift>
+            <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle>
+
+            <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'> {/* todo: real url */}
+
+              <OpenMuseumGiftSvg>
+                <SvgGift colour='black' />
+              </OpenMuseumGiftSvg>
+              <OpenYourGift>
+                <TextResize>Open your gift from</TextResize>
+                <TextResize>{museumName}</TextResize>
+              </OpenYourGift>
+
+            </Link>
+
+          </OpenMuseumGift>
 
           <LineSpacer />
 

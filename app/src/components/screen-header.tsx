@@ -14,9 +14,10 @@ import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
 import { TextResize } from './text-resize';
 import { TermsModal } from './modals/terms-modal';
+import { HelpContent } from './information/help';
+import { TermsContent } from './information/terms';
 
-
-/***
+/**
  * Global screen header
  */
 
@@ -111,7 +112,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
-  const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
   const [termsModalIsOpen, setTermsModalIsOpen] = useState(!getUserHasAgreedTerms());
 
   // Locals
@@ -141,7 +141,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         <Menu
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
-          openFeedback={() => { setFeedbackIsOpen(true); }}
           onCloseClick={() => { setIsMenuOpen(false); }}
         />
       }
@@ -199,43 +198,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       <InformationWindow
         onClose={() => { setPrivacyIsOpen(false); }}
       >
-        <h1>Privacy</h1>
-        <h2>Sub heading</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
-        Semper feugiat nibh sed pulvinar proin.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
+        <TermsContent />
       </InformationWindow>
     }
 
@@ -244,52 +207,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       <InformationWindow
         onClose={() => { setHelpIsOpen(false); }}
       >
-        <h1>Help</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
-        Semper feugiat nibh sed pulvinar proin.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-
-        <p>Pellentesque elit eget gravida cum sociis natoque penatibus. Lacinia quis vel eros
-        donec ac odio tempor. Tristique senectus et netus et malesuada fames ac turpis egestas.
-        Et netus et malesuada fames ac turpis egestas integer eget. In massa tempor nec feugiat
-        nisl pretium fusce id. Ut sem viverra aliquet eget sit. Vestibulum rhoncus est pellentesque
-        elit ullamcorper dignissim. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus.
-        Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Leo a diam sollicitudin
-        tempor id eu nisl nunc.</p>
-      </InformationWindow>
-    }
-
-    {/* == Feedback == */}
-    {feedbackIsOpen &&
-      <InformationWindow
-        onClose={() => { setFeedbackIsOpen(false); }}
-      >
-        <h1>Feedback</h1>
-        <p>Some notes on leaving feedback.</p>
+        <HelpContent />
       </InformationWindow>
     }
 

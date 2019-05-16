@@ -41,7 +41,6 @@ const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
 
 // Menu item
 const MenuItemStyle = styled.div`
-  line-height: 4;
   padding: 6% 0;
   cursor: pointer;
   color: ${global.colour.lightGreyText};
@@ -88,7 +87,6 @@ const MenuStyle = styled.div`
 interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy
   openHelp: () => void; // Callback to open help
-  openFeedback: () => void; // Callback to open feedback
   onCloseClick: () => void; // Callback when the close button is clicked
 }
 
@@ -98,7 +96,7 @@ const Menu: React.FC<MenuProps> = (props) => (
     <MenuItem><Link to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-    <MenuItem onClick={props.openFeedback}>Feedback</MenuItem>
+    <MenuItem><a href='https://www.surveymonkey.com/' target='_blank'>Feedback</a></MenuItem> {/* todo */}
     <CloseMenuItem onClick={props.onCloseClick}><CloseArrowUp /></CloseMenuItem>
   </MenuStyle>
 );
