@@ -1,4 +1,4 @@
-* Milestones [6/13]
+* Milestones [7/13]
 ** DONE Initial project setup [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -48,12 +48,12 @@
      - Email
      - WhatsApp
 
-** TODO Gift creation (backend + intergation) [1/5] <2019-05-10 Fri>
-   DEADLINE: <2019-05-10 Fri>
-   - [ ] Upload media
-   - [ ] Save to API
+** DONE Gift creation (backend + intergation) [4/5] <2019-05-10 Fri>
+   CLOSED: [2019-05-16 Thu 15:56] DEADLINE: <2019-05-10 Fri>
+   - [X] Upload media
+   - [X] Save to API
    - [X] Transcode media to appropriate format
-   - [ ] No auth -- save as anonymous user
+   - [X] No auth -- save as anonymous user
    - [ ] Generate gift share
 
 ** TODO Analytics <2019-05-17 Fri>
