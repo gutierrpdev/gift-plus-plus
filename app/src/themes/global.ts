@@ -120,7 +120,7 @@ const GlobalStyles = createGlobalStyle`
   // Global styles
   body {
     font-family: 'Nunito', sans-serif;
-    background-color: white;
+    background-color: ${global.colour.darkGrey};
     color: black;
     -webkit-font-smoothing: antialiased;
     max-width: ${global.mobile.endPixels}px;
