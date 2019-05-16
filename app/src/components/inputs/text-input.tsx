@@ -18,7 +18,7 @@ const TextInputStyled = styled.input.attrs<TextInputProps>((props) => ({
 
 interface TextInputProps {
   inputType?: 'text' | 'email'; // The type of input
-  defaultValue?: string; // The default value to show
+  defaultValue?: string; // The default value to show.  note: 'value' is reserved
   placeHolder?: string; // Placeholder text to show
   textSize?: number; // Textsize
   onTextChanged?: (text: string) => void; // Callback event to call when the text is changed
