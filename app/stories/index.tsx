@@ -100,8 +100,6 @@ const fullScreen = {
   width: '100vw',
 };
 
-// const twoGifts = [giftThreeParts, giftTwoParts];
-// const bgImage = import('../src/assets/test.jpg');
 
 const bgImg = {
   // tslint:disable-next-line
@@ -633,7 +631,7 @@ storiesOf('Components/Media', module)
       });
 
     });
-    const image = require('../src/assets/test.jpg');
+    const image = require('./assets/test.jpg');
     const imgStyle = {
       maxWidth: '150px',
       display: 'block',

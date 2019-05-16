@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { assetStore } from '../../../services';
+
 import { Panel, PanelContent } from '../../panel';
 import { Buttons, Button } from '../../buttons';
 import { AudioPlayer } from '../../media/audio-player';
@@ -50,12 +52,12 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
   // TODO: update these audio files
   const audioFile = atMuseum
     ? museumGift
-      ? require('../../../assets/audio/r-intro-content-1.mp3')
-      : require('../../../assets/audio/r-intro-content-1.mp3')
+      ? assetStore.rIntroContent1
+      : assetStore.rIntroContent1
     // not at museum
     : museumGift
-      ? require('../../../assets/audio/r-intro-content-1.mp3')
-      : require('../../../assets/audio/r-intro-content-1.mp3');
+      ? assetStore.rIntroContent1
+      : assetStore.rIntroContent1;
 
   const eventReference = atMuseum
     ? museumGift
