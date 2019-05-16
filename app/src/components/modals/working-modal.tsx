@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { global } from '../../themes/global';
-import { BaseModalDialog } from './base-modal-dialog';
+import { ModalDialogOuter, ModalDialogInner } from './base-modal-dialog';
 import { TextResize } from '../text-resize';
 import { Button, Buttons } from '../buttons';
 import SvgSuccess from '../svg/success';
@@ -19,19 +19,10 @@ export type WorkingModalIconType =
   | 'success'
 ;
 
-const Outer = styled(BaseModalDialog)`
-  background-color: rgba(0,0,0,0.6);
+const Outer = styled(ModalDialogOuter)`
 `;
 
-const Inner = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  top: 50%;
-  position: relative;
-  transform: translateY(-50%);
-  background-color: white;
-  border-radius: ${global.borderRadius};
-  padding: 5% 0 0;
+const Inner = styled(ModalDialogInner)`
 `;
 
 const Message = styled(TextResize)`
