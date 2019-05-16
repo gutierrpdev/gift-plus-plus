@@ -31,14 +31,18 @@ export const ReceiveGiftScreen: React.FC = () => {
 
 
   if (getGiftTask.kind === 'running') return <WorkingProgress text='Running' percent={0} />;
-  if (getGiftTask.kind === 'failure') return <ErrorMessage />;
+  if (getGiftTask.kind === 'failure') {
+    return <ErrorMessage extraMessage='There was an issue retrieving the gift from our server' />;
+  }
 
   const apiResult = getGiftTask.result;
 
   if (apiResult.kind === 'http-error' && apiResult.response.status === 404) {
     return <ErrorMessage extraMessage='Gift not found' />;
   }
-  if (apiResult.kind !== 'ok') return <ErrorMessage />;
+  if (apiResult.kind !== 'ok') {
+    return <ErrorMessage extraMessage='There was an issue retrieving the gift from our server' />;
+  }
 
   if (preloadState.status === 'running') {
     return <WorkingProgress text='Loading' percent={Math.round(totalProgress(preloadState) * 100)} />;
