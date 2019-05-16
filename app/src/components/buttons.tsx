@@ -15,11 +15,11 @@ const Buttons = styled.div`
   align-items: stretch;
   width: 100%;
   padding: 0 3% 3%;
-  // ensure the buttons section is visible without a button
+  /* ensure the buttons section is visible without a button */
   min-height: calc(1em + ${buttonsPaddingVh}vh);
   line-height: 1;
   z-index: 10; // keep above most content
-  // Set the height to match the buttons, desktop only
+  /* Set the height to match the buttons, desktop only */
   @media (max-width: ${global.mobile.endPixels}px) {
     font-size: 5vw;
   }
@@ -33,8 +33,9 @@ type ButtonColour =
 
 export interface ButtonProps {
   primary?: boolean; // todo: remove this once confirm no longer required by NT
-  colour?: ButtonColour;
-  onClick?: () => void;
+  colour?: ButtonColour; // Colour scheme for this button
+  disabled?: boolean; // Is this visible button disabled?
+  onClick?: () => void; // Callback when the button is clicked
 }
 
 // Button
@@ -51,12 +52,16 @@ const ButtonStyle = styled.button<ButtonProps>`
   border: none;
   cursor: pointer;
   opacity: 0.95;
+  /* Ensure we style associated anchor */
   &, a {
-    color: ${(props) => props.colour === 'white' ? 'black' : 'white'};
+    color: ${(props) => props.disabled
+      ? 'grey'
+      : props.colour === 'white' ? 'black' : 'white'};
   }
   &:active, &:hover {
     opacity: 1;
   }
+  /* style when single button or in a pair */
   &:only-child {
     border-radius: ${global.borderRadius};
   }
@@ -74,9 +79,9 @@ const ButtonStyle = styled.button<ButtonProps>`
   }
 `;
 
-const Button: React.FC<ButtonProps> = ({ colour = 'white', children, onClick }) => {
+const Button: React.FC<ButtonProps> = ({ colour = 'white', disabled, children, onClick }) => {
   return (
-    <ButtonStyle colour={colour} onClick={onClick}>
+    <ButtonStyle colour={colour} onClick={onClick} disabled={disabled}>
       <TextResize textSize={50}>{children}</TextResize>
     </ButtonStyle>
   );
