@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { assetStore } from '../../../services';
+
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { Buttons, Button } from '../../buttons';
@@ -308,12 +310,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     // todo update these audio files
     return atMuseum
       ? museumGift
-        ? require('../../../assets/audio/r-outro-local.m4a')
-        : require('../../../assets/audio/r-outro-local.m4a')
+        ? assetStore.rOutroLocal
+        : assetStore.rOutroLocal
       // not at museum
       : museumGift
-        ? require('../../../assets/audio/r-outro-local.m4a')
-        : require('../../../assets/audio/r-outro-local.m4a');
+        ? assetStore.rOutroLocal
+        : assetStore.rOutroLocal;
   }
 
   // Calculate some things

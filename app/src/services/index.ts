@@ -10,3 +10,4 @@ import { config } from '../config';
 import { Api } from './api';
 
 export const api = new Api(config.apiUri);
+export { assetStore } from './asset-store';

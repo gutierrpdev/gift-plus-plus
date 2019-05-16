@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { assetStore } from '../../services';
+
 import { LocalFile, InProgressGift, InProgressGiftPart } from '../../domain';
 import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
 
@@ -213,7 +215,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <AudioPlayer
               message={'Listen while you look for your first object...'}
-              src={require('../../../src/assets/audio/c-choose-part-1.m4a')}
+              src={assetStore.cChoosePart1}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-first-object'}
@@ -223,7 +225,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 1 &&
             <AudioPlayer
               message={'Time to choose a second object...'}
-              src={require('../../../src/assets/audio/c-choose-part-2.m4a')}
+              src={assetStore.cChoosePart2}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-second-object'}
@@ -233,7 +235,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 2 &&
             <AudioPlayer
               message={'Time to look for a final object...'}
-              src={require('../../../src/assets/audio/c-choose-part-3.m4a')}
+              src={assetStore.cChoosePart3}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-third-object'}
@@ -304,7 +306,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <AudioPlayer
                 message={`OK. You've taken a photo`}
-                src={require('../../../src/assets/audio/c-let-them-know-part-1.m4a')}
+                src={assetStore.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-first-object'}
@@ -314,7 +316,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 1 &&
             <AudioPlayer
                 message={`Tell them why you chose this...`}
-                src={require('../../../src/assets/audio/c-let-them-know-part-2.m4a')}
+                src={assetStore.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-second-object'}
@@ -324,7 +326,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 2 &&
             <AudioPlayer
                 message={`And record your final message...`}
-                src={require('../../../src/assets/audio/c-let-them-know-part-3.m4a')}
+                src={assetStore.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-third-object'}

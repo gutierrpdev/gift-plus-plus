@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { assetStore } from '../../services';
+
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
@@ -38,7 +40,7 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete })
 
           <AudioPlayer
             message={'Who are you going to choose?'}
-            src={require('../../../src/assets/audio/c-start-gift.m4a')}
+            src={assetStore.cStartGift}
             forwardButtonType={'go-to-end'}
             giftId={gift.id}
             eventReference={'choose-recipient'}

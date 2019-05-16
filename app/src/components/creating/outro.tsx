@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { assetStore } from '../../services';
+
 import { Panel, PanelContent } from '../panel';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
@@ -37,7 +39,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
       <PanelContent>
         <AudioPlayer
           message='Thank you...'
-          src={require('../../assets/audio/r-outro-local.m4a')}
+          src={assetStore.rOutroLocal}
           forwardButtonType={'go-to-end'}
           giftId={gift.id}
           eventReference={'create-gift-outro-audio'}
