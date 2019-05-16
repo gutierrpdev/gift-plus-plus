@@ -84,7 +84,7 @@ export const getGiftResponseSchema = {
       properties: {
         photo: { type: 'string', format: 'uri' },
         note: { type: 'string', format: 'uri' },
-        clue: { type: 'string', minLength: 1 },
+        clue: { type: 'string' },
       },
       required: [
         'photo',
@@ -128,12 +128,12 @@ export const createGiftRequestSchema = {
     museumId: { type: 'string', format: 'uuid' },
     senderName: { type: 'string', minLength: 1 },
     recipientName: { type: 'string', minLength: 1 },
-    recipientGreeting: { type: 'string' },
+    recipientGreeting: { type: 'string', minLength: 1 },
     parts: { type: 'array', minItems: 1, maxItems: 3, items: {
       type: 'object',
       properties: {
-        photo: { type: 'string' },
-        note: { type: 'string' },
+        photo: { type: 'string', minLength: 1 },
+        note: { type: 'string', minLength: 1 },
         clue: { type: 'string' },
       },
       required: [

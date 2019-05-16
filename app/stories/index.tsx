@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import history from '../src/utils/router-history';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
+import uuidv4 from 'uuid/v4';
+import uuidv5 from 'uuid/v5';
 
+import history from '../src/utils/router-history';
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
 import { setPrefix, getLocalItem, setLocalItem } from '../src/utils/storage';
 
@@ -61,6 +63,7 @@ import { CreateGiftChooseRecipient } from '../src/components/creating/choose-rec
 import { CreateGiftRecordAndPlayback } from '../src/components/creating/record-and-playback';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
+import { SaveGift } from '../src/components/creating/save-gift';
 import { ShareGift } from '../src/components/creating/share-gift';
 
 // Data
@@ -863,3 +866,42 @@ storiesOf('Components/Creating', module)
     </ScreenManager>
   ))
 ;
+
+
+// tslint:disable max-line-length
+// MKK: TEMP
+// storiesOf('Temp', module)
+//   .add('Save', () => {
+//     const inProgressGift = {
+//       id: uuidv4(),
+//       museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
+//       recipientName: 'Janine',
+//       recipientGreeting: {
+//         url: 'https://s3.eu-west-2.amazonaws.com/bt-gift-app/development/app-uploads/00d49f15-2ce6-4ef3-bf00-3c629125d5b3/12da505f-1156-4218-9465-83ac695e0a68-part1-clue.m4a',
+//         mimeType: 'audio/mp4',
+//       },
+//       senderName: 'Michael',
+//       parts: [{
+//         photo: {
+//           url: 'https://s3.eu-west-2.amazonaws.com/bt-gift-app/development/app-uploads/abe78fee-baf1-420a-a86f-2c79897156a8/205ff962-18d0-4a2e-b16c-edce5578f439-part1-photo.jpg',
+//           mimeType: 'image/jpeg',
+//         },
+//         note: {
+//           url: 'https://s3.eu-west-2.amazonaws.com/bt-gift-app/development/app-uploads/00d49f15-2ce6-4ef3-bf00-3c629125d5b3/12da505f-1156-4218-9465-83ac695e0a68-part1-clue.m4a',
+//           mimeType: 'audio/mp4',
+//         },
+//         clue: 'I am a clue',
+//       }],
+//     };
+//
+//     return (
+//       <ScreenManager>
+//         <GlobalStyles />
+//         <SaveGift
+//           gift={inProgressGift}
+//           onComplete={console.log}
+//         />
+//       </ScreenManager>
+//     );
+//   });
+// tslint:enable max-line-length

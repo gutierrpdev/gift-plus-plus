@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { InProgressGift } from '../../domain';
+import { LocalFile, InProgressGift, Gift } from '../../domain';
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
@@ -23,47 +23,67 @@ type Status =
 
 interface Props {
   gift: InProgressGift;
-  onComplete: () => void;
+  onComplete: (gift: Gift) => void;
 }
 
 export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
 
   // State
   const [status, setStatus] = useState<Status>('saving');
-  const [saveProgress, setSaveProgress] = useState(50);
+  const [saveProgress, setSaveProgress] = useState(0);
 
   useEffect(() => {
     (async () => {
-      if (!gift.recipientGreeting) throw new Error('Bad Gift');
+      if (!gift.recipientName) throw new Error('TODO');
+      if (!gift.senderName) throw new Error('TODO');
 
-      const recipientGreetingPU = await api.createPreparedUpload({
-        mimeType: gift.recipientGreeting.mimeType,
+      if (!gift.recipientGreeting) throw new Error('TODO');
+      const rgUpload = await uploadAsset(gift.recipientGreeting);
+      setSaveProgress(20);
+
+      const partsUpload = [];
+
+      for (const part of gift.parts) {
+        const photoUpload = await uploadAsset(part.photo);
+        const noteUpload = await uploadAsset(part.note);
+        partsUpload.push({
+          photo: photoUpload.fileName,
+          note: noteUpload.fileName,
+          clue: part.clue,
+        });
+      }
+      setSaveProgress(80);
+
+      const createGiftResult = await api.createGift({
+        id: gift.id,
+        museumId: gift.museumId,
+        recipientName: gift.recipientName,
+        recipientGreeting: rgUpload.fileName,
+        senderName: gift.senderName,
+        parts: partsUpload,
       });
-    })()
-      .then(console.log)
-      .catch(console.error);
 
+      // console.log(createGiftResult);
+
+      if (createGiftResult.kind !== 'ok') throw new Error('TODO');
+      const newGift = createGiftResult.data;
+
+      setSaveProgress(100);
+
+      return newGift;
+    })()
+      .then((newGift) => {
+        track(savingGiftSucceededEvent({ giftId: gift.id }));
+        onComplete(newGift);
+      })
+      .catch(() => {
+        // console.error(err);
+        track(savingGiftFailedEvent({ giftId: gift.id }));
+        setStatus('saving-failed');
+      });
   }, []);
 
   function renderSaving() {
-
-    // todo these tracking events might want to move to the API interface, MKK?
-    track(savingGiftAttemptedEvent( {giftId: gift.id} ));
-
-    // Todo : this should be the upload to API
-    setTimeout( () => {
-
-      // !! Upload not successful !!
-      // setSaveProgress(50);
-      // setStatus('saving-failed');
-      // track(savingGiftFailedEvent( {giftId: gift.id} ));
-
-      // Upload successful
-      setSaveProgress(100);
-      track(savingGiftSucceededEvent( {giftId: gift.id} ));
-      onComplete();
-    }, 3000);
-
     return (
       <Panel>
         <PanelTitle>Finish your gift</PanelTitle>
@@ -104,3 +124,42 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
     </>
   );
 };
+
+
+
+
+async function uploadAsset(file: LocalFile) {
+  const preparedUploadResult = await api.createPreparedUpload({
+    mimeType: file.mimeType,
+  });
+  if (preparedUploadResult.kind !== 'ok') throw new Error('TODO');
+
+  const preparedUpload = preparedUploadResult.data;
+  // console.log(preparedUpload);
+
+  const blob = await fetch(file.url).then((resp) => {
+    if (!resp.ok) throw new Error('TODO');
+    return resp.blob();
+  });
+  // console.log(blob);
+
+  const formData = new FormData();
+  Object.entries(preparedUpload.postFields).forEach(
+    ([k, v]) => formData.append(k, v),
+  );
+  formData.append('file', blob);
+
+  const uploadResp = await fetch(preparedUpload.postUrl, {
+    method: 'POST',
+    body: formData,
+  });
+
+  // console.log(uploadResp);
+
+  if (!uploadResp.ok) {
+    const respText = await uploadResp.text();
+    throw new Error(`Upload failed [${uploadResp.status}]: ${respText}`);
+  }
+
+  return preparedUpload;
+}
