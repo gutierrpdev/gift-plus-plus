@@ -9,9 +9,6 @@ import { Button, Buttons } from '../buttons';
  * Text area modal
  */
 
-const Outer = styled(ModalDialogOuter)`
-`;
-
 const Inner = styled(ModalDialogInner)`
   padding-top: 4%;
 `;
@@ -52,7 +49,7 @@ const TextAreaModal: React.FC<Props> = ({
   }
 
   return (
-    <Outer>
+    <ModalDialogOuter>
       <Inner>
 
         <TextAreaInput
@@ -67,7 +64,7 @@ const TextAreaModal: React.FC<Props> = ({
         </ModalButtons>
 
       </Inner>
-    </Outer>
+    </ModalDialogOuter>
   );
 
 };
