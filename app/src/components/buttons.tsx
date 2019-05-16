@@ -28,6 +28,7 @@ const Buttons = styled.div`
 type ButtonColour =
   | 'white'
   | 'black'
+  | 'grey'
 ;
 
 
@@ -41,7 +42,13 @@ export interface ButtonProps {
 // Button
 const ButtonStyle = styled.button<ButtonProps>`
   font-family: ${global.fonts.title.family};
-  background-color: ${(props) => props.colour === 'white' ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'};
+  /* background-color: ${(props) => props.colour === 'white' ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'}; */
+  background-color: ${(props) =>
+    props.colour === 'white' ? 'rgba(255, 255, 255, 0.7)' :
+    props.colour === 'black' ? 'rgba(0, 0, 0, 0.7)' :
+    props.colour === 'grey' ? 'rgba(50, 50, 50, 0.7)' :
+    null
+  };
   line-height: 1;
   margin: 0;
   padding: ${buttonPaddingVh}vh 5%;

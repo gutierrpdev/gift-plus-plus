@@ -21,6 +21,7 @@ const SvgCloseCircleStyled = styled(SvgCloseCircle)`
 
 const Outer = styled(BaseModalWindow)`
   background-color: white;
+  z-index: 12000;
 `;
 
 const Inner = styled.div`

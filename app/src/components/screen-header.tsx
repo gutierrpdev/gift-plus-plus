@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { global } from '../themes/global';
+import { getUserHasAgreedTerms, setUserHasAgreedTerms } from '../utils/local';
 
 import { ScreenTitle } from './screen-title';
 import { ScreenSubTitle } from './screen-sub-title';
@@ -12,6 +13,7 @@ import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
 import { TextResize } from './text-resize';
+import { TermsModal } from './modals/terms-modal';
 
 
 /***
@@ -97,6 +99,7 @@ interface Props {
   postTitle?: string; // Text after the main title
   message?: string; // Optional message to show under the header.
   // Message is Included here to ensure it sits within the same background element
+  museumName: string; // For terms dialog
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
   topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
   background?: 'none' | 'transparent-white' | 'white'; // Background colour
@@ -109,6 +112,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [privacyIsOpen, setPrivacyIsOpen] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
   const [feedbackIsOpen, setFeedbackIsOpen] = useState(false);
+  const [termsModalIsOpen, setTermsModalIsOpen] = useState(!getUserHasAgreedTerms());
 
   // Locals
   const showGradient = props.background === 'white';
@@ -117,6 +121,16 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   // Functions
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);
+  }
+
+  function handleAgreeTerms() {
+
+    // Record the state
+    setUserHasAgreedTerms();
+
+    // Close the dialog
+    setTermsModalIsOpen(false);
+
   }
 
   return (
@@ -277,6 +291,14 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         <h1>Feedback</h1>
         <p>Some notes on leaving feedback.</p>
       </InformationWindow>
+    }
+
+    {termsModalIsOpen &&
+      <TermsModal
+        museumName={props.museumName}
+        onAgreeClick={handleAgreeTerms}
+        onShowTerms={() => {setPrivacyIsOpen(true); }}
+      />
     }
 
     </>

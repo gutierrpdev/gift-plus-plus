@@ -165,6 +165,7 @@ const HomeIntro: React.FC = () => {
         title={`Gift`}
         postTitle={`at ${museumName}`}
         titleSize={'very-big'}
+        museumName={museumName}
       />
 
       {/* Content */}

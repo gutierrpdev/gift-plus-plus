@@ -197,6 +197,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postTitle={museumName}
             showLogo={false}
             topPadding='large'
+            museumName={museumName}
           />
         }
         {headerSize === 'small' &&
@@ -206,6 +207,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postTitle={museumName}
             showLogo={false}
             background='white'
+            museumName={museumName}
           />
         }
         {headerSize === 'compact' &&
@@ -213,6 +215,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             showLogo={false}
+            museumName={museumName}
           />
         }
 

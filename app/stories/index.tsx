@@ -42,6 +42,7 @@ import { UnsupportedDevice } from '../src/components/messages/unsupported-device
 import { ErrorMessage } from '../src/components/messages/error-message';
 import { TextInputModal } from '../src/components/modals/text-input-modal';
 import { TextAreaModal } from '../src/components/modals/text-area-modal';
+import { TermsModal } from '../src/components/modals/terms-modal';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -125,7 +126,7 @@ storiesOf('Creating', module)
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <CreateGift />
+        <CreateGift museumName={'Blast Theory Museum of Art'} />
       </BrowserRouter>
     </>
   ))
@@ -148,6 +149,7 @@ storiesOf('Components', module)
         postSubTitle={`post sub title`}
         title={'Title'}
         postTitle={'post title'}
+        museumName='Blast Theory Museum of Art'
         showLogo={true}
       />
       <p>Big header no logo</p>
@@ -157,6 +159,7 @@ storiesOf('Components', module)
         title={'Title'}
         postTitle={'post title'}
         showLogo={false}
+        museumName='Blast Theory Museum of Art'
       />
       <p>Small header</p>
       <ScreenHeader
@@ -165,6 +168,7 @@ storiesOf('Components', module)
         title={'Title'}
         postTitle={'post title'}
         showLogo={false}
+        museumName='Blast Theory Museum of Art'
       />
       <p>Small header with message</p>
       <ScreenHeader
@@ -175,6 +179,7 @@ storiesOf('Components', module)
         showLogo={false}
         message='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua.'
+        museumName='Blast Theory Museum of Art'
       />
     </div>
   ))
@@ -208,18 +213,33 @@ storiesOf('Components', module)
   ))
   .add('Buttons', () => (
       <div style={{...bgImg, ...whiteText}}>
+
         <GlobalStyles />
+
         <p>One button</p>
         <Buttons>
           <Button onClick={logSomething}>One button</Button>
         </Buttons>
+
+        <p>Black button</p>
+        <Buttons>
+          <Button colour='black'>Black button</Button>
+        </Buttons>
+
+        <p>Grey button</p>
+        <Buttons>
+          <Button colour='grey'>Grey button</Button>
+        </Buttons>
+
         <p>Two buttons</p>
         <Buttons>
           <Button>Button 1</Button>
           <Button primary={true}>Button 2</Button>
         </Buttons>
+
         <p>There is a gradient below</p>
         <Gradient />
+
       </div>
   ))
   .add('Wait and Then', () => (
@@ -504,6 +524,12 @@ storiesOf('Components/Modals', module)
           <Button><Link to='your-gifts'>Go to Your Gifts</Link></Button>
         </BrowserRouter>
       </MessageModal>
+    </ScreenManager>
+  ))
+  .add('Terms Modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <TermsModal museumName='British Museum' onAgreeClick={doNothing} onShowTerms={doNothing} />
     </ScreenManager>
   ));
 

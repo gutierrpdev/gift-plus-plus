@@ -36,3 +36,11 @@ export function getSessionRecipientLocation(): RecipientLocation {
 export function setSessionRecipientLocation(recipientLocation: RecipientLocation): void {
   setSessionItem('recipientLocation', recipientLocation);
 }
+
+// User has agreed terms
+export function getUserHasAgreedTerms(): boolean {
+  return !!getLocalItem<boolean>('userHasAgreedTerms');
+}
+export function setUserHasAgreedTerms(): void {
+  setLocalItem('userHasAgreedTerms', true);
+}

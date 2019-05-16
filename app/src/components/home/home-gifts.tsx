@@ -108,6 +108,7 @@ const HomeGifts: React.FC = () => {
           and create a playlist for them
           from objects around the
           museum'
+        museumName={museumName}
       />
 
       <ContentBg>

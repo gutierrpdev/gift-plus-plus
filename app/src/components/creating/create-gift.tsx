@@ -38,10 +38,12 @@ type Status =
 ;
 
 
-interface Props {}
+interface Props {
+  museumName: string;
+}
 
 
-export const CreateGift: React.FC<Props> = () => {
+export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
   const [status, setStatus] = useState<Status>('intro');
 
@@ -81,6 +83,7 @@ export const CreateGift: React.FC<Props> = () => {
        <ScreenHeader
          topPadding={'medium'}
          title={`Making\na gift...`}
+         museumName={museumName}
        />
       }
 
@@ -89,6 +92,7 @@ export const CreateGift: React.FC<Props> = () => {
          preSubTitle={`Making a gift for`}
          subTitle={gift.recipientName}
          background={'white'}
+         museumName={museumName}
        />
       }
 
