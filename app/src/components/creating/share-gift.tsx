@@ -23,15 +23,16 @@ const Shares = styled.div`
  */
 
 interface Props {
-  recipientName: string; // Receipient name to show
+  senderName: string; // Sender name to show
+  recipientName: string; // Sender name to show
   url: string; // URL to share
   onComplete: () => void; // Callback to call when complete
 }
 
-export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) => {
+export const ShareGift: React.FC<Props> = ({ senderName, recipientName, url, onComplete }) => {
 
   // Encode the URL for sharing
-  const shareTitle = `Here is a gift from ${recipientName}`;
+  const shareTitle = `Here is a gift from ${senderName}`;
 
   // Prepare all of the URLS
   const emailLink = encodeURI(`mailto:?&subject=${shareTitle}&body=${shareTitle} ${url}`);
@@ -43,18 +44,11 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) =
   const androidSmsLink = encodeURI(`sms:?&body=${shareTitle} ${url}`);
   const smsLink = isIosDevice() ? iosSmsLink : androidSmsLink;
 
-  function handleContinue() {
-    // Check for callback
-    if (onComplete) {
-      onComplete();
-    }
-  }
-
   return (
     <Panel>
       <PanelTitle>Share your gift</PanelTitle>
       <PanelContent>
-        <PanelSubTitle>Share my gift with {recipientName}</PanelSubTitle>
+        <PanelSubTitle>Share your gift with {recipientName}</PanelSubTitle>
         <Shares>
           <ShareLink href={emailLink}>Share via Email</ShareLink>
           <ShareLink href={fbMessengerLink}>Share In Facebook Messenger (mobile only)</ShareLink>
@@ -69,7 +63,7 @@ export const ShareGift: React.FC<Props> = ({ recipientName, url, onComplete }) =
         </Shares>
       </PanelContent>
       <Buttons>
-        <Button onClick={handleContinue}>Continue</Button>
+        <Button onClick={onComplete}>Continue</Button>
       </Buttons>
     </Panel>
   );
