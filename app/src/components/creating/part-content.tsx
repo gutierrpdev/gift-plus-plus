@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { LocalFile, InProgressGift, InProgressGiftPart } from '../../domain';
+import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
 
 import { Panel, PanelContent } from '../panel';
-import { PanelTitle } from '../panel-title';
-import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
 import { TextAreaModal } from '../../components/modals/text-area-modal';
-import { romanNumeralFromDecimal } from '../../themes/global';
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
 
-import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
 
 /***
  * Show the creating gift part content
@@ -58,7 +55,6 @@ type Status =
   | 'record-message'
   | 'pre-clue-message1'
   | 'pre-clue-message2'
-  | 'write-clue'
   | 'finish-message1'
   | 'finish-message2'
   | 'send-or-add-more'
@@ -108,58 +104,82 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
 
   function handleAudioRecordFinished(file: LocalFile) {
+
     setCurrentPart({ ...currentPart, note: file });
-    setStatus('pre-clue-message1');
+
+    // Go to next part
+    // Parts 2 and 3 don't have the first clue section
+    giftPartIndex === 0
+      ? setStatus('pre-clue-message1')
+      : setStatus('pre-clue-message2');
+
   }
 
   function handleClueSet( clue: string ) {
 
+    // Store the clue
     setCurrentPart({ ...currentPart, clue });
 
-    // Goto different next section based on gift part index
-    giftPartIndex === 0
-      ? setStatus('pre-clue-message2')
-      : setStatus('write-clue');
+    // Hide the dialog
+    setShowingEnterClue(false);
+
+    // Next
+    setStatus('finish-message1');
 
   }
 
-
   function clearClueAndNext() {
+
     setCurrentPart({ ...currentPart, clue: '' });
+
+    // Next
     setStatus('finish-message1');
+
   }
 
 
   // Part creation is complete
   function handleAllComplete() {
+
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
+
     // Note: part number is 1 based, rather than index 0 based.
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'wrap-up'} ));
+
     onComplete(parts);
+
   }
 
   // Start on part 2
   function handleStartPart2() {
+
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
+
     resetState();
+
     setGiftPartIndex(1);
 
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
     // Note no first message for part 2, jump to second section
     setStatus('second-message');
+
   }
 
   // Start on part 3
   function handleStartPart3() {
+
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
+
     resetState();
+
     setGiftPartIndex(2);
 
     track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
     // Note no first message for part 3, jump to second section
     setStatus('second-message');
+
   }
 
 
@@ -323,6 +343,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   }
 
   function renderRecordMessage() {
+
     const text = (giftPartIndex === 0) ? `Let ${recipientName} know why you chose this object...`
                : (giftPartIndex === 1) ? 'Tell them why you chose this...'
                : (giftPartIndex === 2) ? 'And record your final message...'
@@ -338,17 +359,25 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         onComplete={handleAudioRecordFinished}
       />
     );
+
   }
 
   function renderPreClueMessage1() {
+
+    // This part is only show for gift part 1. 2 and 3 skip it.
+    const next = () => { setStatus('pre-clue-message2'); };
 
     return (
       <>
         <PanelContent>
           <PanelPrompt
-            text={`Now write a clue to help ${recipientName} find the object`}
             background={'transparent-black'}
-            onClick={() => { setShowingEnterClue(true); }}
+            text={`Now write a clue to help ${recipientName} find the object`}
+            onClick={next}
+          />
+          <WaitThen
+            wait={defaultWait}
+            andThen={next}
           />
         </PanelContent>
         <Buttons />
@@ -357,45 +386,29 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   }
 
   function renderPreClueMessage2() {
+
+    const text = (giftPartIndex === 0)
+      ? `Mention the gallery you’re in... or something they can ask museum staff if they get really stuck`
+      : `Now write a clue to help ${recipientName} find the object`;
+
+    const next = () => { setShowingEnterClue(true); };
+
     return (
       <>
         <PanelContent>
-          {giftPartIndex === 0 &&
-            <PanelPrompt
-              text={`Mention the gallery you’re in... or something they can ask museum staff if they get really stuck`}
-              background={'transparent-black'}
-              onClick={() => { setStatus('write-clue'); }}
-            />
-          }
-          <WaitThen
-            wait={defaultWait}
-            andThen={() => { setStatus('write-clue'); }}
+          <PanelPrompt
+            text={text}
+            background={'transparent-black'}
+            onClick={next}
           />
         </PanelContent>
-        <Buttons />
+        <Buttons>
+          <Button onClick={clearClueAndNext}>Skip</Button>
+          <Button onClick={next}>Write a clue</Button>
+        </Buttons>
       </>
     );
   }
-
-  // function renderWriteClue() {
-  //   return (
-  //     <Panel>
-  //       <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
-  //       <PanelSubTitle>Write a clue</PanelSubTitle>
-  //       <PanelContent>
-  //         <TextAreaModal
-  //           placeHolder={'Write a clue'}
-  //           onTextChanged={handleClueSet}
-  //           onEnterPressed={handleClueSet}
-  //         />
-  //       </PanelContent>
-  //       <Buttons>
-  //         {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
-  //         {clueIsWritten && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
-  //       </Buttons>
-  //     </Panel>
-  //   );
-  // }
 
   function renderFinishMessage1() {
 
@@ -414,23 +427,18 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
       }
     };
 
+    const text = giftPartIndex === 0
+      ? `Great, you’ve made part one of your gift for ${recipientName}`
+      : `Done!`;
+
     return (
       <>
         <PanelContent>
-          {giftPartIndex === 0 &&
-            <PanelPrompt
-              text={`Great, you’ve made part one of your gift for ${recipientName}`}
-              background={'transparent-black'}
-              onClick={next}
-            />
-          }
-          {giftPartIndex === 1 &&
-            <PanelPrompt
-              text={`Done!`}
-              background={'transparent-black'}
-              onClick={next}
-            />
-          }
+          <PanelPrompt
+            text={text}
+            background={'transparent-black'}
+            onClick={next}
+          />
           <WaitThen
             wait={defaultWait}
             andThen={next}
@@ -510,7 +518,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         {status === 'record-message' && renderRecordMessage()}
         {status === 'pre-clue-message1' && renderPreClueMessage1()}
         {status === 'pre-clue-message2' && renderPreClueMessage2()}
-        {/* {status === 'write-clue' && renderWriteClue()} */}
         {status === 'finish-message1' && renderFinishMessage1()}
         {status === 'finish-message2' && renderFinishMessage2()}
         {status === 'send-or-add-more' && renderSendOrAddMore()}
