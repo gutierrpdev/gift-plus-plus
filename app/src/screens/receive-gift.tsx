@@ -30,7 +30,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   const [preloadState] = usePreload(assetUrls);
 
 
-  if (getGiftTask.kind === 'running') return <WorkingProgress text='Running' percent={0} />;
+  if (getGiftTask.kind === 'running') return <WorkingProgress text='Loading' percent={0} />;
   if (getGiftTask.kind === 'failure') {
     return <ErrorMessage extraMessage='There was an issue retrieving the gift from our server' />;
   }
