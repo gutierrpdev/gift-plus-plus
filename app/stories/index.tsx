@@ -857,6 +857,7 @@ storiesOf('Components/Creating', module)
     <ScreenManager>
       <GlobalStyles />
       <ShareGift
+        senderName='Kcin'
         recipientName='Nick'
         url='https://www.blasttheory.co.uk/projects/gift/'
         onComplete={doNothing}
