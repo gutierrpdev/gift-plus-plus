@@ -11,7 +11,7 @@ import { AudioPlayer } from '../media/audio-player';
 import { GiftPart } from '../../domain';
 import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
-import { TextAreaInput } from '../../components/inputs/textarea-input';
+import { TextAreaModal } from '../../components/modals/text-area-modal';
 import { romanNumeralFromDecimal } from '../../themes/global';
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
 import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
@@ -84,6 +84,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   const [audioIsRecorded, setAudioIsRecorded] = useState(false);
   const [clueIsWritten, setClueIsWritten] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [showingEnterClue, setShowingEnterClue] = useState(false);
 
   // Defaults
   const defaultWait = 5;
@@ -135,7 +136,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     setStatus('pre-clue-message1');
   }
 
-  function handleClueChanged( clue: string ) {
+  function handleClueSet( clue: string ) {
 
     // Get our gift
     const giftPart: GiftPart = getGiftPart(giftPartIndex);
@@ -145,6 +146,13 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
     // Set the state
     setClueIsWritten(true);
+
+    // Next
+    // Goto different next section based on gift part index
+    const next = giftPartIndex === 0 ?
+              () => { setStatus('pre-clue-message2'); } :
+              () => { setStatus('write-clue'); };
+    next();
 
   }
 
@@ -393,22 +401,13 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
   function renderPreClueMessage1() {
 
-    // note: goto different next section based on gift part index
-    const next = giftPartIndex === 0 ?
-              () => { setStatus('pre-clue-message2'); } :
-              () => { setStatus('write-clue'); };
-
     return (
       <>
         <PanelContent>
           <PanelPrompt
             text={`Now write a clue to help ${recipientName} find the object`}
             background={'transparent-black'}
-            onClick={next}
-          />
-          <WaitThen
-            wait={defaultWait}
-            andThen={next}
+            onClick={() => { setShowingEnterClue(true); }}
           />
         </PanelContent>
         <Buttons />
@@ -437,25 +436,25 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     );
   }
 
-  function renderWriteClue() {
-    return (
-      <Panel>
-        <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
-        <PanelSubTitle>Write a clue</PanelSubTitle>
-        <PanelContent>
-          <TextAreaInput
-            placeHolder={'Write a clue'}
-            onTextChanged={handleClueChanged}
-            onEnterPressed={handleClueChanged}
-          />
-        </PanelContent>
-        <Buttons>
-          {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
-          {clueIsWritten && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
-        </Buttons>
-      </Panel>
-    );
-  }
+  // function renderWriteClue() {
+  //   return (
+  //     <Panel>
+  //       <PanelTitle>Making Part {romanNumeralFromDecimal(giftPartIndex + 1)}</PanelTitle>
+  //       <PanelSubTitle>Write a clue</PanelSubTitle>
+  //       <PanelContent>
+  //         <TextAreaModal
+  //           placeHolder={'Write a clue'}
+  //           onTextChanged={handleClueSet}
+  //           onEnterPressed={handleClueSet}
+  //         />
+  //       </PanelContent>
+  //       <Buttons>
+  //         {<Button onClick={() => clearClueAndNext()}>Skip</Button>}
+  //         {clueIsWritten && <Button onClick={() => setStatus('finish-message1')} primary={true}>Save clue</Button>}
+  //       </Buttons>
+  //     </Panel>
+  //   );
+  // }
 
   function renderFinishMessage1() {
 
@@ -553,19 +552,30 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   }
 
   return (
-    <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
-      {status === 'first-message' && renderFirstMessage()}
-      {status === 'second-message' && renderSecondMessage()}
-      {status === 'take-photo' && renderTakePhoto()}
-      {status === 'pre-record-message' && renderPreRecordMessage()}
-      {status === 'record-message' && renderRecordMessage()}
-      {status === 'pre-clue-message1' && renderPreClueMessage1()}
-      {status === 'pre-clue-message2' && renderPreClueMessage2()}
-      {status === 'write-clue' && renderWriteClue()}
-      {status === 'finish-message1' && renderFinishMessage1()}
-      {status === 'finish-message2' && renderFinishMessage2()}
-      {status === 'send' && renderSend()}
-    </PartContentStyle>
+    <>
+      {showingEnterClue &&
+        <TextAreaModal
+          placeHolder='Write a clue'
+          onSaveClick={(clue: string) => { handleClueSet(clue); }}
+          onCancelClick={() => { setShowingEnterClue(false); }}
+        />
+      }
+
+      <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
+        {status === 'first-message' && renderFirstMessage()}
+        {status === 'second-message' && renderSecondMessage()}
+        {status === 'take-photo' && renderTakePhoto()}
+        {status === 'pre-record-message' && renderPreRecordMessage()}
+        {status === 'record-message' && renderRecordMessage()}
+        {status === 'pre-clue-message1' && renderPreClueMessage1()}
+        {status === 'pre-clue-message2' && renderPreClueMessage2()}
+        {/* {status === 'write-clue' && renderWriteClue()} */}
+        {status === 'finish-message1' && renderFinishMessage1()}
+        {status === 'finish-message2' && renderFinishMessage2()}
+        {status === 'send' && renderSend()}
+      </PartContentStyle>
+
+    </>
   );
 
 };

@@ -5,64 +5,44 @@ import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPlus } from '../panel-plus';
 import { Buttons, Button } from '../buttons';
-import { TextInput } from '../inputs/text-input';
+import { TextInputModal } from '../modals/text-input-modal';
 
 /**
- * Sign the gift
+ * Sign the gift.  Sender enters their name.
  */
-
-type Status =
-  | 'first-message'
-  | 'enter-name'
-;
 
 interface Props {
   onComplete: (senderName: string) => void;
 }
 
 export const SignGift: React.FC<Props> = ({ onComplete }) => {
-  const [status, setStatus] = useState<Status>('first-message');
-  const [senderName, setSenderName] = useState('');
 
-  function renderFirstMessage() {
-    return (
-      <Panel>
-        <PanelTitle>Finish your gift</PanelTitle>
-        <PanelSubTitle>Sign it</PanelSubTitle>
-        <PanelContent>
-          <PanelPlus text={'Now sign your gift'} onClick={() => {setStatus('enter-name'); }} />
-        </PanelContent>
-        <Buttons>
-          <Button onClick={() => setStatus('enter-name')} primary={true}>Add my name</Button>
-        </Buttons>
-      </Panel>
-    );
-  }
-
-  function renderEnterName() {
-    return (
-      <Panel>
-        <PanelTitle>Finish your gift</PanelTitle>
-        <PanelSubTitle>Sign it</PanelSubTitle>
-        <PanelContent>
-          <TextInput
-            placeHolder={'Your first name'}
-            onTextChanged={setSenderName}
-          />
-        </PanelContent>
-        <Buttons>
-          {senderName &&
-           <Button onClick={() => onComplete(senderName)} primary={true}>Enter</Button>
-          }
-        </Buttons>
-      </Panel>
-    );
-  }
+  // State
+  const [showingEnterName, setShowingEnterName] = useState(false);
 
   return (
     <>
-      {status === 'first-message' && renderFirstMessage()}
-      {status === 'enter-name' && renderEnterName()}
+
+      {showingEnterName &&
+        <TextInputModal
+          placeHolder='Write your firt name'
+          onSaveClick={(name) => { onComplete(name); }}
+          onCancelClick={() => { setShowingEnterName(false); }}
+        />
+      }
+
+      <Panel>
+        <PanelTitle>Finish your gift</PanelTitle>
+        <PanelSubTitle>Sign it</PanelSubTitle>
+        <PanelContent>
+          <PanelPlus text={'Now say who the gift is from'} onClick={() => { setShowingEnterName(true); }} />
+        </PanelContent>
+        <Buttons>
+          <Button onClick={() => { setShowingEnterName(true); }} primary={true}>Write your first name</Button>
+        </Buttons>
+      </Panel>
+
     </>
   );
+
 };

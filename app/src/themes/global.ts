@@ -89,11 +89,13 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Nunito', sans-serif;
     width: 100%;
     max-width: 95%;
-    background: rgba(255, 255, 255, 0.8);
+    background: white;
     border: none;
     box-sizing: border-box;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.4);
     padding: 3vw;
+    text-align: center;
     @media (min-width: ${global.desktop.startPixels}px) {
       padding: 20px;
     }
@@ -101,7 +103,6 @@ const GlobalStyles = createGlobalStyle`
 
   /* single line inputs */
   input[type="text"], input[type="email"], input[type="password"] {
-    text-align: center;
     margin-bottom: 2vh;
   }
 

@@ -40,6 +40,8 @@ import { SignIn } from '../src/components/home/signin';
 import { ScreenMessage } from '../src/components/messages/screen-message';
 import { UnsupportedDevice } from '../src/components/messages/unsupported-device';
 import { ErrorMessage } from '../src/components/messages/error-message';
+import { TextInputModal } from '../src/components/modals/text-input-modal';
+import { TextAreaModal } from '../src/components/modals/text-area-modal';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -258,6 +260,19 @@ storiesOf('Components', module)
       <ProgressBar percent={30} height={'20px'} theme={'grey-on-black'}/>
     </div>
   ))
+  .add('Tab close detect', () => (
+    <>
+      <BrowserRouter>
+        <PageChangeDetect enabled={true} />
+          <div><a href='http://www.google.com'>Go to Google</a></div>
+          <Link to='your-gifts'>Go to Your Gifts</Link>
+      </BrowserRouter>
+    </>
+  ))
+;
+
+// Inputs
+storiesOf('Inputs', module)
   .add('Text Area Input', () => (
     <div style={greyBG}>
       <GlobalStyles />
@@ -283,43 +298,25 @@ storiesOf('Components', module)
       <TextInput inputType='email' placeHolder={'enter your email'} onTextChanged={(text) => logSomething(text)} />
     </div>
   ))
-  .add('Sharing links', () => (
-    <>
-      <h1>Sharing links</h1>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a href='mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/'>Send Email</a>
-      </p>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/'>Share on Facebook</a>
-      </p>
-      <p>
-        <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
-      </p>
-      <p>
-        <a target='_blank' href='https://twitter.com/home?status=https%3A//thegift.app/'>Share on Twitter</a>
-      </p>
-      <p>
-        {/* tslint:disable-next-line */}
-        <a href='whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F' data-action='share/whatsapp/share' target='_blank'>Share via Whatsapp (mobile only)</a>
-      </p>
-      <p>
-        <a href='sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS iOS</a>
-      </p>
-      <p>
-        <a href='sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS Android</a>
-      </p>
-    </>
+  .add('Text input modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <TextInputModal
+        placeHolder='Enter your name'
+        onSaveClick={(text) => { alert('Save: ' + text); }}
+        onCancelClick={() => { alert('Cancelled'); }}
+      />
+    </ScreenManager>
   ))
-  .add('Tab close detect', () => (
-    <>
-      <BrowserRouter>
-        <PageChangeDetect enabled={true} />
-          <div><a href='http://www.google.com'>Go to Google</a></div>
-          <Link to='your-gifts'>Go to Your Gifts</Link>
-      </BrowserRouter>
-    </>
+  .add('Text area modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <TextAreaModal
+        placeHolder='Enter your name'
+        onSaveClick={(text) => { alert('Save: ' + text); }}
+        onCancelClick={() => { alert('Cancelled'); }}
+      />
+    </ScreenManager>
   ))
 ;
 
@@ -410,6 +407,35 @@ storiesOf('Ideas and tests', module)
       </>
     );
   })
+  .add('Sharing links', () => (
+    <>
+      <h1>Sharing links</h1>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href='mailto:?&subject=Here is a Gift&body=Nick%20has%20sent%20you%20a%20Gift%20%0Ahttps%3A//thegift.app/'>Send Email</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=https%3A//thegift.app/'>Share on Facebook</a>
+      </p>
+      <p>
+        <a href='fb-messenger://share/?link=https%3A%2F%2Fthegift.app'>Share In Facebook Messenger (mobile only)</a>
+      </p>
+      <p>
+        <a target='_blank' href='https://twitter.com/home?status=https%3A//thegift.app/'>Share on Twitter</a>
+      </p>
+      <p>
+        {/* tslint:disable-next-line */}
+        <a href='whatsapp://send?text=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app%2F' data-action='share/whatsapp/share' target='_blank'>Share via Whatsapp (mobile only)</a>
+      </p>
+      <p>
+        <a href='sms:&body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS iOS</a>
+      </p>
+      <p>
+        <a href='sms:?body=Here%27s%20a%20gift%20https%3A%2F%2Fthegift.app'>Share via SMS Android</a>
+      </p>
+    </>
+  ))
 ;
 
 // Loaders
@@ -448,12 +474,6 @@ storiesOf('Components/Modals', module)
   .add('Working Modal', () => {
 
     function getModal() {
-
-      // const [stage, setStage] = useState(1);
-
-      // setTimeout(() => {
-      //   setStage(2);
-      // }, 1000);
 
       return (
         <WorkingModal
