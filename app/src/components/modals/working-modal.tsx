@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../../themes/global';
 import { ModalDialogOuter, ModalDialogInner } from './base-modal-dialog';
 import { TextResize } from '../text-resize';
 import { Button, Buttons } from '../buttons';
@@ -18,12 +17,6 @@ export type WorkingModalIconType =
   | 'error'
   | 'success'
 ;
-
-const Outer = styled(ModalDialogOuter)`
-`;
-
-const Inner = styled(ModalDialogInner)`
-`;
 
 const Message = styled(TextResize)`
   text-align: center;
@@ -71,8 +64,8 @@ const WorkingModal: React.FC<Props> = ({ message, iconType, buttonText, onButton
   }
 
   return (
-    <Outer>
-      <Inner>
+    <ModalDialogOuter>
+      <ModalDialogInner>
 
         <IconWrapper>
           <Icon iconType={iconType} />
@@ -85,8 +78,8 @@ const WorkingModal: React.FC<Props> = ({ message, iconType, buttonText, onButton
           <Button onClick={handleButtonClick}>{buttonText}</Button>
         </ModalButtons>}
 
-      </Inner>
-    </Outer>
+      </ModalDialogInner>
+    </ModalDialogOuter>
   );
 
 };
