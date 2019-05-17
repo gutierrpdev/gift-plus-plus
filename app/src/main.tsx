@@ -1,6 +1,10 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import history from '../src/utils/router-history';
+
+import history from './utils/router-history';
+import { useAsync } from './utils/use-async';
+
+import { assetStore } from './services';
 
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
@@ -9,6 +13,8 @@ import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
 import { LandscapeMessage } from './components/messages/landscape-message';
 import { WorkingModal, WorkingModalIconType } from './components/modals/working-modal';
+import { WorkingProgress } from './components/messages/working-progress';
+import { ErrorMessage } from './components/messages/error-message';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -17,41 +23,59 @@ import { WorkingModal, WorkingModalIconType } from './components/modals/working-
  * (Alternatively, could use `render` prop).
  */
 
-export const Main: React.FC = () => (
-  <Router history={history}>
-    <LandscapeMessage />
-    <Switch>
+export const Main: React.FC = () => {
+  const [assetPreload] = useAsync(() => assetStore.preload(), []);
 
-      <Route exact={true} path='/'>
-        <HomeScreen />
-      </Route>
+  if (assetPreload.kind === 'running') { return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <WorkingProgress text='Gift is loading...' />
+    </Router>
+  ); }
 
-      {/* todo: remove /testing */}
-      <Route exact={true} path='/testing'>
-        <CreateGiftScreen />
-        <WorkingModal
-          iconType='working'
-          message='Working...'
-          buttonText='OK'
-        />
-      </Route>
+  if (assetPreload.kind === 'failure') { return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <ErrorMessage />
+    </Router>
+  ); }
 
-      <Route exact={true} path='/home'>
-        <HomeGiftsScreen />
-      </Route>
+  return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <Switch>
 
-      <Route exact={true} path='/create-gift'>
-        <CreateGiftScreen />
-      </Route>
+        <Route exact={true} path='/'>
+          <HomeScreen />
+        </Route>
 
-      <Route path='/gift/:giftId'>
-        <ReceiveGiftScreen />
-      </Route>
+        {/* todo: remove /testing */}
+        <Route exact={true} path='/testing'>
+          <CreateGiftScreen />
+          <WorkingModal
+            iconType='working'
+            message='Working...'
+            buttonText='OK'
+          />
+        </Route>
 
-      <Route>
-        <NotFound />
-      </Route>
+        <Route exact={true} path='/home'>
+          <HomeGiftsScreen />
+        </Route>
 
-    </Switch>
-  </Router>
-);
+        <Route exact={true} path='/create-gift'>
+          <CreateGiftScreen />
+        </Route>
+
+        <Route path='/gift/:giftId'>
+          <ReceiveGiftScreen />
+        </Route>
+
+        <Route>
+          <NotFound />
+        </Route>
+
+      </Switch>
+    </Router>
+  );
+};

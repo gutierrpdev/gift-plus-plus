@@ -39,7 +39,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
       <PanelContent>
         <AudioPlayer
           message='Thank you...'
-          src={assetStore.rOutroLocal}
+          src={assetStore.assets.rOutroLocal}
           forwardButtonType={'go-to-end'}
           giftId={gift.id}
           eventReference={'create-gift-outro-audio'}

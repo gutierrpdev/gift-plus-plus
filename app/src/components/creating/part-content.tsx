@@ -215,7 +215,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <AudioPlayer
               message={'Listen while you look for your first object...'}
-              src={assetStore.cChoosePart1}
+              src={assetStore.assets.cChoosePart1}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-first-object'}
@@ -225,7 +225,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 1 &&
             <AudioPlayer
               message={'Time to choose a second object...'}
-              src={assetStore.cChoosePart2}
+              src={assetStore.assets.cChoosePart2}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-second-object'}
@@ -235,7 +235,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 2 &&
             <AudioPlayer
               message={'Time to look for a final object...'}
-              src={assetStore.cChoosePart3}
+              src={assetStore.assets.cChoosePart3}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
               eventReference={'creating-part-look-third-object'}
@@ -306,7 +306,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 0 &&
             <AudioPlayer
                 message={`OK. You've taken a photo`}
-                src={assetStore.cLetThemKnowPart1}
+                src={assetStore.assets.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-first-object'}
@@ -316,7 +316,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 1 &&
             <AudioPlayer
                 message={`Tell them why you chose this...`}
-                src={assetStore.cLetThemKnowPart2}
+                src={assetStore.assets.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-second-object'}
@@ -326,7 +326,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 2 &&
             <AudioPlayer
                 message={`And record your final message...`}
-                src={assetStore.cLetThemKnowPart3}
+                src={assetStore.assets.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
                 eventReference={'creating-part-why-choosen-third-object'}

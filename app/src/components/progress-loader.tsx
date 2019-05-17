@@ -9,7 +9,7 @@ import SvgGift from './svg/gift';
 interface Props {
   text: string;
   colourTheme: 'white' | 'light-grey';
-  percent: number;
+  percent?: number;
 }
 
 const StyledProgressLoader = styled.div<Props>`
@@ -55,8 +55,11 @@ const ProgressLoader: React.FC<Props> = (props) => {
         <SvgGift colour={colour} />
       </GiftIcon>
       <ProgressTitle>{props.text}</ProgressTitle>
+
+      { props.percent !== undefined && <>
       <ProgressBar percent={props.percent} theme={theme} height='0.3rem' />
       <ProgressTitle>{props.percent}%</ProgressTitle>
+      </>}
     </StyledProgressLoader>
   );
 

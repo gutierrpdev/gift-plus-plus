@@ -19,7 +19,7 @@ const WorkingInner = styled.div`
 `;
 
 interface Props {
-  percent: number;
+  percent?: number;
   text: string;
 }
 

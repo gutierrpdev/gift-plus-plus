@@ -8,6 +8,7 @@
 
 import { config } from '../config';
 import { Api } from './api';
+import { AssetStore } from './asset-store';
 
 export const api = new Api(config.apiUri);
-export { assetStore } from './asset-store';
+export const assetStore = new AssetStore();

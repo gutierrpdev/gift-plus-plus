@@ -310,12 +310,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     // todo update these audio files
     return atMuseum
       ? museumGift
-        ? assetStore.rOutroLocal
-        : assetStore.rOutroLocal
+        ? assetStore.assets.rOutroLocal
+        : assetStore.assets.rOutroLocal
       // not at museum
       : museumGift
-        ? assetStore.rOutroLocal
-        : assetStore.rOutroLocal;
+        ? assetStore.assets.rOutroLocal
+        : assetStore.assets.rOutroLocal;
   }
 
   // Calculate some things
