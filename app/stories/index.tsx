@@ -45,6 +45,7 @@ import { ErrorMessage } from '../src/components/messages/error-message';
 import { TextInputModal } from '../src/components/modals/text-input-modal';
 import { TextAreaModal } from '../src/components/modals/text-area-modal';
 import { TermsModal } from '../src/components/modals/terms-modal';
+import { BgSvgFullScreen } from '../src/components/svg/bg';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -855,13 +856,23 @@ storiesOf('Components/Creating', module)
   ))
   .add('Share gift', () => (
     <ScreenManager>
+      <BgSvgFullScreen />
       <GlobalStyles />
-      <ShareGift
-        senderName='Kcin'
-        recipientName='Nick'
-        url='https://www.blasttheory.co.uk/projects/gift/'
-        onComplete={doNothing}
+      <ScreenHeader
+         topPadding={'medium'}
+         title={`Making a gift...`}
+         museumName={'Blast Theory'}
+         background='white'
       />
+      {/* <div style={ { backgroundColor: 'pink', display: 'flex' }} > */}
+        <ShareGift
+          senderName='Kcin'
+          recipientName='Nick'
+          museumName='Blast Theory Art Museum'
+          url='https://www.blasttheory.co.uk/projects/gift/'
+          onComplete={doNothing}
+        />
+      {/* </div> */}
     </ScreenManager>
   ))
 ;

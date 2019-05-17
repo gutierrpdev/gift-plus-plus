@@ -30,6 +30,7 @@ const global = {
     title: {
       family: "'Playfair Display', serif;",
       bold: 700,
+      normal: 400,
     },
   },
   components: {

@@ -162,6 +162,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
        <ShareGift
          senderName={newGift.senderName}
          recipientName={newGift.recipientName}
+         museumName={museumName}
          url={mkShareLink(newGift)}
          onComplete={() => setStatus('outro')}
        />
