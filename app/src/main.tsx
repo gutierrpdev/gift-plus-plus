@@ -1,6 +1,10 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import history from '../src/utils/router-history';
+
+import history from './utils/router-history';
+import { useAsync } from './utils/use-async';
+
+import { assetStore } from './services';
 
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
@@ -17,41 +21,48 @@ import { WorkingModal, WorkingModalIconType } from './components/modals/working-
  * (Alternatively, could use `render` prop).
  */
 
-export const Main: React.FC = () => (
-  <Router history={history}>
-    <LandscapeMessage />
-    <Switch>
+export const Main: React.FC = () => {
+  const [assetPreload] = useAsync(assetStore.preload, []);
 
-      <Route exact={true} path='/'>
-        <HomeScreen />
-      </Route>
+  if (assetPreload.kind === 'running') return (<h1>TODO: Loading</h1>);
+  if (assetPreload.kind === 'failure') return (<h1>TODO: Error</h1>);
 
-      {/* todo: remove /testing */}
-      <Route exact={true} path='/testing'>
-        <CreateGiftScreen />
-        <WorkingModal
-          iconType='working'
-          message='Working...'
-          buttonText='OK'
-        />
-      </Route>
+  return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <Switch>
 
-      <Route exact={true} path='/home'>
-        <HomeGiftsScreen />
-      </Route>
+        <Route exact={true} path='/'>
+          <HomeScreen />
+        </Route>
 
-      <Route exact={true} path='/create-gift'>
-        <CreateGiftScreen />
-      </Route>
+        {/* todo: remove /testing */}
+        <Route exact={true} path='/testing'>
+          <CreateGiftScreen />
+          <WorkingModal
+            iconType='working'
+            message='Working...'
+            buttonText='OK'
+          />
+        </Route>
 
-      <Route path='/gift/:giftId'>
-        <ReceiveGiftScreen />
-      </Route>
+        <Route exact={true} path='/home'>
+          <HomeGiftsScreen />
+        </Route>
 
-      <Route>
-        <NotFound />
-      </Route>
+        <Route exact={true} path='/create-gift'>
+          <CreateGiftScreen />
+        </Route>
 
-    </Switch>
-  </Router>
-);
+        <Route path='/gift/:giftId'>
+          <ReceiveGiftScreen />
+        </Route>
+
+        <Route>
+          <NotFound />
+        </Route>
+
+      </Switch>
+    </Router>
+  );
+};
