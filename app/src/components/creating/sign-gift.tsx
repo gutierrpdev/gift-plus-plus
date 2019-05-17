@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
-import { PanelPlus } from '../panel-plus';
+import { PanelPrompt } from '../panel-prompt';
 import { Buttons, Button } from '../buttons';
 import { TextInputModal } from '../modals/text-input-modal';
 
@@ -35,7 +35,11 @@ export const SignGift: React.FC<Props> = ({ onComplete }) => {
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Sign it</PanelSubTitle>
         <PanelContent>
-          <PanelPlus text={'Now say who the gift is from'} onClick={() => { setShowingEnterName(true); }} />
+          <PanelPrompt
+            text={'Now say who the gift is from'}
+            background={'transparent-black'}
+            onClick={() => { setShowingEnterName(true); }}
+          />
         </PanelContent>
         <Buttons>
           <Button onClick={() => { setShowingEnterName(true); }} primary={true}>Write your first name</Button>

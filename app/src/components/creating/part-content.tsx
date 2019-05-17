@@ -478,13 +478,13 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Do you want to add part two or send it as it is? You can choose up to three`}
+              text={`Do you want to add another object or send it as it is? You can choose up to three`}
               background={'transparent-black'}
             />
           }
           {giftPartIndex === 1 &&
             <PanelPrompt
-              text={`Do you want to add a final part or send it as it is? You can choose one more...`}
+              text={`Do you want to add a final object or send it as it is?`}
               background={'transparent-black'}
             />
           }
@@ -492,10 +492,10 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         <Buttons>
           <Button onClick={handleAllComplete}>Send now</Button>
           {giftPartIndex === 0 &&
-            <Button onClick={handleStartPart2} primary={true}>Add another object</Button>
+            <Button onClick={handleStartPart2} primary={true}>Add another</Button>
           }
           {giftPartIndex === 1 &&
-           <Button onClick={handleStartPart3} primary={true}>Add another object</Button>
+           <Button onClick={handleStartPart3} primary={true}>Add another</Button>
           }
         </Buttons>
       </>

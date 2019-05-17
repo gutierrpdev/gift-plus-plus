@@ -76,14 +76,14 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       <GlobalStyles />
       <PageChangeDetect
         enabled={!canNavigateAway()}
-        confirmationMessage='Are you sure you want to cancel making your Gift?'
+        confirmationMessage='Leaving this page will abandon your gift.  Are you sure?'
       />
 
       {/* Header */}
       {headerState === 'name-unknown' &&
        <ScreenHeader
          topPadding={'medium'}
-         title={`Making\na gift...`}
+         title={`Making a gift...`}
          museumName={museumName}
        />
       }

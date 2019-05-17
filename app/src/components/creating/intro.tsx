@@ -45,7 +45,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
                   about to make
                   a gift for someone
                   special'
-            textSize={61}
+            textSize={50}
             background='transparent-black'
             onClick={() => setStatus('second-message')}
           >
