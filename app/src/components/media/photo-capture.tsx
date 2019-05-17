@@ -100,7 +100,7 @@ const PhotoCapture: React.FC<Props> = (props) => {
 
         setImageOrientation(imageUrl, change, (rotatedImageUrl) => {
           URL.revokeObjectURL(imageUrl); // Cleanup unused resource
-          onPhotoTaken({ url: URL.createObjectURL(rotatedImageUrl), mimeType });
+          onPhotoTaken({ url: rotatedImageUrl, mimeType });
         });
       } else {
         onPhotoTaken({ url: imageUrl, mimeType });
