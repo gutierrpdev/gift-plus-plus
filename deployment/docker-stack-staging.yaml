@@ -45,6 +45,7 @@ services:
       - db
     environment:
       ENVIRONMENT: 'staging'
+      DEBUG: '(DEBUG|INFO|WARN|ERROR):*'
       SQL_URI: 'postgresql://gift:gift@db/gift'
       CORS_ALLOWED_ORIGINS: 'https://staging.gift.blasttheory.com'
       AWS_BUCKET: 'bt-gift'
