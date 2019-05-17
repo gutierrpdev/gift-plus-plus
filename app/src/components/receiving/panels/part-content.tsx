@@ -165,14 +165,14 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <>
             {haveClue && <Button onClick={gotoGiveClueSearch}>Show clue</Button>}
             {!haveClue && <Button onClick={gotoGiveHelp}>Help</Button>}
-            <Button onClick={gotoHereYouGo} primary={true}>Found the object</Button>
+            <Button onClick={gotoHereYouGo} primary={true}>Found it</Button>
           </>
         );
       case 4: // more help
         return (
           <>
             <Button onClick={gotoFindObject} primary={true}>OK</Button>
-            <Button onClick={gotoGiveHelp}>More Help</Button>
+            <Button onClick={gotoGiveHelp}>More help</Button>
           </>
         );
       case 5: // stuck
@@ -187,11 +187,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         return (
           <>
-            {haveClue && !audioPlaybackComplete &&
-              <Button onClick={gotoGiveClueFound}>Show clue</Button>}
-            {audioPlaybackStarted && furtherPart &&
+            {audioPlaybackComplete && furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>}
-            {audioPlaybackStarted && !furtherPart &&
+            {audioPlaybackComplete && !furtherPart &&
               <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
         );
@@ -202,7 +200,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 11: // outro audio
         return (
           <>
-            {outroAudioPlaybackFinished && <Button primary={true} onClick={handleOutroContinue}>Continue</Button>}
+            {outroAudioPlaybackFinished && <Button primary={true} onClick={handleOutroContinue}>Done</Button>}
           </>
         );
       default :
@@ -458,7 +456,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {/* outro - audio */}
         {section === 11 &&
         <AudioPlayer
-          message='Ready for the last bit?'
+          message={`Ready for
+            the last bit?`}
           src={getOutroAudioFile()}
           forwardButtonType={'go-to-end'}
           giftId={props.gift.id}

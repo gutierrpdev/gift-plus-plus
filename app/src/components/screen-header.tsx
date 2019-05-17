@@ -85,7 +85,7 @@ const ScreenHeaderStyle = styled.div<Props>`
     background-color: white;
   `}
   ${(props) => props.background === 'transparent-white' && `
-    background-color: rgba(255,255,255, 0.8);
+    background-color: rgba(255,255,255, 0.4);
   `}
 `;
 

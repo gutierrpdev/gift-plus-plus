@@ -133,7 +133,7 @@ const HomeGifts: React.FC = () => {
           />*/}
 
           <OpenMuseumGift>
-            {/* <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle> */}
+            <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle>
 
             <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'> {/* todo: real url */}
 
