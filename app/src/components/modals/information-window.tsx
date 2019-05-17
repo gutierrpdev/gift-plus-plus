@@ -30,7 +30,7 @@ const Inner = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 10% 12%;
+  padding: 10% 10% 10% 8%;
   overflow: scroll;
   box-sizing: border-box;
 `;
