@@ -107,7 +107,9 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
         <PanelTitle>Finish your gift</PanelTitle>
         <PanelSubTitle>Saving failed</PanelSubTitle>
         <PanelContent>
-          <PanelPrompt text={`Please check you're connected to the internet`} />
+          <PanelRound background='transparent-black'>
+            <PanelPrompt text={`Please check you're connected to the internet`} />
+          </PanelRound>
         </PanelContent>
         <Buttons>
           <Button onClick={() => setStatus('saving')} primary={true}>Try again</Button>
