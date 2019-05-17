@@ -35,7 +35,7 @@ export class AssetStore {
   /**
    * Preload all the assets in the store and convert to browser local ObjectUrls.
    */
-  public async preload() {
+  public preload = async () => {
     // Prevent running more than once
     if (this.preloadStarted) return;
     this.preloadStarted = true;

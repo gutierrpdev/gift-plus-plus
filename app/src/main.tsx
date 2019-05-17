@@ -13,6 +13,8 @@ import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
 import { LandscapeMessage } from './components/messages/landscape-message';
 import { WorkingModal, WorkingModalIconType } from './components/modals/working-modal';
+import { WorkingProgress } from './components/messages/working-progress';
+import { ErrorMessage } from './components/messages/error-message';
 
 /**
  * NOTE: We use `children` in Routes rather than the `component` prop for the
@@ -22,10 +24,21 @@ import { WorkingModal, WorkingModalIconType } from './components/modals/working-
  */
 
 export const Main: React.FC = () => {
-  const [assetPreload] = useAsync(assetStore.preload, []);
+  const [assetPreload] = useAsync(() => assetStore.preload(), []);
 
-  if (assetPreload.kind === 'running') return (<h1>TODO: Loading</h1>);
-  if (assetPreload.kind === 'failure') return (<h1>TODO: Error</h1>);
+  if (assetPreload.kind === 'running') { return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <WorkingProgress text='Gift is loading...' />
+    </Router>
+  ); }
+
+  if (assetPreload.kind === 'failure') { return (
+    <Router history={history}>
+      <LandscapeMessage />
+      <ErrorMessage />
+    </Router>
+  ); }
 
   return (
     <Router history={history}>
