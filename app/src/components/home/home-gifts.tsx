@@ -19,30 +19,30 @@ const OpenMuseumGift = styled.div`
   text-align: center;
 `;
 const OpenMuseumGiftSvg = styled.div`
-  margin: 5% auto 0;
+  margin: 2% auto 0;
   width: 20%;
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
-  margin-bottom: 8%;
+  margin-bottom: 5%;
 `;
 
 const PlusStyle = styled.div`
-  margin: 3% auto 0;
+  margin: 2% auto 0;
   width: 20%;
   cursor: pointer;
 `;
 
 const GiftsNotSent = styled.div`
   text-align: center;
-  margin: 4vh auto 10vh; // Extra spacing at the end to avoid clash with brower chrome
+  margin: 4% auto 5%; // Extra spacing at the end to avoid clash with brower chrome
   div {
     line-height: 1.3;
   }
 `;
 
 const LineSpacer = styled.div`
-  margin: 3vh 0 5vh 0;
+  margin: 2% 0 3% 0;
   border-bottom: 0.1vh solid rgba(0,0,0,0.5);
 `;
 
@@ -105,7 +105,7 @@ const HomeGifts: React.FC = () => {
 
   return (
 
-    <ScreenManager allowScroll={true}>
+    <ScreenManager allowScroll={false}>
       <BgSvgFullScreen />
       <GlobalStyles />
 
@@ -133,7 +133,7 @@ const HomeGifts: React.FC = () => {
           />*/}
 
           <OpenMuseumGift>
-            <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle>
+            {/* <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle> */}
 
             <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'> {/* todo: real url */}
 
@@ -151,7 +151,7 @@ const HomeGifts: React.FC = () => {
 
           <LineSpacer />
 
-          <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle>
+          {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
 
           {hasSentGifts &&
             <GiftPile
@@ -160,9 +160,13 @@ const HomeGifts: React.FC = () => {
           }
           {!hasSentGifts &&
             <GiftsNotSent>
-              <TextResize textSize={50}>
+              {/* <TextResize textSize={50}>
                 You've not sent any gifts<br/>
                 Make one now?
+              </TextResize> */}
+              <TextResize textSize={50}>
+                Create a new gift of<br/>
+                your own
               </TextResize>
               <PlusStyle>
                 <Link to='/create-gift'>

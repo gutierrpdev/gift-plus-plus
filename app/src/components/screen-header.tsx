@@ -31,13 +31,13 @@ const HeaderTexts = styled.div`
 
 // Message
 const HeaderMessage = styled.div`
-  margin: 8% auto;
+  margin: 5% auto;
   width: 80%;
   text-align: center;
 `;
 
 const HeaderMessageTextResize = styled(TextResize)`
-  line-height: 1.3;
+  line-height: 1.2;
 `;
 
 // Header
