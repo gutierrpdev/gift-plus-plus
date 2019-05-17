@@ -176,7 +176,7 @@ const HomeIntro: React.FC = () => {
             <PanelContent>
               <PanelPrompt
                 text='Ever made
-                  a mixtape?'
+                  a playlist?'
                 textColor='black'
                 textSize={80}
                 background='solid-white'
@@ -240,7 +240,7 @@ const HomeIntro: React.FC = () => {
                   onClick={handleOpenGift}
                   to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'
                 >
-                  Show museum gift
+                  Show gift
                 </Link>{/* todo: real url */}
               </Button>
             </Buttons>
