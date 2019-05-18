@@ -63,7 +63,8 @@ export const ReceiveGiftScreen: React.FC = () => {
 
 
 /**
- *
+ * Given a gift, extract the urls which will need to be preloaded for an offline
+ * receiving experience.
  */
 function extractAssetUrls(giftData: GetGiftResponse): string[] {
   const urls = giftData.parts.reduce<Set<string>>(
@@ -81,15 +82,20 @@ function extractAssetUrls(giftData: GetGiftResponse): string[] {
 
 
 /**
+ * Given a gift, replace any urls which have a substitute provided in the given
+ * assetUrlMap.
  *
+ * Note: This is a non-mutating which returns new gift data.
  */
 function substituteAssetUrls(giftData: GetGiftResponse, assetUrlMap: Map<string, string>): GetGiftResponse {
   const newGiftData = Object.assign({}, giftData, {
     parts: giftData.parts.map((part) => Object.assign({}, part, {
-      note: assetUrlMap.get(part.note)!,
-      photo: assetUrlMap.get(part.photo)!,
+      note: assetUrlMap.has(part.note) ? assetUrlMap.get(part.note) : part.note,
+      photo: assetUrlMap.has(part.photo) ? assetUrlMap.get(part.photo) : part.photo,
     })),
-    recipientGreeting: assetUrlMap.get(giftData.recipientGreeting)!,
+    recipientGreeting: assetUrlMap.has(giftData.recipientGreeting)
+                     ? assetUrlMap.get(giftData.recipientGreeting)
+                     : giftData.recipientGreeting,
   });
 
   return newGiftData;

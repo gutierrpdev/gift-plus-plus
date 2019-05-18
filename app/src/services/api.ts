@@ -12,8 +12,7 @@ import {
   createPreparedUploadResponseSchema,
 } from '../common/api-schema';
 
-// TEMP: Mock Data
-import { mockGifts } from './mock';
+import { preparedGifts } from './prepared-data';
 
 
 // We re-export any types the Api is responsible for from here.
@@ -40,9 +39,8 @@ export class Api {
    * Retrieve a gift by id
    */
   public async getGift(giftId: string): Promise<ApiResult<GetGiftResponse>> {
-    // TEMP: Mock Data
-    if (mockGifts.has(giftId)) {
-      return { kind: 'ok', data: mockGifts.get(giftId)! };
+    if (preparedGifts.has(giftId)) {
+      return { kind: 'ok', data: preparedGifts.get(giftId)! };
     }
 
     const url = `${this.apiUrl}/gift/${giftId}`;

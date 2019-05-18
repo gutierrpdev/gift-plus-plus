@@ -17,12 +17,14 @@ class ConfigError extends Error {
 export interface Config {
   environment: string;
   apiUri: string;
+  curatedMuseumGiftId: string;
 }
 
 
 export const config: Config = {
   environment: readAsString(process.env.ENVIRONMENT),
   apiUri: readAsString(process.env.API_URI),
+  curatedMuseumGiftId: '031a7ccc-4451-5139-9942-262bfed975d2',
 };
 
 // =====================================================================

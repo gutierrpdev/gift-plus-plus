@@ -1,9 +1,10 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import history from './utils/router-history';
 import { useAsync } from './utils/use-async';
 
+import { config } from './config';
 import { assetStore } from './services';
 
 import { NotFound } from './screens/not-found';
@@ -12,7 +13,6 @@ import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
 import { HomeGiftsScreen } from './screens/home-gifts';
 import { LandscapeMessage } from './components/messages/landscape-message';
-import { WorkingModal, WorkingModalIconType } from './components/modals/working-modal';
 import { WorkingProgress } from './components/messages/working-progress';
 import { ErrorMessage } from './components/messages/error-message';
 
@@ -49,22 +49,17 @@ export const Main: React.FC = () => {
           <HomeScreen />
         </Route>
 
-        {/* todo: remove /testing */}
-        <Route exact={true} path='/testing'>
-          <CreateGiftScreen />
-          <WorkingModal
-            iconType='working'
-            message='Working...'
-            buttonText='OK'
-          />
-        </Route>
-
         <Route exact={true} path='/home'>
           <HomeGiftsScreen />
         </Route>
 
         <Route exact={true} path='/create-gift'>
           <CreateGiftScreen />
+        </Route>
+
+        {/* "Promo" link: direct access to museum gift */}
+        <Route exact={true} path='/brighton-123'>
+          <Redirect to={`/gift/${config.curatedMuseumGiftId}`} />
         </Route>
 
         <Route path='/gift/:giftId'>
