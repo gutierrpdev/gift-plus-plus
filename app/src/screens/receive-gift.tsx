@@ -32,22 +32,22 @@ export const ReceiveGiftScreen: React.FC = () => {
 
   if (getGiftTask.kind === 'running') return <WorkingProgress text='Loading' percent={0} />;
   if (getGiftTask.kind === 'failure') {
-    return <ErrorMessage extraMessage='There was an issue retrieving the gift from our server' />;
+    return <ErrorMessage message='There was an issue retrieving the gift from our server' />;
   }
 
   const apiResult = getGiftTask.result;
 
   if (apiResult.kind === 'http-error' && apiResult.response.status === 404) {
-    return <ErrorMessage extraMessage='Gift not found' />;
+    return <ErrorMessage message='Gift not found' />;
   }
   if (apiResult.kind !== 'ok') {
-    return <ErrorMessage extraMessage='There was an issue retrieving the gift from our server' />;
+    return <ErrorMessage message='There was an issue retrieving the gift from our server' />;
   }
 
   if (preloadState.status === 'running') {
     return <WorkingProgress text='Loading' percent={Math.round(totalProgress(preloadState) * 100)} />;
   }
-  if (preloadState.status === 'error') return <ErrorMessage extraMessage='Assets not found' />;
+  if (preloadState.status === 'error') return <ErrorMessage message='Assets not found' />;
 
   const giftResponse = apiResult.data;
   const preloadedAssetGift = substituteAssetUrls(giftResponse, preloadState.urlData);

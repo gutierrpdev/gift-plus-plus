@@ -36,7 +36,7 @@ export const Main: React.FC = () => {
   if (assetPreload.kind === 'failure') { return (
     <Router history={history}>
       <LandscapeMessage />
-      <ErrorMessage />
+      <ErrorMessage message="Sorry, we couldn't load the Gift assets." />
     </Router>
   ); }
 

@@ -553,7 +553,7 @@ storiesOf('Components/Messages', module)
     <>
       <GlobalStyles />
       <Router history={history}>
-        <ErrorMessage extraMessage='There has been an error' />
+        <ErrorMessage message='There has been an error' />
       </Router>
     </>
   ));

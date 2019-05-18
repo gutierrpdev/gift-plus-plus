@@ -14,7 +14,7 @@ import { TextResize } from '../text-resize';
  */
 
 interface Props {
-  extraMessage?: string; // Optional extra message to show user
+  message: string;
 }
 
 const DeviceButtons = styled(Buttons)`
@@ -27,13 +27,13 @@ const ErrorTextResize = styled(TextResize)`
   margin-bottom: 1vh;
 `;
 
-const ErrorMessage: React.FC<Props> = ({ extraMessage }) => (
+const ErrorMessage: React.FC<Props> = ({ message }) => (
   <ScreenManager>
     <ScreenMessage>
       <GlobalStyles />
 
-      <ErrorTextResize>There was a problem.</ErrorTextResize>
-      {extraMessage && <ErrorTextResize>{extraMessage}</ErrorTextResize>}
+      <ErrorTextResize>{message}</ErrorTextResize>
+
       <ErrorTextResize>Cancel to return to the Gift homepage</ErrorTextResize>
 
       <DeviceButtons>
