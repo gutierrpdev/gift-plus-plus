@@ -3,7 +3,6 @@ import useReactRouter from 'use-react-router';
 
 import { useAsync } from '../utils/use-async';
 import { usePreload, totalProgress } from '../utils/use-preload';
-import { getLogger } from '../utils/logging';
 
 import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
@@ -11,8 +10,6 @@ import { GetGiftResponse } from '../services/api';
 import { ReceiveGift } from '../components/receiving/receive-gift';
 import { WorkingProgress } from '../components/messages/working-progress';
 import { ErrorMessage } from '../components/messages/error-message';
-
-const logger = getLogger('receive-gift');
 
 /**
  *
@@ -52,11 +49,6 @@ export const ReceiveGiftScreen: React.FC = () => {
   const giftResponse = apiResult.data;
   const preloadedAssetGift = substituteAssetUrls(giftResponse, preloadState.urlData);
 
-  // TODO: Consider passing the asset map through directly, rather than altering
-  // the gift data. More obvious / less surprising => less likely to cause bugs.
-  // E.g. Currently ReceiveGift and it's children must NEVER save the gift as
-  // the asset urls in it are only temporary.
-
   return <ReceiveGift gift={preloadedAssetGift} museumName={'Brighton Museum'} />;
 };
 
@@ -85,7 +77,7 @@ function extractAssetUrls(giftData: GetGiftResponse): string[] {
  * Given a gift, replace any urls which have a substitute provided in the given
  * assetUrlMap.
  *
- * Note: This is a non-mutating which returns new gift data.
+ * Note: This is a non-mutating function which returns new gift data.
  */
 function substituteAssetUrls(giftData: GetGiftResponse, assetUrlMap: Map<string, string>): GetGiftResponse {
   const newGiftData = Object.assign({}, giftData, {
