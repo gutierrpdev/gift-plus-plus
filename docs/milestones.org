@@ -59,10 +59,10 @@
 ** TODO MVP Full frontend + Backend <2019-05-17 Fri>
    DEADLINE: <2019-05-17 Fri>
    - [ ] Landing flow
-   - [ ] Receiving museum gift
-     - [ ] Work offline
-   - [ ] Receiving a personal gift
-     - [ ] Work offline
+   - [X] Receiving museum gift
+     - [X] Work offline
+   - [X] Receiving a personal gift
+     - [X] Work offline
    - [ ] Creating a gift
      - [ ] User feedback / retrying saving
      - [ ] Work offline
