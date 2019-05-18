@@ -53,9 +53,11 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   // Lets start
   public startGift = () => {
-    this.setState({
-      status: 'SelectLocation',
-    });
+    if (this.state.recipientLocation === 'unknown') {
+      this.setState({ status: 'SelectLocation' });
+    } else {
+      this.setState({ status: 'ShowingParts' });
+    }
   }
 
   // Gift has been opened
@@ -154,14 +156,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
   }
 
   public renderSelectLocation() {
-
-    // If we already have a location stored jump to the next stage
-    if (this.state.recipientLocation !== 'unknown') {
-      this.setState({
-        status: 'ShowingParts',
-      });
-    }
-
     return (
       <ChooseLocation
         museumName={this.props.museumName}
