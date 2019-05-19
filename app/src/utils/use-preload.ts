@@ -16,7 +16,7 @@ const logger = getLogger('use-preload');
  *              always contain a key/value for every url.
  *
  * urlData: A map from urls to their `ObjectURL` for use as a source. This will
- *          contain a key/value for every IFF `status === 'done'`.
+ *          contain a key/value for every url IFF `status === 'done'`.
  */
 export interface PreloadState {
   status: 'running' | 'done' | 'error';
@@ -110,8 +110,9 @@ export function usePreload(urls: string[]): [PreloadState] {
     dispatch({ kind: 'reset', urls });
 
     const createdObjectUrls: string[] = [];
+    const runningRequests: Set<XMLHttpRequest> = new Set();
 
-    const requests = urls.map((url) => {
+    urls.forEach((url) => {
       const req = new XMLHttpRequest();
       req.open('GET', url, true);
       req.responseType = 'blob';
@@ -137,14 +138,16 @@ export function usePreload(urls: string[]): [PreloadState] {
 
       req.onerror = () => dispatch({ kind: 'url-error', url });
 
+      req.onloadend = () => runningRequests.delete(req);
+
       req.send();
-      return req;
+      runningRequests.add(req);
     });
 
     // Cleanup function called when dependencyKey changes. Here we abort any
     // outstanding requests and revoke any object-urls we created.
     return () => {
-      requests.forEach((req) => {
+      runningRequests.forEach((req) => {
         try { req.abort(); } catch {}
       });
       createdObjectUrls.forEach((objectUrl) => {
