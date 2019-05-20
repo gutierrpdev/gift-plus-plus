@@ -16,7 +16,7 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv
   museumId: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
   accountId: uuidv5('https://api.thegift.app/account/brighton-museum', uuidv5.URL),
   senderName: 'Brighton Museum',
-  recipientName: ' ',  // DO NOT remove the empty space, it's required for validation
+  recipientName: 'visitor',
   recipientGreeting: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/1-second-of-silence.m4a',
   parts: [
     {
