@@ -51,6 +51,11 @@ export class AssetUploader {
     if (this.isRunning) throw new Error('AssetUploader can only run once');
     this.isRunning = true;
 
+    const handleError = (err: Error) => {
+      this.abort();
+      this.onError(err);
+    };
+
     (async () => {
       const preparedUploadResult = await api.createPreparedUpload({
         mimeType: this.file.mimeType,
@@ -68,29 +73,51 @@ export class AssetUploader {
       });
       if (this.isAborted) return;
 
+
       const formData = new FormData();
       Object.entries(preparedUpload.postFields).forEach(
         ([k, v]) => formData.append(k, v),
       );
       formData.append('file', blob);
 
-      const uploadResp = await fetch(preparedUpload.postUrl, {
-        method: 'POST',
-        body: formData,
-      });
-      if (this.isAborted) return;
+      const req = new XMLHttpRequest();
 
-      if (!uploadResp.ok) {
-        const respText = await uploadResp.text();
-        throw new Error(`Upload failed [${uploadResp.status}]: ${respText}`);
-      }
+      req.upload.onprogress = (progressEvent) => {
+        if (this.isAborted) return;
+        const progress = progressEvent.lengthComputable
+          ? progressEvent.loaded / progressEvent.total
+          : 0;
 
-      this.onComplete(preparedUpload);
+        this.onProgress(progress);
+      };
 
-    })().catch((err) => {
-      this.abort();
-      this.onError(err);
-    });
+      req.upload.onerror = () => {
+        if (this.isAborted) return;
+        handleError(new Error(`UploadError: ${req.status}`));
+      };
+
+      req.onerror = () => {
+        if (this.isAborted) return;
+        handleError(new Error(`UploadError: ${req.status}`));
+      };
+
+      req.onload = () => {
+        if (this.isAborted) return;
+
+        if (req.status < 200 || req.status >= 300) {
+          handleError(new Error(`UploadError: ${req.status}`));
+          return;
+        }
+        this.onComplete(preparedUpload);
+      };
+
+      req.onloadend = () => this.runningRequests.delete(req);
+
+      req.open('POST', preparedUpload.postUrl, true);
+      req.send(formData);
+      this.runningRequests.add(req);
+
+    })().catch(handleError);
   }
 
 

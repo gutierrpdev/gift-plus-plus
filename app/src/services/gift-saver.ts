@@ -11,6 +11,7 @@ import {
 
 import { api } from './index';
 import { AssetUploader } from './asset-uploader';
+import { ApiError } from './api';
 
 const logger = getLogger('use-gift-saver');
 
@@ -23,7 +24,7 @@ export type GiftSaverState =
   | { kind: 'uploading-assets', progress: number }
   | { kind: 'uploading-assets-error', retry: () => void }
   | { kind: 'saving-gift' }
-  | { kind: 'saving-gift-error', retry: () => void }
+  | { kind: 'saving-gift-error', error: ApiError, retry: () => void }
   | { kind: 'done', gift: Gift }
 ;
 
@@ -43,22 +44,22 @@ type AssetUploadState =
 type State =
   | { kind: 'invalid-gift' }
   | { kind: 'ready', localAssets: LocalFile[] }
-  | { kind: 'uploading-assets-running', uploadState: Map<LocalFile, AssetUploadState> }
-  | { kind: 'uploading-assets-failure', uploadState: Map<LocalFile, AssetUploadState> }
+  | { kind: 'uploading-assets-running', pendingUploads: Map<LocalFile, AssetUploadState> }
+  | { kind: 'uploading-assets-failure', pendingUploads: Map<LocalFile, AssetUploadState> }
   | { kind: 'uploading-assets-success', uploads: Map<LocalFile, PreparedUpload> }
   | { kind: 'saving-gift-running', giftData: GiftData }
-  | { kind: 'saving-gift-failure', giftData: GiftData }
+  | { kind: 'saving-gift-failure', giftData: GiftData, error: ApiError }
   | { kind: 'saving-gift-success', gift: Gift }
 ;
 
 type Action =
-  | { kind: 'asset-uploads-started', uploadState: Map<LocalFile, AssetUploadState> }
+  | { kind: 'asset-uploads-started', pendingUploads: Map<LocalFile, AssetUploadState> }
   | { kind: 'upload-progress', file: LocalFile, progress: number }
   | { kind: 'upload-done', file: LocalFile, upload: PreparedUpload }
   | { kind: 'upload-error', file: LocalFile }
   | { kind: 'gift-saving-started', giftData: GiftData }
   | { kind: 'gift-saving-done', gift: Gift }
-  | { kind: 'gift-saving-error' }
+  | { kind: 'gift-saving-error', error: ApiError }
 ;
 
 
@@ -86,17 +87,17 @@ function reducer(state: State, action: Action): State {
   logger.debug('Action', state, action);
 
   if (action.kind === 'asset-uploads-started') {
-    return { kind: 'uploading-assets-running', uploadState: action.uploadState };
+    return { kind: 'uploading-assets-running', pendingUploads: action.pendingUploads };
   }
 
 
   if (action.kind === 'upload-progress') {
     if (state.kind !== 'uploading-assets-running') return state;
 
-    const currentUploadState = state.uploadState.get(action.file);
+    const currentUploadState = state.pendingUploads.get(action.file);
     if (!currentUploadState || currentUploadState.kind !== 'running') return state;
 
-    state.uploadState.set(action.file, { ...currentUploadState, progress: action.progress });
+    state.pendingUploads.set(action.file, { ...currentUploadState, progress: action.progress });
     return { ...state };
   }
 
@@ -110,16 +111,16 @@ function reducer(state: State, action: Action): State {
       return state;
     }
 
-    state.uploadState.set(action.file, { kind: 'success', upload: action.upload });
+    state.pendingUploads.set(action.file, { kind: 'success', upload: action.upload });
 
     const completeUploads = new Map<LocalFile, PreparedUpload>();
-    state.uploadState.forEach((uploadState, file) => {
-      if (uploadState.kind === 'success') {
-        completeUploads.set(file, uploadState.upload);
+    state.pendingUploads.forEach((pendingUploads, file) => {
+      if (pendingUploads.kind === 'success') {
+        completeUploads.set(file, pendingUploads.upload);
       }
     });
 
-    if (completeUploads.size === state.uploadState.size) {
+    if (completeUploads.size === state.pendingUploads.size) {
       return { kind: 'uploading-assets-success', uploads: completeUploads };
     }
 
@@ -133,7 +134,7 @@ function reducer(state: State, action: Action): State {
       return state;
     }
 
-    state.uploadState.set(action.file, { kind: 'failure' });
+    state.pendingUploads.set(action.file, { kind: 'failure' });
     return { ...state, kind: 'uploading-assets-failure' };
   }
 
@@ -146,7 +147,7 @@ function reducer(state: State, action: Action): State {
   }
   if (action.kind === 'gift-saving-error') {
     if (state.kind !== 'saving-gift-running') return state;
-    return { ...state, kind: 'saving-gift-failure' };
+    return { ...state, kind: 'saving-gift-failure', error: action.error };
   }
 
   return assertNever(action);
@@ -156,6 +157,7 @@ function reducer(state: State, action: Action): State {
 
 /**
  * TODO: This info
+ * TODO: Factor out into functions
  */
 export function useGiftSaver(gift: InProgressGift): GiftSaverState {
   const [command, setCommand] = useState<null | 'retry'>(null);
@@ -164,7 +166,7 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
   useEffect(() => {
     // Attempt to upload assets when initial gift is ready
     if (state.kind === 'ready') {
-      const uploadState = new Map<LocalFile, AssetUploadState>();
+      const pendingUploads = new Map<LocalFile, AssetUploadState>();
 
       state.localAssets.forEach((file) => {
         const uploader = new AssetUploader({
@@ -177,9 +179,9 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
           },
         });
         uploader.run();
-        uploadState.set(file, { kind: 'running', uploader, progress: 0 });
+        pendingUploads.set(file, { kind: 'running', uploader, progress: 0 });
       });
-      dispatch({ kind: 'asset-uploads-started', uploadState });
+      dispatch({ kind: 'asset-uploads-started', pendingUploads });
     }
 
     // Attempt to save the gift when assets are complete
@@ -202,7 +204,7 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
         if (apiResult.kind === 'ok') {
           dispatch({ kind: 'gift-saving-done', gift: apiResult.data });
         } else {
-          dispatch({ kind: 'gift-saving-error' });
+          dispatch({ kind: 'gift-saving-error', error: apiResult });
         }
       });
       dispatch({ kind: 'gift-saving-started', giftData });
@@ -217,7 +219,14 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
 
       // Retry asset-upload
       if (state.kind === 'uploading-assets-failure') {
-        state.uploadState.forEach((us, file) => {
+        const pendingUploads = state.pendingUploads;
+
+        pendingUploads.forEach((uploadState, file) => {
+          // Ignore any uploads that are already complete
+          if (uploadState.kind === 'success') return;
+          if (uploadState.kind === 'running') uploadState.uploader.abort();
+
+          // Replace the previous uploader with a new one
           const uploader = new AssetUploader({
             file,
             onProgress: (progress) => dispatch({ kind: 'upload-progress', file, progress }),
@@ -228,9 +237,9 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
             },
           });
           uploader.run();
-          uploadState.set(file, { kind: 'running', uploader, progress: 0 });
+          pendingUploads.set(file, { kind: 'running', uploader, progress: 0 });
         });
-        dispatch({ kind: 'asset-uploads-started', uploadState });
+        dispatch({ kind: 'asset-uploads-started', pendingUploads });
       }
 
 
@@ -241,7 +250,7 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
           if (apiResult.kind === 'ok') {
             dispatch({ kind: 'gift-saving-done', gift: apiResult.data });
           } else {
-            dispatch({ kind: 'gift-saving-error' });
+            dispatch({ kind: 'gift-saving-error', error: apiResult });
           }
         });
         dispatch({ kind: 'gift-saving-started', giftData });
@@ -260,7 +269,7 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
     return { kind: 'uploading-assets', progress: 0 };
   }
   if (state.kind === 'uploading-assets-running') {
-    return { kind: 'uploading-assets', progress: 0 };
+    return { kind: 'uploading-assets', progress: totalProgress(state.pendingUploads) };
   }
   if (state.kind === 'uploading-assets-success') {
     return { kind: 'uploading-assets', progress: 100 };
@@ -275,8 +284,33 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
     return { kind: 'done', gift: state.gift };
   }
   if (state.kind === 'saving-gift-failure') {
-    return { kind: 'saving-gift-error', retry: () => setCommand('retry') };
+    return { kind: 'saving-gift-error', error: state.error, retry: () => setCommand('retry') };
   }
 
   return assertNever(state);
+}
+
+
+/**
+ * Determine the overall progress of uploading assets. Progress is represented
+ * as a number in the range [0,1]
+ *
+ * NOTE: For now this assumes each file being uploaded is the same size.
+ * TODO: Track the total size of each file for more accurate progress reporting.
+ */
+function totalProgress(pendingUploads: Map<LocalFile, AssetUploadState>): number {
+  const count = pendingUploads.size;
+  if (count === 0) return 1;
+
+  let summedProgress = 0;
+  pendingUploads.forEach((uploadState) => {
+    const progress
+      = (uploadState.kind === 'success') ? 1
+      : (uploadState.kind === 'failure') ? 0
+      : uploadState.progress;
+
+    summedProgress += progress;
+  });
+
+  return summedProgress / count;
 }

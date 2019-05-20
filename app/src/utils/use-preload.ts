@@ -114,8 +114,6 @@ export function usePreload(urls: string[]): [PreloadState] {
 
     urls.forEach((url) => {
       const req = new XMLHttpRequest();
-      req.open('GET', url, true);
-      req.responseType = 'blob';
 
       req.onprogress = (progressEvent) => {
         const progress = progressEvent.lengthComputable
@@ -140,6 +138,8 @@ export function usePreload(urls: string[]): [PreloadState] {
 
       req.onloadend = () => runningRequests.delete(req);
 
+      req.open('GET', url, true);
+      req.responseType = 'blob';
       req.send();
       runningRequests.add(req);
     });

@@ -84,6 +84,9 @@ export class Api {
 
 export type ApiResult<T> =
   | { kind: 'ok', data: T }
+  | ApiError;
+
+export type ApiError =
   | { kind: 'fetch-error', error: Error }
   | { kind: 'http-error', response: Response }
   | { kind: 'parse-error', errors: ParseError }

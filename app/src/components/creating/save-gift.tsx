@@ -23,7 +23,6 @@ interface Props {
 
 export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
   const state = useGiftSaver(gift);
-  console.log(state);
 
   useEffect(() => {
     if (state.kind === 'done') {
@@ -37,26 +36,28 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
 
 
   if (state.kind === 'uploading-assets') {
-    return <SavingInProgress text='Uploading assets' progress={state.progress} />;
+    return <SavingInProgress text='Uploading assets' progress={Math.round(state.progress * 100)} />;
   }
   if (state.kind === 'saving-gift' || state.kind === 'done') {
     return <SavingInProgress text='Processing gift... please be patient' />;
   }
 
   if (state.kind === 'invalid-gift') {
-    // This state shouldn't happen, but show something just in case
-    return (
-      <SavingFailed
-        text='Unfortunately this gift has failed'
-        buttonText='Home'
-        onClick={() => history.push('/')}
-      />
-    );
+    return <SavingFailedUnrecoverable text='Unfortunately this gift has failed' />;
   }
   if (state.kind === 'uploading-assets-error') {
     return <SavingFailed buttonText='Try again' onClick={state.retry} />;
   }
   if (state.kind === 'saving-gift-error') {
+    if (state.error.kind === 'http-error') {
+      return (
+        <SavingFailed
+          text="Unfortunately we're having a problem with the server"
+          buttonText='Try again'
+          onClick={state.retry}
+        />
+      );
+    }
     return <SavingFailed buttonText='Try again' onClick={state.retry} />;
   }
 
@@ -78,8 +79,7 @@ const SavingInProgress: React.FC<SavingInProgressProps> = ({ text, progress }) =
         <ProgressLoader text={text} percent={progress} colourTheme='white' />
       </PanelRound>
     </PanelContent>
-    <Buttons>
-    </Buttons>
+    <Buttons />
   </Panel>
 );
 
@@ -100,6 +100,26 @@ const SavingFailed: React.FC<SavingFailedProps> = ({ text, buttonText, onClick }
     </PanelContent>
     <Buttons>
       <Button onClick={onClick} primary={true}>{buttonText}</Button>
+    </Buttons>
+  </Panel>
+);
+
+
+
+interface SavingFailedUnrecoverableProps {
+  text: string;
+}
+const SavingFailedUnrecoverable: React.FC<SavingFailedUnrecoverableProps> = ({ text }) => (
+  <Panel>
+    <PanelTitle>Finish your gift</PanelTitle>
+    <PanelSubTitle>Saving failed</PanelSubTitle>
+    <PanelContent>
+      <PanelRound background='transparent-black'>
+        <PanelPrompt text={text} />
+      </PanelRound>
+    </PanelContent>
+    <Buttons>
+      <Button onClick={() => history.push('/')} primary={true}>Home</Button>
     </Buttons>
   </Panel>
 );
