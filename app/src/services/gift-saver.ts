@@ -17,15 +17,15 @@ const logger = getLogger('use-gift-saver');
 
 
 /**
- * Exposed interface for usegiftSaver
+ * Exposed interface for useGiftSaver
  */
-export type GiftSaverState =
-  | { kind: 'invalid-gift' }
-  | { kind: 'uploading-assets', progress: number }
-  | { kind: 'uploading-assets-error', retry: () => void }
-  | { kind: 'saving-gift' }
-  | { kind: 'saving-gift-error', error: ApiError, retry: () => void }
-  | { kind: 'done', gift: Gift }
+export type GiftSaver =
+  | { kind: 'invalid-gift', abort: () => void }
+  | { kind: 'uploading-assets', progress: number, abort: () => void }
+  | { kind: 'uploading-assets-error', abort: () => void, retry: () => void }
+  | { kind: 'saving-gift', abort: () => void }
+  | { kind: 'saving-gift-error', error: ApiError, abort: () => void, retry: () => void }
+  | { kind: 'done', gift: Gift, abort: () => void }
 ;
 
 
@@ -159,8 +159,8 @@ function reducer(state: State, action: Action): State {
  * TODO: This info
  * TODO: Factor out into functions
  */
-export function useGiftSaver(gift: InProgressGift): GiftSaverState {
-  const [command, setCommand] = useState<null | 'retry'>(null);
+export function useGiftSaver(gift: InProgressGift): GiftSaver {
+  const [command, setCommand] = useState<null | 'abort' | 'retry'>(null);
   const [state, dispatch] = useReducer(reducer, gift, mkState);
 
   useEffect(() => {
@@ -213,8 +213,18 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
   }, [state.kind]);
 
 
-  // Handle retry being called
+  // Handle commands being called
   useEffect(() => {
+    if (command === 'abort') {
+      // At the moment we can only really abort properly when uploading assets
+      if (state.kind === 'uploading-assets-running' || state.kind === 'uploading-assets-failure') {
+        state.pendingUploads.forEach((uploadState) => {
+          if (uploadState.kind === 'running') uploadState.uploader.abort();
+        });
+      }
+    }
+
+
     if (command === 'retry') {
 
       // Retry asset-upload
@@ -260,31 +270,34 @@ export function useGiftSaver(gift: InProgressGift): GiftSaverState {
     }
   }, [command, state.kind]);
 
+  // Commands that may be exposed
+  const abort = () => setCommand('abort');
+  const retry = () => setCommand('retry');
 
-  // Derive the exposed GiftSaverState from our internal state.
+  // Derive the exposed GiftSaver from our internal state.
   if (state.kind === 'invalid-gift') {
-    return { kind: 'invalid-gift' };
+    return { kind: 'invalid-gift', abort };
   }
   if (state.kind === 'ready') {
-    return { kind: 'uploading-assets', progress: 0 };
+    return { kind: 'uploading-assets', progress: 0, abort };
   }
   if (state.kind === 'uploading-assets-running') {
-    return { kind: 'uploading-assets', progress: totalProgress(state.pendingUploads) };
+    return { kind: 'uploading-assets', progress: totalProgress(state.pendingUploads), abort };
   }
   if (state.kind === 'uploading-assets-success') {
-    return { kind: 'uploading-assets', progress: 100 };
+    return { kind: 'uploading-assets', progress: 100, abort };
   }
   if (state.kind === 'uploading-assets-failure') {
-    return { kind: 'uploading-assets-error', retry: () => setCommand('retry') };
+    return { kind: 'uploading-assets-error', abort, retry };
   }
   if (state.kind === 'saving-gift-running') {
-    return { kind: 'saving-gift' };
+    return { kind: 'saving-gift', abort };
   }
   if (state.kind === 'saving-gift-success') {
-    return { kind: 'done', gift: state.gift };
+    return { kind: 'done', gift: state.gift, abort };
   }
   if (state.kind === 'saving-gift-failure') {
-    return { kind: 'saving-gift-error', error: state.error, retry: () => setCommand('retry') };
+    return { kind: 'saving-gift-error', error: state.error, abort, retry };
   }
 
   return assertNever(state);

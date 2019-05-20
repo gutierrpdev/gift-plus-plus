@@ -22,46 +22,50 @@ interface Props {
 }
 
 export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
-  const state = useGiftSaver(gift);
+  const saver = useGiftSaver(gift);
 
+  // Actions on saver state-transitions
   useEffect(() => {
-    if (state.kind === 'done') {
+    if (saver.kind === 'done') {
       track(savingGiftSucceededEvent({ giftId: gift.id }));
-      onComplete(state.gift);
+      onComplete(saver.gift);
     }
-    if (state.kind === 'invalid-gift') track(savingGiftFailedEvent({ giftId: gift.id }));
-    if (state.kind === 'uploading-assets-error') track(savingGiftFailedEvent({ giftId: gift.id }));
-    if (state.kind === 'saving-gift-error') track(savingGiftFailedEvent({ giftId: gift.id }));
-  });
+    if (saver.kind === 'invalid-gift') track(savingGiftFailedEvent({ giftId: gift.id }));
+    if (saver.kind === 'uploading-assets-error') track(savingGiftFailedEvent({ giftId: gift.id }));
+    if (saver.kind === 'saving-gift-error') track(savingGiftFailedEvent({ giftId: gift.id }));
+  }, [saver.kind]);
+
+  // Cleanup on exit
+  useEffect(() => () => saver.abort(), []);
 
 
-  if (state.kind === 'uploading-assets') {
-    return <SavingInProgress text='Uploading assets' progress={Math.round(state.progress * 100)} />;
+  if (saver.kind === 'uploading-assets') {
+    return <SavingInProgress text='Uploading assets' progress={Math.round(saver.progress * 100)} />;
   }
-  if (state.kind === 'saving-gift' || state.kind === 'done') {
+  if (saver.kind === 'saving-gift' || saver.kind === 'done') {
     return <SavingInProgress text='Processing gift... please be patient' />;
   }
 
-  if (state.kind === 'invalid-gift') {
+  if (saver.kind === 'invalid-gift') {
     return <SavingFailedUnrecoverable text='Unfortunately this gift has failed' />;
   }
-  if (state.kind === 'uploading-assets-error') {
-    return <SavingFailed buttonText='Try again' onClick={state.retry} />;
+  if (saver.kind === 'uploading-assets-error') {
+    return <SavingFailed buttonText='Try again' onClick={saver.retry} />;
   }
-  if (state.kind === 'saving-gift-error') {
-    if (state.error.kind === 'http-error') {
+  if (saver.kind === 'saving-gift-error') {
+    if (saver.error.kind === 'http-error') {
       return (
         <SavingFailed
           text="Unfortunately we're having a problem with the server"
           buttonText='Try again'
-          onClick={state.retry}
+          onClick={saver.retry}
         />
       );
     }
-    return <SavingFailed buttonText='Try again' onClick={state.retry} />;
+    return <SavingFailed buttonText='Try again' onClick={saver.retry} />;
   }
 
-  return assertNever(state);
+  return assertNever(saver);
 };
 
 
