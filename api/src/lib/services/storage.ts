@@ -83,11 +83,10 @@ export class StorageService {
 
     const uploadData = await this.s3.createPresignedPost({
       Fields: {
-        Key: this.generateUploadKey(fileName),
-        ACL: 'private',
-        ContentType: mimeType,
-        CacheControl: 'private',
-        ServerSideEncryption: 'AES256',
+        'Key': this.generateUploadKey(fileName),
+        'ACL': 'private',
+        'ServerSideEncryption': 'AES256',
+        'Content-Type': mimeType,
       },
       Expires: 60 * 60 * 24,
     });
