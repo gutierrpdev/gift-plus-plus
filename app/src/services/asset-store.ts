@@ -23,8 +23,8 @@ export class AssetStore {
     cLetThemKnowPart2: require('../assets/audio/c-let-them-know-part-2.m4a') as string,
     cLetThemKnowPart3: require('../assets/audio/c-let-them-know-part-3.m4a') as string,
     cStart: require('../assets/audio/c-start-gift.m4a') as string,
-    cShare: require('../assets/audio/c-share.m4a') as string,
-    // cShareWithOutro: require('../assets/audio/c-start-gift-with-outro.m4a') as string, UNUSED
+    // cShare: require('../assets/audio/c-share.m4a') as string,
+    cShareWithOutro: require('../assets/audio/c-start-gift-with-outro.m4a') as string,
     rIntroContentAtMuseumMuseumGift: require('../assets/audio/r-intro-content-local-museum.m4a') as string,
     rIntroContentAtMuseumPersonalGift: require('../assets/audio/r-intro-content-local-personal.m4a') as string,
     rIntroContentNotAtMuseumMuseumGift: require('../assets/audio/r-intro-content-remote-museum.m4a') as string,
