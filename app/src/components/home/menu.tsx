@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { global } from '../../themes/global';
 import { TextResize } from '../text-resize';
 import SvgArrowUp from '../svg/arrow-up';
-import { ButtonLink  } from '../buttons';
 
 /***
  * Global menu
@@ -92,7 +92,7 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
-    <MenuItem><ButtonLink to='/'>Home</ButtonLink></MenuItem>
+    <MenuItem><Link to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem><a href='https://www.surveymonkey.com/' target='_blank'>Feedback</a></MenuItem> {/* todo */}
