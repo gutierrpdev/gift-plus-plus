@@ -38,7 +38,7 @@ const OpenMuseumGiftSvg = styled.div`
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
-  margin-bottom: 5%;
+  margin-bottom: 11%;
 `;
 
 const PlusStyle = styled.div`
@@ -112,8 +112,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
             <HeaderMessageTextResize textSize={42}>
               Think of someone special<br/>
               and create a playlist for them<br/>
-              from objects around the<br/>
-              museum
+              from objects around the museum
             </HeaderMessageTextResize>
 
             <ReadMoreLink onClick={() => {setHelpIsOpen(true); }}>
