@@ -54,15 +54,12 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
 
       <Buttons>
         <ButtonLink to='/create-gift'>Create own gift</ButtonLink>
-
-        <Button primary={true}>
-          <Link
-            onClick={handleOpenGift}
-            to={`/gift/${config.curatedMuseumGiftId}`}
-          >
-            Show gift
-          </Link>
-        </Button>
+        <ButtonLink
+          onClick={handleOpenGift}
+          to={`/gift/${config.curatedMuseumGiftId}`}
+        >
+          Show gift
+        </ButtonLink>
       </Buttons>
 
     </Panel>

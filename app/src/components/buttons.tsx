@@ -120,6 +120,7 @@ const Button: React.FC<ButtonProps> = ({ colour = 'white', disabled, children, o
 export interface ButtonLinkProps {
   colour?: ButtonColour; // Colour scheme for this button
   to: string; // Router path for Link
+  onClick?: () => void;
 }
 
 // Button link styles
@@ -127,9 +128,9 @@ const ButtonLinkStyle = styled(Link)<ButtonLinkProps>`
   ${buttonStyles};
 `;
 
-const ButtonLink: React.FC<ButtonLinkProps> = ({ colour = 'white', to, children }) => {
+const ButtonLink: React.FC<ButtonLinkProps> = ({ colour = 'white', to, onClick, children }) => {
   return (
-    <ButtonLinkStyle colour={colour} to={to}>
+    <ButtonLinkStyle colour={colour} to={to} onClick={onClick}>
       <TextResize textSize={50}>{children}</TextResize>
     </ButtonLinkStyle>
   );
