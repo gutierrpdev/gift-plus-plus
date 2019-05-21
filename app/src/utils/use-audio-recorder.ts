@@ -78,6 +78,10 @@ export const useAudioRecorder: () => AudioRecorder = () => {
             // Setup a new MediaRecorder
             const recorder = new MediaRecorder(stream);
 
+            recorder.addEventListener('start', () => {
+              setState({ kind: 'recording', recorder });
+            });
+
             // Handle recording ready
             recorder.addEventListener('dataavailable', (e) => {
               const event = e as BlobEvent;
@@ -97,7 +101,6 @@ export const useAudioRecorder: () => AudioRecorder = () => {
             // Start recording
             try {
               recorder.start();
-              setState({ kind: 'recording', recorder });
             } catch (e) {
               setState({ kind: 'error',  error: 'recording-error', recorder });
             }
