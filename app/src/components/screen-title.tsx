@@ -16,7 +16,7 @@ const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
       case 'big':
         return 175;
       default:
-        return 90;
+        return 82;
     }
   })(),
     scaleDownForSmallDevices: true,

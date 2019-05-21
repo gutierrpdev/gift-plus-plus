@@ -169,17 +169,6 @@ storiesOf('Components', module)
         showLogo={false}
         museumName='Blast Theory Museum of Art'
       />
-      <p>Small header with message</p>
-      <ScreenHeader
-        subTitle={`Sub title`}
-        postSubTitle={`post sub title`}
-        title={'Title'}
-        postTitle={'post title'}
-        showLogo={false}
-        message='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua.'
-        museumName='Blast Theory Museum of Art'
-      />
     </div>
   ))
   // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)

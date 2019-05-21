@@ -158,15 +158,10 @@ export const HomeScreen: React.FC = () => {
       {/* Header */}
       {homeHeader &&
         <ScreenHeader
-          background='transparent-white'
           topPadding={'small'}
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'big'}
-          message='Think of someone special
-            and create a playlist for them
-            from objects around the
-            museum'
           museumName={museumName}
           onTermsAccepted={handleTermsAccepted}
         />

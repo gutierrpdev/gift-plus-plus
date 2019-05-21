@@ -12,7 +12,6 @@ import { InformationWindow } from './modals/information-window';
 import { Gradient } from './gradient';
 import { Menu, MenuBurger } from './home/menu';
 import { HeaderCloseButton } from './home/header-close-button';
-import { TextResize } from './text-resize';
 import { TermsModal } from './modals/terms-modal';
 import { HelpContent } from './information/help';
 import { TermsContent } from './information/terms';
@@ -21,7 +20,6 @@ import { TermsContent } from './information/terms';
  * Global screen header
  */
 
-
 // Texts wrapper
 const HeaderTexts = styled.div`
   width: 80%;
@@ -29,21 +27,10 @@ const HeaderTexts = styled.div`
   left: 10%;
 `;
 
-// Message
-const HeaderMessage = styled.div`
-  margin: 5% auto;
-  width: 80%;
-  text-align: center;
-`;
-
-const HeaderMessageTextResize = styled(TextResize)`
-  line-height: 1.2;
-`;
-
 interface ScreenHeaderStyleProps {
   topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
   museumName: string; // For terms dialog
-  background?: 'none' | 'transparent-white' | 'white'; // Background colour
+  background?: 'none' | 'white'; // Background colourhelp
 }
 
 // Header
@@ -90,9 +77,6 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   ${(props) => props.background === 'white' && `
     background-color: white;
   `}
-  ${(props) => props.background === 'transparent-white' && `
-    background-color: rgba(255,255,255, 0.4);
-  `}
 `;
 
 interface Props {
@@ -104,12 +88,11 @@ interface Props {
   postSubTitle?: string; // Text after the sub title
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
-  message?: string; // Optional message to show under the header.
   // Message is Included here to ensure it sits within the same background element
   museumName: string; // For terms dialog
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
   topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
-  background?: 'none' | 'transparent-white' | 'white'; // Background colour
+  background?: 'none' | 'white'; // Background colour
   onTermsAccepted?: () => void; // Callback for when the terms are accepted
 }
 
@@ -188,22 +171,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
         {props.postTitle && <ScreenPostTitle>{props.postTitle}</ScreenPostTitle>}
 
       </HeaderTexts>
-
-      {props.message &&
-        <HeaderMessage>
-          {/* support line breaks */}
-          {props.message && props.message.split('\n').map((item, key) => {
-            return (
-              <HeaderMessageTextResize
-                textSize={50}
-                key={key}
-              >
-                {item}
-              </HeaderMessageTextResize>
-            );
-          })}
-        </HeaderMessage>
-      }
 
       {showGradient && <Gradient position='bottom' />}
 
