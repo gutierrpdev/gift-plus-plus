@@ -119,7 +119,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
        <CreateGiftRecordAndPlayback
          gift={gift}
          text={`Record a greeting for ${gift.recipientName}`}
-         saveButtonText={'Save Greeting'}
+         saveButtonText={'Save greeting'}
          eventReference={'create-gift-record-greeting'}
          onComplete={(recipientGreeting) => {
            setGift({...gift, recipientGreeting });

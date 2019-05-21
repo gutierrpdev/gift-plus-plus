@@ -356,7 +356,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         playbackMessage={'Listen back to your message...'}
         gift={gift}
         text={text}
-        saveButtonText={'Save greeting'}
+        saveButtonText={'Save message'}
         eventReference='create-gift-part-why-this-object'
         onComplete={handleAudioRecordFinished}
       />
