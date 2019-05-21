@@ -90,7 +90,6 @@ interface MenuProps {
   onCloseClick: () => void; // Callback when the close button is clicked
 }
 
-// Link 'Home' to / (and not /home) so that any new visitors to the app will get the intro experience
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
     <MenuItem><Link to='/'>Home</Link></MenuItem>

@@ -2,10 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { GlobalStyles } from '../../themes/global';
-import { ScreenManager } from '../screen-manager';
-import { ScreenHeader } from '../screen-header';
-import { BgSvgFullScreen } from '../svg/bg';
+import { Panel, PanelContent } from '../panel';
 import { GiftPile } from '../gift-pile';
 import { Gift } from '../../domain';
 import { PanelTitle } from '../panel-title';
@@ -14,6 +11,11 @@ import SvgAddCircle from '../svg/add-circle';
 import SvgGift from '../svg/gift';
 
 import uuidv5 from 'uuid/v5';
+
+/**
+ * The gift home screen
+ * Shows welcome message, gift pile, and create a gift
+ */
 
 const OpenMuseumGift = styled.div`
   text-align: center;
@@ -64,7 +66,11 @@ const ContentBg = styled.div`
  * Home screen gifts top level component
  */
 
-const HomeGifts: React.FC = () => {
+interface HomeGiftProps {
+  museumName: string;
+}
+
+const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
   // todo get from API
   const giftsIn: Gift[] = [];
@@ -80,6 +86,7 @@ const HomeGifts: React.FC = () => {
     parts: [],
   };
 
+  { /* todo: remove these */ }
   const gift1Part = {...emptyGift,
     id: '/gift/cdfc5287-9d03-5c70-94f1-755d4480bfac',
     senderName: '1 Part Personal Gift',
@@ -101,85 +108,65 @@ const HomeGifts: React.FC = () => {
 
   const sentGiftCount = 0;
   const hasSentGifts = sentGiftCount > 0;
-  const museumName = 'Brighton Museum'; // todo: get from entry URL
 
   return (
 
-    <ScreenManager allowScroll={false}>
-      <BgSvgFullScreen />
-      <GlobalStyles />
+    <Panel>
+      <PanelContent>
 
-      {/* Header */}
-      <ScreenHeader
-        background='transparent-white'
-        topPadding={'small'}
-        title={`Gift`}
-        postTitle={`at ${museumName}`}
-        titleSize={'big'}
-        message='Think of someone special
-          and create a playlist for them
-          from objects around the
-          museum'
-        museumName={museumName}
-      />
+        {/* TEMP REMOVE
+        <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+        <GiftPile
+          gifts={giftsIn}
+        />*/}
 
-      <ContentBg>
-        <Content>
+        <OpenMuseumGift>
+          <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle>
 
-          {/* TEMP REMOVE
-          <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+          <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'> {/* todo: real url */}
+
+            <OpenMuseumGiftSvg>
+              <SvgGift colour='black' />
+            </OpenMuseumGiftSvg>
+            <OpenYourGift>
+              <TextResize>Open your gift from</TextResize>
+              <TextResize>{museumName}</TextResize>
+            </OpenYourGift>
+
+          </Link>
+
+        </OpenMuseumGift>
+
+        <LineSpacer />
+
+        {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
+
+        {hasSentGifts &&
           <GiftPile
             gifts={giftsIn}
-          />*/}
+          />
+        }
+        {!hasSentGifts &&
+          <GiftsNotSent>
+            {/* <TextResize textSize={50}>
+              You've not sent any gifts<br/>
+              Make one now?
+            </TextResize> */}
+            <TextResize textSize={50}>
+              Create a new gift of<br/>
+              your own
+            </TextResize>
+            <PlusStyle>
+              <Link to='/create-gift'>
+                <SvgAddCircle />
+              </Link>
+            </PlusStyle>
+          </GiftsNotSent>
+        }
 
-          <OpenMuseumGift>
-            <PanelTitle textSize={50}>If you're at the museum now...</PanelTitle>
+      </PanelContent>
+    </Panel>
 
-            <Link to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'> {/* todo: real url */}
-
-              <OpenMuseumGiftSvg>
-                <SvgGift colour='black' />
-              </OpenMuseumGiftSvg>
-              <OpenYourGift>
-                <TextResize>Open your gift from</TextResize>
-                <TextResize>{museumName}</TextResize>
-              </OpenYourGift>
-
-            </Link>
-
-          </OpenMuseumGift>
-
-          <LineSpacer />
-
-          {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
-
-          {hasSentGifts &&
-            <GiftPile
-              gifts={giftsIn}
-            />
-          }
-          {!hasSentGifts &&
-            <GiftsNotSent>
-              {/* <TextResize textSize={50}>
-                You've not sent any gifts<br/>
-                Make one now?
-              </TextResize> */}
-              <TextResize textSize={50}>
-                Create a new gift of<br/>
-                your own
-              </TextResize>
-              <PlusStyle>
-                <Link to='/create-gift'>
-                  <SvgAddCircle />
-                </Link>
-              </PlusStyle>
-            </GiftsNotSent>
-          }
-
-        </Content>
-      </ContentBg>
-
-    </ScreenManager>
   );
 
 };

@@ -28,7 +28,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
     track(giftCompleteGoHomePressedEvent( {giftId: gift.id} ));
 
     // Go to the home screen
-    history.push('/home');
+    history.push('/');
 
   }
 

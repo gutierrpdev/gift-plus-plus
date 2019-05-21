@@ -123,7 +123,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     track(giftReceiveCompleteGoHomePressedEvent( {giftId: props.gift.id} ));
 
     // Go to the home screen
-    history.push('/home');
+    history.push('/');
 
   }
 

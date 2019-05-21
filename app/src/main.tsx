@@ -11,7 +11,6 @@ import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
 import { CreateGiftScreen } from './screens/create-gift';
 import { HomeScreen } from './screens/home';
-import { HomeGiftsScreen } from './screens/home-gifts';
 import { LandscapeMessage } from './components/messages/landscape-message';
 import { WorkingProgress } from './components/messages/working-progress';
 import { ErrorMessage } from './components/messages/error-message';
@@ -47,10 +46,6 @@ export const Main: React.FC = () => {
 
         <Route exact={true} path='/'>
           <HomeScreen />
-        </Route>
-
-        <Route exact={true} path='/home'>
-          <HomeGiftsScreen />
         </Route>
 
         <Route exact={true} path='/create-gift'>
