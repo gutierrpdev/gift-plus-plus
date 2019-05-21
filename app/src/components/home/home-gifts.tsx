@@ -20,9 +20,9 @@ import SvgGift from '../svg/gift';
 
  // Message
 const HeaderMessage = styled.div`
-margin: 5% auto 3%;
-width: 80%;
-text-align: center;
+  margin: 3% auto 3%;
+  width: 80%;
+  text-align: center;
 `;
 
 const HeaderMessageTextResize = styled(TextResize)`
@@ -34,7 +34,7 @@ const OpenMuseumGift = styled.div`
 `;
 const OpenMuseumGiftSvg = styled.div`
   margin: 6% auto 1%;
-  width: 20%;
+  width: 25%;
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
@@ -43,7 +43,7 @@ const OpenYourGift = styled.div`
 
 const PlusStyle = styled.div`
   margin: 4% auto 0;
-  width: 25%;
+  width: 32%;
   cursor: pointer;
 `;
 
@@ -66,12 +66,16 @@ const LineSpacer = styled.div`
 `;
 
 const ReadMoreLink = styled.button`
-  margin: 4% 0 0;
+  margin: 2% 0 0;
   font-style: italic;
   color: ${global.colour.darkGrey};
   border: none;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.normal};
+`;
+
+const SectionTitle = styled(PanelTitle)`
+  margin-bottom: 10%;
 `;
 
 /**
@@ -105,7 +109,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         <HomeContent>
 
           <HeaderMessage>
-            <HeaderMessageTextResize textSize={40}>
+            <HeaderMessageTextResize textSize={42}>
               Think of someone special<br/>
               and create a playlist for them<br/>
               from objects around the<br/>
@@ -113,7 +117,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
             </HeaderMessageTextResize>
 
             <ReadMoreLink onClick={() => {setHelpIsOpen(true); }}>
-              <TextResize textSize={40}>More...</TextResize>
+              <TextResize textSize={42}>More...</TextResize>
             </ReadMoreLink>
           </HeaderMessage>
 
@@ -126,7 +130,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
           />*/}
 
           <OpenMuseumGift>
-            <PanelTitle textSize={40}>If you're at the museum now...</PanelTitle>
+            <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>
 
             <Link to={`/gift/${config.curatedMuseumGiftId}`}>
 
@@ -135,7 +139,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
               </OpenMuseumGiftSvg>
 
               <OpenYourGift>
-                <TextResize textSize={40}>
+                <TextResize textSize={42}>
                   Open your gift from<br/>
                   {museumName}
                 </TextResize>
@@ -159,15 +163,15 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
                 You've not sent any gifts<br/>
                 Make one now?
               </TextResize> */}
-              <TextResize textSize={40}>
-                Create a new gift of<br/>
-                your own
-              </TextResize>
-              <PlusStyle>
-                <Link to='/create-gift'>
+              <Link to='/create-gift'>
+                <TextResize textSize={42}>
+                  Create a new gift of<br/>
+                  your own
+                </TextResize>
+                <PlusStyle>
                   <SvgAddCircle />
-                </Link>
-              </PlusStyle>
+                </PlusStyle>
+              </Link>
             </GiftsNotSent>
           }
 
