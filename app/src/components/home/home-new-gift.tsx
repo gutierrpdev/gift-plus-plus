@@ -6,7 +6,7 @@ import { config } from '../../config';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
-import { Buttons, Button  } from '../buttons';
+import { Buttons, Button, ButtonLink  } from '../buttons';
 import {
   setHasUnopenedMuseumGift,
 } from '../../utils/local';
@@ -53,7 +53,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
       </PanelContent>
 
       <Buttons>
-        <Button><Link to='/create-gift'>Create own gift</Link></Button>
+        <ButtonLink to='/create-gift'>Create own gift</ButtonLink>
 
         <Button primary={true}>
           <Link

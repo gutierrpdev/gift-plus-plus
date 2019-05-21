@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import { GlobalStyles } from '../../themes/global';
-import { Buttons, Button } from '../buttons';
+import { Buttons, ButtonAnchor, ButtonLink } from '../buttons';
 import { ScreenMessage } from './screen-message';
 import { ScreenManager } from '../screen-manager';
 import { TextResize } from '../text-resize';
@@ -37,8 +36,8 @@ const ErrorMessage: React.FC<Props> = ({ message }) => (
       <ErrorTextResize>Cancel to return to the Gift homepage</ErrorTextResize>
 
       <DeviceButtons>
-        <Button colour='black'><Link to='/'>Cancel</Link></Button>
-        <Button colour='black'><a href={window.location.href}>Try again</a></Button>
+        <ButtonLink colour='black' to='/'>Cancel</ButtonLink>
+        <ButtonAnchor colour='black' href={window.location.href}>Try again</ButtonAnchor>
       </DeviceButtons>
 
     </ScreenMessage>

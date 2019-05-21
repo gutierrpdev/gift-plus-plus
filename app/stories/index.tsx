@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
-import uuidv4 from 'uuid/v4';
-import uuidv5 from 'uuid/v5';
 
 import history from '../src/utils/router-history';
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
@@ -20,7 +18,7 @@ import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelRound } from '../src/components/panel-round';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
-import { Button, Buttons, ButtonLink } from '../src/components/buttons';
+import { Button, Buttons, ButtonLink, ButtonAnchor } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer } from '../src/components/media/audio-player';
 import { AudioRecorder } from '../src/components/media/audio-recorder';
@@ -244,6 +242,12 @@ storiesOf('Components', module)
           <Buttons>
             <Button>Button 1</Button>
             <ButtonLink to='/cats' colour='black'>Link 2</ButtonLink>
+          </Buttons>
+
+          <p>One button, one Anchor</p>
+          <Buttons>
+            <Button>Button 1</Button>
+            <ButtonAnchor href='http://www.blasttheory.co.uk/' colour='black'>Link 2</ButtonAnchor>
           </Buttons>
 
           <p>There is a gradient below</p>

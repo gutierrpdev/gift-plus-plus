@@ -10,6 +10,7 @@ import { TextResize } from './text-resize';
  * Buttons is the button wrapper
  * Button for a clickable JS button
  * ButtonLink for a styled Router Link, to sit within our Buttons wrapper
+ * ButtonAnchor for a styled a(nchor) tag, to sit within our Buttons wrapper
  */
 
 const buttonPaddingVh = 2.5;
@@ -135,6 +136,28 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({ colour = 'white', to, children 
 };
 
 /**
+ * ButtonAnchor component
+ * An anchor component, styed like our Button
+ */
+export interface ButtonAchorProps {
+  colour?: ButtonColour; // Colour scheme for this button
+  href: string;
+}
+
+// Button link styles
+const ButtonAnchorStyle = styled.a<ButtonAchorProps>`
+  ${buttonStyles};
+`;
+
+const ButtonAnchor: React.FC<ButtonAchorProps> = ({ colour = 'white', href, children }) => {
+  return (
+    <ButtonAnchorStyle colour={colour} href={href}>
+      <TextResize textSize={50}>{children}</TextResize>
+    </ButtonAnchorStyle>
+  );
+};
+
+/**
  * Base button used for controls (audio player, photo capture, etc)
  * Base button has active state
  */
@@ -149,6 +172,7 @@ const BaseControlButton = styled.div`
 export {
   Button,
   ButtonLink,
+  ButtonAnchor,
   Buttons,
   BaseControlButton,
 };
