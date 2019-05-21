@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { config } from '../../config';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
@@ -55,10 +56,9 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
         <Button><Link to='/create-gift'>Create own gift</Link></Button>
 
         <Button primary={true}>
-          {/* todo: real url */}
           <Link
             onClick={handleOpenGift}
-            to='/gift/2e73df73-4faf-5c0a-abaa-c3717fd3ef7c'
+            to={`/gift/${config.curatedMuseumGiftId}`}
           >
             Show gift
           </Link>
