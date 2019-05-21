@@ -29,7 +29,7 @@ const AudioPlayerStyle = styled.div`
 const AudioPanelText = styled(PanelText)`
   height: 50%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   margin: 0 0 8%;
 `;
