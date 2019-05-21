@@ -20,7 +20,7 @@ import { Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelRound } from '../src/components/panel-round';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
-import { Button, Buttons } from '../src/components/buttons';
+import { Button, Buttons, ButtonLink } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer } from '../src/components/media/audio-player';
 import { AudioRecorder } from '../src/components/media/audio-recorder';
@@ -64,7 +64,6 @@ import { CreateGiftChooseRecipient } from '../src/components/creating/choose-rec
 import { CreateGiftRecordAndPlayback } from '../src/components/creating/record-and-playback';
 import { CreatingPartContent } from '../src/components/creating/part-content';
 import { SignGift } from '../src/components/creating/sign-gift';
-import { SaveGift } from '../src/components/creating/save-gift';
 import { ShareGift } from '../src/components/creating/share-gift';
 
 // Data
@@ -218,29 +217,39 @@ storiesOf('Components', module)
 
         <GlobalStyles />
 
-        <p>One button</p>
-        <Buttons>
-          <Button onClick={logSomething}>One button</Button>
-        </Buttons>
+        <BrowserRouter>
 
-        <p>Black button</p>
-        <Buttons>
-          <Button colour='black'>Black button</Button>
-        </Buttons>
+          <p>One button</p>
+          <Buttons>
+            <Button onClick={logSomething}>One button</Button>
+          </Buttons>
 
-        <p>Grey button</p>
-        <Buttons>
-          <Button colour='grey'>Grey button</Button>
-        </Buttons>
+          <p>Black button</p>
+          <Buttons>
+            <Button colour='black'>Black button</Button>
+          </Buttons>
 
-        <p>Two buttons</p>
-        <Buttons>
-          <Button>Button 1</Button>
-          <Button primary={true}>Button 2</Button>
-        </Buttons>
+          <p>Grey button</p>
+          <Buttons>
+            <Button colour='grey'>Grey button</Button>
+          </Buttons>
 
-        <p>There is a gradient below</p>
-        <Gradient />
+          <p>Two buttons</p>
+          <Buttons>
+            <Button>Button 1</Button>
+            <Button primary={true}>Button 2</Button>
+          </Buttons>
+
+          <p>One button, one Link</p>
+          <Buttons>
+            <Button>Button 1</Button>
+            <ButtonLink to='/cats' colour='black'>Link 2</ButtonLink>
+          </Buttons>
+
+          <p>There is a gradient below</p>
+          <Gradient />
+
+        </BrowserRouter>
 
       </div>
   ))

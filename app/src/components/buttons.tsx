@@ -1,8 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { global } from '../themes/global';
 import { TextResize } from './text-resize';
+
+/**
+ * Button components
+ * Buttons is the button wrapper
+ * Button for a clickable JS button
+ * ButtonLink for a styled Router Link, to sit within our Buttons wrapper
+ */
 
 const buttonPaddingVh = 2.5;
 const buttonBorderRadiusVh = 2;
@@ -32,15 +40,10 @@ type ButtonColour =
 ;
 
 
-export interface ButtonProps {
-  primary?: boolean; // todo: remove this once confirm no longer required by NT
-  colour?: ButtonColour; // Colour scheme for this button
-  disabled?: boolean; // Is this visible button disabled?
-  onClick?: () => void; // Callback when the button is clicked
-}
-
-// Button
-const ButtonStyle = styled.button<ButtonProps>`
+/**
+ * Shared Button styles, for both Button and ButtonLink
+ */
+const buttonStyles = css<ButtonProps>`
   font-family: ${global.fonts.title.family};
   /* background-color: ${(props) => props.colour === 'white' ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'}; */
   background-color: ${(props) =>
@@ -86,6 +89,21 @@ const ButtonStyle = styled.button<ButtonProps>`
   }
 `;
 
+/**
+ * Button component
+ */
+export interface ButtonProps {
+  primary?: boolean; // todo: remove this once confirm no longer required by NT
+  colour?: ButtonColour; // Colour scheme for this button
+  disabled?: boolean; // Is this visible button disabled?
+  onClick?: () => void; // Callback when the button is clicked
+}
+
+// Button styles
+const ButtonStyle = styled.button<ButtonProps>`
+  ${buttonStyles};
+`;
+
 const Button: React.FC<ButtonProps> = ({ colour = 'white', disabled, children, onClick }) => {
   return (
     <ButtonStyle colour={colour} onClick={onClick} disabled={disabled}>
@@ -94,9 +112,32 @@ const Button: React.FC<ButtonProps> = ({ colour = 'white', disabled, children, o
   );
 };
 
+/**
+ * ButtonLink component
+ * An Router Link component, styed like our Button
+ */
+export interface ButtonLinkProps {
+  colour?: ButtonColour; // Colour scheme for this button
+  to: string; // Router path for Link
+}
 
-// Base button used for controls (audio player, photo capture, etc)
-// Base button has active state
+// Button link styles
+const ButtonLinkStyle = styled(Link)<ButtonLinkProps>`
+  ${buttonStyles};
+`;
+
+const ButtonLink: React.FC<ButtonLinkProps> = ({ colour = 'white', to, children }) => {
+  return (
+    <ButtonLinkStyle colour={colour} to={to}>
+      <TextResize textSize={50}>{children}</TextResize>
+    </ButtonLinkStyle>
+  );
+};
+
+/**
+ * Base button used for controls (audio player, photo capture, etc)
+ * Base button has active state
+ */
 const BaseControlButton = styled.div`
   cursor: pointer;
   opacity: 0.8;
@@ -107,6 +148,7 @@ const BaseControlButton = styled.div`
 
 export {
   Button,
+  ButtonLink,
   Buttons,
   BaseControlButton,
 };
