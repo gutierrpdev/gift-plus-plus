@@ -22,9 +22,17 @@ export class AssetStore {
     cLetThemKnowPart1: require('../assets/audio/c-let-them-know-part-1.m4a') as string,
     cLetThemKnowPart2: require('../assets/audio/c-let-them-know-part-2.m4a') as string,
     cLetThemKnowPart3: require('../assets/audio/c-let-them-know-part-3.m4a') as string,
-    cStartGift: require('../assets/audio/c-start-gift.m4a') as string,
-    rIntroContent1: require('../assets/audio/r-intro-content-1.m4a') as string,
-    rOutroLocal: require('../assets/audio/r-outro-local.m4a') as string,
+    cStart: require('../assets/audio/c-start-gift.m4a') as string,
+    cShare: require('../assets/audio/c-share.m4a') as string,
+    // cShareWithOutro: require('../assets/audio/c-start-gift-with-outro.m4a') as string, UNUSED
+    rIntroContentAtMuseumMuseumGift: require('../assets/audio/r-intro-content-local-museum.m4a') as string,
+    rIntroContentAtMuseumPersonalGift: require('../assets/audio/r-intro-content-local-personal.m4a') as string,
+    rIntroContentNotAtMuseumMuseumGift: require('../assets/audio/r-intro-content-remote-museum.m4a') as string,
+    rIntroContentNotAtMuseumPersonalGift: require('../assets/audio/r-intro-content-remote-personal.m4a') as string,
+    rOutroAtMuseumMuseumGift: require('../assets/audio/r-outro-local-museum.m4a') as string,
+    rOutroAtMuseumPersonalGift: require('../assets/audio/r-outro-local-personal.m4a') as string,
+    rOutroNotAtMuseumMuseumGift: require('../assets/audio/r-outro-remote-museum.m4a') as string,
+    rOutroNotAtMuseumPersonalGift: require('../assets/audio/r-outro-remote-personal.m4a') as string,
   };
 
   // For now we're not clever enough to run more than once and handle failures,

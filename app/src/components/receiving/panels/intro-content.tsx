@@ -52,12 +52,12 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
   // TODO: update these audio files
   const audioFile = atMuseum
     ? museumGift
-      ? assetStore.assets.rIntroContent1
-      : assetStore.assets.rIntroContent1
+      ? assetStore.assets.rIntroContentAtMuseumMuseumGift
+      : assetStore.assets.rIntroContentAtMuseumPersonalGift
     // not at museum
     : museumGift
-      ? assetStore.assets.rIntroContent1
-      : assetStore.assets.rIntroContent1;
+      ? assetStore.assets.rIntroContentNotAtMuseumMuseumGift
+      : assetStore.assets.rIntroContentNotAtMuseumPersonalGift;
 
   const eventReference = atMuseum
     ? museumGift
