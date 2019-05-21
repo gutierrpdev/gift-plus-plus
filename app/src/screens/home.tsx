@@ -16,6 +16,7 @@ import {
     getHasUnopenedMuseumGift,
     getSessionRecipientLocation,
     setSessionRecipientLocation,
+    getUserHasAgreedTerms,
 } from '../utils/local';
 import {
   track,
@@ -34,6 +35,10 @@ export const HomeScreen: React.FC = () => {
 
   // State
   const [status, setStatus] = useState<Status>('none');
+
+  // Default to the stored state
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(getUserHasAgreedTerms());
+
   // Default to stored recipientLocation value
   const [recipientLocation, setRecipientLocation] = useState<RecipientLocation>(getSessionRecipientLocation);
 
@@ -138,7 +143,12 @@ export const HomeScreen: React.FC = () => {
     showNextScreen('intro1');
   }
 
+  // Determine header style
   const homeHeader = status === 'show-gifts';
+
+  function handleTermsAccepted() {
+    setTermsAccepted(true);
+  }
 
   return (
     <ScreenManager>
@@ -158,6 +168,7 @@ export const HomeScreen: React.FC = () => {
             from objects around the
             museum'
           museumName={museumName}
+          onTermsAccepted={handleTermsAccepted}
         />
       }
       {!homeHeader &&
@@ -167,13 +178,13 @@ export const HomeScreen: React.FC = () => {
           postTitle={`at ${museumName}`}
           titleSize={'very-big'}
           museumName={museumName}
+          onTermsAccepted={handleTermsAccepted}
         />
       }
 
       {/* Content */}
-        {status === 'intro1' &&
-          <HomeIntro1 onComplete={() => {showNextScreen('intro2'); }} />
-        }
+        {status === 'intro1' && !termsAccepted && <HomeIntro1/>}
+        {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
 
         {status === 'intro2' &&
           <HomeIntro2 onComplete={() => {showNextScreen('choose-location'); }} />

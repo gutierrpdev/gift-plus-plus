@@ -10,7 +10,7 @@ import { WaitThen } from '../utils/wait-then';
  */
 
 interface Props {
-  onComplete: () => void; // Callback to fire when this content is complete
+  onComplete?: () => void; // Callback to fire when this content is complete
 }
 
 const HomeIntro1: React.FC<Props> = ({ onComplete }) => {

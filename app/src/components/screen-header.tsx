@@ -40,8 +40,14 @@ const HeaderMessageTextResize = styled(TextResize)`
   line-height: 1.2;
 `;
 
+interface ScreenHeaderStyleProps {
+  topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
+  museumName: string; // For terms dialog
+  background?: 'none' | 'transparent-white' | 'white'; // Background colour
+}
+
 // Header
-const ScreenHeaderStyle = styled.div<Props>`
+const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   width: 100%;
   padding: 5% 2% 3%;
   z-index: 2000; // high to aid the menu
@@ -104,6 +110,7 @@ interface Props {
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
   topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
   background?: 'none' | 'transparent-white' | 'white'; // Background colour
+  onTermsAccepted?: () => void; // Callback for when the terms are accepted
 }
 
 const ScreenHeader: React.FC<Props> = (props: Props) => {
@@ -131,11 +138,20 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     // Close the dialog
     setTermsModalIsOpen(false);
 
+    // Callback
+    if (props.onTermsAccepted) {
+      props.onTermsAccepted();
+    }
+
   }
 
   return (
     <>
-    <ScreenHeaderStyle {...props}>
+    <ScreenHeaderStyle
+      topPadding={props.topPadding}
+      museumName={props.museumName}
+      background={props.background}
+    >
 
       {isMenuOpen &&
         <Menu
