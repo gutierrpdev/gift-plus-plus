@@ -47,8 +47,13 @@ const PlusStyle = styled.div`
   cursor: pointer;
 `;
 
-const HomeContent = styled(PanelContent)`
+const HomeContent = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: flex-start;
+  position: relative;
+  width: 100%;
 `;
 
 const GiftsNotSent = styled.div`
@@ -105,77 +110,75 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         </InformationWindow>
       }
 
-      <Panel>
-        <HomeContent>
+      <HomeContent>
 
-          <HeaderMessage>
-            <HeaderMessageTextResize textSize={42}>
-              Think of someone special<br/>
-              and create a playlist for them<br/>
-              from objects around the museum
-            </HeaderMessageTextResize>
+        <HeaderMessage>
+          <HeaderMessageTextResize textSize={42}>
+            Think of someone special<br/>
+            and create a playlist for them<br/>
+            from objects around the museum
+          </HeaderMessageTextResize>
 
-            <ReadMoreLink onClick={() => {setHelpIsOpen(true); }}>
-              <TextResize textSize={42}>More...</TextResize>
-            </ReadMoreLink>
-          </HeaderMessage>
+          <ReadMoreLink onClick={() => {setHelpIsOpen(true); }}>
+            <TextResize textSize={42}>More...</TextResize>
+          </ReadMoreLink>
+        </HeaderMessage>
 
-          <LineSpacer />
+        <LineSpacer />
 
-          {/* TEMP REMOVE
-          <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+        {/* TEMP REMOVE
+        <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+        <GiftPile
+          gifts={giftsIn}
+        />*/}
+
+        <OpenMuseumGift>
+          <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>
+
+          <Link to={`/gift/${config.curatedMuseumGiftId}`}>
+
+            <OpenMuseumGiftSvg>
+              <SvgGift colour='black' />
+            </OpenMuseumGiftSvg>
+
+            <OpenYourGift>
+              <TextResize textSize={42}>
+                Open your gift from<br/>
+                {museumName}
+              </TextResize>
+            </OpenYourGift>
+
+          </Link>
+        </OpenMuseumGift>
+
+        <LineSpacer />
+
+        {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
+
+        {/* {hasSentGifts &&
           <GiftPile
             gifts={giftsIn}
-          />*/}
-
-          <OpenMuseumGift>
-            <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>
-
-            <Link to={`/gift/${config.curatedMuseumGiftId}`}>
-
-              <OpenMuseumGiftSvg>
-                <SvgGift colour='black' />
-              </OpenMuseumGiftSvg>
-
-              <OpenYourGift>
-                <TextResize textSize={42}>
-                  Open your gift from<br/>
-                  {museumName}
-                </TextResize>
-              </OpenYourGift>
-
+          />
+        } */}
+        {!hasSentGifts &&
+          <GiftsNotSent>
+            {/* <TextResize textSize={50}>
+              You've not sent any gifts<br/>
+              Make one now?
+            </TextResize> */}
+            <Link to='/create-gift'>
+              <TextResize textSize={42}>
+                Create a new gift of<br/>
+                your own
+              </TextResize>
+              <PlusStyle>
+                <SvgAddCircle />
+              </PlusStyle>
             </Link>
-          </OpenMuseumGift>
+          </GiftsNotSent>
+        }
 
-          <LineSpacer />
-
-          {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
-
-          {/* {hasSentGifts &&
-            <GiftPile
-              gifts={giftsIn}
-            />
-          } */}
-          {!hasSentGifts &&
-            <GiftsNotSent>
-              {/* <TextResize textSize={50}>
-                You've not sent any gifts<br/>
-                Make one now?
-              </TextResize> */}
-              <Link to='/create-gift'>
-                <TextResize textSize={42}>
-                  Create a new gift of<br/>
-                  your own
-                </TextResize>
-                <PlusStyle>
-                  <SvgAddCircle />
-                </PlusStyle>
-              </Link>
-            </GiftsNotSent>
-          }
-
-        </HomeContent>
-      </Panel>
+      </HomeContent>
 
     </>
 
