@@ -69,7 +69,7 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
       : 'receiving-intro-not-at-museum-personal-gift';
 
   return (
-    <Panel>
+    <Panel isParent={false}>
 
       <PanelContent>
 

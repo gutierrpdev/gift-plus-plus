@@ -330,7 +330,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // Use an index to advance to next statge
   return (
-    <Panel>
+    <Panel isParent={false}>
 
       <PanelContent>
 
