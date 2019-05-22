@@ -40,8 +40,6 @@ const HomeIntro2: React.FC<Props> = ({ onComplete }) => {
         />
       </PanelContent>
 
-      <Buttons />
-
       <WaitThen
         wait={defaultWait}
         andThen={handleComplete}

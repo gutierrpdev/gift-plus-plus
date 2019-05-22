@@ -6,7 +6,8 @@ import { isIosDevice } from '../../utils/helpers';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { TextResize } from '../text-resize';
 
 import SvgIconSms from '../svg/icon-sms';
@@ -137,9 +138,9 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
         </Shares>
       </PanelContent>
 
-      <Buttons>
+      <PanelButtons>
         <Button onClick={onComplete} colour={'black'}>Continue</Button>
-      </Buttons>
+      </PanelButtons>
 
     </Panel>
   );

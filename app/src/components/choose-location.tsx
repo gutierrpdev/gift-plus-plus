@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Panel, PanelContent } from './panel';
 import { PanelPrompt } from './panel-prompt';
-import { Buttons, Button } from './buttons';
+import { PanelButtons } from './panel-buttons';
+import { Button } from './buttons';
 
 /***
  * Choose location panel
@@ -40,10 +41,10 @@ const ChooseLocation: React.FC<ChooseLocationProps> = (props) => {
           allowCompactRound={true}
         />
       </PanelContent>
-      <Buttons>
+      <PanelButtons>
         <Button onClick={handleNotAtMuseum}>No</Button>
         <Button onClick={handleAtMuseum} primary={true}>Yes</Button>
-      </Buttons>
+      </PanelButtons>
     </Panel>
   );
 };

@@ -8,7 +8,8 @@ import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/even
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
@@ -203,7 +204,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             andThen={() => { setStatus('second-message'); }}
           />
         </PanelContent>
-        <Buttons />
       </>
     );
   }
@@ -243,12 +243,11 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             />
           }
         </PanelContent>
-        <Buttons>
-          {/* <Button>Skip</Button> */}
+        <PanelButtons>
           {firstAudioHasPlayed &&
             <Button onClick={() => {setStatus('take-photo'); }} primary={true}>Continue</Button>
           }
-        </Buttons>
+        </PanelButtons>
       </>
     );
   }
@@ -291,10 +290,10 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             />
           }
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           {/* <Button onClick={() => {setStatus('second-message'); }}>Back</Button> */}
           <Button onClick={() => {setShowCamera(true); }} primary={true}>Open camera</Button>
-        </Buttons>
+        </PanelButtons>
       </>
     );
   }
@@ -334,12 +333,12 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             />
           }
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           {/* {secondAudioHasPlayed && <Button onClick={() => {setStatus('record-message'); }}>Skip</Button>} */}
           {secondAudioHasPlayed &&
             <Button onClick={() => {setStatus('record-message'); }} primary={true}>Record message</Button>
           }
-        </Buttons>
+        </PanelButtons>
       </>
     );
   }
@@ -382,7 +381,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             andThen={next}
           />
         </PanelContent>
-        <Buttons />
       </>
     );
   }
@@ -404,10 +402,10 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             onClick={next}
           />
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           <Button onClick={clearClueAndNext}>Skip</Button>
           <Button onClick={next}>Write a clue</Button>
-        </Buttons>
+        </PanelButtons>
       </>
     );
   }
@@ -446,7 +444,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             andThen={next}
           />
         </PanelContent>
-        <Buttons />
       </>
     );
   }
@@ -467,7 +464,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             andThen={() => { setStatus('send-or-add-more'); }}
           />
         </PanelContent>
-        <Buttons />
       </>
     );
   }
@@ -489,7 +485,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             />
           }
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           <Button onClick={handleAllComplete}>Send now</Button>
           {giftPartIndex === 0 &&
             <Button onClick={handleStartPart2} primary={true}>Add another</Button>
@@ -497,7 +493,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           {giftPartIndex === 1 &&
            <Button onClick={handleStartPart3} primary={true}>Add another</Button>
           }
-        </Buttons>
+        </PanelButtons>
       </>
     );
   }

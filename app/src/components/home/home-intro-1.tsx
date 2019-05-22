@@ -39,8 +39,6 @@ const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
         />
       </PanelContent>
 
-      <Buttons />
-
       <WaitThen
         wait={defaultWait}
         andThen={handleComplete}

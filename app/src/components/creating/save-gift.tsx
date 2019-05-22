@@ -11,7 +11,8 @@ import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelRound } from '../panel-round';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { ProgressLoader } from '../progress-loader';
 import { track, savingGiftAttemptedEvent, savingGiftSucceededEvent, savingGiftFailedEvent } from '../../utils/events';
 
@@ -83,7 +84,6 @@ const SavingInProgress: React.FC<SavingInProgressProps> = ({ text, progress }) =
         <ProgressLoader text={text} percent={progress} colourTheme='white' />
       </PanelRound>
     </PanelContent>
-    <Buttons />
   </Panel>
 );
 
@@ -102,9 +102,9 @@ const SavingFailed: React.FC<SavingFailedProps> = ({ text, buttonText, onClick }
         <PanelPrompt text={text || `Please check you're connected to the internet`} />
       </PanelRound>
     </PanelContent>
-    <Buttons>
+    <PanelButtons>
       <Button onClick={onClick} primary={true}>{buttonText}</Button>
-    </Buttons>
+    </PanelButtons>
   </Panel>
 );
 
@@ -122,8 +122,8 @@ const SavingFailedUnrecoverable: React.FC<SavingFailedUnrecoverableProps> = ({ t
         <PanelPrompt text={text} />
       </PanelRound>
     </PanelContent>
-    <Buttons>
+    <PanelButtons>
       <Button onClick={() => history.push('/')} primary={true}>Home</Button>
-    </Buttons>
+    </PanelButtons>
   </Panel>
 );

@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { assetStore } from '../../../services';
 
 import { Panel, PanelContent } from '../../panel';
-import { Buttons, Button } from '../../buttons';
+import { PanelButtons } from '../../panel-buttons';
+import { Button } from '../../buttons';
 import { AudioPlayer } from '../../media/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift } from '../../../domain';
@@ -84,11 +85,11 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
 
       </PanelContent>
 
-      <Buttons>
+      <PanelButtons>
         {/* todo: reinstate this */}
         {/* {props.audioIntroPlayed && <Button onClick={handleContinue}>Skip</Button>} */}
         {audioPlaybackFinished && <Button onClick={handleContinue} primary={true}>Continue</Button>}
-      </Buttons>
+      </PanelButtons>
 
     </Panel>
   );

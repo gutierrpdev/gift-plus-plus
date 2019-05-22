@@ -5,7 +5,8 @@ import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder'
 import { InProgressGift, LocalFile } from '../../domain';
 
 import { Panel, PanelContent } from '../panel';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { AudioRecorder as AudioRecorderComponent } from '../media/audio-recorder';
 import {
@@ -131,9 +132,9 @@ const RecordPanel: React.FC<{
           onClick={onClick}
         />
       </PanelContent>
-      <Buttons>
+      <PanelButtons>
         {button}
-      </Buttons>
+      </PanelButtons>
     </Panel>
   );
 };
@@ -157,10 +158,10 @@ const PlaybackPanel: React.FC<{
         eventReference={'creating-review-greeting'}
       />
     </PanelContent>
-    <Buttons>
+    <PanelButtons>
       <Button onClick={onReRecordClicked}>Re-record</Button>
       <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
-    </Buttons>
+    </PanelButtons>
   </Panel>
 );
 

@@ -4,7 +4,8 @@ import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelSubTitle } from '../panel-sub-title';
 import { PanelPrompt } from '../panel-prompt';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { TextInputModal } from '../modals/text-input-modal';
 
 /**
@@ -41,9 +42,9 @@ export const SignGift: React.FC<Props> = ({ onComplete }) => {
             onClick={() => { setShowingEnterName(true); }}
           />
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           <Button onClick={() => { setShowingEnterName(true); }} primary={true}>Write your first name</Button>
-        </Buttons>
+        </PanelButtons>
       </Panel>
 
     </>

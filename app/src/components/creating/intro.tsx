@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
-import { Buttons } from '../buttons';
 import { WaitThen } from '../utils/wait-then';
 
 import SvgGift from '../svg/gift';
@@ -40,6 +39,7 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
     return (
       <>
         <PanelContent>
+
           <PanelPrompt
             text='You’re
                   about to make
@@ -49,16 +49,19 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
             background='transparent-black'
             onClick={() => setStatus('second-message')}
           >
+
             <GiftImg>
               <SvgGift colour='white' />
             </GiftImg>
+
           </PanelPrompt>
+
           <WaitThen
             wait={defaultWait}
             andThen={() => setStatus('second-message')}
           />
+
         </PanelContent>
-        <Buttons/>
       </>
     );
   }
@@ -68,18 +71,20 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
     return (
       <>
         <PanelContent>
+
           <PanelPrompt
             text={`It might take two minutes. It might take twenty.
               It’s up to you`}
             background={'transparent-black'}
             onClick={onComplete}
           />
+
           <WaitThen
             wait={defaultWait}
             andThen={onComplete}
           />
+
         </PanelContent>
-        <Buttons/>
       </>
     );
   }

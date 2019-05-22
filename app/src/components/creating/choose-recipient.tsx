@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { assetStore } from '../../services';
 
 import { Panel, PanelContent } from '../panel';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { InProgressGift } from '../../domain';
 import { TextInputModal } from '../modals/text-input-modal';
@@ -49,13 +50,13 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete })
 
         </PanelContent>
 
-        <Buttons>
+        <PanelButtons>
           {audioHasPlayed &&
             <Button onClick={() => { setShowingEnterRecipient(true); }} primary={true}>
               Enter their name
             </Button>
           }
-        </Buttons>
+        </PanelButtons>
 
       </Panel>
 

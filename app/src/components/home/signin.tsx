@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Panel, PanelContent } from '../panel';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { BgSvgFullScreen } from '../svg/bg';
 import { TextInput } from '../inputs/text-input';
 import { TextResize } from '../text-resize';
@@ -72,11 +73,11 @@ const SignIn: React.FC<Props> = ({ onCloseButtonClick }) => {
 
         </PanelContent>
 
-        <Buttons>
+        <PanelButtons>
           {emailAddress && !emailSent &&
             <Button onClick={() => handleSignIn(emailAddress)} primary={true}>Sign in</Button>
           }
-        </Buttons>
+        </PanelButtons>
 
       </Panel>
 

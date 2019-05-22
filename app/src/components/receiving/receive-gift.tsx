@@ -8,9 +8,10 @@ import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ChooseLocation, RecipientLocation } from '../choose-location';
-import { Button, Buttons } from '../buttons';
+import { Button } from '../buttons';
 import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
+import { PanelButtons } from '../panel-buttons';
 import { PanelPrompt } from '../panel-prompt';
 import { BgSvgFullScreen } from '../svg/bg';
 import {
@@ -138,10 +139,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             background={'transparent-black'}
           />
         </PanelContent>
-        <Buttons>
+        <PanelButtons>
           <Button onClick={this.handleSaveForLaterClick}>Save it</Button>
           <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
-        </Buttons>
+        </PanelButtons>
       </Panel>
     );
   }

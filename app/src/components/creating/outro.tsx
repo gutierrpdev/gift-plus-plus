@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { assetStore } from '../../services';
 
 import { Panel, PanelContent } from '../panel';
-import { Buttons, Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { InProgressGift } from '../../domain';
 import history from '../../utils/router-history';
@@ -47,9 +48,9 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
         />
       </PanelContent>
 
-      <Buttons>
+      <PanelButtons>
         {audioPlaybackFinished && <Button primary={true} onClick={handleContinue}>Done</Button>}
-      </Buttons>
+      </PanelButtons>
 
     </Panel>
   );

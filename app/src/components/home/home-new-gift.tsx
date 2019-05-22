@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { config } from '../../config';
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
-import { Buttons, Button, ButtonLink  } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
+import { ButtonLink  } from '../buttons';
 import {
   setHasUnopenedMuseumGift,
 } from '../../utils/local';
@@ -52,7 +52,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
         </PanelPrompt>
       </PanelContent>
 
-      <Buttons>
+      <PanelButtons>
         <ButtonLink to='/create-gift'>Create own gift</ButtonLink>
         <ButtonLink
           onClick={handleOpenGift}
@@ -60,7 +60,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
         >
           Show gift
         </ButtonLink>
-      </Buttons>
+      </PanelButtons>
 
     </Panel>
   );
