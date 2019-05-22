@@ -25,9 +25,9 @@ const Buttons = styled.div`
   width: 100%;
   padding: 0 3% 3%;
   /* ensure the buttons section is visible without a button */
-  min-height: calc(1em + ${buttonsPaddingVh}vh);
+  /* min-height: calc(1em + ${buttonsPaddingVh}vh); */
   line-height: 1;
-  z-index: 10; // keep above most content
+  z-index: 10; /* keep above most content */
   /* Set the height to match the buttons, desktop only */
   @media (max-width: ${global.mobile.endPixels}px) {
     font-size: 5vw;
