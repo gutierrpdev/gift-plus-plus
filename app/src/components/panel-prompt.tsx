@@ -26,7 +26,6 @@ interface Props {
   textColor?: 'white' | 'black'; // Text Colour
   textSize?: number; // Text size
   background?: PanelRoundBackgroundStyle; // Backgroud style
-  allowCompactRound?: boolean; // Allow more compact rounds for smaller devices
   border?: PanelRoundBorderStyle; // Border style
   onClick?: () => void; // Action to take when clicked
 }
@@ -34,7 +33,6 @@ interface Props {
 const PanelPrompt: React.FC<Props> = (props) => (
   <PanelRound
     background={props.background || 'none'}
-    allowCompact={props.allowCompactRound || false}
     border={props.border}
     onClick={props.onClick}
   >

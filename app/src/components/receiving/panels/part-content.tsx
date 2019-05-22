@@ -340,7 +340,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getIntroText()}
               background={'transparent-black'}
-              allowCompactRound={true}
               onClick={handleContinue}
             />
             <WaitThen
@@ -366,7 +365,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getDoYouNeedaClueText()}
               background={'transparent-black'}
-              allowCompactRound={true}
               onClick={handleContinue}
             />
             <WaitThen
@@ -381,18 +379,17 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <PanelPrompt
             text={getLookAroundText()}
             background={'transparent-black'}
-            allowCompactRound={true}
           />
         }
 
         {/* show clue (search) */}
         {section === 4 &&
-          <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
+          <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
         }
 
         {/* need help */}
         {section === 5 &&
-          <PanelPrompt text={getNeedHelpText()} background={'transparent-black'} allowCompactRound={true} />
+          <PanelPrompt text={getNeedHelpText()} background={'transparent-black'} />
         }
 
         {/* here is help */}
@@ -401,7 +398,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getPreFindText()}
               background={'transparent-black'}
-              allowCompactRound={true}
               onClick={gotoFound}
             />
             <WaitThen
@@ -427,7 +423,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             message={getPlaySendersMessage()}
             src={giftPart.note}
             forwardButtonType={'go-to-end'}
-            allowCompactRound={true}
             giftId={props.gift.id}
             eventReference='receiving-part-content-play-sender-message'
             onPlaybackStarted={handleAudioPlaybackStarted}
@@ -437,7 +432,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {/* show clue (found) */}
         {section === 9 &&
-          <PanelPrompt text={giftPart.clue} background={'transparent-black'} allowCompactRound={true} />
+          <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
         }
 
         {/* outro - you've unwrapped the whole gift */}

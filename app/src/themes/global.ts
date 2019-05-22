@@ -37,14 +37,12 @@ const global = {
     circle : {
       width: {
         vm : '65vmin',
-        vmCompact: '55vmin',
         pixels: '400px',
       },
     },
     imageReveal : {
       width : {
         vm: '32.5vmin',
-        vmCompact: '27.5vmin',
         pixels: '200px',
       },
     },

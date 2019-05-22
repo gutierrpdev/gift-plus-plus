@@ -66,7 +66,6 @@ interface Props {
   message: string; // Message show in player
   src: string; // Reference to audio file to play
   forwardButtonType: AudioPlayerForwardButtonType;
-  allowCompactRound?: boolean; // Allow the panel round to be comptact on small devices
   eventReference: string; // A unique identifier to use on event logging i.e. 'choose-recipient'
   // tslint:disable-next-line max-line-length
   giftId: GiftId; // Current GiftID for event tracking.  This isn't ideal, but easier than many callbacks per recorder/panel
@@ -301,7 +300,7 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     );
 
     return (
-      <PanelRound background={'transparent-black'} allowCompact={this.props.allowCompactRound || false}>
+      <PanelRound background={'transparent-black'}>
         <AudioPlayerStyle>
             <audio
               src={this.props.src}

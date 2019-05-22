@@ -11,20 +11,12 @@ export type PanelRoundBorderStyle = 'solid-red' | 'solid-grey' | 'none';
 export interface Props {
   border?: PanelRoundBorderStyle; // default = 'none'
   background: PanelRoundBackgroundStyle;
-  allowCompact?: boolean; // allow compact mode
 }
 
 
 const PanelRound = styled.div<Props>`
   height: ${global.components.circle.width.vm};
   width: ${global.components.circle.width.vm};
-  /* Target devices with smaller aspect ratio when allowCompact is set */
-  ${(props: Props) => props.allowCompact && `
-    @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
-      height: ${global.components.circle.width.vmCompact};
-      width: ${global.components.circle.width.vmCompact};
-    }
-  `}
   @media (min-width: ${global.desktop.startPixels}px) {
     height: ${global.components.circle.width.pixels};
     width: ${global.components.circle.width.pixels};
