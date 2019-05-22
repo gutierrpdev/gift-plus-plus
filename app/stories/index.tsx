@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
 import history from '../src/utils/router-history';
-import { setImageOrientation, getImageOrientation, calcImageOrientationChange } from '../src/utils/image';
+import { setImageOrientation, getImageOrientation, calcImageOrientationChange, resizeImage } from '../src/utils/image';
 import { setPrefix, getLocalItem, setLocalItem } from '../src/utils/storage';
 
 // Components
@@ -622,6 +622,39 @@ storiesOf('Components/Media', module)
       />
     </ScreenManager>
   ))
+  .add('Image Resize', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const originalImage = document.getElementById('resize-img') as HTMLImageElement;
+      const newImage = document.getElementById('resized-img') as HTMLImageElement;
+
+      // Change orientation
+      resizeImage(originalImage.src, 100, 50, (resizedImageUrl) =>  {
+        newImage.src = resizedImageUrl;
+      });
+
+    });
+    const image = require('./assets/test.jpg');
+    const imgStyle = {
+      maxWidth: '150px',
+      display: 'block',
+      marginBottom: '10px',
+    };
+    return (
+      <>
+        <p>Resize the image</p>
+        <img
+          id='resize-img'
+          src={image}
+          style={imgStyle}
+        />
+        <img
+          id='resized-img'
+          style={imgStyle}
+        />
+      </>
+    );
+  })
   .add('Image rotate', () => {
     document.addEventListener('DOMContentLoaded', () => {
 

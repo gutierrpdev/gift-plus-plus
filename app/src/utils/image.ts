@@ -131,3 +131,63 @@ export function calcImageOrientationChange(currentOrientation: number): number {
   }
   return -1;
 }
+
+/**
+ * Resizes an image
+ * Provides the resized image via a callback
+ */
+export function resizeImage(
+  imageUrl: string,
+  maxWidth: number,
+  maxHeight: number,
+  callback: (resizedImageUrl: string) => void,
+) {
+
+  // Use a new image to get a canvas
+  const image = new Image();
+
+  // When the image is loaded....
+  image.onload = () => {
+
+    const width = image.width;
+    const height = image.height;
+
+    // Check if resizing required
+    if (width <= maxWidth && height <= maxHeight) {
+      callback(imageUrl);
+    }
+
+    let newWidth;
+    let newHeight;
+
+    // Calculate the new dimensions
+    if (width > height) {
+        newHeight = height * (maxWidth / width);
+        newWidth = maxWidth;
+    } else {
+        newWidth = width * (maxHeight / height);
+        newHeight = maxHeight;
+    }
+
+    // Create a canvas for the redraw
+    const canvas = document.createElement('canvas');
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+    const context = canvas.getContext('2d');
+
+    if (context) {
+      context.drawImage(image, 0, 0, newWidth, newHeight);
+    }
+
+    // Export to our callback
+    canvas.toBlob((blob) => {
+      callback(URL.createObjectURL(blob));
+    });
+
+  };
+
+  // Assign the image to trigger the onLoad
+  image.src = imageUrl;
+
+}

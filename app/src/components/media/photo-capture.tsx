@@ -7,6 +7,7 @@ import { setImageOrientation,
   getImageOrientation,
   calcImageOrientationChange,
   landscapeImageOrientation,
+  resizeImage,
 } from '../../utils/image';
 
 import { PanelText } from '../panel-text';
@@ -91,6 +92,8 @@ const PhotoCapture: React.FC<Props> = (props) => {
     const imageUrl = URL.createObjectURL(imageFile);
     const mimeType = imageFile.type;
 
+    const targetImgHeight = 1024;
+
     // Some pictures will be landscape and will need converting to portrait
     // Get the current orientation and correct if necessary
     getImageOrientation(imageFile, (orientation) => {
@@ -100,10 +103,18 @@ const PhotoCapture: React.FC<Props> = (props) => {
 
         setImageOrientation(imageUrl, change, (rotatedImageUrl) => {
           URL.revokeObjectURL(imageUrl); // Cleanup unused resource
-          onPhotoTaken({ url: rotatedImageUrl, mimeType });
+
+          // Resize the image to ensure a usable size
+          resizeImage(rotatedImageUrl, targetImgHeight, targetImgHeight, (resizedImageUrl) =>  {
+            onPhotoTaken({ url: resizedImageUrl, mimeType });
+          });
+
         });
       } else {
-        onPhotoTaken({ url: imageUrl, mimeType });
+        // Resize the image to ensure a usable size
+        resizeImage(imageUrl, targetImgHeight, targetImgHeight, (resizedImageUrl) =>  {
+          onPhotoTaken({ url: resizedImageUrl, mimeType });
+        });
       }
     });
   }
