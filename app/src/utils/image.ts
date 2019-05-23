@@ -183,7 +183,7 @@ export function resizeImage(
     // Export to our callback
     canvas.toBlob((blob) => {
       callback(URL.createObjectURL(blob));
-    });
+    }, 'image/jpeg', 0.80);
 
   };
 

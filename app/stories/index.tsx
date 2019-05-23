@@ -623,26 +623,32 @@ storiesOf('Components/Media', module)
     </ScreenManager>
   ))
   .add('Image Resize', () => {
-    document.addEventListener('DOMContentLoaded', () => {
+    function doResizeImage() {
 
       const originalImage = document.getElementById('resize-img') as HTMLImageElement;
       const newImage = document.getElementById('resized-img') as HTMLImageElement;
 
       // Change orientation
-      resizeImage(originalImage.src, 100, 50, (resizedImageUrl) =>  {
+      resizeImage(originalImage.src, 1024, 1024, (resizedImageUrl) =>  {
         newImage.src = resizedImageUrl;
       });
 
-    });
-    const image = require('./assets/test.jpg');
+    }
+    const image = require('./assets/test2.jpg');
     const imgStyle = {
-      maxWidth: '150px',
+      maxWidth: '100%',
       display: 'block',
       marginBottom: '10px',
     };
     return (
       <>
-        <p>Resize the image</p>
+        <button
+          onClick={() => {
+            doResizeImage();
+          }}
+        >
+          Resize the image
+        </button>
         <img
           id='resize-img'
           src={image}
