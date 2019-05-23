@@ -13,7 +13,6 @@ import { ScreenHeader } from '../screen-header';
 
 import { CreateGiftIntro } from '../creating/intro';
 import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
-import { CreateGiftRecordAndPlayback } from '../creating/record-and-playback';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { SaveGift } from '../creating/save-gift';
@@ -29,7 +28,6 @@ import { CreatingOutro } from '../creating/outro';
 type Status =
   | 'intro'
   | 'choose-recipient'
-  | 'record-greeting'
   | 'creating-part'
   | 'sign-gift'
   | 'save-gift'
@@ -109,21 +107,8 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
          gift={gift}
          onComplete={(recipientName) => {
            setGift({...gift, recipientName });
-           setStatus('record-greeting');
-           track(giftRecipientEnteredEvent({ giftId: gift.id }));
-         }}
-       />
-      }
-
-      {status === 'record-greeting' &&
-       <CreateGiftRecordAndPlayback
-         gift={gift}
-         text={`Record a greeting for ${gift.recipientName}`}
-         saveButtonText={'Save greeting'}
-         eventReference={'create-gift-record-greeting'}
-         onComplete={(recipientGreeting) => {
-           setGift({...gift, recipientGreeting });
            setStatus('creating-part');
+           track(giftRecipientEnteredEvent({ giftId: gift.id }));
          }}
        />
       }
