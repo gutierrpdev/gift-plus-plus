@@ -55,7 +55,7 @@ const buttonStyles = css<ButtonProps>`
   };
   line-height: 1;
   margin: 0;
-  padding: ${buttonPaddingVh}vh 5%;
+  padding: ${buttonPaddingVh}vh 1%;
   text-align: center;
   font-style: italic;
   flex-grow: 1;

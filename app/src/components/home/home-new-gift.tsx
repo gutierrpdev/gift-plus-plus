@@ -53,13 +53,13 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
       </PanelContent>
 
       <PanelButtons>
-        <ButtonLink to='/create-gift'>Create own gift</ButtonLink>
         <ButtonLink
           onClick={handleOpenGift}
           to={`/gift/${config.curatedMuseumGiftId}`}
         >
           Show gift
         </ButtonLink>
+        <ButtonLink to='/create-gift'>Create your own</ButtonLink>
       </PanelButtons>
 
     </Panel>
