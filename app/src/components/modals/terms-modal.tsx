@@ -74,12 +74,13 @@ const TermsModal: React.FC<Props> = ({ museumName, onAgreeClick, onShowTerms }) 
           </TopText>
 
           <MainText textSize={35}>
-            We store and process your data to deliver this service and to make improvements.
+            Blast Theory store and process your data to deliver this service and to make improvements.
             We will never share your personal information without your consent.
-            Please agree to our terms of use &amp; privacy policy to continue
+            Please press agree to continue.  If you'd like to learn more:
           </MainText>
+          <TermsLink textSize={40} onClick={handleShowTermsClick}>Read our terms &amp; privacy</TermsLink>
 
-          <TermsLink textSize={40} onClick={handleShowTermsClick}>Read terms &amp; privacy</TermsLink>
+
 
         </Texts>
 
