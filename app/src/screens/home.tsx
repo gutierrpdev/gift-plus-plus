@@ -169,6 +169,7 @@ export const HomeScreen: React.FC = () => {
       {!homeHeader &&
         <ScreenHeader
           padding={'medium'}
+          bottomPadding={'none'}
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'very-big'}
