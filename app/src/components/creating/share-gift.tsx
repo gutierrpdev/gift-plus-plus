@@ -121,9 +121,9 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
       <PanelContent>
         <Shares>
 
-          <ShareLink url={smsLink} text='SMS' icon={<SvgIconSms/>} />
+          <ShareLink url={smsLink} text='SMS' icon={<SvgIconSms/>} target='_blank' />
 
-          <ShareLink url={emailLink} text='Email' icon={<SvgIconEmail/>} />
+          <ShareLink url={emailLink} text='Email' icon={<SvgIconEmail/>} target='_blank' />
 
           <ShareLink
             url={whatsAppsLink}
@@ -133,7 +133,7 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
             target='_blank'
           />
 
-          <ShareLink url={fbMessengerLink} text='Messenger' icon={<SvgIconMessenger/>} />
+          <ShareLink url={fbMessengerLink} text='Messenger' icon={<SvgIconMessenger/>} target='_blank' />
 
         </Shares>
       </PanelContent>
