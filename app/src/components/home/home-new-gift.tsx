@@ -36,7 +36,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
   return (
     <Panel>
 
-      <PanelContent>
+      <PanelContent topPosition='top-quarter'>
         <PanelPrompt
           textColor='black'
           textSize={70}

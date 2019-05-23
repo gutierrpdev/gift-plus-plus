@@ -28,7 +28,7 @@ const HomeIntro2: React.FC<Props> = ({ onComplete }) => {
 
     <Panel>
 
-      <PanelContent>
+      <PanelContent topPosition='top-quarter'>
         <PanelPrompt
           text='How about
             from objects

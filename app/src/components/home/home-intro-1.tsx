@@ -28,7 +28,7 @@ const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
 
     <Panel>
 
-      <PanelContent>
+      <PanelContent topPosition='top-quarter'>
         <PanelPrompt
           text='Ever made
             a playlist?'

@@ -34,7 +34,7 @@ const ChooseLocation: React.FC<ChooseLocationProps> = (props) => {
 
   return (
     <Panel>
-      <PanelContent>
+      <PanelContent topPosition='top-quarter'>
         <PanelPrompt
           text={`Are you at the ${props.museumName} right now?`}
           background={'transparent-black'}
