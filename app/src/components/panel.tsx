@@ -9,7 +9,7 @@ interface Props {
 const Panel = styled.div<Props>`
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */ /* This causes a problem with the reveal circle */
   height: 100%;
   width: 100%;
   flex-grow: 1;

@@ -191,7 +191,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             title={this.props.gift.senderName}
             postTitle={museumName}
             showLogo={false}
-            topPadding='large'
+            padding='large'
+            bottomPadding='none'
             museumName={museumName}
           />
         }

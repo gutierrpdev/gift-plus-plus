@@ -894,7 +894,7 @@ storiesOf('Components/Creating', module)
       <BgSvgFullScreen />
       <GlobalStyles />
       <ScreenHeader
-         topPadding={'medium'}
+         padding={'medium'}
          title={`Making a gift...`}
          museumName={'Blast Theory'}
          background='white'

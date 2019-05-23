@@ -158,7 +158,7 @@ export const HomeScreen: React.FC = () => {
       {/* Header */}
       {homeHeader &&
         <ScreenHeader
-          topPadding={'small'}
+          padding={'small'}
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'big'}
@@ -168,7 +168,7 @@ export const HomeScreen: React.FC = () => {
       }
       {!homeHeader &&
         <ScreenHeader
-          topPadding={'medium'}
+          padding={'medium'}
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'very-big'}

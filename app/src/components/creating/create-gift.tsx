@@ -82,7 +82,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       {/* Header */}
       {headerState === 'name-unknown' &&
        <ScreenHeader
-         topPadding={'medium'}
+         padding={'medium'}
          title={`Making a gift...`}
          museumName={museumName}
        />

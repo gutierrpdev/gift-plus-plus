@@ -27,23 +27,36 @@ const HeaderTexts = styled.div`
   left: 10%;
 `;
 
+type Padding =
+  | 'none'
+  | 'small'
+  | 'medium'
+  | 'large'
+;
+
+type BottomPadding =
+  | 'none'
+  | 'medium'
+;
+
 interface ScreenHeaderStyleProps {
-  topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
+  padding?: Padding;
+  bottomPadding?: BottomPadding; // Optional value to override general padding
   museumName: string; // For terms dialog
-  background?: 'none' | 'white'; // Background colourhelp
+  background?: 'none' | 'white';
 }
 
 // Header
 const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   width: 100%;
   padding: 5% 2% 3%;
-  z-index: 2000; // high to aid the menu
+  z-index: 2000; /* high to aid the menu */
   position: relative;
-  // Smaller padding on tablets
+  /* Smaller padding on tablets */
   @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
     padding: 3% 0;
   }
-  ${(props) => props.topPadding === 'small' && `
+  ${(props) => props.padding === 'small' && `
     padding-top: 7%;
     // Smaller padding on mobiles
     @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
@@ -54,7 +67,7 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
       padding: 1% 1%;
     }
   `}
-  ${(props) => props.topPadding === 'medium' && `
+  ${(props) => props.padding === 'medium' && `
     padding-top: 20%;
     // Smaller padding on smaller ratio screens
     @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
@@ -64,7 +77,7 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
       padding: 5% 3%;
     }
   `}
-  ${(props) => props.topPadding === 'large' && `
+  ${(props) => props.padding === 'large' && `
     padding-top: 30%;
     // Smaller padding on smaller ratio screens
     @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
@@ -77,6 +90,7 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   ${(props) => props.background === 'white' && `
     background-color: white;
   `}
+  padding-bottom: ${(props) => props.bottomPadding === 'none' ? '0 !important' : null};
 `;
 
 interface Props {
@@ -91,7 +105,8 @@ interface Props {
   // Message is Included here to ensure it sits within the same background element
   museumName: string; // For terms dialog
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
-  topPadding?: 'none' | 'small' | 'medium' | 'large'; // Padding at the top
+  padding?: Padding;
+  bottomPadding?: BottomPadding;
   background?: 'none' | 'white'; // Background colour
   onTermsAccepted?: () => void; // Callback for when the terms are accepted
 }
@@ -106,7 +121,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
   // Locals
   const showGradient = props.background === 'white';
-  const screenTitleMarginBottom = props.topPadding === 'large' ? 'medium' : 'small';
+  const screenTitleMarginBottom = props.padding === 'large' ? 'medium' : 'small';
 
   // Functions
   function toggleMenu() {
@@ -131,7 +146,8 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   return (
     <>
     <ScreenHeaderStyle
-      topPadding={props.topPadding}
+      padding={props.padding}
+      bottomPadding={props.bottomPadding}
       museumName={props.museumName}
       background={props.background}
     >
