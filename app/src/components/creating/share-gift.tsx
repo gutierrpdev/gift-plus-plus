@@ -116,7 +116,7 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
   return (
     <Panel>
 
-      <PanelTitle>Share your gift</PanelTitle>
+      <PanelTitle>Send your gift</PanelTitle>
 
       <PanelContent>
         <Shares>

@@ -41,14 +41,18 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
 
 
   if (saver.kind === 'uploading-assets') {
-    return <SavingInProgress text='Uploading assets' progress={Math.round(saver.progress * 100)} />;
+    return <SavingInProgress text='Saving your gift' progress={Math.round(saver.progress * 100)} />;
   }
   if (saver.kind === 'saving-gift' || saver.kind === 'done') {
     return <SavingInProgress text='Processing gift... please be patient' />;
   }
 
   if (saver.kind === 'invalid-gift') {
-    return <SavingFailedUnrecoverable text='Unfortunately this gift has failed' />;
+    return (
+      <SavingFailedUnrecoverable
+        text={`There was a problem saving your gift. Unfortunately it can't be recovered`}
+      />
+    );
   }
   if (saver.kind === 'uploading-assets-error') {
     return <SavingFailed buttonText='Try again' onClick={saver.retry} />;
@@ -57,7 +61,7 @@ export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
     if (saver.error.kind === 'http-error') {
       return (
         <SavingFailed
-          text="Unfortunately we're having a problem with the server"
+          text='There was a problem saving your gift. Please try again'
           buttonText='Try again'
           onClick={saver.retry}
         />

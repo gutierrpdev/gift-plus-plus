@@ -24,26 +24,26 @@ const HelpContent: React.FC = () => (
     <h5>Do I need to use headphones?</h5>
     <p>No. Feel free to use your phone speaker to listen to Gift while in the museum.</p>
     <h5>How do I send people gifts?</h5>
-    <p>To share your gift with someone, you’ll need their email address, mobile number or have them as a contact in WhatsApp or Facebook Messenger.</p>
+    <p>To send your gift to someone, you’ll need their email address, mobile number or have them as a contact in WhatsApp or Facebook Messenger.</p>
     <h5>Can I make a gift when I’m not at a museum?</h5>
     <p>The experience is designed for creating gifts at the museum only.</p>
     <h5>Can I make a gift with someone else?</h5>
     <p>Yes. You can work with other people to make a gift on your phone.</p>
     <h5>Can I view gifts that I’ve made?</h5>
-    <p>Yes. Once you've shared your gift, you can view it by opening the link you’ve sent.</p>
+    <p>Yes. Once you've sent your gift, you can view it by opening the link you’ve sent.</p>
     <h5>What smart phones are supported?</h5>
     <p>Gift is designed to work on most modern browsers and smart phones.  To open gifts you’ve received requires a phone or tablet with Android 5 / iOS 9 or greater. To create gifts of your own requires Android 6 / iOS 11 or greater. You can also open gifts on a laptop or desktop computer – but it’s better on your mobile at the museum.</p>
 
     <hr/>
     <h2>About privacy and data</h2>
     <h5>Who can see gifts that I make? Are they private? </h5>
-    <p>Gifts are shared using public links and can be opened by anyone that you give the link to.
+    <p>Gifts are sent using public links and can be opened by anyone that you give the link to.
     Please note that these links can be passed on or shared publicly.</p>
     <h5>How is my data used and shared?</h5>
     <p>We will never share your personal information with third parties without your consent. However, Blast Theory does gather anonymised usage data from your use of the website to help improve its service.
-    In order to share gifts using this service, you give Blast Theory a license to publish your contributions; including photos and audio messages on your behalf. Under this license, your contributions may also be used - in an anonymised form - to document the project and to study how the website is used.</p>
+    In order to send gifts using this service, you give Blast Theory a license to publish your contributions; including photos and audio messages on your behalf. Under this license, your contributions may also be used - in an anonymised form - to document the project and to study how the website is used.</p>
     <h5>How do I delete my gifts?</h5>
-    <p>If you’d like to delete or unshare a gift contact us.</p>
+    <p>If you’d like to delete a gift contact us.</p>
 
     <hr/>
     <h2>More</h2>
