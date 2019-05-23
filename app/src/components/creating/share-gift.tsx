@@ -20,6 +20,10 @@ import SvgArrowForward from '../svg/arrow-forward';
  * Component that allows a gift to be shared
  */
 
+const SharesContent = styled(PanelContent)`
+  width: 100%;
+`;
+
 const Shares = styled.div`
   margin: 1vh 0 0;
   padding: 0 3%;
@@ -118,7 +122,7 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
 
       <PanelTitle>Send your gift</PanelTitle>
 
-      <PanelContent>
+      <SharesContent>
         <Shares>
 
           <ShareLink url={smsLink} text='SMS' icon={<SvgIconSms/>} target='_blank' />
@@ -136,7 +140,7 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
           <ShareLink url={fbMessengerLink} text='Messenger' icon={<SvgIconMessenger/>} target='_blank' />
 
         </Shares>
-      </PanelContent>
+      </SharesContent>
 
       <PanelButtons>
         <Button onClick={onComplete} colour={'black'}>Continue</Button>
