@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { config } from '../../config';
 import { global } from '../../themes/global';
-import { Panel, PanelContent } from '../panel';
 // import { GiftPile } from '../gift-pile';
 import { InformationWindow } from '../modals/information-window';
 import { HelpContent } from '../information/help';
@@ -12,6 +11,8 @@ import { PanelTitle } from '../panel-title';
 import { TextResize } from '../text-resize';
 import SvgAddCircle from '../svg/add-circle';
 import SvgGift from '../svg/gift';
+import { getSessionRecipientLocation } from '../../utils/local';
+
 
 /**
  * The gift home screen
@@ -33,8 +34,8 @@ const OpenMuseumGift = styled.div`
   text-align: center;
 `;
 const OpenMuseumGiftSvg = styled.div`
-  margin: 6% auto 1%;
-  width: 25%;
+  margin: 20% auto 1%;
+  width: 40%;
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
@@ -43,7 +44,7 @@ const OpenYourGift = styled.div`
 
 const PlusStyle = styled.div`
   margin: 4% auto 0;
-  width: 32%;
+  width: 40%;
   cursor: pointer;
 `;
 
@@ -99,6 +100,8 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
   // const hasSentGifts = sentGiftCount > 0;
   const hasSentGifts = false;
 
+  const unknownLocation = getSessionRecipientLocation() === 'unknown';
+
   return (
 
     <>
@@ -120,36 +123,9 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
           </HeaderMessageTextResize>
 
           <ReadMoreLink onClick={() => {setHelpIsOpen(true); }}>
-            <TextResize textSize={42}>More...</TextResize>
+            <TextResize textSize={42}>Learn more...</TextResize>
           </ReadMoreLink>
         </HeaderMessage>
-
-        <LineSpacer />
-
-        {/* TEMP REMOVE
-        <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
-        <GiftPile
-          gifts={giftsIn}
-        />*/}
-
-        <OpenMuseumGift>
-          <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>
-
-          <Link to={`/gift/${config.curatedMuseumGiftId}`}>
-
-            <OpenMuseumGiftSvg>
-              <SvgGift colour='black' />
-            </OpenMuseumGiftSvg>
-
-            <OpenYourGift>
-              <TextResize textSize={42}>
-                Open your gift from<br/>
-                {museumName}
-              </TextResize>
-            </OpenYourGift>
-
-          </Link>
-        </OpenMuseumGift>
 
         <LineSpacer />
 
@@ -177,6 +153,34 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
             </Link>
           </GiftsNotSent>
         }
+
+        <LineSpacer />
+
+        {/* TEMP REMOVE
+        <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+        <GiftPile
+          gifts={giftsIn}
+        />*/}
+
+        <OpenMuseumGift>
+
+          {unknownLocation && <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>}
+
+          <Link to={`/gift/${config.curatedMuseumGiftId}`}>
+
+            <OpenMuseumGiftSvg>
+              <SvgGift colour='black' />
+            </OpenMuseumGiftSvg>
+
+            <OpenYourGift>
+              <TextResize textSize={42}>
+                Open the gift from<br/>
+                {museumName}
+              </TextResize>
+            </OpenYourGift>
+
+          </Link>
+        </OpenMuseumGift>
 
       </HomeContent>
 
