@@ -34,8 +34,8 @@ const OpenMuseumGift = styled.div`
   text-align: center;
 `;
 const OpenMuseumGiftSvg = styled.div`
-  margin: 20% auto 1%;
-  width: 40%;
+  margin: 15% auto 1%;
+  width: 30%;
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
@@ -44,7 +44,7 @@ const OpenYourGift = styled.div`
 
 const PlusStyle = styled.div`
   margin: 4% auto 0;
-  width: 40%;
+  width: 30%;
   cursor: pointer;
 `;
 
@@ -81,7 +81,7 @@ const ReadMoreLink = styled.button`
 `;
 
 const SectionTitle = styled(PanelTitle)`
-  margin-bottom: 10%;
+  margin-bottom: 2%;
 `;
 
 /**
@@ -100,7 +100,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
   // const hasSentGifts = sentGiftCount > 0;
   const hasSentGifts = false;
 
-  const unknownLocation = getSessionRecipientLocation() === 'unknown';
+  const atMuseum = getSessionRecipientLocation() === 'at-museum';
 
   return (
 
@@ -128,6 +128,8 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         </HeaderMessage>
 
         <LineSpacer />
+
+        {!atMuseum && <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>}
 
         {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
 
@@ -163,8 +165,6 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         />*/}
 
         <OpenMuseumGift>
-
-          {unknownLocation && <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>}
 
           <Link to={`/gift/${config.curatedMuseumGiftId}`}>
 
