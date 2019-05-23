@@ -92,7 +92,7 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = (props) => (
   <MenuStyle>
-    <MenuItem><Link to='/'>Home</Link></MenuItem>
+    <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem><a href='https://www.surveymonkey.com/' target='_blank'>Feedback</a></MenuItem> {/* todo */}
