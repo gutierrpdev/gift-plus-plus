@@ -35,7 +35,6 @@ export interface PartContentProps {
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   const [section, setSection] = useState(0); // Note: Section is 0 based incrementer of current stage
-  const [audioPlaybackStarted, setAudioPlaybackStarted] = useState(false);
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
   const [outroAudioPlaybackFinished, setOutroAudioPlaybackFinished] = useState(false);
 
@@ -45,11 +44,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   const giftSenderName: string = props.gift.senderName;
   const atMuseum = (props.recipientLocation === 'at-museum');
   const museumGift = (props.gift.kind === 'MuseumGift');
-
-  // Our audio player has started playback
-  function handleAudioPlaybackStarted() {
-    setAudioPlaybackStarted(true);
-  }
 
   // Our audio player has finished
   function handleAudioPlaybackFinished() {
@@ -93,9 +87,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     setSection(8);
   }
 
-  function gotoGiveClueFound() {
-    setSection(9);
-  }
+  // function gotoGiveClueFound() {
+  //   setSection(9);
+  // }
 
   function gotoOutro() {
     setSection(10);
