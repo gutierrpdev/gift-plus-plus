@@ -190,6 +190,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return (
           <Button onClick={gotoFindObject} primary={true}>OK</Button>
         );
+      case 7: // found
+        return (
+          <Button onClick={handleContinue} primary={true}>Continue</Button>
+        );
       case 8: // senders audio message
 
         // Different text based on gift part
@@ -417,15 +421,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </>
         }
 
-        {/* show full photo */}
-        {section === 7 &&
-          <>
-            <WaitThen
-              wait={defaultWait}
-              andThen={handleContinue}
-            />
-          </>
-        }
+        {/* show full photo, section 7, nothing to show */}
 
         {/* play audio */}
         {section === 8 &&
