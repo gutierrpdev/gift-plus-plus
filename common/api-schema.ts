@@ -167,16 +167,16 @@ export const createGiftResponseSchema = getGiftResponseSchema;
 // =====================================================================
 
 // -----------------
-// Create App Events
+// Submit App Events
 // -----------------
 
-export type CreateAppEventRequest = Array<{
+export type SubmitEventsRequest = Array<{
   name: string;
   payload: {};
   occurredAt: Date;
 }>;
 
-export const createAppEventSchema = {
+export const submitEventsSchema = {
   type: 'array',
   items: {
     type: 'object',

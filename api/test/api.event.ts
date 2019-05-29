@@ -26,16 +26,16 @@ describe('api:event', () => {
 
   after(shutdownComponents);
 
-  describe('[POST] /app-event', () => {
+  describe('[POST] /submit-events', () => {
     it('should force a name, payload and occurredAt', async () => {
       await Promise.all(badEvents.map(
-        (event) => request(server).post('/app-event').send([event]).expect(400),
+        (event) => request(server).post('/submit-events').send([event]).expect(400),
       ));
     });
 
     it('should work', async () => {
       await request(server)
-        .post('/app-event')
+        .post('/submit-events')
         .send(goodEvents)
         .expect(204);
     });

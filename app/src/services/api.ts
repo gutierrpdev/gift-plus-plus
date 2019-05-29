@@ -10,6 +10,8 @@ import {
   CreatePreparedUploadRequest,
   CreatePreparedUploadResponse,
   createPreparedUploadResponseSchema,
+
+  SubmitEventsRequest,
 } from '../common/api-schema';
 
 import { preparedGifts } from './prepared-data';
@@ -79,6 +81,22 @@ export class Api {
     });
     return getApiResult<CreatePreparedUploadResponse>(request, createPreparedUploadResponseSchema);
   }
+
+
+  /**
+   * Submit app-events
+   */
+  public async submitEvents(
+    events: SubmitEventsRequest,
+  ): Promise<ApiResult<void>> {
+    const url = `${this.apiUrl}/submit-events`;
+    const request = new Request(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(events),
+    });
+    return runApiRequest(request);
+  }
 }
 
 
@@ -140,4 +158,29 @@ async function getApiResult<T>(request: Request, schema: {}): Promise<ApiResult<
 
   // (unsafe type coercion)
   return { kind: 'ok', data: (data as T) };
+}
+
+
+/**
+ * Similar to `getApiResult`, except runs the given request without attempting
+ * to parse the result.
+ *
+ * This function is not expected to throw. Wraps all errors into the ApiResult.
+ *
+ * TODO: The result type for this doesn't need parse-error or data.
+ */
+async function runApiRequest(request: Request): Promise<ApiResult<void>> {
+
+  // Run the request
+  let response: Response;
+  try {
+    response = await fetch(request);
+  } catch (err) {
+    return { kind: 'fetch-error', error: err };
+  }
+
+  // Check the response
+  if (!response.ok) return { kind: 'http-error', response };
+
+  return { kind: 'ok', data: undefined };
 }
