@@ -50,7 +50,6 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
   const atMuseum = (props.recipientLocation === 'at-museum');
   const museumGift = (props.gift.kind === 'MuseumGift');
 
-  // TODO: update these audio files
   const audioFile = atMuseum
     ? museumGift
       ? assetStore.assets.rIntroContentAtMuseumMuseumGift
