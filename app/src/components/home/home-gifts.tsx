@@ -174,7 +174,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
             <OpenYourGift>
               <TextResize textSize={42}>
-                Open the gift from<br/>
+                Show the gift from<br/>
                 {museumName}
               </TextResize>
             </OpenYourGift>
