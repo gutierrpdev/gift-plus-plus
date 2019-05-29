@@ -102,7 +102,6 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
         if (this.audio) {
           // Update the UI
           this.setPlaybackPercentage(this.audio.duration);
-          // console.log('ended');
           this.setState({
             isPlaying: false,
           });
@@ -281,10 +280,6 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     this.setPlaybackPercentage(this.audio.currentTime);
 
   }
-
-  // public onSeek = (e: MouseEvent) => {
-  //   console.log(e);
-  // }
 
   public render() {
 
