@@ -7,6 +7,7 @@ export interface CreatePreparedUploadRequest {
 }
 
 export const createPreparedUploadRequestSchema = {
+  type: 'object',
   properties: {
     mimeType: { type: 'string', minLength: 1 },
   },
@@ -25,6 +26,7 @@ export interface CreatePreparedUploadResponse {
 }
 
 export const createPreparedUploadResponseSchema = {
+  type: 'object',
   properties: {
     postUrl: { type: 'string', minLength: 1 },
     postFields:  {
@@ -71,6 +73,7 @@ export interface GetGiftResponse {
 }
 
 export const getGiftResponseSchema = {
+  type: 'object',
   properties: {
     id: { type: 'string', format: 'uuid' },
     kind: { type: 'string', enum: ['MuseumGift', 'PersonalGift'] },
@@ -123,6 +126,7 @@ export interface CreateGiftRequest {
 }
 
 export const createGiftRequestSchema = {
+  type: 'object',
   properties: {
     id: { type: 'string', format: 'uuid' },
     museumId: { type: 'string', format: 'uuid' },
@@ -155,3 +159,32 @@ export const createGiftRequestSchema = {
 
 export type CreateGiftResponse = GetGiftResponse;
 export const createGiftResponseSchema = getGiftResponseSchema;
+
+
+
+// =====================================================================
+//                              Event
+// =====================================================================
+
+// -----------------
+// Create App Events
+// -----------------
+
+export type CreateAppEventRequest = Array<{
+  name: string;
+  payload: {};
+  occurredAt: Date;
+}>;
+
+export const createAppEventSchema = {
+  type: 'array',
+  items: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' },
+      payload: { type: 'object' },
+      occurredAt: { type: 'string', format: 'date-time' },
+    },
+    required: ['name', 'payload', 'occurredAt'],
+  },
+};
