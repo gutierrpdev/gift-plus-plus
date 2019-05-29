@@ -28,13 +28,13 @@ export interface PartContentProps {
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation; // At the museum or not
   onComplete?: () => void; // Callback to call when complete
-  revealBackgroundImage: () => void; // Callback to call to reveal the background image
-  revealPreviewImage: () => void; // Callback to call to reveal the preview image
+  revealBackgroundImage: () => void; // Callback reveal the entire background image
+  revealPreviewImage: () => void; // Callback reveal the preview circle
 }
 
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
-  const [section, setSection] = useState(0); // Note: Section is 0 based incrementer of current stage
+  const [section, setSection] = useState(getInitialSection()); // Note: Section is 0 based incrementer of current stage
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
   const [outroAudioPlaybackFinished, setOutroAudioPlaybackFinished] = useState(false);
 
@@ -48,6 +48,22 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   // Our audio player has finished
   function handleAudioPlaybackFinished() {
     setAudioPlaybackComplete(true);
+  }
+
+  // Return the initial section index
+  // Differs based on user location
+  function getInitialSection() {
+
+    // When at the museum start at the beginning
+    if (props.recipientLocation === 'at-museum') {
+      return 0;
+    }
+
+    // If not at the museum jump straight to the reveal
+    if (props.revealBackgroundImage) {
+      props.revealBackgroundImage();
+    }
+    return 7;
   }
 
   function gotoFindObject() {
@@ -419,7 +435,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             forwardButtonType={'go-to-end'}
             giftId={props.gift.id}
             eventReference='receiving-part-content-play-sender-message'
-            onPlaybackStarted={handleAudioPlaybackStarted}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
