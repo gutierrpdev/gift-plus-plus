@@ -30,7 +30,6 @@ export interface Gift {
   accountId: AccountId;
   senderName: string;
   recipientName: string;
-  recipientGreeting: AudioRecordingUrl;
   parts: GiftPart[];
 }
 
@@ -46,6 +45,5 @@ export interface InProgressGift {
   museumId: MuseumId;
   senderName?: string;
   recipientName?: string;
-  recipientGreeting?: LocalFile;
   parts: InProgressGiftPart[];
 }

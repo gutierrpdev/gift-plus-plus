@@ -67,12 +67,13 @@ type Action =
  * Create a fresh State based on the provided gift.
  */
 function mkState(gift: InProgressGift): State {
-  if (!gift.recipientGreeting) { // TODO: Better this
-    return { kind: 'invalid-gift' };
-  }
+  // TODO: Validate gift structure
+  // if (!isValidGift(gift)) {
+  //   return { kind: 'invalid-gift' };
+  // }
 
   // Extract the assets we need to upload from the gift
-  const localAssets: LocalFile[] = [gift.recipientGreeting];
+  const localAssets: LocalFile[] = [];
   gift.parts.forEach((part) => {
     localAssets.push(part.photo);
     localAssets.push(part.note);
@@ -191,7 +192,6 @@ export function useGiftSaver(gift: InProgressGift): GiftSaver {
         id: gift.id,
         museumId: gift.museumId,
         recipientName: gift.recipientName!,
-        recipientGreeting: state.uploads.get(gift.recipientGreeting!)!.fileName,
         senderName: gift.senderName!,
         parts: gift.parts.map((part) => ({
           photo: state.uploads.get(part.photo)!.fileName,

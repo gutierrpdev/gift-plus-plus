@@ -16,7 +16,6 @@ export const giftThreeParts: Gift = {
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
-  recipientGreeting: require('./assets/1-second-of-silence.m4a'),
   parts: [
     {
       photo: require('./assets/test.jpg'),
@@ -43,7 +42,6 @@ export const giftTwoParts: Gift = {
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
-  recipientGreeting: require('./assets/1-second-of-silence.m4a'),
   parts: [
     {
       photo: 'https://picsum.photos/300/300/?random',

@@ -17,7 +17,6 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv
   accountId: uuidv5('https://api.thegift.app/account/brighton-museum', uuidv5.URL),
   senderName: 'Brighton Museum',
   recipientName: 'visitor',
-  recipientGreeting: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/1-second-of-silence.m4a',
   parts: [
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-photo.6046a68f.jpg',

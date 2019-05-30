@@ -14,7 +14,6 @@ interface Gift {
   accountId: AccountId;
   senderName: string;
   recipientName: string;
-  recipientGreeting: AudioRecordingUrl;
   parts: GiftPart[];
 }
 
