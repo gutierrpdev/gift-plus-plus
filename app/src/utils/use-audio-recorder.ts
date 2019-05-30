@@ -196,12 +196,13 @@ const UnsupportedGetUserMedia: MediaDevices['getUserMedia'] = () => Promise.reje
 );
 
 
+
 /**
  * Basic polyfill for navigator.mediaDevices.getUserMedia.
  *
  * Bits from: https://github.com/mozdevs/mediaDevices-getUserMedia-polyfill
  */
-const getUserMedia: MediaDevices['getUserMedia'] = (() => {
+const getUserMedia: GetUserMedia = (() => {
   // If we have a promise-based navigator.mediaDevices.getUserMedia, use it.
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     return navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
@@ -220,7 +221,7 @@ const getUserMedia: MediaDevices['getUserMedia'] = (() => {
   }
 
   // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-  const wrappedGetUserMedia: MediaDevices['getUserMedia'] = (constraints) => new Promise(
+  const wrappedGetUserMedia: GetUserMedia = (constraints) => new Promise(
     (successCallback, errorCallback) => {
       navigatorGetUserMedia.call(navigator, constraints, successCallback, errorCallback);
     },
@@ -228,6 +229,8 @@ const getUserMedia: MediaDevices['getUserMedia'] = (() => {
 
   return wrappedGetUserMedia;
 })();
+
+type GetUserMedia = (constraints: MediaStreamConstraints) => Promise<MediaStream>;
 
 
 /**
