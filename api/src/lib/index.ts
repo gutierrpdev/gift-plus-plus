@@ -1,5 +1,7 @@
 import * as Knex from 'knex';
 import { prepareDb } from './db';
+import { Bus } from './bus';
+import { Event, EventService } from './services/event';
 import { GiftService } from './services/gift';
 import { StorageService } from './services/storage';
 import { TranscodeService } from './services/transcode';
@@ -24,7 +26,8 @@ export class Lib {
    */
   public static async create(config: Config): Promise<Lib> {
     const db = await prepareDb(config.sqlUri);
-    return new Lib(config, db);
+    const bus = new Bus<Event>();
+    return new Lib(config, db, bus);
   }
 
 
@@ -32,6 +35,7 @@ export class Lib {
   // Instance
   // ========
 
+  public event: EventService;
   public gift: GiftService;
   public storage: StorageService;
   public transcode: TranscodeService;
@@ -42,7 +46,10 @@ export class Lib {
   private constructor(
     config: Config,
     private db: Knex,
+    private bus: Bus<Event>,
   ) {
+
+    this.event = new EventService({ db: this.db, bus: this.bus });
 
     this.gift = new GiftService(db);
 
