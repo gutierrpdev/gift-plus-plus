@@ -9,7 +9,7 @@ import { Button } from '../../buttons';
 import { AudioPlayer } from '../../media/audio-player';
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
-import { WaitThen } from '../../utils/wait-then';
+import { WaitThen, WaitThenShow } from '../../utils/wait-then';
 import history from '../../../utils/router-history';
 import {
   track,
@@ -203,8 +203,16 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <Button onClick={gotoFindObject} primary={true}>OK</Button>
         );
       case 7: // found
+
+        // If not at museum wait 3 seconds before showing the continue button
+        const wait = atMuseum ? 0 : 3;
+
         return (
-          <Button onClick={handleContinue} primary={true}>Continue</Button>
+          <WaitThenShow
+            wait={wait}
+          >
+            <Button onClick={handleContinue} primary={true}>Continue</Button>
+          </WaitThenShow>
         );
       case 8: // senders audio message
 

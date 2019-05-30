@@ -22,7 +22,7 @@ import { Button, Buttons, ButtonLink, ButtonAnchor } from '../src/components/but
 import { ScreenManager } from '../src/components/screen-manager';
 import { AudioPlayer } from '../src/components/media/audio-player';
 import { AudioRecorder } from '../src/components/media/audio-recorder';
-import { WaitThen } from '../src/components/utils/wait-then';
+import { WaitThen, WaitThenShow } from '../src/components/utils/wait-then';
 import { Gradient } from '../src/components/gradient';
 import { AccordionTitle } from '../src/components/accordion-title';
 import { ReceiveReply } from '../src/components/receiving/receive-reply';
@@ -248,10 +248,18 @@ storiesOf('Components', module)
   ))
   .add('Wait and Then', () => (
     <div>
+      <p>Wait 2 seconds and log something.</p>
       <WaitThen
         wait={2}
         andThen={logSomething}
       />
+      <p>Wait 3 seconds and show children.</p>
+      <WaitThenShow
+        wait={3}
+      >
+        <p>Child 1</p>
+        <p>Child 2</p>
+      </WaitThenShow>
     </div>
   ))
   .add('Gradient', () => (
