@@ -79,9 +79,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   const [parts, setParts] = useState<InProgressGiftPart[]>([]); // TODO: clean the state up -- separate out
   const [currentPart, setCurrentPart] = useState<Partial<InProgressGiftPart>>({});
 
-  const [status, setStatus] = useState<Status>('first-message');
+  const [status, setStatus] = useState<Status>('take-photo');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
-  const [showCamera, setShowCamera] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
   const [showingEnterClue, setShowingEnterClue] = useState(false);
@@ -92,7 +91,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   // Sets all state to initial values
   function resetState() {
     setFirstAudioHasPlayed(false);
-    setShowCamera(false);
     setSecondAudioHasPlayed(false);
     setCurrentPart({});
   }
@@ -104,7 +102,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     setBackgroundImage(file.url);
     setStatus('pre-record-message');
   }
-
 
   function handleAudioRecordFinished(file: LocalFile) {
 
@@ -253,6 +250,9 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   }
 
   function renderTakePhoto() {
+
+    let photoCapture: PhotoCapture | null;
+
     return (
       <>
         <PanelContent>
@@ -263,7 +263,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-1-photo'} ));
               }}
-              showCamera={showCamera}
+              ref={(pc) => {photoCapture = pc; }}
             />
           }
           {giftPartIndex === 1 &&
@@ -276,7 +276,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-2-photo'} ));
               }}
-              showCamera={showCamera}
+              ref={(pc) => {photoCapture = pc; }}
             />
           }
           {giftPartIndex === 2 &&
@@ -286,13 +286,13 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 handlePhotoTaken(file);
                 track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-3-photo'} ));
               }}
-              showCamera={showCamera}
+              ref={(pc) => {photoCapture = pc; }}
             />
           }
         </PanelContent>
         <PanelButtons>
           {/* <Button onClick={() => {setStatus('second-message'); }}>Back</Button> */}
-          <Button onClick={() => {setShowCamera(true); }} primary={true}>Open camera</Button>
+          <Button onClick={() => {if (photoCapture) photoCapture.showCamera(); }} primary={true}>Open camera</Button>
         </PanelButtons>
       </>
     );

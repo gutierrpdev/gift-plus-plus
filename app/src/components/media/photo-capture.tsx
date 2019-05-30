@@ -56,19 +56,13 @@ const CaptureButton = styled(BaseControlButton)`
 interface Props {
   text: string;
   textSize?: number;
-  showCamera?: boolean;
   onPhotoTaken?: (imageFile: LocalFile) => void;
 }
 
-const PhotoCapture: React.FC<Props> = (props) => {
-
-  // Check for initial props
-  if (props.showCamera) {
-    showCamera();
-  }
+class PhotoCapture extends React.PureComponent<Props> {
 
   // Show the camera to the user
-  function showCamera() {
+  public showCamera = () => {
 
     // Trigger the input element
     const input = document.getElementById('photo-capture-input'); // todo, improve
@@ -78,15 +72,16 @@ const PhotoCapture: React.FC<Props> = (props) => {
   }
 
   // Handle the change of file on the input
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     // Nothing to do if we don't have anyone listening
-    if (!props.onPhotoTaken) return;
+    if (!this.props.onPhotoTaken) return;
 
     // Nothing to do if we don't have any files
     // TODO: should this be an error condition of some kind?
     if (!e.target.files) return;
 
-    const onPhotoTaken = props.onPhotoTaken; // Help the typechecker realise this is defined
+    const onPhotoTaken = this.props.onPhotoTaken; // Help the typechecker realise this is defined
 
     const imageFile = e.target.files[0]; // Assuming one file
     const imageUrl = URL.createObjectURL(imageFile);
@@ -119,26 +114,30 @@ const PhotoCapture: React.FC<Props> = (props) => {
     });
   }
 
+  public render() {
 
-  return (
-    <PanelRound background={'transparent-black'}>
-      <PhotoCaptureStyle>
-        <PhotoCaptureText textSize={props.textSize}>{props.text}</PhotoCaptureText>
-        <Controls>
-          <CaptureButton>
-            <SvgIconCamera onClick={showCamera} />
-            <ImageInput
-              id='photo-capture-input'
-              type='file'
-              accept='image/*'
-              onChange={handleChange}
-            />
-          </CaptureButton>
-        </Controls>
-      </PhotoCaptureStyle>
-    </PanelRound>
-  );
-};
+    return (
+      <PanelRound background={'transparent-black'}>
+        <PhotoCaptureStyle>
+          <PhotoCaptureText textSize={this.props.textSize}>{this.props.text}</PhotoCaptureText>
+          <Controls>
+            <CaptureButton>
+              <SvgIconCamera onClick={this.showCamera} />
+              <ImageInput
+                id='photo-capture-input'
+                type='file'
+                accept='image/*'
+                onChange={this.handleChange}
+              />
+            </CaptureButton>
+          </Controls>
+        </PhotoCaptureStyle>
+      </PanelRound>
+    );
+
+  }
+
+}
 
 export {
   PhotoCapture,
