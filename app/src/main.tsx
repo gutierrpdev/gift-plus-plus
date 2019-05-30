@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
 
 import history from './utils/router-history';
 import { useAsync } from './utils/use-async';
 
 import { config } from './config';
-import { assetStore } from './services';
+import { assetStore, events } from './services';
 
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
@@ -23,6 +23,10 @@ import { ErrorMessage } from './components/messages/error-message';
  */
 
 export const Main: React.FC = () => {
+  useEffect(() => {
+    events.track('app-started', { userAgent: window.navigator.userAgent });
+  }, []);
+
   const [assetPreload] = useAsync(() => assetStore.preload(), []);
 
   if (assetPreload.kind === 'running') { return (

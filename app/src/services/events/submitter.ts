@@ -1,9 +1,9 @@
-import { AppEvent } from '../../domain';
 import { assertNever } from '../../utils/helpers';
 import { getLogger } from '../../utils/logging';
 
 import { Api } from '../api';
 
+import { HydratedEvent } from './index';
 import { EventStore } from './store';
 
 const logger = getLogger('events');
@@ -14,7 +14,7 @@ const logger = getLogger('events');
  *
  * TODO: Timeouts / Cancellation
  */
-export class EventSubmitter<T extends AppEvent> {
+export class EventSubmitter<T extends HydratedEvent> {
 
   private static BATCH_SIZE = 50;
   private static POLL_INTERVAL_MS = 2000;

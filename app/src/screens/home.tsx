@@ -181,7 +181,7 @@ export const HomeScreen: React.FC = () => {
       }
 
       {/* Content */}
-        {status === 'intro1' && !termsAccepted && <HomeIntro1/>}
+        {status === 'intro1' && !termsAccepted && <HomeIntro1 />}
         {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
 
         {status === 'intro2' &&

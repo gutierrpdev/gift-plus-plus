@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { events } from '../services';
+
 import { Panel, PanelContent } from './panel';
 import { PanelPrompt } from './panel-prompt';
 import { PanelButtons } from './panel-buttons';
@@ -20,13 +22,16 @@ export interface ChooseLocationProps {
 const ChooseLocation: React.FC<ChooseLocationProps> = (props) => {
 
   function handleAtMuseum(): void {
+    events.track('h-at-museum-confirmed', { atMuseum: true });
+
     if (props.doSetLocation) {
       props.doSetLocation('at-museum');
     }
-
   }
 
   function handleNotAtMuseum(): void {
+    events.track('h-at-museum-confirmed', { atMuseum: false });
+
     if (props.doSetLocation) {
       props.doSetLocation('not-at-museum');
     }

@@ -3,11 +3,9 @@
  * storage.  (Persistent across reloads.)
  */
 
-import { setPrefix, getLocalItem, setLocalItem, getSessionItem, setSessionItem } from './storage';
+import { getLocalItem, setLocalItem, getSessionItem, setSessionItem } from './storage';
 import { RecipientLocation } from '../components/choose-location';
 
-// Cache-busting prefix for different versions
-setPrefix('v1'); // todo : this should probably come from the config
 
 // HasSeenHomeIntro
 export function getHasSeenHomeIntro(): boolean {

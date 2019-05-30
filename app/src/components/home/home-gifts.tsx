@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { config } from '../../config';
+import { events } from '../../services';
 import { global } from '../../themes/global';
-// import { GiftPile } from '../gift-pile';
+
 import { InformationWindow } from '../modals/information-window';
 import { HelpContent } from '../information/help';
 import { PanelTitle } from '../panel-title';
@@ -144,7 +145,10 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
               You've not sent any gifts<br/>
               Make one now?
             </TextResize> */}
-            <Link to='/create-gift'>
+            <Link
+              onClick={() => events.track('h-gifts-create-pressed')}
+              to='/create-gift'
+            >
               <TextResize textSize={42}>
                 Create a new gift of<br/>
                 your own
@@ -166,7 +170,10 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
         <OpenMuseumGift>
 
-          <Link to={`/gift/${config.curatedMuseumGiftId}`}>
+          <Link
+            onClick={() => events.track('h-gifts-open-museum-gift-pressed')}
+            to={`/gift/${config.curatedMuseumGiftId}`}
+          >
 
             <OpenMuseumGiftSvg>
               <SvgGift colour='black' />

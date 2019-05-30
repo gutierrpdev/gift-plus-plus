@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { config } from '../../config';
+import { events } from '../../services';
+import { setHasUnopenedMuseumGift } from '../../utils/local';
+
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelText } from '../panel-text';
 import { PanelButtons } from '../panel-buttons';
 import { ButtonLink  } from '../buttons';
-import {
-  setHasUnopenedMuseumGift,
-} from '../../utils/local';
 import SvgGift from '../svg/gift';
 
 /**
@@ -29,9 +29,16 @@ interface Props {
 const HomeNewGift: React.FC<Props> = ({ museumName }) => {
 
   function handleOpenGift() {
+    events.track('h-show-museum-gift-pressed');
+
     // Set that the museum gift is read
     setHasUnopenedMuseumGift(false);
   }
+
+  function handleCreateYourOwn() {
+    events.track('h-create-own-pressed');
+  }
+
 
   return (
     <Panel>
@@ -59,7 +66,13 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
         >
           Show gift
         </ButtonLink>
-        <ButtonLink to='/create-gift'>Create your own</ButtonLink>
+
+        <ButtonLink
+          onClick={handleCreateYourOwn}
+          to='/create-gift'
+        >
+          Create your own
+        </ButtonLink>
       </PanelButtons>
 
     </Panel>

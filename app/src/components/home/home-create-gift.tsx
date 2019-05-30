@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { events } from '../../services';
+
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
 import { PanelButtons } from '../panel-buttons';
@@ -23,9 +25,12 @@ interface Props {
 const HomeCreateGift: React.FC<Props> = ({ onMoreClick }) => {
 
   function handleMoreClick() {
-    if (onMoreClick) {
-      onMoreClick();
-    }
+    events.track('h-more-pressed');
+    onMoreClick();
+  }
+
+  function handleCreateClick() {
+    events.track('h-create-pressed');
   }
 
   return (
@@ -45,7 +50,12 @@ const HomeCreateGift: React.FC<Props> = ({ onMoreClick }) => {
       </PanelContent>
 
       <PanelButtons>
-        <ButtonLink to='/create-gift'>Create gift</ButtonLink>
+        <ButtonLink
+          onClick={handleCreateClick}
+          to='/create-gift'
+        >
+          Create gift
+        </ButtonLink>
         <Button onClick={handleMoreClick}>More</Button>
       </PanelButtons>
 
