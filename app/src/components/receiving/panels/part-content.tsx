@@ -32,9 +32,24 @@ export interface PartContentProps {
   revealBackgroundImage: () => void; // Callback reveal the entire background image
 }
 
+type Section =
+  | 'start' // 0
+  | 'reveal-preview' // 1
+  | 'do-you-know' // 2
+  | 'wander' // 3
+  | 'show-clue-search' // 4
+  | 'need-help' // 5
+  | 'help-is-here' // 6
+  | 'reveal-full' // 7
+  | 'play-audio' // 8
+  | 'show-clue-found' // 9
+  | 'unwrapped' // 10
+  | 'outro' // 11
+;
+
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
-  const [section, setSection] = useState(getInitialSection()); // Note: Section is 0 based incrementer of current stage
+  const [section, setSection] = useState<Section>(getInitialSection());
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
   const [outroAudioPlaybackFinished, setOutroAudioPlaybackFinished] = useState(false);
 
@@ -52,18 +67,18 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // Return the initial section index
   // Differs based on user location
-  function getInitialSection() {
+  function getInitialSection(): Section {
 
     // When at the museum start at the beginning
     if (props.recipientLocation === 'at-museum') {
-      return 0;
+      return 'start';
     }
 
     // If not at the museum jump straight to the reveal
     if (props.revealBackgroundImage) {
       props.revealBackgroundImage();
     }
-    return 7;
+    return 'reveal-full';
   }
 
   // Show the preview image circle
@@ -75,11 +90,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
 
     // Set our section
-    setSection(1);
+    setSection('reveal-preview');
   }
 
   function gotoFindObject() {
-    setSection(3);
+    setSection('wander');
   }
 
   function gotoGiveClueSearch() {
@@ -88,11 +103,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     track(receivingGiftClueRequestedEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
 
     // Show the section
-    setSection(4);
+    setSection('show-clue-search');
   }
 
   function gotoGiveHelp() {
-    setSection(5);
+    setSection('need-help');
   }
 
   function gotoHereYouGo() {
@@ -101,18 +116,18 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     track(receivingGiftFoundPartEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
 
     // Show the section
-    setSection(6);
+    setSection('help-is-here');
   }
 
   function gotoFound() {
     if (props.revealBackgroundImage) {
       props.revealBackgroundImage();
     }
-    setSection(7);
+    setSection('reveal-full');
   }
 
   function gotoFoundAudio() {
-    setSection(8);
+    setSection('play-audio');
   }
 
   // function gotoGiveClueFound() {
@@ -120,7 +135,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   // }
 
   function gotoOutro() {
-    setSection(10);
+    setSection('unwrapped');
   }
 
   function gotoEndOfGiftPart() {
@@ -151,24 +166,32 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
 
+  // Advanced to the next status/screen
   function handleContinue() {
 
-    // Check for special section conditions
-    if (section === 3) {
+    if (section === 'start') { setSection('reveal-preview'); }
+    if (section === 'reveal-preview') { setSection('do-you-know'); }
+    if (section === 'do-you-know') { setSection('wander'); }
+
+    if (section === 'wander') {
 
       // Check if we have a clue
       if (giftPart && giftPart.clue.trim()) {
         // Skip
-        setSection(5);
+        setSection('need-help');
       } else {
-        setSection(4);
+        setSection('show-clue-search');
       }
-    } else {
-      // Default is to incremene to the next section
-      // Increment our section index
-      const newSection = section + 1;
-      setSection(newSection);
     }
+
+    if (section === 'show-clue-search') { setSection('need-help'); }
+    if (section === 'need-help') { setSection('help-is-here'); }
+    if (section === 'help-is-here') { setSection('reveal-full'); }
+    if (section === 'reveal-full') { setSection('play-audio'); }
+    if (section === 'play-audio') { setSection('show-clue-found'); }
+    if (section === 'show-clue-found') { setSection('unwrapped'); }
+    if (section === 'unwrapped') { setSection('outro'); }
+
 
   }
 
@@ -182,7 +205,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     const haveClue = giftPart && giftPart.clue.trim();
 
     switch (section) {
-      case 3: // give me a clue
+      case 'wander':
 
         return (
           <>
@@ -191,18 +214,18 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <Button onClick={gotoHereYouGo} primary={true}>Found it</Button>
           </>
         );
-      case 4: // more help
+      case 'show-clue-search':
         return (
           <>
             <Button onClick={gotoFindObject} primary={true}>OK</Button>
             <Button onClick={gotoGiveHelp}>More help</Button>
           </>
         );
-      case 5: // stuck
+      case 'need-help':
         return (
           <Button onClick={gotoFindObject} primary={true}>OK</Button>
         );
-      case 7: // found
+      case 'reveal-full':
 
         // If not at museum wait 3 seconds before showing the continue button
         const wait = atMuseum ? 0 : 3;
@@ -214,7 +237,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <Button onClick={handleContinue} primary={true}>Continue</Button>
           </WaitThenShow>
         );
-      case 8: // senders audio message
+      case 'play-audio':
 
         // Different text based on gift part
         // Note: This is never shown on the last part, so no need to consider that case
@@ -228,18 +251,17 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
           </>
         );
-      case 9: // clue (found)
+      case 'show-clue-found':
         return (
           <Button onClick={gotoFoundAudio} primary={true}>OK</Button>
         );
-      case 11: // outro audio
+      case 'outro':
         return (
           <>
             {outroAudioPlaybackFinished && <Button primary={true} onClick={handleOutroContinue}>Done</Button>}
           </>
         );
       default :
-        // One invisible button to occupy space
         return (
           null
         );
@@ -360,8 +382,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
       <PanelContent>
 
-        {/* start */}
-        {section === 0 &&
+        {section === 'start' &&
           <>
             <PanelPrompt
               text={getIntroText()}
@@ -375,8 +396,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </>
         }
 
-        {/* reveal photo */}
-        {section === 1 &&
+        {section === 'reveal-preview' &&
           <>
             <WaitThen
               wait={defaultWait}
@@ -385,8 +405,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </>
         }
 
-        {/* do you know where to lookk/need a clue ? */}
-        {section === 2 &&
+        {section === 'do-you-know' &&
           <>
             <PanelPrompt
               text={getDoYouNeedaClueText()}
@@ -400,26 +419,22 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </>
         }
 
-        {/* wander/look around */}
-        {section === 3 &&
+        {section === 'wander' &&
           <PanelPrompt
             text={getLookAroundText()}
             background={'transparent-black'}
           />
         }
 
-        {/* show clue (search) */}
-        {section === 4 &&
+        {section === 'show-clue-search' &&
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
         }
 
-        {/* need help */}
-        {section === 5 &&
+        {section === 'need-help' &&
           <PanelPrompt text={getNeedHelpText()} background={'transparent-black'} />
         }
 
-        {/* here is help */}
-        {section === 6 &&
+        {section === 'help-is-here' &&
           <>
             <PanelPrompt
               text={getPreFindText()}
@@ -433,10 +448,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </>
         }
 
-        {/* show full photo, section 7, nothing to show */}
-
-        {/* play audio */}
-        {section === 8 &&
+        {section === 'play-audio' &&
           <AudioPlayer
             message={getPlaySendersMessage()}
             src={giftPart.note}
@@ -445,13 +457,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           />
         }
 
-        {/* show clue (found) */}
-        {section === 9 &&
+        {section === 'show-clue-found' &&
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
         }
 
-        {/* outro - you've unwrapped the whole gift */}
-        {section === 10 &&
+        {section === 'unwrapped' &&
         <>
           <PanelPrompt
             text='You’ve unwrapped the whole gift'
@@ -464,8 +474,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         </>
         }
 
-        {/* outro - audio */}
-        {section === 11 &&
+        {section === 'outro' &&
         <AudioPlayer
           message={`Ready for
             the last bit?`}
