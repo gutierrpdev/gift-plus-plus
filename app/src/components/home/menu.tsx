@@ -95,7 +95,7 @@ const Menu: React.FC<MenuProps> = (props) => (
     <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-    <MenuItem><a href='https://www.surveymonkey.com/' target='_blank'>Feedback</a></MenuItem> {/* todo */}
+    <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem> {/* todo */}
     <CloseMenuItem onClick={props.onCloseClick}><CloseArrowUp /></CloseMenuItem>
   </MenuStyle>
 );
