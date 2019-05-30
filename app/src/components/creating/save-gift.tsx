@@ -102,9 +102,7 @@ const SavingFailed: React.FC<SavingFailedProps> = ({ text, buttonText, onClick }
     <PanelTitle>Finish your gift</PanelTitle>
     <PanelSubTitle>Saving failed</PanelSubTitle>
     <PanelContent>
-      <PanelRound background='transparent-black'>
-        <PanelPrompt text={text || `Please check you're connected to the internet`} />
-      </PanelRound>
+      <PanelPrompt background='transparent-black' text={text || `Please check you're connected to the internet`} />
     </PanelContent>
     <PanelButtons>
       <Button onClick={onClick} primary={true}>{buttonText}</Button>
@@ -122,9 +120,7 @@ const SavingFailedUnrecoverable: React.FC<SavingFailedUnrecoverableProps> = ({ t
     <PanelTitle>Finish your gift</PanelTitle>
     <PanelSubTitle>Saving failed</PanelSubTitle>
     <PanelContent>
-      <PanelRound background='transparent-black'>
-        <PanelPrompt text={text} />
-      </PanelRound>
+      <PanelPrompt background='transparent-black' text={text} />
     </PanelContent>
     <PanelButtons>
       <Button onClick={() => history.push('/')} primary={true}>Home</Button>
