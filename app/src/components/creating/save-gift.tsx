@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import { assertNever } from '../../utils/helpers';
 import history from '../../utils/router-history';
 import { InProgressGift, Gift } from '../../domain';
-import { api } from '../../services';
-import { useGiftSaver } from '../../services/gift-saver';
+import { api, useGiftSaver } from '../../services';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';

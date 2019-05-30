@@ -23,6 +23,21 @@ export type GetGiftResponse = GetGiftResponse;
 export type CreatePreparedUploadResponse = CreatePreparedUploadResponse;
 
 
+export type ApiResult<T> =
+  | { kind: 'ok', data: T }
+  | ApiError;
+
+export type ApiError =
+  | { kind: 'fetch-error', error: Error }
+  | { kind: 'http-error', response: Response }
+  | { kind: 'parse-error', errors: ParseError }
+;
+
+export type ParseError =
+  | 'InvalidJson'
+  | Ajv.ErrorObject[];
+
+
 /**
  * The Api is responsible for all communication with the Gift Api.
  *
@@ -98,22 +113,6 @@ export class Api {
     return runApiRequest(request);
   }
 }
-
-
-export type ApiResult<T> =
-  | { kind: 'ok', data: T }
-  | ApiError;
-
-export type ApiError =
-  | { kind: 'fetch-error', error: Error }
-  | { kind: 'http-error', response: Response }
-  | { kind: 'parse-error', errors: ParseError }
-;
-
-
-export type ParseError =
-  | 'InvalidJson'
-  | Ajv.ErrorObject[];
 
 
 const ajv = new Ajv({

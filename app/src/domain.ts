@@ -47,3 +47,10 @@ export interface InProgressGift {
   recipientName?: string;
   parts: InProgressGiftPart[];
 }
+
+
+export interface AppEvent {
+  name: string;
+  payload: {};
+  occurredAt: Date;
+}

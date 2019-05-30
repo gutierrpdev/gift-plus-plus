@@ -8,7 +8,11 @@
 
 import { config } from '../config';
 import { Api } from './api';
+import { EventService } from './events';
 import { AssetStore } from './asset-store';
+
+export { useGiftSaver } from './gift-saver';
 
 export const api = new Api(config.apiUri);
 export const assetStore = new AssetStore();
+export const events = new EventService(api);
