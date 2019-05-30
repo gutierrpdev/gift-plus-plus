@@ -44,7 +44,7 @@ export class GiftService {
    */
   public async create(gift: Gift): Promise<GiftCreateResult> {
     // TODO: Transaction
-    const [{ count }]: CountQueryResult = await this.db('gift').where({ id: gift.id }).count('id as count');
+    const [{ count }] = await this.db('gift').where({ id: gift.id }).count('id as count');
 
     if (count !== 0) {
       return { kind: 'IdAlreadyExists' };
@@ -104,8 +104,6 @@ type GiftCreateResult =
   | { kind: 'IdAlreadyExists' }
 ;
 
-
-type CountQueryResult = [ { count: number } ];
 
 interface GiftTableRow {
   id: string;
