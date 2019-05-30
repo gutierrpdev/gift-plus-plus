@@ -22,17 +22,17 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-photo.6046a68f.jpg',
       note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-note.c3ff803e.mp3',
-      clue: 'Find the cabinet of japanese inspired furniture.',
+      clue: 'Find the cabinet of Japanese inspired furniture',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-photo.863ba708.jpg',
       note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-note.bd932aec.mp3',
-      clue: 'Look among the chairs by the  entrance.',
+      clue: 'Look among the chairs by the  entrance',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-photo.819aeecd.jpg',
       note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-note.2fa33502.mp3',
-      clue: 'Search for the glass case of figurines.',
+      clue: 'Search for the glass case of figurines',
     },
   ],
 });
