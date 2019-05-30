@@ -28,8 +28,8 @@ export interface PartContentProps {
   giftPartIndex: number; // The index of this gift part
   recipientLocation: RecipientLocation; // At the museum or not
   onComplete?: () => void; // Callback to call when complete
-  revealBackgroundImage: () => void; // Callback reveal the entire background image
   revealPreviewImage: () => void; // Callback reveal the preview circle
+  revealBackgroundImage: () => void; // Callback reveal the entire background image
 }
 
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
@@ -64,6 +64,18 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       props.revealBackgroundImage();
     }
     return 7;
+  }
+
+  // Show the preview image circle
+  function revealPreviewImage() {
+
+    // Fire the call back
+    if (props.revealPreviewImage) {
+      props.revealPreviewImage();
+    }
+
+    // Set our section
+    setSection(1);
   }
 
   function gotoFindObject() {
@@ -153,7 +165,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       }
     } else {
       // Default is to incremene to the next section
-      // Increment out section index
+      // Increment our section index
       const newSection = section + 1;
       setSection(newSection);
     }
@@ -333,14 +345,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   // Calculate some things
   const defaultWait = 5;
-  const showReveal = section >= 1 && section < 7;
-
-  // Check to call the reveal preview callback
-  if (showReveal) {
-    if (props.revealPreviewImage) {
-      props.revealPreviewImage();
-    }
-  }
 
   // Use an index to advance to next statge
   return (
@@ -354,11 +358,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getIntroText()}
               background={'transparent-black'}
-              onClick={handleContinue}
+              onClick={revealPreviewImage}
             />
             <WaitThen
               wait={defaultWait}
-              andThen={handleContinue}
+              andThen={revealPreviewImage}
             />
           </>
         }
