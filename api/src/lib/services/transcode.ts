@@ -11,11 +11,20 @@ import { getLogger } from '../../util-libs/logging';
 const logger = getLogger('lib:transcode');
 const MAX_FFMPEG_RUNTIME = 60; // 1 min
 
+// ------
+// Domain
+// ------
+
 interface TranscodeResult {
   stream: ReadStream;
   extension: string;
   mimeType: string;
 }
+
+
+// -------
+// Service
+// -------
 
 interface TranscodeConfig {
   // See below: this is really just here to override for testing atm.
@@ -38,6 +47,9 @@ export class TranscodeService {
 
   private maxRuntime?: number;
 
+  /**
+   * Instantiate a TranscodeService.
+   */
   public constructor(config: TranscodeConfig) {
     this.maxRuntime = (config.disableMaxRuntime) ? undefined : MAX_FFMPEG_RUNTIME;
   }

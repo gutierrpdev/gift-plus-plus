@@ -5,11 +5,6 @@ import { getLogger } from '../../util-libs/logging';
 
 const logger = getLogger('lib:event');
 
-// ----------
-// Subscribes
-// ----------
-// - * (everything)
-
 // ------
 // Domain
 // ------
@@ -37,8 +32,17 @@ interface AppEventData {
   occurredAt: Date;
 }
 
+// ----------
+// Subscribes
+// ----------
+// - * (everything)
 
-interface Config {
+
+// -------
+// Service
+// -------
+
+interface EventServiceConfig {
   db: Knex;
   bus: Bus<Event>;
 }
@@ -51,18 +55,18 @@ export class EventService {
   /**
    * Instantiate an EventService.
    */
-  constructor({ db, bus }: Config) {
+  constructor({ db, bus }: EventServiceConfig) {
     this.db = db;
     this.bus = bus;
 
     // Log all events coming over the bus
-    this.bus.subscribe('*', (event: Event) => {
+    this.bus.subscribe('*', (event) => {
       logger.debug('event', event);
       logger.info(`${event.id} [${event.name}]`);
     });
 
     // Record all events coming over the bus
-    this.bus.subscribe('*', async (event: Event) => {
+    this.bus.subscribe('*', async (event) => {
       await this.db('event').insert(eventToTableRow(event, { namespace: 'core' }));
     });
   }
@@ -84,6 +88,10 @@ export class EventService {
   }
 }
 
+
+// -------
+// Helpers
+// -------
 
 interface EventTableRow {
   id: string;

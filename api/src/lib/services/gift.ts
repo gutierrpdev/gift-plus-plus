@@ -1,4 +1,10 @@
 import * as Knex from 'knex';
+import { Bus } from '../bus';
+import { Event, mkEvent } from './event';
+
+// ------
+// Domain
+// ------
 
 type Id = string;
 type MuseumId = Id;
@@ -25,17 +31,34 @@ interface GiftPart {
 }
 
 
-/**
- * TODO
- *
- *
- */
+// ---------
+// Publishes
+// ---------
+
+const mkGiftCreatedEvent = (gift: Gift) => mkEvent('gift-created', { gift });
+
+
+// -------
+// Service
+// -------
+
+interface GiftServiceConfig {
+  db: Knex;
+  bus: Bus<Event>;
+}
+
 export class GiftService {
 
-  constructor(
-    private db: Knex,
-  ) {}
+  private db: Knex;
+  private bus: Bus<Event>;
 
+  /**
+   * Instantiate a GiftService.
+   */
+  constructor({ db, bus }: GiftServiceConfig) {
+    this.db = db;
+    this.bus = bus;
+  }
 
   /**
    * Store a new gift.
@@ -65,6 +88,7 @@ export class GiftService {
 
     if (!createdGift) throw new Error(`Couldn't find the gift we just created! ${gift.id}`);
 
+    this.bus.publish(mkGiftCreatedEvent(createdGift));
     return { kind: 'Success', data: createdGift };
   }
 

@@ -10,6 +10,10 @@ import * as mime from 'mime';
 
 import { getLogger } from '../../util-libs/logging';
 
+import { Bus } from '../bus';
+import { Event, mkEvent } from './event';
+
+
 const logger = getLogger('lib:storage');
 
 // ------
@@ -29,8 +33,22 @@ type PreparedUploadResult =
   | { kind: 'BadMimeType' };
 
 
+// ---------
+// Publishes
+// ---------
+
+const mkPreparedUploadCreatedEvent = (preparedUpload: PreparedUpload) => mkEvent(
+  'prepared-upload-created',
+  { preparedUpload },
+);
+
+
+// -------
+// Service
+// -------
 
 interface StorageServiceConfig {
+  bus: Bus<Event>;
   awsAccessKey: string;
   awsSecretAccessKey: string;
   awsBucket: string;
@@ -41,6 +59,7 @@ interface StorageServiceConfig {
 
 export class StorageService {
 
+  private bus: Bus<Event>;
   private s3: S3;
   private bucket: string;
   private prefix: string;
@@ -49,6 +68,8 @@ export class StorageService {
    * Instantiate a StorageService.
    */
   public constructor(config: StorageServiceConfig) {
+    this.bus = config.bus;
+
     this.s3 = new S3({
       credentials: {
         accessKeyId: config.awsAccessKey,
@@ -91,16 +112,16 @@ export class StorageService {
       Expires: 60 * 60 * 24,
     });
 
-    return {
-      kind: 'Success',
-      data: {
-        postUrl: uploadData.url,
-        postFields: uploadData.fields,
-        fileName,
-        fileUrl: `${uploadData.url}/${uploadData.fields.Key}`,
-        fileType: mimeType,
-      },
+    const preparedUpload = {
+      postUrl: uploadData.url,
+      postFields: uploadData.fields,
+      fileName,
+      fileUrl: `${uploadData.url}/${uploadData.fields.Key}`,
+      fileType: mimeType,
     };
+
+    this.bus.publish(mkPreparedUploadCreatedEvent(preparedUpload));
+    return { kind: 'Success', data: preparedUpload };
   }
 
 
@@ -170,6 +191,10 @@ export class StorageService {
     return `${this.prefix}/assets/${name}`;
   }
 }
+
+// -------
+// Helpers
+// -------
 
 const ONE_YEAR = 31536000; // Seconds
 const PUBLIC_CACHING = `public, max-age=${ONE_YEAR}, stale-while-revalidate=${ONE_YEAR}, stale-if-error=${ONE_YEAR}`;
