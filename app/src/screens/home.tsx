@@ -6,6 +6,7 @@ import { ScreenHeader } from '../components/screen-header';
 import { HomeIntro1 } from '../components/home/home-intro-1';
 import { HomeIntro2 } from '../components/home/home-intro-2';
 import { HomeNewGift } from '../components/home/home-new-gift';
+import { HomeCreateGift } from '../components/home/home-create-gift';
 import { HomeGifts } from '../components/home/home-gifts';
 
 import { BgSvgFullScreen } from '../components/svg/bg';
@@ -29,7 +30,16 @@ import {
  */
 
 // Current status of this screen
-type Status = 'none' | 'intro1' | 'intro2' | 'how-about' | 'choose-location' | 'got-new-gift' | 'show-gifts';
+type Status =
+  | 'none'
+  | 'intro1'
+  | 'intro2'
+  | 'how-about'
+  | 'choose-location'
+  | 'got-new-gift'
+  | 'create-gift'
+  | 'show-gifts'
+;
 
 export const HomeScreen: React.FC = () => {
 
@@ -86,10 +96,8 @@ export const HomeScreen: React.FC = () => {
 
       if (recipientLocation === 'at-museum') {
 
-        // todo: check if we have a new gift.  If not go to /
-
         // Do we have a new museum gift?
-        if (hasUnopenedMuseumGift()) {
+        if (getHasUnopenedMuseumGift()) {
 
           // Go to start
           setStatus('got-new-gift');
@@ -97,7 +105,7 @@ export const HomeScreen: React.FC = () => {
         } else {
 
           // Go to the home screen
-          setStatus('show-gifts');
+          setStatus('create-gift');
 
         }
 
@@ -130,12 +138,6 @@ export const HomeScreen: React.FC = () => {
 
     // Note: No need to update state/status/UI as useEffect will do this based on setRecipientLocation update
 
-  }
-
-  // Check if the user has unopneded gift from the museum
-  function hasUnopenedMuseumGift(): boolean {
-    // Todo: this might be an API look up
-    return getHasUnopenedMuseumGift();
   }
 
   // Start, default to first screen
@@ -195,6 +197,10 @@ export const HomeScreen: React.FC = () => {
 
         {status === 'got-new-gift' &&
           <HomeNewGift museumName={museumName} />
+        }
+
+        {status === 'create-gift' &&
+          <HomeCreateGift onMoreClick={() => {setStatus('show-gifts'); }} />
         }
 
         {status === 'show-gifts' &&
