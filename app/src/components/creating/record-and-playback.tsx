@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { assertNever } from '../../utils/helpers';
 import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder';
@@ -30,6 +30,7 @@ interface Props {
   gift: InProgressGift;
   eventReference: string;
   onComplete: (audioFile: LocalFile) => void;
+  onReRecord: () => void;
 }
 
 export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
@@ -39,6 +40,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   gift,
   eventReference,
   onComplete,
+  onReRecord,
 }) => {
   const audioRecorder = useAudioRecorder();
 
@@ -51,6 +53,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
         onReRecordClicked={() => {
           track(audioReRecordedEvent({ giftId: gift.id, audioType: eventReference }));
           audioRecorder.disposeRecording();
+          onReRecord();
         }}
         onSaveClicked={() => {
           track(audioKeptEvent({ giftId: gift.id, audioType: eventReference }));
@@ -145,21 +148,27 @@ const PlaybackPanel: React.FC<{
   saveButtonText: string;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, playbackMessage, saveButtonText, onReRecordClicked, onSaveClicked }) => (
-  <Panel>
-    <PanelContent>
-      <AudioPlayer
-        message={playbackMessage}
-        src={url}
-        forwardButtonType={'skip-seconds'}
-      />
-    </PanelContent>
-    <PanelButtons>
-      <Button onClick={onReRecordClicked}>Re-record</Button>
-      <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
-    </PanelButtons>
-  </Panel>
-);
+}> = ({ url, playbackMessage, saveButtonText, onReRecordClicked, onSaveClicked }) => {
 
+  const [recordedAudioHasPlayedBack, setRecordedAudioHasPlayedBack] = useState(false);
+
+  return (
+    <Panel>
+      <PanelContent>
+        <AudioPlayer
+          message={playbackMessage}
+          src={url}
+          forwardButtonType={'skip-seconds'}
+          onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
+        />
+      </PanelContent>
+      {recordedAudioHasPlayedBack &&
+      <PanelButtons>
+        <Button onClick={onReRecordClicked}>Try-again</Button>
+        <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
+      </PanelButtons>}
+    </Panel>
+  );
+};
 
 const noop = () => {};

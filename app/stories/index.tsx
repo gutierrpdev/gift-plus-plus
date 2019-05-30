@@ -883,6 +883,7 @@ storiesOf('Components/Creating', module)
         saveButtonText={'Save something'}
         eventReference='event-id'
         onComplete={(audioFile) => logSomething(audioFile.url)}
+        onReRecord={doNothing}
       />
     </>
   ))

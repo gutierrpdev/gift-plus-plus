@@ -88,6 +88,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   const [showingEnterClue, setShowingEnterClue] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
+
   // Defaults
   const defaultWait = 5;
 
@@ -113,12 +114,12 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
     setCurrentPart({ ...currentPart, note: file });
 
-    // Go to next part
-    // Offer audio check on first part
-    giftPartIndex === 0
-      ? setStatus('check-message')
-      : setStatus('pre-clue-message1');
+    handleAudioChecked();
 
+  }
+
+  function handleAudioReRecord() {
+    setStatus('check-message');
   }
 
   function handleAudioChecked() {
@@ -362,6 +363,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         saveButtonText={'Save message'}
         eventReference='create-gift-part-why-this-object'
         onComplete={handleAudioRecordFinished}
+        onReRecord={handleAudioReRecord}
       />
     );
 
@@ -379,8 +381,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           />
         </PanelContent>
         <PanelButtons>
-          <Button onClick={handleAudioChecked} primary={true}>OK</Button>
           <Button onClick={openHelp}>Help</Button>
+          <Button onClick={() => {setStatus('record-message'); }} primary={true}>OK</Button>
         </PanelButtons>
       </>
     );
