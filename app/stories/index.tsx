@@ -68,6 +68,9 @@ import { ShareGift } from '../src/components/creating/share-gift';
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
 import { ProgressBar } from '../src/components/progress-bar';
 
+// TEMP: REMOVE!!
+import { ShowMediaDevices } from './temp-media-devices';
+
 // Some useful bits to help...
 
 // Handlers
@@ -468,6 +471,7 @@ storiesOf('Ideas and tests', module)
       </p>
     </>
   ))
+  .add('Media Devices', () => (<ShowMediaDevices />))
 ;
 
 // Loaders
