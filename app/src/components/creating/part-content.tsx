@@ -65,7 +65,7 @@ type Status =
 
 export interface Props {
   recipientName: string;
-  gift: InProgressGift; // TODO: Remove this? -- only gift.id is used, and that's just for events.
+  gift: InProgressGift;
   onComplete: (parts: InProgressGiftPart[]) => void;
 }
 
@@ -214,8 +214,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
               message={'Listen while you look for your first object...'}
               src={assetStore.assets.cChoosePart1}
               forwardButtonType={'go-to-end'}
-              giftId={gift.id}
-              eventReference={'creating-part-look-first-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -224,8 +222,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
               message={'Time to choose a second object...'}
               src={assetStore.assets.cChoosePart2}
               forwardButtonType={'go-to-end'}
-              giftId={gift.id}
-              eventReference={'creating-part-look-second-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -234,8 +230,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
               message={'Time to look for a final object...'}
               src={assetStore.assets.cChoosePart3}
               forwardButtonType={'go-to-end'}
-              giftId={gift.id}
-              eventReference={'creating-part-look-third-object'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -307,8 +301,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 message={`OK. You've taken a photo`}
                 src={assetStore.assets.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
-                giftId={gift.id}
-                eventReference={'creating-part-why-choosen-first-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
@@ -317,8 +309,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 message={`Tell them why you chose this...`}
                 src={assetStore.assets.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
-                giftId={gift.id}
-                eventReference={'creating-part-why-choosen-second-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
@@ -327,8 +317,6 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 message={`And record your final message...`}
                 src={assetStore.assets.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
-                giftId={gift.id}
-                eventReference={'creating-part-why-choosen-third-object'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }

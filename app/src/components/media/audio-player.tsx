@@ -5,8 +5,6 @@ import { ProgressBar } from '../progress-bar';
 import { PanelText } from '../panel-text';
 import { PanelRound } from '../panel-round';
 import { BaseControlButton } from '../buttons';
-import { track, audioPlayingEvent, audioPausedEvent } from '../../utils/events';
-import { GiftId } from '../../domain';
 
 import SvgButtonAudioPlay from '../svg/button-audio-play';
 import SvgButtonAudioPause from '../svg/button-audio-pause';
@@ -66,9 +64,7 @@ interface Props {
   message: string; // Message show in player
   src: string; // Reference to audio file to play
   forwardButtonType: AudioPlayerForwardButtonType;
-  eventReference: string; // A unique identifier to use on event logging i.e. 'choose-recipient'
   // tslint:disable-next-line max-line-length
-  giftId: GiftId; // Current GiftID for event tracking.  This isn't ideal, but easier than many callbacks per recorder/panel
   onPlaybackStarted?: () => void; // Optional callback when audio playback is started
   onPlaybackComplete?: () => void; // Optional callback when audio has completed playback
 }
@@ -182,9 +178,6 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     // If paused, then play
     if (this.audio.paused && this.audio.src) {
 
-      // Track the event
-      track(audioPlayingEvent( {giftId: this.props.giftId, audioType: this.props.eventReference} ));
-
       // Start the player
       this.audio.play();
 
@@ -196,9 +189,6 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     } else if (!this.audio.paused) {
 
       // If not paused, we must be playing, so pause
-
-      // Track the event
-      track(audioPausedEvent( {giftId: this.props.giftId, audioType: this.props.eventReference} ));
 
       // Pause the player
       this.audio.pause();

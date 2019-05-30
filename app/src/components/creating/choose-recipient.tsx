@@ -6,7 +6,6 @@ import { Panel, PanelContent } from '../panel';
 import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
-import { InProgressGift } from '../../domain';
 import { TextInputModal } from '../modals/text-input-modal';
 
 /**
@@ -14,11 +13,10 @@ import { TextInputModal } from '../modals/text-input-modal';
  */
 
 interface Props {
-  gift: InProgressGift; // Current gift
   onComplete: (recipientName: string) => void; // Callback to call when name is entered
 }
 
-export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete }) => {
+export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
 
   // State
   const [showingEnterRecipient, setShowingEnterRecipient] = useState(false);
@@ -43,8 +41,6 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ gift, onComplete })
             message={'Who are you going to choose?'}
             src={assetStore.assets.cStart}
             forwardButtonType={'go-to-end'}
-            giftId={gift.id}
-            eventReference={'choose-recipient'}
             onPlaybackComplete={() => setAudioHasPlayed(true)}
           />
 

@@ -106,7 +106,6 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
       {status === 'choose-recipient' &&
        <CreateGiftChooseRecipient
-         gift={gift}
          onComplete={(recipientName) => {
            setGift({...gift, recipientName });
            setStatus('record-greeting');

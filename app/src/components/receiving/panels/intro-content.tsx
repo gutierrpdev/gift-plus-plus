@@ -76,8 +76,6 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
           message={'Start here...'}
           src={audioFile}
           forwardButtonType={'go-to-end'}
-          giftId={props.gift.id}
-          eventReference={eventReference}
           onPlaybackComplete={handleAudioPlaybackFinished}
         />
 

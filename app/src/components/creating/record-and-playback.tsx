@@ -48,7 +48,6 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
         playbackMessage={playbackMessage}
         url={audioRecorder.file.url}
         saveButtonText={saveButtonText}
-        gift={gift}
         onReRecordClicked={() => {
           track(audioReRecordedEvent({ giftId: gift.id, audioType: eventReference }));
           audioRecorder.disposeRecording();
@@ -144,18 +143,15 @@ const PlaybackPanel: React.FC<{
   url: string;
   playbackMessage: string;
   saveButtonText: string;
-  gift: InProgressGift;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, playbackMessage, saveButtonText, gift, onReRecordClicked, onSaveClicked }) => (
+}> = ({ url, playbackMessage, saveButtonText, onReRecordClicked, onSaveClicked }) => (
   <Panel>
     <PanelContent>
       <AudioPlayer
         message={playbackMessage}
         src={url}
         forwardButtonType={'skip-seconds'}
-        giftId={gift.id}
-        eventReference={'creating-review-greeting'}
       />
     </PanelContent>
     <PanelButtons>

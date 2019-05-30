@@ -571,8 +571,6 @@ storiesOf('Components/Media', module)
           message={'Lorem ipsum'}
           forwardButtonType={'skip-seconds'}
           src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
-          giftId={giftThreeParts.id}
-          eventReference=''
         />
       </div>
       <p>Jump Go to End forward button</p>
@@ -580,8 +578,6 @@ storiesOf('Components/Media', module)
         message={'Lorem ipsum'}
         forwardButtonType={'go-to-end'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
-        giftId={giftThreeParts.id}
-        eventReference=''
       />
     </>
   ))
@@ -862,7 +858,6 @@ storiesOf('Components/Creating', module)
     <>
       <GlobalStyles />
       <CreateGiftChooseRecipient
-        gift={emptyGift}
         onComplete={logSomething}
       />
     </>
