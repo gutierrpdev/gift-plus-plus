@@ -48,12 +48,11 @@ export class Lib {
     private db: Knex,
     private bus: Bus<Event>,
   ) {
-
-    this.event = new EventService({ db: this.db, bus: this.bus });
-
-    this.gift = new GiftService(db);
+    this.event = new EventService({ db, bus });
+    this.gift = new GiftService({ db, bus });
 
     this.storage = new StorageService({
+      bus,
       awsAccessKey: config.awsAccessKey,
       awsSecretAccessKey: config.awsSecretAccessKey,
       awsBucket: config.awsBucket,
@@ -66,6 +65,9 @@ export class Lib {
 
 
   public async close(): Promise<void> {
-    await this.db.destroy();
+    await Promise.all([
+      this.bus.close(),
+      this.db.destroy(),
+    ]);
   }
 }
