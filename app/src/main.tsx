@@ -53,7 +53,7 @@ export const Main: React.FC = () => {
         </Route>
 
         {/* "Promo" link: direct access to museum gift */}
-        <Route exact={true} path='/brighton-123'>
+        <Route exact={true} path='/bhqr'>
           <Redirect to={`/gift/${config.curatedMuseumGiftId}`} />
         </Route>
 
