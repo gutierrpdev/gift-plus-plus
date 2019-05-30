@@ -58,14 +58,14 @@
 
 ** TODO MVP Full frontend + Backend <2019-05-17 Fri>
    DEADLINE: <2019-05-17 Fri>
-   - [ ] Landing flow
+   - [X] Landing flow
    - [X] Receiving museum gift
      - [X] Work offline
    - [X] Receiving a personal gift
      - [X] Work offline
-   - [ ] Creating a gift
-     - [ ] User feedback / retrying saving
-     - [ ] Work offline
+   - [X] Creating a gift
+     - [X] User feedback / retrying saving
+     - [X] Work offline
    - [X] Routing / back-button history
      - [X] Prevent navigation away from creation process
    - [ ] Polish
@@ -76,7 +76,7 @@
 ** TODO Analytics <2019-05-31 Fri>
    DEADLINE: <2019-05-31 Fri>
    - [ ] In-app event logging
-   - [ ] Api-core event logging
+   - [X] Api-core event logging
    - [ ] Submit events (when possible) to server
    - [ ] Determine questions/stats required for "live" insight
    - [ ] Create scripts to provide "live"-insight
