@@ -15,7 +15,8 @@ import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
 import { TextAreaModal } from '../../components/modals/text-area-modal';
 import { CreateGiftRecordAndPlayback } from './record-and-playback';
-
+import { InformationWindow } from '../modals/information-window';
+import { HelpContent } from '../information/help';
 
 /***
  * Show the creating gift part content
@@ -56,6 +57,7 @@ type Status =
   | 'take-photo'
   | 'pre-record-message'
   | 'record-message'
+  | 'check-message'
   | 'pre-clue-message1'
   | 'pre-clue-message2'
   | 'finish-message1'
@@ -84,6 +86,7 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
   const [showingEnterClue, setShowingEnterClue] = useState(false);
+  const [helpIsOpen, setHelpIsOpen] = useState(false);
 
   // Defaults
   const defaultWait = 5;
@@ -95,6 +98,9 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     setCurrentPart({});
   }
 
+  function openHelp() {
+    setHelpIsOpen(true);
+  }
 
   function handlePhotoTaken(file: LocalFile) {
     setCurrentPart({ ...currentPart, photo: file });
@@ -106,6 +112,16 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   function handleAudioRecordFinished(file: LocalFile) {
 
     setCurrentPart({ ...currentPart, note: file });
+
+    // Go to next part
+    // Offer audio check on first part
+    giftPartIndex === 0
+      ? setStatus('check-message')
+      : setStatus('pre-clue-message1');
+
+  }
+
+  function handleAudioChecked() {
 
     // Go to next part
     // Parts 2 and 3 don't have the first clue section
@@ -340,13 +356,33 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
     return (
       <CreateGiftRecordAndPlayback
-        playbackMessage={'Listen back to your message...'}
+        playbackMessage={'Listen back to check your message is OK...'}
         gift={gift}
         text={text}
         saveButtonText={'Save message'}
         eventReference='create-gift-part-why-this-object'
         onComplete={handleAudioRecordFinished}
       />
+    );
+
+  }
+
+  function renderCheckMessage() {
+
+    return (
+      <>
+        <PanelContent>
+          <PanelPrompt
+            background={'transparent-black'}
+            text={`Problem recording?
+              Try disconnecting headphones if you have them`}
+          />
+        </PanelContent>
+        <PanelButtons>
+          <Button onClick={handleAudioChecked} primary={true}>OK</Button>
+          <Button onClick={openHelp}>Help</Button>
+        </PanelButtons>
+      </>
     );
 
   }
@@ -496,12 +532,21 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         />
       }
 
+      {helpIsOpen &&
+        <InformationWindow
+          onClose={() => { setHelpIsOpen(false); }}
+        >
+          <HelpContent />
+        </InformationWindow>
+      }
+
       <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
         {status === 'first-message' && renderFirstMessage()}
         {status === 'second-message' && renderSecondMessage()}
         {status === 'take-photo' && renderTakePhoto()}
         {status === 'pre-record-message' && renderPreRecordMessage()}
         {status === 'record-message' && renderRecordMessage()}
+        {status === 'check-message' && renderCheckMessage()}
         {status === 'pre-clue-message1' && renderPreClueMessage1()}
         {status === 'pre-clue-message2' && renderPreClueMessage2()}
         {status === 'finish-message1' && renderFinishMessage1()}

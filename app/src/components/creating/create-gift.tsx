@@ -13,7 +13,6 @@ import { ScreenHeader } from '../screen-header';
 
 import { CreateGiftIntro } from '../creating/intro';
 import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
-import { CreateGiftRecordAndPlayback } from '../creating/record-and-playback';
 import { CreatingPartContent } from '../creating/part-content';
 import { SignGift } from '../creating/sign-gift';
 import { SaveGift } from '../creating/save-gift';

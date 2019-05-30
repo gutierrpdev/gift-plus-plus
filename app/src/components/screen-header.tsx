@@ -102,11 +102,10 @@ interface Props {
   postSubTitle?: string; // Text after the sub title
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
-  // Message is Included here to ensure it sits within the same background element
   museumName: string; // For terms dialog
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
-  padding?: Padding;
-  bottomPadding?: BottomPadding;
+  padding?: Padding; // Padding to apply
+  bottomPadding?: BottomPadding; // Bottom only padding
   background?: 'none' | 'white'; // Background colour
   onTermsAccepted?: () => void; // Callback for when the terms are accepted
 }
