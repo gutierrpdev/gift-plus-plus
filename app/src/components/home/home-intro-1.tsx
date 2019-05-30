@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
-import { Buttons } from '../buttons';
-import { WaitThen } from '../utils/wait-then';
+import { Button } from '../buttons';
+import { PanelButtons } from '../panel-buttons';
 
 /**
  * First home intro screen
@@ -14,9 +14,6 @@ interface Props {
 }
 
 const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
-
-  // Locals
-  const defaultWait = 5;
 
   function handleComplete() {
     if (onComplete) {
@@ -39,10 +36,9 @@ const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
         />
       </PanelContent>
 
-      <WaitThen
-        wait={defaultWait}
-        andThen={handleComplete}
-      />
+      <PanelButtons>
+        <Button onClick={handleComplete}>Continue</Button>
+      </PanelButtons>
 
     </Panel>
 
