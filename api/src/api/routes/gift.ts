@@ -19,13 +19,6 @@ router.post('/gift', async (ctx) => {
   // Transcode the assets...
   // TODO: Factor this out!!
 
-  const rgUpload = await ctx.lib.storage.getUserUpload(body.recipientGreeting);
-  const rgTranscodeResult = await ctx.lib.transcode.transcodeAudio(rgUpload);
-  const rgAsset = await ctx.lib.storage.uploadAsset(
-    `${giftId}/${uuidv4()}.${rgTranscodeResult.extension}`,
-    rgTranscodeResult.stream,
-  );
-
   const assetReplacedParts: Array<{ photo: string, note: string, clue: string }> = [];
 
   for (const part of body.parts) {
@@ -57,7 +50,6 @@ router.post('/gift', async (ctx) => {
     museumId: body.museumId,
     senderName: body.senderName,
     recipientName: body.recipientName,
-    recipientGreeting: rgAsset,
     parts: assetReplacedParts,
   });
 

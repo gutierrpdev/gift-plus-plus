@@ -13,7 +13,6 @@ const testGiftData = {
   accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The sender name',
   recipientName: 'The recipient name',
-  recipientGreeting: 'https://todo.com/todo',
   parts: [{
     photo: 'https://todo.com/todo',
     note: 'https://todo.com/todo',

@@ -64,7 +64,6 @@ export interface GetGiftResponse {
   accountId: string;
   senderName: string;
   recipientName: string;
-  recipientGreeting: string;
   parts: Array<{
     photo: string;
     note: string;
@@ -81,7 +80,6 @@ export const getGiftResponseSchema = {
     accountId: { type: 'string', format: 'uuid' },
     senderName: { type: 'string', minLength: 1 },
     recipientName: { type: 'string', minLength: 1 },
-    recipientGreeting: { type: 'string', format: 'uri' },
     parts: { type: 'array', minItems: 1, maxItems: 3, items: {
       type: 'object',
       properties: {
@@ -103,7 +101,6 @@ export const getGiftResponseSchema = {
     'accountId',
     'senderName',
     'recipientName',
-    'recipientGreeting',
     'parts',
   ],
 };
@@ -117,7 +114,6 @@ export interface CreateGiftRequest {
   museumId: string;
   senderName: string;
   recipientName: string;
-  recipientGreeting: string;
   parts: Array<{
     photo: string;
     note: string;
@@ -132,7 +128,6 @@ export const createGiftRequestSchema = {
     museumId: { type: 'string', format: 'uuid' },
     senderName: { type: 'string', minLength: 1 },
     recipientName: { type: 'string', minLength: 1 },
-    recipientGreeting: { type: 'string', minLength: 1 },
     parts: { type: 'array', minItems: 1, maxItems: 3, items: {
       type: 'object',
       properties: {
@@ -152,7 +147,6 @@ export const createGiftRequestSchema = {
     'museumId',
     'senderName',
     'recipientName',
-    'recipientGreeting',
     'parts',
   ],
 };

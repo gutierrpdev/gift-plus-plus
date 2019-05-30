@@ -10,7 +10,6 @@ import * as Knex from 'knex';
   , account_id uuid not null
   , sender_name text not null
   , recipient_name text not null
-  , recipient_greeting text not null
   , parts jsonb not null
   , created_at timestamp with time zone not null default now()
   );
@@ -42,9 +41,6 @@ export const up = async (knex: Knex): Promise<void> => {
       .notNullable();
     table
       .text('recipient_name')
-      .notNullable();
-    table
-      .text('recipient_greeting')
       .notNullable();
     table
       .json('parts')

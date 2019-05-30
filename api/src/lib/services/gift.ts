@@ -20,7 +20,6 @@ interface Gift {
   accountId: AccountId;
   senderName: string;
   recipientName: string;
-  recipientGreeting: AudioRecordingUrl;
   parts: GiftPart[];
 }
 
@@ -80,7 +79,6 @@ export class GiftService {
       account_id: gift.accountId,
       sender_name: gift.senderName,
       recipient_name: gift.recipientName,
-      recipient_greeting: gift.recipientGreeting,
       parts: JSON.stringify(gift.parts),
     });
 
@@ -136,7 +134,6 @@ interface GiftTableRow {
   account_id: string;
   sender_name: string;
   recipient_name: string;
-  recipient_greeting: string;
   parts: string;
   created_at: Date;
 }
@@ -156,7 +153,6 @@ function tableRowToGift(row: GiftTableRow): Gift {
     accountId: row.account_id,
     senderName: row.sender_name,
     recipientName: row.recipient_name,
-    recipientGreeting: row.recipient_greeting,
     parts: JSON.parse(row.parts),
   };
 }
