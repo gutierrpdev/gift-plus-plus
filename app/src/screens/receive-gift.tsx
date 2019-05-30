@@ -72,7 +72,6 @@ function extractAssetUrls(giftData: GetGiftResponse): string[] {
     new Set(),
   );
 
-  urls.add(giftData.recipientGreeting);
   return Array.from(urls);
 }
 
@@ -89,9 +88,6 @@ function substituteAssetUrls(giftData: GetGiftResponse, assetUrlMap: Map<string,
       note: assetUrlMap.has(part.note) ? assetUrlMap.get(part.note) : part.note,
       photo: assetUrlMap.has(part.photo) ? assetUrlMap.get(part.photo) : part.photo,
     })),
-    recipientGreeting: assetUrlMap.has(giftData.recipientGreeting)
-                     ? assetUrlMap.get(giftData.recipientGreeting)
-                     : giftData.recipientGreeting,
   });
 
   return newGiftData;
