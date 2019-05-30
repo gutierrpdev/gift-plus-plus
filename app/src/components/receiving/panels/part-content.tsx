@@ -33,18 +33,18 @@ export interface PartContentProps {
 }
 
 type Section =
-  | 'start' // 0
-  | 'reveal-preview' // 1
-  | 'do-you-know' // 2
-  | 'wander' // 3
-  | 'show-clue-search' // 4
-  | 'need-help' // 5
-  | 'help-is-here' // 6
-  | 'reveal-full' // 7
-  | 'play-audio' // 8
-  | 'show-clue-found' // 9
-  | 'unwrapped' // 10
-  | 'outro' // 11
+  | 'start'
+  | 'reveal-preview'
+  | 'do-you-know'
+  | 'wander'
+  | 'show-clue-search'
+  | 'need-help'
+  | 'help-is-here'
+  | 'reveal-full'
+  | 'play-audio'
+  | 'show-clue-found'
+  | 'unwrapped'
+  | 'outro'
 ;
 
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
