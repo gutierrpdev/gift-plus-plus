@@ -37,6 +37,7 @@ type Section =
   | 'reveal-preview'
   | 'do-you-know'
   | 'wander'
+  | 'reveal-preview2'
   | 'show-clue-search'
   | 'need-help'
   | 'help-is-here'
@@ -172,12 +173,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     if (section === 'start') { setSection('reveal-preview'); }
     if (section === 'reveal-preview') { setSection('do-you-know'); }
     if (section === 'do-you-know') { setSection('wander'); }
+    if (section === 'wander') { setSection('reveal-preview2'); }
 
-    if (section === 'wander') {
+    if (section === 'reveal-preview2') {
 
       // Check if we have a clue
       if (giftPart && giftPart.clue.trim()) {
-        // Skip
         setSection('need-help');
       } else {
         setSection('show-clue-search');
@@ -192,7 +193,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     if (section === 'show-clue-found') { setSection('unwrapped'); }
     if (section === 'unwrapped') { setSection('outro'); }
 
-
   }
 
 
@@ -205,8 +205,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     const haveClue = giftPart && giftPart.clue.trim();
 
     switch (section) {
-      case 'wander':
-
+      case 'reveal-preview2':
         return (
           <>
             {haveClue && <Button onClick={gotoGiveClueSearch}>Show clue</Button>}
@@ -298,9 +297,10 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function getLookAroundText() {
+    // todo: review with NT
     switch (props.giftPartIndex) {
       case 0 :
-        return 'Wander round and tap the button when you find it';
+        return 'Wander round until you find it';
       case 1 :
         return 'Take a wander. When you find the object tap the button';
       case 2 :
@@ -362,7 +362,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function getOutroAudioFile() {
-    // todo update these audio files
     return atMuseum
       ? museumGift
         ? assetStore.assets.rOutroAtMuseumMuseumGift
@@ -373,7 +372,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         : assetStore.assets.rOutroNotAtMuseumPersonalGift;
   }
 
-  // Calculate some things
+  // Locals
   const defaultWait = 5;
 
   // Use an index to advance to next statge
@@ -420,11 +419,19 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         }
 
         {section === 'wander' &&
-          <PanelPrompt
-            text={getLookAroundText()}
-            background={'transparent-black'}
-          />
+          <>
+            <PanelPrompt
+              text={getLookAroundText()}
+              background={'transparent-black'}
+            />
+            <WaitThen
+              wait={defaultWait}
+              andThen={handleContinue}
+            />
+          </>
         }
+
+        {/* reveal-preview2 - nothing to show */}
 
         {section === 'show-clue-search' &&
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
