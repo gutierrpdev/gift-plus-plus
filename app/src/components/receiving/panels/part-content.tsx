@@ -275,7 +275,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           ? 'This is a sneak peek of your gift'
           : 'This is a sneak peek of the first object in your gift';
       case 1 :
-        return 'Here’s a preview of the second object in your gift...';
+        return 'Here’s a look at the second object in your gift...';
       case 2 :
         return 'Here’s a glimpse of your last object...';
       default :
@@ -302,9 +302,9 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 0 :
         return 'Wander round until you find it';
       case 1 :
-        return 'Take a wander. When you find the object tap the button';
+        return 'Take a wander to look for it';
       case 2 :
-        return 'Tap the button when you find it';
+        return ''; // nothing on 3
       default :
         return '';
     }
@@ -330,7 +330,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 1 :
         return 'Good work!';
       case 2 :
-        return 'Excellent';
+        return 'Excellent!';
       default :
         return '';
     }
@@ -420,10 +420,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         {section === 'wander' &&
           <>
+            {props.giftPartIndex < 2 &&
             <PanelPrompt
               text={getLookAroundText()}
               background={'transparent-black'}
-            />
+            />}
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
