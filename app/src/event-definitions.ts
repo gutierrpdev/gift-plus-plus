@@ -57,10 +57,11 @@ export const rOutroCompletedEvent = (giftId: string) => ({ name: 'r-outro-comple
 // Creating
 // --------
 
+// Intro
 export const cNewGiftStartedEvent = (giftId: string) => ({ name: 'c-new-gift-started', payload: { giftId } });
 export const cIntroCompletedEvent = (giftId: string) => ({ name: 'c-intro-completed', payload: { giftId } });
 export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipient-name-entered', payload: { giftId } });
-
+// Parts
 export const cPartStartedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-started', payload: { giftId, partNumber } });
 export const cPartPhotoCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-photo-completed', payload: { giftId, partNumber } });
 export const cPartMessageRecordStarted = (giftId: string, partNumber: number) => ({ name: 'c-part-message-record-started', payload: { giftId, partNumber } });
