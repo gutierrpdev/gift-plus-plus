@@ -51,6 +51,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
         url={audioRecorder.file.url}
         saveButtonText={saveButtonText}
         giftId={gift.id}
+        giftPartIndex={giftPartIndex}
         onReRecordClicked={() => {
           events.track(cPartMessageReRecordPressed(gift.id, giftPartIndex + 1));
           audioRecorder.disposeRecording();
@@ -148,9 +149,10 @@ const PlaybackPanel: React.FC<{
   playbackMessage: string;
   saveButtonText: string;
   giftId: string;
+  giftPartIndex: number;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, playbackMessage, saveButtonText, giftId, onReRecordClicked, onSaveClicked }) => {
+}> = ({ url, playbackMessage, saveButtonText, giftId, giftPartIndex, onReRecordClicked, onSaveClicked }) => {
 
   const [recordedAudioHasPlayedBack, setRecordedAudioHasPlayedBack] = useState(false);
 
@@ -162,6 +164,7 @@ const PlaybackPanel: React.FC<{
           src={url}
           forwardButtonType={'skip-seconds'}
           giftId={giftId}
+          audioReference={`c-part${giftPartIndex + 1}-playback-recorded-message`}
           onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
         />
       </PanelContent>

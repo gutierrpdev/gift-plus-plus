@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { events } from '../../services';
+import {
+  aPlayerPlayPressedEvent,
+  aPlayerPausePressedEvent,
+  aPlayerSkipPressedEvent,
+  aPlayerStepBackwardsPressedEvent,
+  aPlayerAudioCompletedEvent,
+} from '../../event-definitions';
+
+
 import { ProgressBar } from '../progress-bar';
 import { PanelText } from '../panel-text';
 import { PanelRound } from '../panel-round';
@@ -61,7 +71,8 @@ interface Props {
   message: string; // Message show in player
   src: string; // Reference to audio file to play
   forwardButtonType: AudioPlayerForwardButtonType;
-  giftId: string | null; // Not ideal to have this here, used for events
+  giftId: string; // Not ideal to have this here, used for events
+  audioReference: string;
   onPlaybackStarted?: () => void; // Optional callback when audio playback is started
   onPlaybackComplete?: () => void; // Optional callback when audio has completed playback
 }
@@ -130,6 +141,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
 
         // End of audio file
 
+        events.track(aPlayerAudioCompletedEvent(this.props.giftId, this.props.audioReference));
+
         // Update the state/UI
         this.setState({
           isPlaying: false,
@@ -175,6 +188,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     // If paused, then play
     if (this.audio.paused && this.audio.src) {
 
+      events.track(aPlayerPlayPressedEvent(this.props.giftId, this.props.audioReference));
+
       // Start the player
       this.audio.play();
 
@@ -186,6 +201,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     } else if (!this.audio.paused) {
 
       // If not paused, we must be playing, so pause
+
+      events.track(aPlayerPausePressedEvent(this.props.giftId, this.props.audioReference));
 
       // Pause the player
       this.audio.pause();
@@ -205,6 +222,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     if (!this.audio) {
       return;
     }
+
+    events.track(aPlayerSkipPressedEvent(this.props.giftId, this.props.audioReference));
 
     // Calculate our target
     const target = Math.round(this.audio.currentTime + AudioPlayer.skipForwardSeconds);
@@ -236,6 +255,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
       return;
     }
 
+    events.track(aPlayerSkipPressedEvent(this.props.giftId, this.props.audioReference));
+
     // Stop
     if (this.state.isPlaying) {
       this.togglePlay();
@@ -256,6 +277,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     if (!this.audio) {
       return;
     }
+
+    events.track(aPlayerStepBackwardsPressedEvent(this.props.giftId, this.props.audioReference));
 
     // Calculate the target
     const target = Math.round(this.audio.currentTime - AudioPlayer.skipBackwardSeconds);

@@ -47,6 +47,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
           src={assetStore.assets.cShare}
           forwardButtonType={'go-to-end'}
           giftId={gift.id}
+          audioReference={'c-outro'}
           onPlaybackComplete={() => {setAudioPlaybackFinished(true); }}
         />
       </PanelContent>

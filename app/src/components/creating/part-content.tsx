@@ -238,6 +238,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
               src={assetStore.assets.cChoosePart1}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
+              audioReference={'r-part1-look'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -247,6 +248,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
               src={assetStore.assets.cChoosePart2}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
+              audioReference={'r-part2-look'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -256,6 +258,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
               src={assetStore.assets.cChoosePart3}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
+              audioReference={'r-part3-look'}
               onPlaybackComplete={() => { setFirstAudioHasPlayed(true); }}
             />
           }
@@ -328,6 +331,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
                 src={assetStore.assets.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
+                audioReference={'r-part1-tell-them-why'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
@@ -337,6 +341,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
                 src={assetStore.assets.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
+                audioReference={'r-part2-tell-them-why'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }
@@ -346,6 +351,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
                 src={assetStore.assets.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
+                audioReference={'r-part3-tell-them-why'}
                 onPlaybackComplete={() => { setSecondAudioHasPlayed(true); }}
             />
           }

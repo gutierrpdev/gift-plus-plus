@@ -43,6 +43,7 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ giftId, onComplete 
             src={assetStore.assets.cStart}
             forwardButtonType={'go-to-end'}
             giftId={giftId}
+            audioReference={'c-choose-recipient'}
             onPlaybackComplete={() => setAudioHasPlayed(true)}
           />
 

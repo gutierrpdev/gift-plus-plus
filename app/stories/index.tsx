@@ -582,7 +582,8 @@ storiesOf('Components/Media', module)
         <AudioPlayer
           message={'Lorem ipsum'}
           forwardButtonType={'skip-seconds'}
-          giftId={null}
+          giftId={''}
+          audioReference={'lorem'}
           src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
         />
       </div>
@@ -590,7 +591,8 @@ storiesOf('Components/Media', module)
       <AudioPlayer
         message={'Lorem ipsum'}
         forwardButtonType={'go-to-end'}
-        giftId={null}
+        giftId={''}
+        audioReference={'lorem'}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
     </>

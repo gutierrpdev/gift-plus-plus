@@ -92,8 +92,8 @@ export const cOutroCompletedEvent = (giftId: string) => ({ name: 'c-outro-comple
 // Audio Player
 // ------------
 
-export const aPlayerPlayPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-play-pressed', payload: { giftId, audioFilename } });
-export const aPlayerPausePressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-pause-pressed', payload: { giftId, audioFilename } });
-export const aPlayerSkipPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-skip-pressed', payload: { giftId, audioFilename } });
-export const aPlayerStepBackwardsPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-step-backwards-pressed', payload: { giftId, audioFilename } });
-export const aPlayerAudioCompletedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-audio-completed', payload: { giftId, audioFilename } });
+export const aPlayerPlayPressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-play-pressed', payload: { giftId, audioReference } });
+export const aPlayerPausePressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-pause-pressed', payload: { giftId, audioReference } });
+export const aPlayerSkipPressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-skip-pressed', payload: { giftId, audioReference } });
+export const aPlayerStepBackwardsPressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-step-backwards-pressed', payload: { giftId, audioReference } });
+export const aPlayerAudioCompletedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-audio-completed', payload: { giftId, audioReference } });

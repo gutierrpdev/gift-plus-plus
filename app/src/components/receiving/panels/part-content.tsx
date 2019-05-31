@@ -491,6 +491,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             src={giftPart.note}
             forwardButtonType={'go-to-end'}
             giftId={props.gift.id}
+            audioReference={`r-part${props.giftPartIndex + 1}-play-sender-message`}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
@@ -519,6 +520,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           src={getOutroAudioFile()}
           forwardButtonType={'go-to-end'}
           giftId={props.gift.id}
+          audioReference={`r-part${props.giftPartIndex + 1}-outro`}
           onPlaybackComplete={() => {setOutroAudioPlaybackFinished(true); }}
         />
         }
