@@ -30,9 +30,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
 
   function handleContinue() {
 
-    useEffect(() => {
-      events.track(cOutroCompletedEvent(gift.id));
-    }, []);
+    events.track(cOutroCompletedEvent(gift.id));
 
     // Go to the home screen
     history.push('/');
