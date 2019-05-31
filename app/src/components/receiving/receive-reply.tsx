@@ -42,6 +42,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
           message={'Listen back to your reply...'}
           src={''}
           forwardButtonType={'go-to-end'}
+          giftId={props.gift.id}
         />
       }
       {!hasRecording &&

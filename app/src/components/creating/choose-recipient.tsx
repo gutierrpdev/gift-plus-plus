@@ -13,10 +13,11 @@ import { TextInputModal } from '../modals/text-input-modal';
  */
 
 interface Props {
+  giftId: string;
   onComplete: (recipientName: string) => void; // Callback to call when name is entered
 }
 
-export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
+export const CreateGiftChooseRecipient: React.FC<Props> = ({ giftId, onComplete }) => {
 
   // State
   const [showingEnterRecipient, setShowingEnterRecipient] = useState(false);
@@ -41,6 +42,7 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ onComplete }) => {
             message={'Who are you going to choose?'}
             src={assetStore.assets.cStart}
             forwardButtonType={'go-to-end'}
+            giftId={giftId}
             onPlaybackComplete={() => setAudioHasPlayed(true)}
           />
 

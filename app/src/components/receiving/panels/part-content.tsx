@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 
 import { assetStore } from '../../../services';
+import { events } from '../../../services';
+import {
+  rPartCluePressedEvent,
+  rPartClueDismissedEvent,
+  rPartHelpPressedEvent,
+  rPartHelpDismissedEvent,
+  rPartCompletedEvent,
+  rPartFound,
+  cOutroCompletedEvent,
+} from '../../../event-definitions';
 
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
@@ -11,12 +21,6 @@ import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen, WaitThenShow } from '../../utils/wait-then';
 import history from '../../../utils/router-history';
-import {
-  track,
-  receivingGiftClueRequestedEvent,
-  receivingGiftFoundPartEvent,
-  giftReceiveCompleteGoHomePressedEvent,
-} from '../../../utils/events';
 
 /**
  * Show the gift part content, prompting for clues, etc.
@@ -101,7 +105,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function gotoGiveClueSearch() {
 
     // Record the event
-    track(receivingGiftClueRequestedEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
+    events.track(rPartCluePressedEvent(props.gift.id, props.giftPartIndex));
 
     // Show the section
     setSection('show-clue-search');
@@ -114,7 +118,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function gotoHereYouGo() {
 
     // Record the event
-    track(receivingGiftFoundPartEvent( {giftId: props.gift.id, partNumber: props.giftPartIndex + 1} ));
+    events.track(rPartFound(props.gift.id, props.giftPartIndex));
 
     // Show the section
     setSection('help-is-here');
@@ -141,6 +145,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   function gotoEndOfGiftPart() {
 
+    events.track(rPartCompletedEvent(props.gift.id, props.giftPartIndex));
+
     // If on the last part show the outro
     const lastGiftPart = (props.giftPartIndex + 1 === giftPartCount);
     if (lastGiftPart) {
@@ -159,7 +165,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function handleOutroContinue() {
 
     // Track go home event
-    track(giftReceiveCompleteGoHomePressedEvent( {giftId: props.gift.id} ));
+    events.track(cOutroCompletedEvent(props.gift.id));
 
     // Go to the home screen
     history.push('/');
@@ -217,12 +223,27 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return (
           <>
             <Button onClick={gotoFindObject} primary={true}>OK</Button>
-            <Button onClick={gotoGiveHelp}>More help</Button>
+            <Button
+              onClick={() => {
+                events.track(rPartHelpPressedEvent(props.gift.id, props.giftPartIndex));
+                gotoGiveHelp();
+              }}
+            >
+              More help
+            </Button>
           </>
         );
-      case 'need-help':
+      case 'need-help': // More help
         return (
-          <Button onClick={gotoFindObject} primary={true}>OK</Button>
+          <Button
+            onClick={() => {
+              events.track(rPartHelpDismissedEvent(props.gift.id, props.giftPartIndex));
+              gotoFindObject();
+            }}
+            primary={true}
+          >
+            OK
+          </Button>
         );
       case 'reveal-full':
 
@@ -252,7 +273,15 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         );
       case 'show-clue-found':
         return (
-          <Button onClick={gotoFoundAudio} primary={true}>OK</Button>
+          <Button
+            onClick={() => {
+              events.track(rPartClueDismissedEvent(props.gift.id, props.giftPartIndex));
+              gotoFoundAudio();
+            }}
+            primary={true}
+          >
+            OK
+          </Button>
         );
       case 'outro':
         return (
@@ -461,6 +490,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             message={getPlaySendersMessage()}
             src={giftPart.note}
             forwardButtonType={'go-to-end'}
+            giftId={props.gift.id}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
         }
@@ -488,6 +518,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             the last bit?`}
           src={getOutroAudioFile()}
           forwardButtonType={'go-to-end'}
+          giftId={props.gift.id}
           onPlaybackComplete={() => {setOutroAudioPlaybackFinished(true); }}
         />
         }

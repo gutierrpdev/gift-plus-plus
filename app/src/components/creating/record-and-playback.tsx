@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 
+import { events } from '../../services';
+import {
+  cPartMessageRecordStarted,
+  cPartMessageRecordStopped,
+  cPartMessageReRecordPressed,
+  cPartMessageCompleted,
+} from '../../event-definitions';
+
 import { assertNever } from '../../utils/helpers';
 import { AudioRecorder, useAudioRecorder } from '../../utils/use-audio-recorder';
 import { InProgressGift, LocalFile } from '../../domain';
@@ -9,14 +17,6 @@ import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { AudioRecorder as AudioRecorderComponent } from '../media/audio-recorder';
-import {
-  track,
-  audioRecordingStartedEvent,
-  audioRecordingStoppedEvent,
-  audioReRecordedEvent,
-  audioKeptEvent,
-} from '../../utils/events';
-
 
 /**
  * The start of making a gift. User records a greeting to recipient.
@@ -28,7 +28,7 @@ interface Props {
   playbackMessage?: string;
   saveButtonText: string;
   gift: InProgressGift;
-  eventReference: string;
+  giftPartIndex: number;  // 0 based, (0, 1 or 2)
   onComplete: (audioFile: LocalFile) => void;
   onReRecord: () => void;
 }
@@ -38,7 +38,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
   playbackMessage = 'Review your recording',
   saveButtonText,
   gift,
-  eventReference,
+  giftPartIndex,
   onComplete,
   onReRecord,
 }) => {
@@ -50,13 +50,14 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
         playbackMessage={playbackMessage}
         url={audioRecorder.file.url}
         saveButtonText={saveButtonText}
+        giftId={gift.id}
         onReRecordClicked={() => {
-          track(audioReRecordedEvent({ giftId: gift.id, audioType: eventReference }));
+          events.track(cPartMessageReRecordPressed(gift.id, giftPartIndex + 1));
           audioRecorder.disposeRecording();
           onReRecord();
         }}
         onSaveClicked={() => {
-          track(audioKeptEvent({ giftId: gift.id, audioType: eventReference }));
+          events.track(cPartMessageCompleted(gift.id, giftPartIndex + 1));
           onComplete(audioRecorder.file);
         }}
       />
@@ -68,7 +69,7 @@ export const CreateGiftRecordAndPlayback: React.FC<Props> = ({
       text={text}
       audioRecorder={audioRecorder}
       gift={gift}
-      eventReference={eventReference}
+      giftPartIndex={giftPartIndex}
     />
   );
 };
@@ -80,8 +81,8 @@ const RecordPanel: React.FC<{
   audioRecorder: AudioRecorder;
   text: string;
   gift: InProgressGift;
-  eventReference: string;
-}> = ({ audioRecorder, text, gift, eventReference }) => {
+  giftPartIndex: number;  // 0 based, (0, 1 or 2)
+}> = ({ audioRecorder, text, gift, giftPartIndex }) => {
   // Convert audio recorder state into a display status for the component
   const componentStatus = (audioRecorder.state === 'pending') ? 'idle'
                         : (audioRecorder.state === 'preparing') ? 'preparing'
@@ -107,7 +108,7 @@ const RecordPanel: React.FC<{
   function handleStartRecord() {
 
     // Track the event
-    track(audioRecordingStartedEvent( {giftId: gift.id, audioType: eventReference} ));
+    events.track(cPartMessageRecordStarted(gift.id, giftPartIndex + 1));
 
     // Fire
     onClick();
@@ -117,7 +118,7 @@ const RecordPanel: React.FC<{
   function handleStopRecord() {
 
     // Track the event
-    track(audioRecordingStoppedEvent( {giftId: gift.id, audioType: eventReference} ));
+    events.track(cPartMessageRecordStopped(gift.id, giftPartIndex + 1));
 
     // Fire
     onClick();
@@ -146,9 +147,10 @@ const PlaybackPanel: React.FC<{
   url: string;
   playbackMessage: string;
   saveButtonText: string;
+  giftId: string;
   onReRecordClicked: () => void;
   onSaveClicked: () => void;
-}> = ({ url, playbackMessage, saveButtonText, onReRecordClicked, onSaveClicked }) => {
+}> = ({ url, playbackMessage, saveButtonText, giftId, onReRecordClicked, onSaveClicked }) => {
 
   const [recordedAudioHasPlayedBack, setRecordedAudioHasPlayedBack] = useState(false);
 
@@ -159,6 +161,7 @@ const PlaybackPanel: React.FC<{
           message={playbackMessage}
           src={url}
           forwardButtonType={'skip-seconds'}
+          giftId={giftId}
           onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
         />
       </PanelContent>

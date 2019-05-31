@@ -20,12 +20,6 @@ import {
   getSessionRecipientLocation,
   setSessionRecipientLocation,
 } from '../../utils/local';
-import {
-  track,
-  receivingGiftLocationSelectedEvent,
-  receivingGiftSaveForLaterEvent,
-  receivingGiftOpenItNowEvent,
-} from '../../utils/events';
 import history from '../../utils/router-history';
 
 /**
@@ -67,7 +61,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
 
   public handleOpenAnywayClicked = () => {
-    track(receivingGiftOpenItNowEvent( {giftId: this.props.gift.id} ));
     this.setCompactHeader();
     this.setState({
       status: 'ShowingParts',
@@ -76,8 +69,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
 
   public handleSetLocation = (recipientLocation: RecipientLocation) => {
-    if (recipientLocation === 'at-museum') events.track(rAtMuseumConfirmedEvent(true));
-    if (recipientLocation === 'not-at-museum') events.track(rAtMuseumConfirmedEvent(false));
+    if (recipientLocation === 'at-museum') events.track(rAtMuseumConfirmedEvent(this.props.gift.id, true));
+    if (recipientLocation === 'not-at-museum') events.track(rAtMuseumConfirmedEvent(this.props.gift.id, false));
 
     setSessionRecipientLocation(recipientLocation);
 
@@ -95,9 +88,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
 
   public handleSaveForLaterClicked = () => {
-
-    // Record the event
-    track(receivingGiftSaveForLaterEvent( {giftId: this.props.gift.id} ));
 
     // Go to the homepage
     history.push('/');

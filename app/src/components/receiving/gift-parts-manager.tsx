@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { events } from '../../services';
+import { rOpenPartPressedEvent } from '../../event-definitions';
+
 import { assertNever } from '../../utils/helpers';
 import { Gift, GiftPart } from '../../domain';
 import { romanNumeralFromDecimal } from '../../themes/global';
@@ -8,7 +11,7 @@ import { romanNumeralFromDecimal } from '../../themes/global';
 import { GiftPartWrapper } from './gift-part-wrapper';
 import { IdleGiftPart } from './idle-gift-part';
 import { RecipientLocation } from '../choose-location';
-import { PanelContent } from '../panel';
+
 
 /**
  * Holds and manages visual Gift Parts
@@ -71,8 +74,8 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
       <StyledGiftPartsManager>
         {gift.parts.map((part, idx) => {
           const partState = state.partStateMap.get(part)!;
-          const showOpenPrompt = (idx === 0); // todo, check for next part
-          const textColour = (idx === 0) ? 'white' : 'black'; // todo, use disabled,check for next part
+          const showOpenPrompt = (idx === 0);
+          const textColour = (idx === 0) ? 'white' : 'black';
 
           return (
             <IdleGiftPart
@@ -82,10 +85,13 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
               isDisabled={partState.isDisabled}
               showOpenPrompt={showOpenPrompt}
               textColour={textColour}
-              onClick={() => setState({
-                ...state,
-                status: { kind: 'OnePartOpen', activePart: part },
-              })}
+              onClick={() => {
+                events.track(rOpenPartPressedEvent(gift.id, idx));
+                setState({
+                  ...state,
+                  status: { kind: 'OnePartOpen', activePart: part },
+                });
+              }}
             >
               Part {romanNumeralFromDecimal(idx + 1)}
             </IdleGiftPart>

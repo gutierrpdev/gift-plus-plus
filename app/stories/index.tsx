@@ -582,6 +582,7 @@ storiesOf('Components/Media', module)
         <AudioPlayer
           message={'Lorem ipsum'}
           forwardButtonType={'skip-seconds'}
+          giftId={null}
           src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
         />
       </div>
@@ -589,6 +590,7 @@ storiesOf('Components/Media', module)
       <AudioPlayer
         message={'Lorem ipsum'}
         forwardButtonType={'go-to-end'}
+        giftId={null}
         src={'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'}
       />
     </>
@@ -871,6 +873,7 @@ storiesOf('Components/Creating', module)
       <GlobalStyles />
       <CreateGiftChooseRecipient
         onComplete={logSomething}
+        giftId={'test'}
       />
     </>
   ))
@@ -879,9 +882,9 @@ storiesOf('Components/Creating', module)
       <GlobalStyles />
       <CreateGiftRecordAndPlayback
         gift={emptyGift}
+        giftPartIndex={0}
         text={'Record something'}
         saveButtonText={'Save something'}
-        eventReference='event-id'
         onComplete={(audioFile) => logSomething(audioFile.url)}
         onReRecord={doNothing}
       />

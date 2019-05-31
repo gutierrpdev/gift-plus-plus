@@ -59,14 +59,6 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
       ? assetStore.assets.rIntroContentNotAtMuseumMuseumGift
       : assetStore.assets.rIntroContentNotAtMuseumPersonalGift;
 
-  const eventReference = atMuseum
-    ? museumGift
-      ? 'receiving-intro-at-museum-museum-gift'
-      : 'receiving-intro-at-museum-personal-gift'
-    : museumGift
-      ? 'receiving-intro-not-at-museum-museum-gift'
-      : 'receiving-intro-not-at-museum-personal-gift';
-
   return (
     <Panel isParent={false}>
 
@@ -76,6 +68,7 @@ const ReceivingIntroContent: React.FC<Props> = (props) => {
           message={'Start here...'}
           src={audioFile}
           forwardButtonType={'go-to-end'}
+          giftId={props.gift.id}
           onPlaybackComplete={handleAudioPlaybackFinished}
         />
 

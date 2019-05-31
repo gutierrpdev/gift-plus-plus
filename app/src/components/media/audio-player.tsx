@@ -43,17 +43,14 @@ const Controls = styled.div`
 // == Buttons ==
 const SkipBack = styled(BaseControlButton)`
   width: 20%
-  /* height: 10vmin; */
 `;
 
 const SkipForward = styled(BaseControlButton)`
   width: 20%
-  /* height: 10vmin; */
 `;
 
 const Play = styled(BaseControlButton)`
   width: 35%;
-  /* height: 17vmin; */
   margin: 0 5%;
 `;
 
@@ -64,7 +61,7 @@ interface Props {
   message: string; // Message show in player
   src: string; // Reference to audio file to play
   forwardButtonType: AudioPlayerForwardButtonType;
-  // tslint:disable-next-line max-line-length
+  giftId: string | null; // Not ideal to have this here, used for events
   onPlaybackStarted?: () => void; // Optional callback when audio playback is started
   onPlaybackComplete?: () => void; // Optional callback when audio has completed playback
 }

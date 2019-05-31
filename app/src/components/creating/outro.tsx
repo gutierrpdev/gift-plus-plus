@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { assetStore } from '../../services';
 
@@ -8,7 +8,12 @@ import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
 import { InProgressGift } from '../../domain';
 import history from '../../utils/router-history';
-import { track, giftCompleteGoHomePressedEvent } from '../../utils/events';
+
+import { events } from '../../services';
+import {
+  cOutroCompletedEvent,
+} from '../../event-definitions';
+
 
 /**
  * Show the creating outro
@@ -25,8 +30,9 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
 
   function handleContinue() {
 
-    // Track go home event
-    track(giftCompleteGoHomePressedEvent( {giftId: gift.id} ));
+    useEffect(() => {
+      events.track(cOutroCompletedEvent(gift.id));
+    }, []);
 
     // Go to the home screen
     history.push('/');
@@ -42,6 +48,7 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
           message='Thank you...'
           src={assetStore.assets.cShare}
           forwardButtonType={'go-to-end'}
+          giftId={gift.id}
           onPlaybackComplete={() => {setAudioPlaybackFinished(true); }}
         />
       </PanelContent>

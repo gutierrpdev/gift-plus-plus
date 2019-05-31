@@ -9,9 +9,9 @@ import {
   cNewGiftStartedEvent,
   cIntroCompletedEvent,
   cRecipientNameEnteredEvent,
-    cSigningCompletedEvent,
-    cSharingCompletedEvent,
-    cSharingChannelChosenEvent,
+  cSigningCompletedEvent,
+  cSharingCompletedEvent,
+  cSharingChannelChosenEvent,
 } from '../../event-definitions';
 
 import { PageChangeDetect } from '../messages/page-change-detect';
@@ -106,22 +106,23 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
       {/* Content */}
       {status === 'intro' &&
-       <CreateGiftIntro
-         onComplete={() => {
-           events.track(cIntroCompletedEvent(gift.id));
-           setStatus('choose-recipient');
-         }}
-       />
+        <CreateGiftIntro
+          onComplete={() => {
+            events.track(cIntroCompletedEvent(gift.id));
+            setStatus('choose-recipient');
+          }}
+        />
       }
 
       {status === 'choose-recipient' &&
-       <CreateGiftChooseRecipient
-         onComplete={(recipientName) => {
-           events.track(cRecipientNameEnteredEvent(gift.id));
-           setGift({...gift, recipientName });
-           setStatus('creating-part');
-         }}
-       />
+        <CreateGiftChooseRecipient
+          giftId={gift.id}
+          onComplete={(recipientName) => {
+            events.track(cRecipientNameEnteredEvent(gift.id));
+            setGift({...gift, recipientName });
+            setStatus('creating-part');
+          }}
+        />
       }
 
       {status === 'creating-part' && gift.recipientName !== undefined &&

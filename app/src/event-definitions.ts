@@ -4,6 +4,10 @@
 // ALL THE EVENTS IN THE SYSTEM SHOULD BE DEFINED HERE
 // ---------------------------------------------------
 
+// ------
+// System
+// ------
+
 export const appStartedEvent = () => ({ name: 'app-started', payload: {
   userAgent: (navigator || window.navigator || {}).userAgent,
 }});
@@ -29,8 +33,23 @@ export const hGiftsOpenMuseumGiftPressedEvent = () => ({ name: 'h-gifts-open-mus
 // Receiving
 // ---------
 
+// Start
 export const rOpenPressedEvent = (giftId: string) => ({ name: 'r-open-pressed', payload: { giftId } });
-export const rAtMuseumConfirmedEvent = (atMuseum: boolean) => ({ name: 'h-at-museum-confirmed', payload: { atMuseum } });
+export const rAtMuseumConfirmedEvent = (giftId: string, atMuseum: boolean) => ({ name: 'r-at-museum-confirmed', payload: { giftId, atMuseum } });
+// Parts
+export const rOpenPartPressedEvent = (giftId: string, partNumber: number)  => ({ name: 'r-open-part-pressed', payload: { giftId, partNumber } });
+// Part clue
+export const rPartCluePressedEvent = (giftId: string, partNumber: number) => ({ name: 'r-part-clue-pressed', payload: { giftId, partNumber } });
+export const rPartClueDismissedEvent = (giftId: string, partNumber: number) => ({ name: 'r-part-clue-dismissed', payload: { giftId, partNumber } });
+export const rPartHelpPressedEvent = (giftId: string, partNumber: number) => ({ name: 'r-part-help-pressed', payload: { giftId, partNumber } });
+export const rPartHelpDismissedEvent = (giftId: string, partNumber: number) => ({ name: 'r-part-help-dismissed', payload: { giftId, partNumber } });
+export const rPartCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'r-part-completed', payload: { giftId, partNumber } });
+// Part End
+export const rPartFound = (giftId: string, partNumber: number) => ({ name: 'r-part-found', payload: { giftId, partNumber } });
+// End
+
+
+
 
 
 // --------
@@ -43,6 +62,12 @@ export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipi
 
 export const cPartStartedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-started', payload: { giftId, partNumber } });
 export const cPartPhotoCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-photo-completed', payload: { giftId, partNumber } });
+export const cPartMessageRecordStarted = (giftId: string, partNumber: number) => ({ name: 'c-part-message-record-started', payload: { giftId, partNumber } });
+export const cPartMessageRecordStopped = (giftId: string, partNumber: number) => ({ name: 'c-part-message-record-stopped', payload: { giftId, partNumber } });
+export const cPartMessageReRecordPressed = (giftId: string, partNumber: number) => ({ name: 'c-part-message-re-record-pressed', payload: { giftId, partNumber } });
+export const cPartMessageCompleted = (giftId: string, partNumber: number) => ({ name: 'c-part-message-completed', payload: { giftId, partNumber } });
+
+// !! !??? note?
 export const cPartNoteCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-note-completed', payload: { giftId, partNumber } });
 export const cPartClueSkippedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-skipped', payload: { giftId, partNumber } });
 export const cPartClueCancelledEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-cancelled', payload: { giftId, partNumber } });
@@ -58,3 +83,16 @@ export const cSavingRetriedEvent = (giftId: string) => ({ name: 'c-saving-retrie
 
 export const cSharingChannelChosenEvent = (giftId: string, channel: string) => ({ name: 'c-sharing-channel-chosen', payload: { giftId, channel } });
 export const cSharingCompletedEvent = (giftId: string) => ({ name: 'c-sharing-completed', payload: { giftId } });
+
+export const cOutroCompletedEvent = (giftId: string) => ({ name: 'r-outro-completed', payload: { giftId } });
+
+
+// ------------
+// Audio Player
+// ------------
+
+export const aPlayerPlayPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-play-pressed', payload: { giftId, audioFilename } });
+export const aPlayerPausePressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-pause-pressed', payload: { giftId, audioFilename } });
+export const aPlayerSkipPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-skip-pressed', payload: { giftId, audioFilename } });
+export const aPlayerStepBackwardsPressedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-step-backwards-pressed', payload: { giftId, audioFilename } });
+export const aPlayerAudioCompletedEvent = (giftId: string, audioFilename: string) => ({ name: 'audio-player-audio-completed', payload: { giftId, audioFilename } });
