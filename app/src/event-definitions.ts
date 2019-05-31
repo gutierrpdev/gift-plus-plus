@@ -47,6 +47,7 @@ export const rPartCompletedEvent = (giftId: string, partNumber: number) => ({ na
 // Part End
 export const rPartFound = (giftId: string, partNumber: number) => ({ name: 'r-part-found', payload: { giftId, partNumber } });
 // End
+export const rOutroCompletedEvent = (giftId: string) => ({ name: 'r-outro-completed', payload: { giftId } });
 
 
 

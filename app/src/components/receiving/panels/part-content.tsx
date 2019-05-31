@@ -9,7 +9,7 @@ import {
   rPartHelpDismissedEvent,
   rPartCompletedEvent,
   rPartFound,
-  cOutroCompletedEvent,
+  rOutroCompletedEvent,
 } from '../../../event-definitions';
 
 import { Panel, PanelContent } from '../../panel';
@@ -165,7 +165,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function handleOutroContinue() {
 
     // Track go home event
-    events.track(cOutroCompletedEvent(props.gift.id));
+    events.track(rOutroCompletedEvent(props.gift.id));
 
     // Go to the home screen
     history.push('/');
