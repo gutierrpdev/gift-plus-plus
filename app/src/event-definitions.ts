@@ -84,7 +84,7 @@ export const cSavingRetriedEvent = (giftId: string) => ({ name: 'c-saving-retrie
 export const cSharingChannelChosenEvent = (giftId: string, channel: string) => ({ name: 'c-sharing-channel-chosen', payload: { giftId, channel } });
 export const cSharingCompletedEvent = (giftId: string) => ({ name: 'c-sharing-completed', payload: { giftId } });
 
-export const cOutroCompletedEvent = (giftId: string) => ({ name: 'r-outro-completed', payload: { giftId } });
+export const cOutroCompletedEvent = (giftId: string) => ({ name: 'c-outro-completed', payload: { giftId } });
 
 
 // ------------
