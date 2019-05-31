@@ -326,7 +326,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-                message={`OK. You've taken a photo`}
+                message={`Great. Here's the next step...`}
                 src={assetStore.assets.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}

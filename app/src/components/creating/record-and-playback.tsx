@@ -170,7 +170,7 @@ const PlaybackPanel: React.FC<{
       </PanelContent>
       {recordedAudioHasPlayedBack &&
       <PanelButtons>
-        <Button onClick={onReRecordClicked}>Try-again</Button>
+        <Button onClick={onReRecordClicked}>Try again</Button>
         <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
       </PanelButtons>}
     </Panel>
