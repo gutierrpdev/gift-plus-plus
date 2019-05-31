@@ -42,6 +42,14 @@ export const cNewGiftStartedEvent = (giftId: string) => ({ name: 'c-new-gift-sta
 export const cIntroCompletedEvent = (giftId: string) => ({ name: 'c-intro-completed', payload: { giftId } });
 export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipient-name-entered', payload: { giftId } });
 
+export const cPartStartedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-started', payload: { giftId, partNumber } });
+export const cPartPhotoCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-photo-completed', payload: { giftId, partNumber } });
+export const cPartNoteCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-note-completed', payload: { giftId, partNumber } });
+export const cPartClueSkippedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-skipped', payload: { giftId, partNumber } });
+export const cPartClueCancelledEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-cancelled', payload: { giftId, partNumber } });
+export const cPartClueCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-completed', payload: { giftId, partNumber } });
+export const cPartCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-completed', payload: { giftId, partNumber } });
+
 export const cSigningCompletedEvent = (giftId: string) => ({ name: 'c-signing-completed', payload: { giftId } });
 
 export const cSavingAttemptedEvent = (giftId: string) => ({ name: 'c-saving-attempted', payload: { giftId } });

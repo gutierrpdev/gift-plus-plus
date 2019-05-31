@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { assetStore } from '../../services';
-
 import { LocalFile, InProgressGift, InProgressGiftPart } from '../../domain';
-import { track, giftPartCompletedEvent, photoTakenEvent } from '../../utils/events';
+
+import { assetStore, events } from '../../services';
+import {
+  cPartStartedEvent,
+  cPartPhotoCompletedEvent,
+  cPartNoteCompletedEvent,
+  cPartClueSkippedEvent,
+  cPartClueCancelledEvent,
+  cPartClueCompletedEvent,
+  cPartCompletedEvent,
+} from '../../event-definitions';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
@@ -71,7 +79,7 @@ export interface Props {
   onComplete: (parts: InProgressGiftPart[]) => void;
 }
 
-const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete }) => {
+export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete }) => {
 
   // TODO: Abstract component to deal with one part at a a time
   // TODO: Abstract individual bits of part-creation out (maybe)
@@ -88,6 +96,12 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
   const [showingEnterClue, setShowingEnterClue] = useState(false);
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
+  // 1 | 2 | 3
+  const partNumber = giftPartIndex + 1;
+
+  useEffect(() => {
+    events.track(cPartStartedEvent(gift.id, partNumber));
+  }, [giftPartIndex]);
 
   // Defaults
   const defaultWait = 5;
@@ -157,26 +171,21 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
   // Part creation is complete
   function handleAllComplete() {
+    // Note: part number is 1 based, rather than index 0 based.
+    events.track(cPartCompletedEvent(gift.id, partNumber));
 
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
-
-    // Note: part number is 1 based, rather than index 0 based.
-    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'wrap-up'} ));
-
     onComplete(parts);
-
   }
 
   // Start on part 2
   function handleStartPart2() {
+    events.track(cPartCompletedEvent(gift.id, partNumber));
 
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
 
     resetState();
-
     setGiftPartIndex(1);
-
-    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
     // Note no first message for part 2, jump to second section
     setStatus('second-message');
@@ -185,18 +194,15 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
 
   // Start on part 3
   function handleStartPart3() {
+    events.track(cPartCompletedEvent(gift.id, partNumber));
 
     parts[giftPartIndex] = currentPart as InProgressGiftPart; // eww
 
     resetState();
-
     setGiftPartIndex(2);
-
-    track(giftPartCompletedEvent( {giftId: gift.id, partNumber: giftPartIndex + 1, nextStep: 'add-more'} ));
 
     // Note no first message for part 3, jump to second section
     setStatus('second-message');
-
   }
 
 
@@ -271,8 +277,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             <PhotoCapture
               text={`If you’ve found your first object, take a photo so they can see what you’ve chosen`}
               onPhotoTaken={(file) => {
+                events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
-                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-1-photo'} ));
               }}
               ref={(pc) => {photoCapture = pc; }}
             />
@@ -284,8 +290,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
                 When you’ve found it take a photo to show them`}
               textSize={42}
               onPhotoTaken={(file) => {
+                events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
-                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-2-photo'} ));
               }}
               ref={(pc) => {photoCapture = pc; }}
             />
@@ -294,8 +300,8 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
             <PhotoCapture
               text={`Choose your last object and take a photo`}
               onPhotoTaken={(file) => {
+                events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
-                track(photoTakenEvent( {giftId: gift.id, photoType: 'creating-part-3-photo'} ));
               }}
               ref={(pc) => {photoCapture = pc; }}
             />
@@ -362,7 +368,10 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
         text={text}
         saveButtonText={'Save message'}
         eventReference='create-gift-part-why-this-object'
-        onComplete={handleAudioRecordFinished}
+        onComplete={(file) => {
+          events.track(cPartNoteCompletedEvent(gift.id, partNumber));
+          handleAudioRecordFinished(file);
+        }}
         onReRecord={handleAudioReRecord}
       />
     );
@@ -429,7 +438,14 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
           />
         </PanelContent>
         <PanelButtons>
-          <Button onClick={clearClueAndNext}>Skip</Button>
+          <Button
+            onClick={() => {
+              events.track(cPartClueSkippedEvent(gift.id, partNumber));
+              clearClueAndNext();
+            }}
+          >
+            Skip
+          </Button>
           <Button onClick={next}>Write a clue</Button>
         </PanelButtons>
       </>
@@ -529,8 +545,14 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
       {showingEnterClue &&
         <TextAreaModal
           placeHolder='Write a clue'
-          onSaveClick={(clue: string) => { handleClueSet(clue); }}
-          onCancelClick={() => { setShowingEnterClue(false); }}
+          onSaveClick={(clue: string) => {
+            events.track(cPartClueCompletedEvent(gift.id, partNumber));
+            handleClueSet(clue);
+          }}
+          onCancelClick={() => {
+            events.track(cPartClueCancelledEvent(gift.id, partNumber));
+            setShowingEnterClue(false);
+          }}
         />
       }
 
@@ -559,8 +581,4 @@ const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onComplete 
     </>
   );
 
-};
-
-export {
-  CreatingPartContent,
 };
