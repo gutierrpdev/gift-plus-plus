@@ -61,7 +61,6 @@ export interface GetGiftResponse {
   id: string;
   kind: 'MuseumGift' | 'PersonalGift';
   museumId: string;
-  accountId: string;
   senderName: string;
   recipientName: string;
   parts: Array<{
@@ -77,7 +76,6 @@ export const getGiftResponseSchema = {
     id: { type: 'string', format: 'uuid' },
     kind: { type: 'string', enum: ['MuseumGift', 'PersonalGift'] },
     museumId: { type: 'string', format: 'uuid' },
-    accountId: { type: 'string', format: 'uuid' },
     senderName: { type: 'string', minLength: 1 },
     recipientName: { type: 'string', minLength: 1 },
     parts: { type: 'array', minItems: 1, maxItems: 3, items: {
@@ -98,7 +96,6 @@ export const getGiftResponseSchema = {
     'id',
     'kind',
     'museumId',
-    'accountId',
     'senderName',
     'recipientName',
     'parts',

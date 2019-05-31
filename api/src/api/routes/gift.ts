@@ -46,7 +46,6 @@ router.post('/gift', async (ctx) => {
   const result = await ctx.lib.gift.create({
     id: body.id,
     kind: 'PersonalGift',
-    accountId: body.id, // TODO!!!!!!
     museumId: body.museumId,
     senderName: body.senderName,
     recipientName: body.recipientName,

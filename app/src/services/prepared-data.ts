@@ -14,7 +14,6 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv
   id: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   kind: 'MuseumGift',
   museumId: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
-  accountId: uuidv5('https://api.thegift.app/account/brighton-museum', uuidv5.URL),
   senderName: 'Brighton Museum',
   recipientName: 'visitor',
   parts: [

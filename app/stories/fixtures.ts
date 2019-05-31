@@ -13,7 +13,6 @@ export const giftThreeParts: Gift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
   kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
-  accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
   parts: [
@@ -39,7 +38,6 @@ export const giftTwoParts: Gift = {
   id: uuidv5('https://api.gift.com/gift/test', uuidv5.URL),
   kind: 'PersonalGift',
   museumId: uuidv5('https://api.gift.com/museum/test', uuidv5.URL),
-  accountId: uuidv5('https://api.gift.com/account/test', uuidv5.URL),
   senderName: 'The Sender',
   recipientName: 'The Receiver',
   parts: [

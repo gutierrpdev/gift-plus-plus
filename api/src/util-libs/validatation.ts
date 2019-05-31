@@ -32,7 +32,6 @@ const bodyAjv = new Ajv({
  */
 const paramSchema = {
   giftId: { type: 'string',  format: 'uuid' },
-  accountId: { type: 'string',  format: 'uuid' },
   museumId: { type: 'string',  format: 'uuid' },
 };
 
@@ -46,7 +45,6 @@ const paramSchema = {
  */
 interface ParamTypeMap {
   giftId: string;
-  accountId: string;
   museumId: string;
 }
 

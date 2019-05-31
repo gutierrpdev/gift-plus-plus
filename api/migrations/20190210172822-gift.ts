@@ -7,7 +7,6 @@ import * as Knex from 'knex';
   ( id uuid primary key
   , kind gift_kind not null
   , museum_id uuid not null
-  , account_id uuid not null
   , sender_name text not null
   , recipient_name text not null
   , parts jsonb not null
@@ -15,7 +14,6 @@ import * as Knex from 'knex';
   );
 
   create index on gift (museum_id);
-  create index on gift (account_id);
  */
 
 export const up = async (knex: Knex): Promise<void> => {
@@ -34,9 +32,6 @@ export const up = async (knex: Knex): Promise<void> => {
       .uuid('museum_id')
       .notNullable();
     table
-      .uuid('account_id')
-      .notNullable();
-    table
       .text('sender_name')
       .notNullable();
     table
@@ -51,7 +46,6 @@ export const up = async (knex: Knex): Promise<void> => {
       .defaultTo(knex.raw('CURRENT_TIMESTAMP'));
 
     table.index(['museum_id']);
-    table.index(['account_id']);
   });
 };
 

@@ -8,7 +8,6 @@ import { Event, mkEvent } from './event';
 
 type Id = string;
 type MuseumId = Id;
-type AccountId = Id;
 type GiftId = Id;
 type PhotoUrl = string;
 type AudioRecordingUrl = string;
@@ -17,7 +16,6 @@ interface Gift {
   id: GiftId;
   kind: 'MuseumGift' | 'PersonalGift';
   museumId: MuseumId;
-  accountId: AccountId;
   senderName: string;
   recipientName: string;
   parts: GiftPart[];
@@ -76,7 +74,6 @@ export class GiftService {
       id: gift.id,
       kind: gift.kind,
       museum_id: gift.museumId,
-      account_id: gift.accountId,
       sender_name: gift.senderName,
       recipient_name: gift.recipientName,
       parts: JSON.stringify(gift.parts),
@@ -150,7 +147,6 @@ function tableRowToGift(row: GiftTableRow): Gift {
     id: row.id,
     kind: row.kind,
     museumId: row.museum_id,
-    accountId: row.account_id,
     senderName: row.sender_name,
     recipientName: row.recipient_name,
     parts: JSON.parse(row.parts),

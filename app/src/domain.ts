@@ -7,7 +7,6 @@
 
 export type Id = string;
 export type MuseumId = Id;
-export type AccountId = Id;
 export type GiftId = Id;
 export type PhotoUrl = string;
 export type AudioRecordingUrl = string;
@@ -27,7 +26,6 @@ export interface Gift {
   id: GiftId;
   kind: 'MuseumGift' | 'PersonalGift';
   museumId: MuseumId;
-  accountId: AccountId;
   senderName: string;
   recipientName: string;
   parts: GiftPart[];
