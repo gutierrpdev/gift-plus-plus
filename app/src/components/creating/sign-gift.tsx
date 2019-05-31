@@ -26,7 +26,7 @@ export const SignGift: React.FC<Props> = ({ onComplete }) => {
 
       {showingEnterName &&
         <TextInputModal
-          placeHolder='Write your firt name'
+          placeHolder='Write your first name'
           onSaveClick={(name) => { onComplete(name); }}
           onCancelClick={() => { setShowingEnterName(false); }}
         />
