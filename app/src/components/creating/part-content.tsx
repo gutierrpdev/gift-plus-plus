@@ -7,7 +7,6 @@ import { assetStore, events } from '../../services';
 import {
   cPartStartedEvent,
   cPartPhotoCompletedEvent,
-  cPartNoteCompletedEvent,
   cPartClueSkippedEvent,
   cPartClueCancelledEvent,
   cPartClueCompletedEvent,
@@ -380,10 +379,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         giftPartIndex={giftPartIndex}
         text={text}
         saveButtonText={'Save message'}
-        onComplete={(file) => {
-          events.track(cPartNoteCompletedEvent(gift.id, partNumber));
-          handleAudioRecordFinished(file);
-        }}
+        onComplete={handleAudioRecordFinished}
         onReRecord={handleAudioReRecord}
       />
     );

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { events } from '../../services';
+import { pTermsPrivacyOpenedEvent, pTermsPrivacyClosedEvent } from '../../event-definitions';
 
 /**
  * Terms content
@@ -485,4 +487,16 @@ const TermsContent: React.FC = () => (
   </>
 );
 
-export {TermsContent};
+
+const TermsContentWithEvents: React.FC = () => {
+  useEffect(() => {
+    events.track(pTermsPrivacyOpenedEvent());
+    return () => events.track(pTermsPrivacyClosedEvent());
+  }, []);
+
+  return <TermsContent />;
+};
+
+export {
+  TermsContentWithEvents as TermsContent,
+};
