@@ -15,6 +15,16 @@ export const appStartedEvent = () => ({ name: 'app-started', payload: {
 export const termsAcceptedEvent = () => ({ name: 'terms-accepted' });
 
 
+// ------------
+// Static Pages
+// ------------
+
+export const pTermsPrivacyOpenedEvent = () => ({ name: 'p-terms-privacy-opened' });
+export const pTermsPrivacyClosedEvent = () => ({ name: 'p-terms-privacy-closed' });
+export const pHelpOpenedEvent = () => ({ name: 'p-help-opened' });
+export const pHelpClosedEvent = () => ({ name: 'p-help-closed' });
+
+
 // ----
 // Home
 // ----
@@ -50,9 +60,6 @@ export const rPartFound = (giftId: string, partNumber: number) => ({ name: 'r-pa
 export const rOutroCompletedEvent = (giftId: string) => ({ name: 'r-outro-completed', payload: { giftId } });
 
 
-
-
-
 // --------
 // Creating
 // --------
@@ -69,7 +76,6 @@ export const cPartMessageRecordStopped = (giftId: string, partNumber: number) =>
 export const cPartMessageReRecordPressed = (giftId: string, partNumber: number) => ({ name: 'c-part-message-re-record-pressed', payload: { giftId, partNumber } });
 export const cPartMessageCompleted = (giftId: string, partNumber: number) => ({ name: 'c-part-message-completed', payload: { giftId, partNumber } });
 
-export const cPartNoteCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-note-completed', payload: { giftId, partNumber } });
 export const cPartClueSkippedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-skipped', payload: { giftId, partNumber } });
 export const cPartClueCancelledEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-cancelled', payload: { giftId, partNumber } });
 export const cPartClueCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-completed', payload: { giftId, partNumber } });

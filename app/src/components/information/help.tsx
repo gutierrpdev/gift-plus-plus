@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { events } from '../../services';
+import { pHelpOpenedEvent, pHelpClosedEvent } from '../../event-definitions';
 
 /**
  * Help content included in the menu/header
@@ -101,6 +103,16 @@ const HelpContent: React.FC = () => (
   </>
 );
 
+
+const HelpContentWithEvents: React.FC = () => {
+  useEffect(() => {
+    events.track(pHelpOpenedEvent());
+    return () => events.track(pHelpClosedEvent());
+  }, []);
+
+  return <HelpContent />;
+};
+
 export {
-  HelpContent,
+  HelpContentWithEvents as HelpContent,
 };
