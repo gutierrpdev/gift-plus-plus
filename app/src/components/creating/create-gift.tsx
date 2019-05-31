@@ -11,6 +11,7 @@ import {
   cRecipientNameEnteredEvent,
     cSigningCompletedEvent,
     cSharingCompletedEvent,
+    cSharingChannelChosenEvent,
 } from '../../event-definitions';
 
 import { PageChangeDetect } from '../messages/page-change-detect';
@@ -160,6 +161,9 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
          recipientName={newGift.recipientName}
          museumName={museumName}
          url={mkShareLink(newGift)}
+         onChannelClicked={(channel) => {
+           events.track(cSharingChannelChosenEvent(gift.id, channel));
+         }}
          onComplete={() => {
            events.track(cSharingCompletedEvent(gift.id));
            setStatus('outro');

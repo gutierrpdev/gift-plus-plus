@@ -919,6 +919,7 @@ storiesOf('Components/Creating', module)
           recipientName='Nick'
           museumName='Blast Theory Art Museum'
           url='https://www.blasttheory.co.uk/projects/gift/'
+          onChannelClicked={doNothing}
           onComplete={doNothing}
         />
       {/* </div> */}

@@ -68,16 +68,17 @@ interface ShareLinkProps {
   icon: JSX.Element;
   text: string;
   url: string;
-  target?: string; // Target for anchor target
   dataAction?: string; // data-target attribute for anchor
+  onClick?: () => void;
 }
 
-export const ShareLink: React.FC<ShareLinkProps> = ({ icon, text, url, target, dataAction }) => {
+export const ShareLink: React.FC<ShareLinkProps> = ({ icon, text, url, dataAction, onClick }) => {
   return (
     <ShareLinkStyle
       href={url}
-      target={target}
+      target='_blank'
       data-action={dataAction}
+      onClick={onClick}
     >
       <ShareLinkIcon>{icon}</ShareLinkIcon>
       <ShareLinkText><TextResize textSize={50}>{text}</TextResize></ShareLinkText>
@@ -91,11 +92,19 @@ interface ShareGiftProps {
   senderName: string;
   recipientName: string;
   museumName: string;
-  url: string; // URL to share
-  onComplete: () => void; // Callback to call when complete
+  url: string;
+  onChannelClicked: (channel: 'sms' | 'email' | 'whatsapp' | 'messenger') => void;
+  onComplete: () => void;
 }
 
-export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName, museumName, url, onComplete }) => {
+export const ShareGift: React.FC<ShareGiftProps> = ({
+  senderName,
+  recipientName,
+  museumName,
+  url,
+  onChannelClicked,
+  onComplete,
+}) => {
 
   // String templates
   const shareText = `Here's a gift that I made for you at ${museumName}... `;
@@ -125,19 +134,34 @@ export const ShareGift: React.FC<ShareGiftProps> = ({ senderName, recipientName,
       <SharesContent>
         <Shares>
 
-          <ShareLink url={smsLink} text='SMS' icon={<SvgIconSms/>} target='_blank' />
+          <ShareLink
+            url={smsLink}
+            text='SMS'
+            icon={<SvgIconSms/>}
+            onClick={() => onChannelClicked('sms')}
+          />
 
-          <ShareLink url={emailLink} text='Email' icon={<SvgIconEmail/>} target='_blank' />
+          <ShareLink
+            url={emailLink}
+            text='Email'
+            icon={<SvgIconEmail/>}
+            onClick={() => onChannelClicked('email')}
+          />
 
           <ShareLink
             url={whatsAppsLink}
             text='WhatsApp'
             icon={<SvgIconWhatsApp/>}
             dataAction='share/whatsapp/share'
-            target='_blank'
+            onClick={() => onChannelClicked('whatsapp')}
           />
 
-          <ShareLink url={fbMessengerLink} text='Messenger' icon={<SvgIconMessenger/>} target='_blank' />
+          <ShareLink
+            url={fbMessengerLink}
+            text='Messenger'
+            icon={<SvgIconMessenger/>}
+            onClick={() => onChannelClicked('messenger')}
+          />
 
         </Shares>
       </SharesContent>

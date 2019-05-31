@@ -43,4 +43,11 @@ export const cIntroCompletedEvent = (giftId: string) => ({ name: 'c-intro-comple
 export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipient-name-entered', payload: { giftId } });
 
 export const cSigningCompletedEvent = (giftId: string) => ({ name: 'c-signing-completed', payload: { giftId } });
+
+export const cSavingAttemptedEvent = (giftId: string) => ({ name: 'c-saving-attempted', payload: { giftId } });
+export const cSavingSucceededEvent = (giftId: string) => ({ name: 'c-saving-succeeded', payload: { giftId } });
+export const cSavingFailedEvent = (giftId: string, reason: string) => ({ name: 'c-saving-failed', payload: { giftId, reason } });
+export const cSavingRetriedEvent = (giftId: string) => ({ name: 'c-saving-retried', payload: { giftId } });
+
+export const cSharingChannelChosenEvent = (giftId: string, channel: string) => ({ name: 'c-sharing-channel-chosen', payload: { giftId, channel } });
 export const cSharingCompletedEvent = (giftId: string) => ({ name: 'c-sharing-completed', payload: { giftId } });
