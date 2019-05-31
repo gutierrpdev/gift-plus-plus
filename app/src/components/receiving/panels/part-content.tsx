@@ -105,7 +105,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function gotoGiveClueSearch() {
 
     // Record the event
-    events.track(rPartCluePressedEvent(props.gift.id, props.giftPartIndex));
+    events.track(rPartCluePressedEvent(props.gift.id, props.giftPartIndex + 1));
 
     // Show the section
     setSection('show-clue-search');
@@ -118,7 +118,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function gotoHereYouGo() {
 
     // Record the event
-    events.track(rPartFound(props.gift.id, props.giftPartIndex));
+    events.track(rPartFound(props.gift.id, props.giftPartIndex + 1));
 
     // Show the section
     setSection('help-is-here');
@@ -145,7 +145,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
   function gotoEndOfGiftPart() {
 
-    events.track(rPartCompletedEvent(props.gift.id, props.giftPartIndex));
+    events.track(rPartCompletedEvent(props.gift.id, props.giftPartIndex + 1));
 
     // If on the last part show the outro
     const lastGiftPart = (props.giftPartIndex + 1 === giftPartCount);
@@ -225,7 +225,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <Button onClick={gotoFindObject} primary={true}>OK</Button>
             <Button
               onClick={() => {
-                events.track(rPartHelpPressedEvent(props.gift.id, props.giftPartIndex));
+                events.track(rPartHelpPressedEvent(props.gift.id, props.giftPartIndex + 1));
                 gotoGiveHelp();
               }}
             >
@@ -237,7 +237,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return (
           <Button
             onClick={() => {
-              events.track(rPartHelpDismissedEvent(props.gift.id, props.giftPartIndex));
+              events.track(rPartHelpDismissedEvent(props.gift.id, props.giftPartIndex + 1));
               gotoFindObject();
             }}
             primary={true}
@@ -275,7 +275,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         return (
           <Button
             onClick={() => {
-              events.track(rPartClueDismissedEvent(props.gift.id, props.giftPartIndex));
+              events.track(rPartClueDismissedEvent(props.gift.id, props.giftPartIndex + 1));
               gotoFoundAudio();
             }}
             primary={true}

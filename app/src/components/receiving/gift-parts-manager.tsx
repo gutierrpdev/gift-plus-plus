@@ -86,7 +86,7 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
               showOpenPrompt={showOpenPrompt}
               textColour={textColour}
               onClick={() => {
-                events.track(rOpenPartPressedEvent(gift.id, idx));
+                events.track(rOpenPartPressedEvent(gift.id, idx + 1));
                 setState({
                   ...state,
                   status: { kind: 'OnePartOpen', activePart: part },
