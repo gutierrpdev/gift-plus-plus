@@ -29,8 +29,9 @@ const global = {
     },
     title: {
       family: "'Playfair Display', serif;",
-      bold: 700,
       normal: 400,
+      bold: 700,
+      black: 900,
     },
   },
   components: {
@@ -53,7 +54,7 @@ const GlobalStyles = createGlobalStyle`
 
   // Fonts
   @import url('https://fonts.googleapis.com/css?family=Nunito:300,400');
-  @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
+  @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900&display=swap');
 
   // Reset
   html, body, div, span, applet, object, iframe,

@@ -104,6 +104,7 @@ interface Props {
   postTitle?: string; // Text after the main title
   museumName: string; // For terms dialog
   titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
+  titleWeight?: 'bold' | 'black'; // Title weight
   padding?: Padding; // Padding to apply
   bottomPadding?: BottomPadding; // Bottom only padding
   background?: 'none' | 'white'; // Background colour
@@ -176,6 +177,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
             <ScreenTitle
               key={key}
               titleSize={props.titleSize || 'normal'}
+              titleWeight={props.titleWeight}
               marginBottom={screenTitleMarginBottom}
             >
               {item}

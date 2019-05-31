@@ -163,6 +163,7 @@ export const HomeScreen: React.FC = () => {
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'big'}
+          titleWeight={'black'}
           museumName={museumName}
           onTermsAccepted={handleTermsAccepted}
         />
@@ -174,6 +175,7 @@ export const HomeScreen: React.FC = () => {
           title={`Gift`}
           postTitle={`at ${museumName}`}
           titleSize={'very-big'}
+          titleWeight={'black'}
           museumName={museumName}
           onTermsAccepted={handleTermsAccepted}
         />
