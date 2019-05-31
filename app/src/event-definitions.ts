@@ -37,7 +37,6 @@ export const rAtMuseumConfirmedEvent = (atMuseum: boolean) => ({ name: 'h-at-mus
 // Creating
 // --------
 
-// Custom
 export const cNewGiftStartedEvent = (giftId: string) => ({ name: 'c-new-gift-started', payload: { giftId } });
 export const cIntroCompletedEvent = (giftId: string) => ({ name: 'c-intro-completed', payload: { giftId } });
 export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipient-name-entered', payload: { giftId } });
