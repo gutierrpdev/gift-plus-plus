@@ -11,17 +11,20 @@ variables:
   STORYBOOK_IMAGE: registry.gitlab.com/blasttheory/gift/gift-storybook
   API_TEST_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api-test
   API_RELEASE_IMAGE: registry.gitlab.com/blasttheory/gift/gift-api
+  STAGING_TAG: ${CI_COMMIT_SHORT_SHA}-staging
+  PRODUCTION_TAG: ${CI_COMMIT_SHORT_SHA}-production
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   # Need a full-featured version of tar, rather than busybox one
   - apk --no-cache add --virtual tar
 
+
 # ========
 # FRONTEND
 # ========
 
-build-frontend:
+build-frontend-staging:
   stage: build
   services:
     - docker:dind
@@ -35,16 +38,34 @@ build-frontend:
     - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=storybook --tag $STORYBOOK_IMAGE -
 
     # Push new images to registry
-    - docker tag $APP_IMAGE $APP_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker push $APP_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker push $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $APP_IMAGE $APP_IMAGE:$STAGING_TAG
+    - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:$STAGING_TAG
+    - docker push $APP_IMAGE:$STAGING_TAG
+    - docker push $STORYBOOK_IMAGE:$STAGING_TAG
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - app/**/*
+      - common/**/*
 
-    # Tag the images for release (should be done only after tests have passed)
-    - docker tag $APP_IMAGE $APP_IMAGE:latest
-    - docker tag $STORYBOOK_IMAGE $STORYBOOK_IMAGE:latest
-    - docker push $APP_IMAGE:latest
-    - docker push $STORYBOOK_IMAGE:latest
+
+build-frontend-production:
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    NODE_ENV: production
+    BABEL_ENV: production
+  script:
+    # Build the projects (we pass the context via tar so we can deference symlinks)
+    - cd app
+    - tar -cz --dereference --exclude-ignore=.dockerignore . | docker build --pull --build-arg NODE_ENV --build-arg BABEL_ENV --target=app --tag $APP_IMAGE -
+
+    # Push new images to registry
+    - docker tag $APP_IMAGE $APP_IMAGE:$PRODUCTION_TAG
+    - docker push $APP_IMAGE:$PRODUCTION_TAG
   only:
     refs:
       - master
@@ -66,8 +87,8 @@ deploy-frontend-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app --image $APP_IMAGE:$CI_COMMIT_SHORT_SHA
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_storybook --image $STORYBOOK_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app --image $APP_IMAGE:$STAGING_TAG
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_storybook --image $STORYBOOK_IMAGE:$STAGING_TAG
   environment:
     name: staging
   only:
@@ -77,6 +98,31 @@ deploy-frontend-to-staging:
       - .gitlab-ci.yml
       - app/**/*
       - common/**/*
+
+
+deploy-frontend-to-production:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk --no-cache add openssh-client
+  script:
+    - echo "Deploying to production..."
+    - echo "$PRODUCTION_DEPLOY_KEY" > deploy-key
+    - chmod 600 deploy-key
+    - mkdir ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H thegift.app >> ~/.ssh/known_hosts
+    - ssh -i deploy-key root@thegift.app -C docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
+  environment:
+    name: production
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - app/**/*
+      - common/**/*
+  when: manual
 
 
 # =======
@@ -138,6 +184,7 @@ test-backend:
       - api/**/*
       - common/**/*
 
+
 release-backend:
   stage: release
   services:
@@ -177,3 +224,28 @@ deploy-backend-to-staging:
       - .gitlab-ci.yml
       - api/**/*
       - common/**/*
+
+
+deploy-backend-to-production:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk --no-cache add openssh-client
+  script:
+    - echo "Deploying to staging..."
+    - echo "$PRODUCTION_DEPLOY_KEY" > deploy-key
+    - chmod 600 deploy-key
+    - mkdir ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H thegift.app >> ~/.ssh/known_hosts
+    - ssh -i deploy-key root@thegift.app -C docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+  environment:
+    name: production
+  only:
+    refs:
+      - master
+    changes:
+      - .gitlab-ci.yml
+      - api/**/*
+      - common/**/*
+  when: manual
