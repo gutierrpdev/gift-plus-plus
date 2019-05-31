@@ -6,7 +6,7 @@ import { useAsync } from './utils/use-async';
 
 import { config } from './config';
 import { assetStore, events } from './services';
-import { appStartedEvent } from './event-definitions';
+import { appStartedEvent, locationChangedEvent } from './event-definitions';
 
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
@@ -26,6 +26,16 @@ import { ErrorMessage } from './components/messages/error-message';
 export const Main: React.FC = () => {
   useEffect(() => {
     events.track(appStartedEvent());
+
+    // Track the initial location, and any changes
+    events.track(locationChangedEvent(location.pathname, location.search, location.hash ));
+    const historyUnlisten = history.listen((location) => {
+      events.track(locationChangedEvent(location.pathname, location.search, location.hash ));
+    });
+
+    return () => {
+      historyUnlisten();
+    };
   }, []);
 
   const [assetPreload] = useAsync(() => assetStore.preload(), []);
