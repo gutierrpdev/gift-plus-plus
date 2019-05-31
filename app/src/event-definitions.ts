@@ -12,6 +12,10 @@ export const appStartedEvent = () => ({ name: 'app-started', payload: {
   userAgent: (navigator || window.navigator || {}).userAgent,
 }});
 
+export const locationChangedEvent = (path: string, search: string, hash: string) => ({
+  name: 'location-changed', payload: { path, search, hash },
+});
+
 export const termsAcceptedEvent = () => ({ name: 'terms-accepted' });
 
 
