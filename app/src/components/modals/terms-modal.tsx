@@ -52,15 +52,11 @@ interface Props {
 const TermsModal: React.FC<Props> = ({ museumName, onAgreeClick, onShowTerms }) => {
 
   function handleAgreeClick() {
-    if (onAgreeClick) {
-      onAgreeClick();
-    }
+    onAgreeClick();
   }
 
   function handleShowTermsClick() {
-    if (onShowTerms) {
-      onShowTerms();
-    }
+    onShowTerms();
   }
 
   return (

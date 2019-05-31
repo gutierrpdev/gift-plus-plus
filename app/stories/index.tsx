@@ -833,7 +833,7 @@ storiesOf('Components/Receiving', module)
       <GiftPartsManager gift={giftThreeParts} recipientLocation={'at-museum'} />
     </ScreenManager>
   ))
-  .add('Choose location', () => <ChooseLocation doSetLocation={doNothing} museumName={'Hove'} />)
+  .add('Choose location', () => <ChooseLocation onLocationSelected={doNothing} museumName={'Hove'} />)
   .add('Intro', () => (
     <ReceivingIntroContent
       gift={giftThreeParts}

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { events } from '../../services';
+import { hIntroStartedEvent } from '../../event-definitions';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
@@ -18,7 +19,7 @@ interface Props {
 const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
 
   useEffect(() => {
-    events.track('h-intro-started');
+    events.track(hIntroStartedEvent());
   }, []);
 
 

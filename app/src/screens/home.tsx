@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { events } from '../services';
+import { hAtMuseumConfirmedEvent, termsAcceptedEvent } from '../event-definitions';
+
 import { GlobalStyles } from '../themes/global';
 import { ScreenManager } from '../components/screen-manager';
 import { ScreenHeader } from '../components/screen-header';
@@ -19,10 +22,6 @@ import {
     setSessionRecipientLocation,
     getUserHasAgreedTerms,
 } from '../utils/local';
-import {
-  track,
-  homeLocationSelectedEvent,
-} from '../utils/events';
 
 /**
  * Component that manages the home intro sequence
@@ -126,9 +125,8 @@ export const HomeScreen: React.FC = () => {
 
   // Handle the location set
   function handleSetLocation(location: RecipientLocation): void {
-
-    // Record event
-    track(homeLocationSelectedEvent( { location: recipientLocation } ));
+    if (location === 'at-museum') events.track(hAtMuseumConfirmedEvent(true));
+    if (location === 'not-at-museum') events.track(hAtMuseumConfirmedEvent(false));
 
     // Store in session
     setSessionRecipientLocation(location);
@@ -149,6 +147,7 @@ export const HomeScreen: React.FC = () => {
   const homeHeader = status === 'show-gifts';
 
   function handleTermsAccepted() {
+    events.track(termsAcceptedEvent());
     setTermsAccepted(true);
   }
 
@@ -191,7 +190,7 @@ export const HomeScreen: React.FC = () => {
         {status === 'choose-location' &&
           <ChooseLocation
             museumName={museumName}
-            doSetLocation={handleSetLocation}
+            onLocationSelected={handleSetLocation}
           />
         }
 

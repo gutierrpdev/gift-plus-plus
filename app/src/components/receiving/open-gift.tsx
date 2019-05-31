@@ -35,21 +35,14 @@ const OpenText = styled(TextResize).attrs({
 `;
 
 export interface Props {
-  onComplete?: () => void;
+  onComplete: () => void;
 }
 
-const ReceivingOpenGift: React.FC<Props> = (props) => {
-
-  function handleOpenGift() {
-    if (props.onComplete) {
-      props.onComplete();
-    }
-  }
-
+export const ReceivingOpenGift: React.FC<Props> = ({ onComplete }) => {
   return (
     <Panel>
       <PanelContent>
-        <PanelRound border={'none'} background={'solid-white'} onClick={handleOpenGift}>
+        <PanelRound border={'none'} background={'solid-white'} onClick={onComplete}>
           <OpenPanel>
             <GiftImage>
               <SvgGift colour='black' />
@@ -60,8 +53,4 @@ const ReceivingOpenGift: React.FC<Props> = (props) => {
       </PanelContent>
     </Panel>
   );
-};
-
-export {
-  ReceivingOpenGift,
 };

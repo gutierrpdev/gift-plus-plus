@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { config } from '../../config';
 import { events } from '../../services';
+import { hGiftsCreatePressedEvent, hGiftsOpenMuseumGiftPressedEvent } from '../../event-definitions';
+
+import { config } from '../../config';
 import { global } from '../../themes/global';
+import { getSessionRecipientLocation } from '../../utils/local';
 
 import { InformationWindow } from '../modals/information-window';
 import { HelpContent } from '../information/help';
@@ -12,7 +15,6 @@ import { PanelTitle } from '../panel-title';
 import { TextResize } from '../text-resize';
 import SvgAddCircle from '../svg/add-circle';
 import SvgGift from '../svg/gift';
-import { getSessionRecipientLocation } from '../../utils/local';
 
 
 /**
@@ -146,7 +148,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
               Make one now?
             </TextResize> */}
             <Link
-              onClick={() => events.track('h-gifts-create-pressed')}
+              onClick={() => events.track(hGiftsCreatePressedEvent())}
               to='/create-gift'
             >
               <TextResize textSize={42}>
@@ -171,7 +173,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         <OpenMuseumGift>
 
           <Link
-            onClick={() => events.track('h-gifts-open-museum-gift-pressed')}
+            onClick={() => events.track(hGiftsOpenMuseumGiftPressedEvent())}
             to={`/gift/${config.curatedMuseumGiftId}`}
           >
 

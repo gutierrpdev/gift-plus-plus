@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { events } from '../../services';
+import { hMorePressedEvent, hCreatePressedEvent } from '../../event-definitions';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelPrompt } from '../panel-prompt';
@@ -25,12 +26,12 @@ interface Props {
 const HomeCreateGift: React.FC<Props> = ({ onMoreClick }) => {
 
   function handleMoreClick() {
-    events.track('h-more-pressed');
+    events.track(hMorePressedEvent());
     onMoreClick();
   }
 
   function handleCreateClick() {
-    events.track('h-create-pressed');
+    events.track(hCreatePressedEvent());
   }
 
   return (

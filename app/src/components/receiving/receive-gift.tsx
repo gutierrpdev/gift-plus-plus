@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { assertNever } from '../../utils/helpers';
+import { events } from '../../services';
+import { rAtMuseumConfirmedEvent, rOpenPressedEvent } from '../../event-definitions';
 
 import { Gift } from '../../domain';
 import { GlobalStyles } from '../../themes/global';
@@ -52,8 +54,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     compactHeader: false,
   };
 
-  // Lets start
-  public startGift = () => {
+
+  public handleOpenClicked = () => {
+    events.track(rOpenPressedEvent(this.props.gift.id));
+
     if (this.state.recipientLocation === 'unknown') {
       this.setState({ status: 'SelectLocation' });
     } else {
@@ -61,8 +65,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     }
   }
 
-  // Gift has been opened
-  public openGift = () => {
+
+  public handleOpenAnywayClicked = () => {
     track(receivingGiftOpenItNowEvent( {giftId: this.props.gift.id} ));
     this.setCompactHeader();
     this.setState({
@@ -70,11 +74,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     });
   }
 
-  // Sets the location
-  public handleSetLocation = (recipientLocation: RecipientLocation) => {
 
-    // todo: we may have already selected the location and stored it, us that, but ensure tracking the event is called
-    track(receivingGiftLocationSelectedEvent( {giftId: this.props.gift.id, location: recipientLocation} ));
+  public handleSetLocation = (recipientLocation: RecipientLocation) => {
+    if (recipientLocation === 'at-museum') events.track(rAtMuseumConfirmedEvent(true));
+    if (recipientLocation === 'not-at-museum') events.track(rAtMuseumConfirmedEvent(false));
 
     setSessionRecipientLocation(recipientLocation);
 
@@ -88,10 +91,10 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       recipientLocation,
       status: nextStage,
     });
-
   }
 
-  public handleSaveForLaterClick = () => {
+
+  public handleSaveForLaterClicked = () => {
 
     // Record the event
     track(receivingGiftSaveForLaterEvent( {giftId: this.props.gift.id} ));
@@ -101,12 +104,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   }
 
-  // Set the header to be compact
+
   public setCompactHeader = () => {
     this.setState({
       compactHeader: true,
     });
   }
+
 
   // Return the correct content based on status
   public renderContent() {
@@ -126,7 +130,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
   public renderWelcome() {
     return (
-      <ReceivingOpenGift onComplete={this.startGift} />
+      <ReceivingOpenGift onComplete={this.handleOpenClicked} />
     );
   }
 
@@ -140,8 +144,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           />
         </PanelContent>
         <PanelButtons>
-          <Button onClick={this.handleSaveForLaterClick}>Save it</Button>
-          <Button onClick={this.openGift} primary={true}>Open it anyway</Button>
+          <Button onClick={this.handleSaveForLaterClicked}>Save it</Button>
+          <Button onClick={this.handleOpenAnywayClicked} primary={true}>Open it anyway</Button>
         </PanelButtons>
       </Panel>
     );
@@ -160,7 +164,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
     return (
       <ChooseLocation
         museumName={this.props.museumName}
-        doSetLocation={this.handleSetLocation}
+        onLocationSelected={this.handleSetLocation}
       />
     );
   }

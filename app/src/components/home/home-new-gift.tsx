@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { config } from '../../config';
 import { events } from '../../services';
+import { hShowMuseumGiftPressedEvent, hCreateOwnPressedEvent } from '../../event-definitions';
+
+import { config } from '../../config';
 import { setHasUnopenedMuseumGift } from '../../utils/local';
 
 import { Panel, PanelContent } from '../panel';
@@ -29,14 +31,14 @@ interface Props {
 const HomeNewGift: React.FC<Props> = ({ museumName }) => {
 
   function handleOpenGift() {
-    events.track('h-show-museum-gift-pressed');
+    events.track(hShowMuseumGiftPressedEvent());
 
     // Set that the museum gift is read
     setHasUnopenedMuseumGift(false);
   }
 
   function handleCreateYourOwn() {
-    events.track('h-create-own-pressed');
+    events.track(hCreateOwnPressedEvent());
   }
 
 

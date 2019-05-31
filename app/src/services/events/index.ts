@@ -9,18 +9,17 @@ import { Api } from '../api';
 
 import { EventStore } from './store';
 import { EventSubmitter } from './submitter';
-import { AppEvent } from './definitions';
 
+
+interface EventData {
+  name: string;
+  payload?: {};
+}
 
 interface EventContext {
   deviceId: string;
   sessionId: string;
   instanceId: string;
-}
-
-interface EventData {
-  name: string;
-  payload?: {};
 }
 
 export interface HydratedEvent {
@@ -45,8 +44,8 @@ export class EventService {
     this.submitter = new EventSubmitter(api, this.store);
   }
 
-  public track<E extends AppEvent>(name: E['name'], payload: E['payload'] = {}): void {
-    this.store.add(this.hydrate({ name, payload }));
+  public track(data: EventData): void {
+    this.store.add(this.hydrate(data));
   }
 
   /**

@@ -6,6 +6,7 @@ import { useAsync } from './utils/use-async';
 
 import { config } from './config';
 import { assetStore, events } from './services';
+import { appStartedEvent } from './event-definitions';
 
 import { NotFound } from './screens/not-found';
 import { ReceiveGiftScreen } from './screens/receive-gift';
@@ -24,7 +25,7 @@ import { ErrorMessage } from './components/messages/error-message';
 
 export const Main: React.FC = () => {
   useEffect(() => {
-    events.track('app-started', { userAgent: window.navigator.userAgent });
+    events.track(appStartedEvent());
   }, []);
 
   const [assetPreload] = useAsync(() => assetStore.preload(), []);
