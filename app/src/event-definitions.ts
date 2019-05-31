@@ -7,6 +7,7 @@
 export const appStartedEvent = () => ({ name: 'app-started', payload: {
   userAgent: (navigator || window.navigator || {}).userAgent,
 }});
+
 export const termsAcceptedEvent = () => ({ name: 'terms-accepted' });
 
 
@@ -30,3 +31,16 @@ export const hGiftsOpenMuseumGiftPressedEvent = () => ({ name: 'h-gifts-open-mus
 
 export const rOpenPressedEvent = (giftId: string) => ({ name: 'r-open-pressed', payload: { giftId } });
 export const rAtMuseumConfirmedEvent = (atMuseum: boolean) => ({ name: 'h-at-museum-confirmed', payload: { atMuseum } });
+
+
+// --------
+// Creating
+// --------
+
+// Custom
+export const cNewGiftStartedEvent = (giftId: string) => ({ name: 'c-new-gift-started', payload: { giftId } });
+export const cIntroCompletedEvent = (giftId: string) => ({ name: 'c-intro-completed', payload: { giftId } });
+export const cRecipientNameEnteredEvent = (giftId: string) => ({ name: 'c-recipient-name-entered', payload: { giftId } });
+
+export const cSigningCompletedEvent = (giftId: string) => ({ name: 'c-signing-completed', payload: { giftId } });
+export const cSharingCompletedEvent = (giftId: string) => ({ name: 'c-sharing-completed', payload: { giftId } });

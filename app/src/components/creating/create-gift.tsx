@@ -3,7 +3,15 @@ import uuidv4 from 'uuid/v4';
 import uuidv5 from 'uuid/v5';
 
 import { InProgressGift, Gift } from '../../domain';
-import { track, newGiftStartedEvent, giftRecipientEnteredEvent } from '../../utils/events';
+
+import { events } from '../../services';
+import {
+  cNewGiftStartedEvent,
+  cIntroCompletedEvent,
+  cRecipientNameEnteredEvent,
+    cSigningCompletedEvent,
+    cSharingCompletedEvent,
+} from '../../event-definitions';
 
 import { PageChangeDetect } from '../messages/page-change-detect';
 import { GlobalStyles } from '../../themes/global';
@@ -53,7 +61,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
   });
 
   useEffect(() => {
-    track(newGiftStartedEvent({ giftId: gift.id }));
+    events.track(cNewGiftStartedEvent(gift.id));
   }, []);
 
   const headerState = (status === 'intro' || status === 'choose-recipient')
@@ -98,16 +106,19 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       {/* Content */}
       {status === 'intro' &&
        <CreateGiftIntro
-         onComplete={() => setStatus('choose-recipient')}
+         onComplete={() => {
+           events.track(cIntroCompletedEvent(gift.id));
+           setStatus('choose-recipient');
+         }}
        />
       }
 
       {status === 'choose-recipient' &&
        <CreateGiftChooseRecipient
          onComplete={(recipientName) => {
+           events.track(cRecipientNameEnteredEvent(gift.id));
            setGift({...gift, recipientName });
            setStatus('creating-part');
-           track(giftRecipientEnteredEvent({ giftId: gift.id }));
          }}
        />
       }
@@ -126,6 +137,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       {status === 'sign-gift' &&
        <SignGift
          onComplete={(senderName) => {
+           events.track(cSigningCompletedEvent(gift.id));
            setGift({...gift, senderName });
            setStatus('save-gift');
          }}
@@ -148,7 +160,10 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
          recipientName={newGift.recipientName}
          museumName={museumName}
          url={mkShareLink(newGift)}
-         onComplete={() => setStatus('outro')}
+         onComplete={() => {
+           events.track(cSharingCompletedEvent(gift.id));
+           setStatus('outro');
+         }}
        />
       }
 
