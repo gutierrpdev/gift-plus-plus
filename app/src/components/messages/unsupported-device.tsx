@@ -5,7 +5,7 @@ import { Buttons, Button } from '../buttons';
 import { ScreenMessage } from './screen-message';
 import { ScreenManager } from '../screen-manager';
 import { InformationWindow } from '../modals/information-window';
-import { SupportedDeviceList } from '../information/device-list';
+import { HelpContent } from '../information/help';
 
 /**
  * Component to inform user their device in unspported
@@ -37,7 +37,7 @@ const UnsupportedDevice: React.FC<Props> = ({ message }) => {
       </ScreenMessage>
     {deviceListIsOpen &&
       <InformationWindow onClose={() => {setDeviceListIsOpen(false); }}>
-        <SupportedDeviceList />
+        <HelpContent />
       </InformationWindow>
     }
     </ScreenManager>
