@@ -88,7 +88,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   const [parts, setParts] = useState<InProgressGiftPart[]>([]); // TODO: clean the state up -- separate out
   const [currentPart, setCurrentPart] = useState<Partial<InProgressGiftPart>>({});
 
-  const [status, setStatus] = useState<Status>('take-photo');
+  const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
