@@ -57,7 +57,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
   const [gift, setGift] = useState<InProgressGift>({
     id: uuidv4(),
-    museumId: uuidv5('https://api.gift.com/museum/brighton-and-hove', uuidv5.URL),
+    museumId: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
     parts: [],
   });
 
