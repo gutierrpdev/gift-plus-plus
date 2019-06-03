@@ -6,15 +6,6 @@
    - Always associated with a particular museum
    - Associated with a unique url
 
-** Account
-   - Name + Email address
-   - Required for creating gifts (though this won't be a deeply embedded
-     assumption as we want a clear separation between gifts and accounts)
-   - Optional when receiving gifts
-   - List gifts created
-   - List gifts received (visited)
-   - (future) Provide some ability to see info about gifts created
-
 ** Giving
    - Accomplished by distributing the unique url associated with a gift
    - Shared via:
@@ -22,19 +13,11 @@
      - SMS
      - WhatsApp (mobile deep link)
      - Facebook Messenger (mobile deep link)
-     - ...
 
 ** Receiving
    - Obtain a unique url for a gift and visit the link in a browser
-   - Option to create an account to keep track of gifts received
 
-** Responding
-   - TBD
-   - Possibly different types of response
-     - Standalone audio / text / image
-     - Reciprocate with gift
-
-** Museum
+** Museum (future)
    - Place where gifts can be created (and optionally received)
    - Used to make creation / receiving experience specific to museum
    - Unique branding / content

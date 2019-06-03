@@ -1,4 +1,4 @@
-* Milestones [7/13]
+* Milestones [9/13]
 ** DONE Initial project setup [2/2] <2018-12-14 Fri>
    CLOSED: [2018-12-10 Mon 18:14] DEADLINE: <2018-12-14 Fri>
    - [X] Repository setup
@@ -56,8 +56,8 @@
    - [X] No auth -- save as anonymous user
    - [ ] Generate gift share
 
-** TODO MVP Full frontend + Backend <2019-05-17 Fri>
-   DEADLINE: <2019-05-17 Fri>
+** DONE MVP Full frontend + Backend <2019-05-17 Fri>
+   CLOSED: [2019-06-03 Mon 11:59] DEADLINE: <2019-05-17 Fri>
    - [X] Landing flow
    - [X] Receiving museum gift
      - [X] Work offline
@@ -68,24 +68,24 @@
      - [X] Work offline
    - [X] Routing / back-button history
      - [X] Prevent navigation away from creation process
-   - [ ] Polish
-     - [ ] All links work
-     - [ ] All error-cases are handled as well as possible
-     - [ ] All feedback to user makes sense and is friendly
+   - [X] Polish
+     - [X] All links work
+     - [X] All error-cases are handled as well as possible
+     - [X] All feedback to user makes sense and is friendly
 
 ** TODO Analytics <2019-05-31 Fri>
    DEADLINE: <2019-05-31 Fri>
-   - [ ] In-app event logging
+   - [X] In-app event logging
    - [X] Api-core event logging
-   - [ ] Submit events (when possible) to server
+   - [X] Submit events (when possible) to server
    - [ ] Determine questions/stats required for "live" insight
    - [ ] Create scripts to provide "live"-insight
 
-** TODO Production set up [0/3] <2019-05-31 Fri>
-   DEADLINE: <2019-05-31 Fri>
-   - [ ] Domains
-   - [ ] Configure production servers
-   - [ ] CI to deploy to production
+** DONE Production set up [3/3] <2019-05-31 Fri>
+   CLOSED: [2019-06-03 Mon 12:00] DEADLINE: <2019-05-31 Fri>
+   - [X] Domains
+   - [X] Configure production servers
+   - [X] CI to deploy to production
 
 ** TODO Account management (frontend) [4/9]
    - [ ] Sign-up
