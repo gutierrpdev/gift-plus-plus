@@ -1,6 +1,21 @@
 * GIFT
-  - [[file:docs/core-concepts.org::*Concepts][Concepts]]
-  - [[file:docs/schema.ts::type%20Id%20=%20string;][Schema]]
-  - [[file:docs/specs.org::*Fuctional%20Requirements][Functional Requirements]]
-  - [[file:docs/milestones.org::*Milestones][Milestones]]
-  - [[file:docs/device-targets.org::*Desktop][Targeted Devices]]
+
+  This repository contains source code for the GIFT Experience App produced by
+  [[https://www.blasttheory.co.uk/][Blast Theory]]. This is part of a wider project, further details of which can be
+  found here:
+
+  - [[https://gifting.digital/][The GIFT project]]
+  - [[https://www.blasttheory.co.uk/projects/gift/][The GIFT Experience App]]
+
+** Details
+
+   This app is comprised of:
+
+   - A frontend mobile web-app built with React in TypeScript
+   - A backend API built with Koa.js in TypeScript utilizing a PostgreSQL DB
+
+   For further details, see:
+
+   - [[file:docs/core-concepts.org::*Concepts][Concepts]]
+   - [[file:docs/schema.ts::type%20Id%20=%20string;][Schema]]
+   - [[file:docs/device-targets.org::*Desktop][Targeted Devices]]

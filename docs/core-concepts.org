@@ -17,13 +17,10 @@
 ** Receiving
    - Obtain a unique url for a gift and visit the link in a browser
 
-** Museum (future)
+** Museum
    - Place where gifts can be created (and optionally received)
    - Used to make creation / receiving experience specific to museum
    - Unique branding / content
    - Associated urls / subdomains
    - Identified during creation via url / subdomain / ip / location / user-choice
    - Identified during receiving via gift content
-   - Associated analytics
-   - (future) Image recognition to provide insight to museums about works being "given"
-   - (future) CMS for management / metrics
