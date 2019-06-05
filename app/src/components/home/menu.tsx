@@ -19,12 +19,14 @@ const MenuBurgerBar = styled.div`
 `;
 
 // Burger menu
-const MenuBurgerStyle = styled.div`
+const MenuBurgerStyle = styled.button`
   width: 6%;
   position: absolute;
   top: 3vh;
   left: 3%;
   cursor: pointer;
+  border: none;
+  padding: 0;
 `;
 
 interface MenuBurgerProps {
@@ -40,18 +42,27 @@ const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
 );
 
 // Menu item
-const MenuItemStyle = styled.div`
+const MenuItemStyle = styled.button`
   padding: 6% 0;
   cursor: pointer;
   color: ${global.colour.lightGreyText};
+  display: block;
+  width: 100%;
+  border: none;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
   &:not(:last-child) {
     border-bottom: 0.1vh solid ${global.colour.veryLightGrey};
   }
 `;
 
 // Close menu MenuItem
-const CloseMenuItem = styled.div`
+const CloseMenuItem = styled.button`
   padding: 3% 0;
+  display: block;
+  width: 100%;
+  border: none;
+  opacity: 0.5;
 `;
 
 const CloseArrowUp = styled(SvgArrowUp)`
@@ -95,7 +106,7 @@ const Menu: React.FC<MenuProps> = (props) => (
     <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-    <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem> {/* todo */}
+    <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
     <CloseMenuItem onClick={props.onCloseClick}><CloseArrowUp /></CloseMenuItem>
   </MenuStyle>
 );
