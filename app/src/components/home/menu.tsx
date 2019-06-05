@@ -13,17 +13,17 @@ import SvgArrowUp from '../svg/arrow-up';
 // Burger bars
 const MenuBurgerBar = styled.div`
   height: 3px;
-  margin-bottom: 16%;
-  background-color: black;
+  margin-bottom: 20%;
+  background-color: rgba(0,0,0,0.3);
   border-radius: 25px;
 `;
 
 // Burger menu
 const MenuBurgerStyle = styled.button`
-  width: 6%;
+  width: 8%;
   position: absolute;
-  top: 3vh;
-  left: 3%;
+  top: 3.3vh;
+  left: 5%;
   cursor: pointer;
   border: none;
   padding: 0;
