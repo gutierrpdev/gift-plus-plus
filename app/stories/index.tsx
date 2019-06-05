@@ -5,11 +5,12 @@ import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
 import history from '../src/utils/router-history';
 import { setImageOrientation, getImageOrientation, calcImageOrientationChange, resizeImage } from '../src/utils/image';
 import { setPrefix, getLocalItem, setLocalItem } from '../src/utils/storage';
+import { Gift } from '../src/domain';
 
 // Components
 import { ScreenTitle } from '../src/components/screen-title';
 import { ScreenHeader } from '../src/components/screen-header';
-// import { GiftPile } from '../src/components/gift-pile';
+import { GiftPile } from '../src/components/gift-pile';
 import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
@@ -44,6 +45,7 @@ import { TextInputModal } from '../src/components/modals/text-input-modal';
 import { TextAreaModal } from '../src/components/modals/text-area-modal';
 import { TermsModal } from '../src/components/modals/terms-modal';
 import { BgSvgFullScreen } from '../src/components/svg/bg';
+import { ProgressBar } from '../src/components/progress-bar';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -66,7 +68,6 @@ import { ShareGift } from '../src/components/creating/share-gift';
 
 // Data
 import { giftThreeParts, giftPart, emptyGift } from './fixtures';
-import { ProgressBar } from '../src/components/progress-bar';
 
 // TEMP: REMOVE!!
 import { ShowMediaDevices } from './temp-media-devices';
@@ -174,7 +175,17 @@ storiesOf('Components', module)
       />
     </div>
   ))
-  // .add('Gift Pile', () => <GiftPile gifts={twoGifts}>GiftPile</GiftPile>)
+  .add('Gift Pile', () => {
+    const gifts: Gift[] = [ giftThreeParts, giftThreeParts, giftThreeParts,
+      giftThreeParts, giftThreeParts, giftThreeParts ];
+    return (
+      <div style={greyBG}>
+        <BrowserRouter>
+          <GiftPile gifts={gifts} source={'sent'}>GiftPile</GiftPile>
+        </BrowserRouter>
+      </div>
+    );
+  })
   .add('Panel Round', () => (
     <div style={greyBG}>
       <PanelRound border='none' background='transparent-black' />

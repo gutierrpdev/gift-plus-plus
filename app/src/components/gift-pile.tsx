@@ -1,25 +1,29 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import { events } from '../services';
+import { hGiftsOpenSentGift, hGiftsOpenReceivedGift } from '../event-definitions';
+
 import { Gift } from '../domain';
 import styled from 'styled-components';
 import SvgGift from './svg/gift';
 import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
-interface Props {
-  gifts: Gift[];
-}
-
 const GiftList = styled.div`
   position: relative;
-  width: 100%;
   padding: 3vh 0 2vh 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  /* hide scrollbars */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledGift = styled.div`
   width: 33%;
-  height: 1rem;
   display: inline-block;
   text-align: center;
   cursor: pointer;
@@ -36,10 +40,10 @@ const GiftTitle = styled.div`
   margin-bottom: 0.5vh;
 `;
 
-const GiftStatus = styled(TextResize)`
-  font-family: ${global.fonts.title.family};
-  font-style: italic
-`;
+// const GiftStatus = styled(TextResize)`
+//   font-family: ${global.fonts.title.family};
+//   font-style: italic
+// `;
 
 const GiftFrom = styled(TextResize)`
   margin-bottom: 2%;
@@ -49,15 +53,31 @@ const SenderName = styled(TextResize)`
   margin-bottom: 4%;
 `;
 
-const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
+type GiftPileSource =
+  | 'received'
+  | 'sent'
+;
 
-  function giftClick( /*giftId: GiftId*/ ): void {
-    // todo : add event tracking
+interface Props {
+  gifts: Gift[];
+  source: GiftPileSource;
+}
+
+const GiftPile: React.FC<Props> = ({ gifts, source }: Props) => {
+
+  function handleGiftClicked( giftId: string ): void {
+
+    if (source === 'received') { events.track(hGiftsOpenReceivedGift(giftId)); }
+    if (source === 'sent') { events.track(hGiftsOpenSentGift(giftId)); }
+
   }
 
   const giftList = gifts.map((gift, index) => (
     <StyledGift key={index}>
-      <Link to={gift.id} onClick={() => {giftClick(/*gift.id*/); }}>
+      <Link
+        onClick={() => {handleGiftClicked(gift.id); }}
+        to={`/gift/${gift.id}`}
+      >
         <GiftImg>
           <SvgGift colour='black' />
         </GiftImg>
@@ -65,7 +85,7 @@ const GiftPile: React.FC<Props> = ({ gifts }: Props) => {
           <GiftFrom textSize={30}>from</GiftFrom>
           <SenderName textSize={30}>{gift.senderName}</SenderName>
         </GiftTitle>
-        <GiftStatus textSize={30}>New</GiftStatus>
+        {/* <GiftStatus textSize={30}>New</GiftStatus> */}
       </Link>
     </StyledGift>
   ));

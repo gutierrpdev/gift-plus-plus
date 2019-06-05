@@ -41,7 +41,8 @@ export const hCreatePressedEvent = () => ({ name: 'h-create-pressed' });
 export const hMorePressedEvent = () => ({ name: 'h-more-pressed' });
 export const hGiftsCreatePressedEvent = () => ({ name: 'h-gifts-create-pressed' });
 export const hGiftsOpenMuseumGiftPressedEvent = () => ({ name: 'h-gifts-open-museum-gift-pressed' });
-
+export const hGiftsOpenSentGift = (giftId: string) => ({ name: 'h-gifts-open-sent-gift', payload: { giftId } });
+export const hGiftsOpenReceivedGift = (giftId: string) => ({ name: 'h-gifts-open-received-gift', payload: { giftId } });
 
 // ---------
 // Receiving
@@ -79,22 +80,22 @@ export const cPartMessageRecordStarted = (giftId: string, partNumber: number) =>
 export const cPartMessageRecordStopped = (giftId: string, partNumber: number) => ({ name: 'c-part-message-record-stopped', payload: { giftId, partNumber } });
 export const cPartMessageReRecordPressed = (giftId: string, partNumber: number) => ({ name: 'c-part-message-re-record-pressed', payload: { giftId, partNumber } });
 export const cPartMessageCompleted = (giftId: string, partNumber: number) => ({ name: 'c-part-message-completed', payload: { giftId, partNumber } });
-
+// Clues
 export const cPartClueSkippedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-skipped', payload: { giftId, partNumber } });
 export const cPartClueCancelledEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-cancelled', payload: { giftId, partNumber } });
 export const cPartClueCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-clue-completed', payload: { giftId, partNumber } });
 export const cPartCompletedEvent = (giftId: string, partNumber: number) => ({ name: 'c-part-completed', payload: { giftId, partNumber } });
-
+// Signing
 export const cSigningCompletedEvent = (giftId: string) => ({ name: 'c-signing-completed', payload: { giftId } });
-
+// Saving
 export const cSavingAttemptedEvent = (giftId: string) => ({ name: 'c-saving-attempted', payload: { giftId } });
 export const cSavingSucceededEvent = (giftId: string) => ({ name: 'c-saving-succeeded', payload: { giftId } });
 export const cSavingFailedEvent = (giftId: string, reason: string) => ({ name: 'c-saving-failed', payload: { giftId, reason } });
 export const cSavingRetriedEvent = (giftId: string) => ({ name: 'c-saving-retried', payload: { giftId } });
-
+// Sharing
 export const cSharingChannelChosenEvent = (giftId: string, channel: string) => ({ name: 'c-sharing-channel-chosen', payload: { giftId, channel } });
 export const cSharingCompletedEvent = (giftId: string) => ({ name: 'c-sharing-completed', payload: { giftId } });
-
+// Outro
 export const cOutroCompletedEvent = (giftId: string) => ({ name: 'c-outro-completed', payload: { giftId } });
 
 

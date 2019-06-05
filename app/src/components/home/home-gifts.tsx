@@ -7,12 +7,14 @@ import { hGiftsCreatePressedEvent, hGiftsOpenMuseumGiftPressedEvent } from '../.
 
 import { config } from '../../config';
 import { global } from '../../themes/global';
-import { getSessionRecipientLocation } from '../../utils/local';
+import { Gift } from '../../domain';
+import { getSessionRecipientLocation, getSentGifts, getReceivedGifts } from '../../utils/local';
 
 import { InformationWindow } from '../modals/information-window';
 import { HelpContent } from '../information/help';
 import { PanelTitle } from '../panel-title';
 import { TextResize } from '../text-resize';
+import { GiftPile } from '../gift-pile';
 import SvgAddCircle from '../svg/add-circle';
 import SvgGift from '../svg/gift';
 
@@ -97,12 +99,16 @@ interface HomeGiftProps {
 
 const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
+  // State
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
-  // const sentGiftCount = 0;
-  // const hasSentGifts = sentGiftCount > 0;
-  const hasSentGifts = false;
+  // Get local values
+  const giftsReceived: Gift[] = getReceivedGifts();
+  const giftsSent: Gift[] = getSentGifts();
 
+  // Prep for render
+  const hasReceivedGifts = giftsReceived.length > 0;
+  const hasSentGifts = giftsSent.length > 0;
   const atMuseum = getSessionRecipientLocation() === 'at-museum';
 
   return (
@@ -134,19 +140,21 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
         {!atMuseum && <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>}
 
-        {/* <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle> */}
-
-        {/* {hasSentGifts &&
-          <GiftPile
-            gifts={giftsIn}
-          />
-        } */}
+        {hasSentGifts &&
+          <>
+            <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle>
+            <GiftPile
+              gifts={giftsSent}
+              source={'sent'}
+            />
+          </>
+        }
         {!hasSentGifts &&
           <GiftsNotSent>
-            {/* <TextResize textSize={50}>
+            <TextResize textSize={50}>
               You've not sent any gifts<br/>
               Make one now?
-            </TextResize> */}
+            </TextResize>
             <Link
               onClick={() => events.track(hGiftsCreatePressedEvent())}
               to='/create-gift'
@@ -164,11 +172,15 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
         <LineSpacer />
 
-        {/* TEMP REMOVE
-        <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
-        <GiftPile
-          gifts={giftsIn}
-        />*/}
+        {hasReceivedGifts &&
+          <>
+            <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
+            <GiftPile
+              gifts={giftsReceived}
+              source={'received'}
+            />
+          </>
+        }
 
         <OpenMuseumGift>
 
