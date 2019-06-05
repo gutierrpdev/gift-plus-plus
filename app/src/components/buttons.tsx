@@ -162,9 +162,11 @@ const ButtonAnchor: React.FC<ButtonAchorProps> = ({ colour = 'white', href, chil
  * Base button used for controls (audio player, photo capture, etc)
  * Base button has active state
  */
-const BaseControlButton = styled.div`
+const BaseControlButton = styled.button`
   cursor: pointer;
   opacity: 0.8;
+  padding: 0;
+  border: none;
   &:active {
     opacity: 1;
   }

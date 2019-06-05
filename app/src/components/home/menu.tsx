@@ -34,7 +34,7 @@ interface MenuBurgerProps {
 }
 
 const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
-  <MenuBurgerStyle onClick={onClick}>
+  <MenuBurgerStyle onClick={onClick} aria-label='menu'>
     <MenuBurgerBar />
     <MenuBurgerBar />
     <MenuBurgerBar />

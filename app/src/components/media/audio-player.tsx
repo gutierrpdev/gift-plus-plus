@@ -306,18 +306,17 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
 
     return (
       <PanelRound background={'transparent-black'}>
-        <AudioPlayerStyle>
-            <audio
-              src={this.props.src}
-              controls={false}
-              title={'Play'}
-              loop={false}
-              autoPlay={false}
-              ref={(ref) => { this.audio = ref; }}
-            >
-              {incompatibilityMessage}
-            </audio>
-
+        <AudioPlayerStyle role='region' aria-label='audio player'>
+          <audio
+            src={this.props.src}
+            controls={false}
+            title={'Play'}
+            loop={false}
+            autoPlay={false}
+            ref={(ref) => { this.audio = ref; }}
+          >
+            {incompatibilityMessage}
+          </audio>
           <AudioPanelText>{this.props.message}</AudioPanelText>
           <ProgressBar
             percent={this.state.playbackPercentage}
@@ -327,23 +326,25 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
             /*onSeek={this.onSeek}*/
           />
           <Controls>
-            <SkipBack onClick={this.skipBackward}>
+
+            <SkipBack onClick={this.skipBackward} aria-label='Skip back' tabIndex={2}>
               <SvgButtonAudioBack />
             </SkipBack>
-            <Play onClick={this.togglePlay} >
+
+            <Play onClick={this.togglePlay} aria-label='Play' tabIndex={0}>
               {isPlaying ? <SvgButtonAudioPause/> : <SvgButtonAudioPlay/>}
             </Play>
 
             {/* Skip forward seconds */}
             {this.props.forwardButtonType === 'skip-seconds' &&
-              <SkipForward onClick={this.skipForward}>
+              <SkipForward onClick={this.skipForward} aria-label='Skip forward' tabIndex={1}>
                 <SvgButtonAudioForward />
               </SkipForward>
             }
 
             {/* Jump to end */}
             {this.props.forwardButtonType === 'go-to-end' &&
-              <SkipForward onClick={this.goToEnd}>
+              <SkipForward onClick={this.goToEnd} aria-label='Skip forward' tabIndex={1}>
                 <SvgButtonAudioSkip />
               </SkipForward>
             }
