@@ -148,6 +148,7 @@ storiesOf('Components', module)
     <div>
       <p>Big header with logo</p>
       <ScreenHeader
+        preSubTitle={`Pre sub title`}
         subTitle={`Sub title`}
         postSubTitle={`post sub title`}
         title={'Title'}
