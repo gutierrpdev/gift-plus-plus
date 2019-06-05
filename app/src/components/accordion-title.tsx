@@ -19,7 +19,7 @@ const SvgDownChevWhiteStyled = styled(SvgDownChevWhite)`
 
 export interface AccordionTitleProps {
   textSize: 'big' | 'medium' | 'small';
-  textColour: 'black' | 'white';
+  textColour: 'light' | 'white';
   showOpenPrompt: boolean;
 }
 
@@ -61,8 +61,8 @@ const AccordionTitleStyle = styled.div<AccordionTitleProps>`
   `}
 
   // Text Colour
-  ${(props: AccordionTitleProps) => props.textColour === 'black' && `
-    color: black;
+  ${(props: AccordionTitleProps) => props.textColour === 'light' && `
+    color: rgba(255,255,255,0.2);
   `}
 
   // Open Prompt

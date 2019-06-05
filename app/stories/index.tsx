@@ -285,11 +285,11 @@ storiesOf('Components', module)
   .add('Accordion Title', () => (
     <div style={greyBG}>
       <p>Big with Open</p>
-      <AccordionTitle showOpenPrompt={true} textSize={'big'} textColour={'black'}>Big</AccordionTitle>
+      <AccordionTitle showOpenPrompt={true} textSize={'big'} textColour={'light'}>Big</AccordionTitle>
       <p>Mediun</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'black'}>Mediun</AccordionTitle>
+      <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'light'}>Mediun</AccordionTitle>
       <p>Small</p>
-      <AccordionTitle showOpenPrompt={false} textSize={'small'} textColour={'black'}>Small</AccordionTitle>
+      <AccordionTitle showOpenPrompt={false} textSize={'small'} textColour={'light'}>Small</AccordionTitle>
       <p>Medium &amp; White</p>
       <AccordionTitle showOpenPrompt={false} textSize={'medium'} textColour={'white'}>
         Medium &amp; White
@@ -797,7 +797,7 @@ storiesOf('Components/Receiving', module)
         isDisabled={false}
         onClick={alertClicked}
         showOpenPrompt={false}
-        textColour={'black'}
+        textColour={'light'}
       >
         Small
       </IdleGiftPart>
@@ -808,7 +808,7 @@ storiesOf('Components/Receiving', module)
         isDisabled={true}
         onClick={alertClicked}
         showOpenPrompt={false}
-        textColour={'black'}
+        textColour={'light'}
       >
         Medium
       </IdleGiftPart>
@@ -819,7 +819,7 @@ storiesOf('Components/Receiving', module)
         isDisabled={false}
         onClick={alertClicked}
         showOpenPrompt={true}
-        textColour={'black'}
+        textColour={'light'}
       >
         Big
       </IdleGiftPart>

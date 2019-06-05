@@ -76,7 +76,7 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
         {gift.parts.map((part, idx) => {
           const partState = state.partStateMap.get(part)!;
           const showOpenPrompt = (idx === 0);
-          const textColour = (idx === 0) ? 'white' : 'black';
+          const textColour = (idx === 0) ? 'white' : 'light';
 
           return (
             <IdleGiftPart
@@ -154,7 +154,7 @@ const GiftPartsManager: React.FC<Props> = ({ gift, recipientLocation }) => {
               part={part}
               displaySize={'small'}
               showOpenPrompt={false}
-              textColour={'black'}
+              textColour={'light'}
               isDisabled={partState.isDisabled}
               onClick={() => setState({
                 ...state,

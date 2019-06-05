@@ -13,7 +13,7 @@ import { Gradient } from '../gradient';
 interface IdleGiftPartProps {
   part: GiftPart;
   displaySize: 'small' | 'medium' | 'big';
-  textColour: 'black' | 'white';
+  textColour: 'light' | 'white';
   showOpenPrompt: boolean;
   isDisabled: boolean;
   onClick: () => void;

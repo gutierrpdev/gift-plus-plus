@@ -19,7 +19,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
   // Title
   const showOpenPrompt = false;
   const accordionTitleTextSize = 'small';
-  const accordionTextColour = 'black';
+  const accordionTextColour = 'light';
 
   // Audio
   const [hasRecording, setHasRecording] = useState(false);
