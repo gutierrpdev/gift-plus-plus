@@ -24,6 +24,9 @@ const ScreenTitle = styled(TextResize).attrs<ScreenTitleProps>((props) => ({
     // todo text size should be dynamic calculated to allow for long names
   }))<ScreenTitleProps>`
   line-height: 1;
+  ${(props: ScreenTitleProps) => props.titleSize === 'big' && `
+    line-height: 0.9;
+  `}
   margin: 0;
   ${(props: ScreenTitleProps) => ((!props.marginBottom) || (props.marginBottom === 'medium')) && `
     margin-bottom: 1.3vh;
