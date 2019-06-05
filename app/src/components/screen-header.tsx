@@ -97,6 +97,7 @@ interface Props {
   showLogo?: boolean;
   showMenuBurger?: boolean;
   showCloseButton?: boolean;
+  showGradient?: boolean;
   preSubTitle?: string; // Text above the sub title
   subTitle?: string; // Smaller Sub title
   postSubTitle?: string; // Text after the sub title
@@ -120,7 +121,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
   const [termsModalIsOpen, setTermsModalIsOpen] = useState(!getUserHasAgreedTerms());
 
   // Locals
-  const showGradient = props.background === 'white';
   const screenTitleMarginBottom = props.padding === 'large' ? 'medium' : 'small';
 
   // Functions
@@ -189,7 +189,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       </HeaderTexts>
 
-      {showGradient && <Gradient position='bottom' />}
+      {props.showGradient && <Gradient position='bottom' />}
 
     </ScreenHeaderStyle>
 
@@ -226,6 +226,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 ScreenHeader.defaultProps = {
   showMenuBurger: true,
   showCloseButton: false,
+  showGradient: false,
 };
 
 

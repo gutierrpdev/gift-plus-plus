@@ -8,7 +8,7 @@ const Gradient = styled.div<GradientProps>`
   height: 20vmin;
   background: rgb(0,0,0); /* fallback */
   background: linear-gradient(180deg,rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0) 99%, transparent);
-  z-index: 10;
+  z-index: 1;
   position: absolute;
   left: 0;
   width: 100%;

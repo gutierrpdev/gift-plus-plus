@@ -101,6 +101,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
          subTitle={gift.recipientName}
          background={'white'}
          museumName={museumName}
+         showGradient={true}
        />
       }
 
