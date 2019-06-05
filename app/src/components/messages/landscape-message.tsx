@@ -41,7 +41,7 @@ export const LandscapeMessage: React.FC = () => {
     return (
       <StyledMessage>
         <p>This app only works in portrait mode.</p>
-        <p>Please rotate your phone</p>
+        <p>Please rotate your device</p>
         <div style={{fontSize: '5rem'}}>📱</div>
       </StyledMessage>
     );
