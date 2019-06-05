@@ -69,15 +69,16 @@ const AccordionTitleStyle = styled.div<AccordionTitleProps>`
   ${(props: AccordionTitleProps) => props.showOpenPrompt && `
     position: relative;
     &:before {
-      content: 'Open';
+      content: 'Click to open';
       position: absolute;
       top: -4vh;
       text-align: center;
       width: 100%;
       left: 0;
       font-size: 50%;
-      font-family: ${global.fonts.body.family};
-      text-transform: uppercase;
+      font-family: ${global.fonts.title.family};
+      font-weight: ${global.fonts.title.normal};
+      font-style: italic;
     }
   `}
 
