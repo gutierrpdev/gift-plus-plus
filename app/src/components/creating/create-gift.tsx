@@ -90,14 +90,15 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       {headerState === 'name-unknown' &&
        <ScreenHeader
          padding={'medium'}
-         title={`Making a gift...`}
+         title={`Creating a gift...`}
+         titleSize={'big'}
          museumName={museumName}
        />
       }
 
       {headerState === 'named-small' &&
        <ScreenHeader
-         preSubTitle={`Making a gift for`}
+         preSubTitle={`Creating a gift for`}
          subTitle={gift.recipientName}
          background={'white'}
          museumName={museumName}
