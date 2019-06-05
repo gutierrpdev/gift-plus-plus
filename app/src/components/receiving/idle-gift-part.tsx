@@ -5,6 +5,7 @@ import { GiftPart } from '../../domain';
 import { global } from '../../themes/global';
 import { GiftPartBackground } from './gift-part-background';
 import { AccordionTitle } from '../accordion-title';
+import { Gradient } from '../gradient';
 
 /***
  * Renders an idle gift part
@@ -70,6 +71,7 @@ const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
 
   return (
     <IdleGiftPartStyle {...props} onClick={handleOnClick}>
+      <Gradient position='top' />
       <GiftPartBackground giftPart={props.part}>
         <AccordionTitle
           textSize={props.displaySize}
