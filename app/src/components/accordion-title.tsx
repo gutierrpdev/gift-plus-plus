@@ -27,11 +27,11 @@ export interface AccordionTitleProps {
 const AccordionTitleStyle = styled.div<AccordionTitleProps>`
   text-align: center;
   font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
   color: white;
   display: flex;
   display: block;
   margin: 0 auto;
-  font-weight: ${global.fonts.title.bold};
   line-height: 1;
   position: relative;
   z-index: 1;
