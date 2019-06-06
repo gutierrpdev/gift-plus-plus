@@ -32,7 +32,7 @@ const StyledProgressLoader = styled.div<Props>`
 `;
 
 const ProgressTitle = styled.div`
-  font-size: 150%;
+  /* font-size: 100%; */
   text-align: center;
 `;
 
@@ -57,7 +57,7 @@ const ProgressLoader: React.FC<Props> = (props) => {
       <ProgressTitle>{props.text}</ProgressTitle>
 
       { props.percent !== undefined && <>
-      <ProgressBar percent={props.percent} theme={theme} height='0.3rem' />
+      <ProgressBar percent={props.percent} theme={theme} height='0.1rem' />
       <ProgressTitle>{props.percent}%</ProgressTitle>
       </>}
     </StyledProgressLoader>
