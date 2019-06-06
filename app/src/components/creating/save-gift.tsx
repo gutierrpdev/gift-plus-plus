@@ -30,6 +30,8 @@ interface Props {
 export const SaveGift: React.FC<Props> = ({ gift, onComplete }) => {
   const saver = useGiftSaver(gift);
 
+  useEffect(() => { events.track(cSavingAttemptedEvent(gift.id)); }, []);
+
   // Actions on saver state-transitions
   useEffect(() => {
     if (saver.kind === 'done') {
