@@ -32,7 +32,6 @@ const StyledProgressLoader = styled.div<Props>`
 `;
 
 const ProgressTitle = styled.div`
-  /* font-size: 100%; */
   text-align: center;
 `;
 
