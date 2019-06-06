@@ -46,17 +46,17 @@ const AccordionTitleStyle = styled.div<AccordionTitleProps>`
     }
   `}
   ${(props: AccordionTitleProps) => props.textSize === 'medium' && `
-    font-size: 6vw;
+    font-size: 5.5vw;
     margin: 20px auto;
     @media (min-width: ${global.desktop.startPixels}px) {
-      font-size: 160%;
+      font-size: 155%;
     }
   `}
   ${(props: AccordionTitleProps) => props.textSize === 'small' && `
-    font-size: 5vw;
+    font-size: 5.5vw;
     color: black;
     @media (min-width: ${global.desktop.startPixels}px) {
-      font-size: 150%;
+      font-size: 155%;
     }
   `}
 
