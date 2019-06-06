@@ -37,7 +37,7 @@ export const MainTitle = styled(TextResize).attrs({
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.black};
-  margin: 2vh 0 0;
+  margin: 7vh 0 0;
 `;
 
 export const MuseumName = styled(TextResize).attrs({
@@ -49,6 +49,28 @@ export const MuseumName = styled(TextResize).attrs({
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
   line-height: 0.9;
+`;
+
+export const MainTitleSmall = styled(TextResize).attrs({
+  textSize: 160,
+})`
+  z-index: 1;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.black};
+  margin: 2vh 0 0.5vh;
+`;
+
+export const MuseumNameSmall = styled(TextResize).attrs({
+  textSize: 35,
+})`
+  z-index: 1;
+  width: 90%;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
+  line-height: 0.9;
+  margin: 0 0 1vh 0;
 `;
 
 // Current status of this screen
@@ -168,6 +190,7 @@ export const HomeScreen: React.FC = () => {
 
   // Determine header style
   const homeHeader = status === 'show-gifts';
+  const allowScroll = status === 'show-gifts';
 
   function handleTermsAccepted() {
     events.track(termsAcceptedEvent());
@@ -175,18 +198,29 @@ export const HomeScreen: React.FC = () => {
   }
 
   return (
-    <ScreenManager>
+    <ScreenManager allowScroll={allowScroll}>
       <BgSvgFullScreen />
       <GlobalStyles />
 
       {/* Header */}
       <ScreenHeader
+        padding='none'
         onTermsAccepted={handleTermsAccepted}
       />
 
       {/* Title */}
-      <MainTitle>Gift</MainTitle>
-      <MuseumName>{`at ${museumName}`}</MuseumName>
+      {homeHeader &&
+        <>
+          <MainTitleSmall>Gift</MainTitleSmall>
+          <MuseumNameSmall>{`at ${museumName}`}</MuseumNameSmall>
+        </>
+      }
+      {!homeHeader &&
+        <>
+          <MainTitle>Gift</MainTitle>
+          <MuseumName>{`at ${museumName}`}</MuseumName>
+        </>
+      }
 
 
       {/* Content */}

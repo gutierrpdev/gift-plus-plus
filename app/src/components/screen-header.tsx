@@ -62,6 +62,9 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
     padding: 3% 0;
   }
+  ${(props) => props.padding === 'none' && `
+    padding: 0;
+  `}
   ${(props) => props.padding === 'small' && `
     padding-top: 7%;
     // Smaller padding on mobiles

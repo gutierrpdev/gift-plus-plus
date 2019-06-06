@@ -12,7 +12,7 @@ import { TextResize } from './text-resize';
 
 const GiftList = styled.div`
   position: relative;
-  padding: 3vh 0 2vh 0;
+  padding: 3vh 2% 2vh 5%;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
