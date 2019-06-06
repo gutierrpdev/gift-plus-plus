@@ -31,6 +31,7 @@ const GiftPartBackground = styled.div<Props>`
     background-size: cover;
     z-index: -1;
     filter: blur(5px);
+    opacity: 0.8;
   }
 `;
 

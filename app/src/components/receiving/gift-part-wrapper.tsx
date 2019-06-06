@@ -40,7 +40,7 @@ interface StyledGiftPartProps {
 }
 
 const StyledGiftPart = styled.div<StyledGiftPartProps>`
-  // Common
+  /* Common */
   display: flex;
   flex: 1;
   flex-grow: 1;
@@ -51,7 +51,7 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
   z-index: 1;
   background-color: ${global.colour.blurBackground};
 
-  // Background image as :before to apply blur
+  /* Background image as :before to apply blur */
   &:before {
     content: '';
     position: absolute;
@@ -64,8 +64,9 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
     background-size: cover;
     z-index: -1;
     ${(props) => props.blurImage && `
-      filter: blur(5px);`
-    }
+      filter: blur(5px);
+      opacity: 0.8;
+    `}
   }
 `;
 
