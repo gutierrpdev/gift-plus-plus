@@ -29,7 +29,7 @@ import SvgButtonAudioSkip from '../svg/button-audio-skip';
 
 const AudioPlayerStyle = styled.div`
   color: white;
-  padding: 20% 5%;
+  padding: 15% 5% 25%;
   margin: 0 auto;
   width: 100%;
 `;
