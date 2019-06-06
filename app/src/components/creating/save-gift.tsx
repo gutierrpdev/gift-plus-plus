@@ -115,7 +115,7 @@ interface SavingInProgressProps {
   text: string;
   progress?: number;
 }
-const SavingInProgress: React.FC<SavingInProgressProps> = ({ text, progress }) => (
+export const SavingInProgress: React.FC<SavingInProgressProps> = ({ text, progress }) => (
   <Panel>
     <PanelTitle>Finish your gift</PanelTitle>
     <PanelSubTitle>Saving it</PanelSubTitle>

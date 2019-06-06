@@ -46,6 +46,7 @@ import { TextAreaModal } from '../src/components/modals/text-area-modal';
 import { TermsModal } from '../src/components/modals/terms-modal';
 import { BgSvgFullScreen } from '../src/components/svg/bg';
 import { ProgressBar } from '../src/components/progress-bar';
+import { SavingInProgress } from '../src/components/creating/save-gift';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -582,6 +583,14 @@ storiesOf('Components/Messages', module)
         <ErrorMessage message='There has been an error' />
       </Router>
     </>
+  ))
+  .add('Saving message', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <Router history={history}>
+        <SavingInProgress text='Saving your gift' progress={Math.round(66)} />
+      </Router>
+    </ScreenManager>
   ));
 
 // Media
