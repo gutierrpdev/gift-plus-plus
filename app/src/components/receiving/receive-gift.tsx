@@ -46,6 +46,7 @@ export const MuseumName = styled(TextResize).attrs({
   text-align: center;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
+  line-height: 0.9;
 `;
 
 // Current status of this screen
