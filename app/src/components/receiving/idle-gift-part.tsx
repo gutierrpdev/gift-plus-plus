@@ -71,7 +71,7 @@ const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
 
   return (
     <IdleGiftPartStyle {...props} onClick={handleOnClick}>
-      <Gradient position='top' />
+      <Gradient position='top' size='big' />
       <GiftPartBackground giftPart={props.part}>
         <AccordionTitle
           textSize={props.displaySize}

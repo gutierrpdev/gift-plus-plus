@@ -39,6 +39,12 @@ type BottomPadding =
   | 'medium'
 ;
 
+type ShowGradient =
+  | 'none'
+  | 'small'
+  | 'big'
+;
+
 interface ScreenHeaderStyleProps {
   padding?: Padding;
   bottomPadding?: BottomPadding; // Optional value to override general padding
@@ -97,7 +103,7 @@ interface Props {
   showLogo?: boolean;
   showMenuBurger?: boolean;
   showCloseButton?: boolean;
-  showGradient?: boolean;
+  showGradient?: ShowGradient;
   preSubTitle?: string; // Text above the sub title
   subTitle?: string; // Smaller Sub title
   postSubTitle?: string; // Text after the sub title
@@ -189,7 +195,9 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       </HeaderTexts>
 
-      {props.showGradient && <Gradient position='bottom' />}
+      {props.showGradient !== undefined && props.showGradient !== 'none' &&
+        <Gradient position='bottom' size={props.showGradient} />
+      }
 
     </ScreenHeaderStyle>
 
@@ -211,6 +219,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       </InformationWindow>
     }
 
+    {/* == Terms == */}
     {termsModalIsOpen &&
       <TermsModal
         museumName={props.museumName}
@@ -226,7 +235,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 ScreenHeader.defaultProps = {
   showMenuBurger: true,
   showCloseButton: false,
-  showGradient: false,
+  showGradient: 'none',
 };
 
 

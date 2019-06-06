@@ -202,7 +202,7 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
     return (
       <StyledGiftPart imageSrc={this.props.giftPart.photo} blurImage={this.state.blurImage} >
 
-        <Gradient />
+        <Gradient position={'top'} size={'big'} />
 
         {this.state.showImagePreview && <PanelImageReveal imageUrl={this.props.giftPart.photo} />}
 

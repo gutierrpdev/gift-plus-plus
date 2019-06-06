@@ -256,7 +256,7 @@ storiesOf('Components', module)
           </Buttons>
 
           <p>There is a gradient below</p>
-          <Gradient />
+          <Gradient position='top' size='small' />
 
         </BrowserRouter>
 
@@ -280,7 +280,14 @@ storiesOf('Components', module)
   ))
   .add('Gradient', () => (
     <div>
-      <Gradient />
+      <div>
+        <p>Small gradient</p>
+        <Gradient size='small' position='top' />
+      </div>
+      <div>
+        <p>Big gradient</p>
+        <Gradient size='big' position='top' />
+      </div>
     </div>
   ))
   .add('Accordion Title', () => (
