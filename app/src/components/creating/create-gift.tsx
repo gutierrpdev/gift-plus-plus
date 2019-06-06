@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import uuidv4 from 'uuid/v4';
 import uuidv5 from 'uuid/v5';
 
@@ -15,10 +16,11 @@ import {
 } from '../../event-definitions';
 
 import { PageChangeDetect } from '../messages/page-change-detect';
-import { GlobalStyles } from '../../themes/global';
+import { GlobalStyles, global } from '../../themes/global';
 import { BgSvgFullScreen } from '../svg/bg';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
+import { TextResize } from '../text-resize';
 
 import { CreateGiftIntro } from '../creating/intro';
 import { CreateGiftChooseRecipient } from '../creating/choose-recipient';
@@ -33,6 +35,18 @@ import { CreatingOutro } from '../creating/outro';
  * Gift Create screen top level component
  */
 
+export const MainTitle = styled(TextResize).attrs({
+  textSize: 155,
+})`
+  z-index: 1;
+  width: 90%;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
+  line-height: 0.9;
+  margin: 2vh 0 0;
+`;
+
 // Current status of this screen
 type Status =
   | 'intro'
@@ -44,11 +58,9 @@ type Status =
   | 'outro'
 ;
 
-
 interface Props {
   museumName: string;
 }
-
 
 export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
@@ -88,12 +100,13 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
       {/* Header */}
       {headerState === 'name-unknown' &&
-       <ScreenHeader
-         padding={'medium'}
-         title={`Creating a gift...`}
-         titleSize={'big'}
-         museumName={museumName}
-       />
+      <>
+        <ScreenHeader
+          museumName={museumName}
+        />
+        <MainTitle>Creating<br/>
+          a gift...</MainTitle>
+      </>
       }
 
       {headerState === 'named-small' &&
@@ -105,6 +118,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
          showGradient={'small'}
        />
       }
+
 
       {/* Content */}
       {status === 'intro' &&

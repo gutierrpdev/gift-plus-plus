@@ -4,14 +4,12 @@ import { global } from '../themes/global';
 import { TextResize } from './text-resize';
 
 const ScreenPostTitle = styled(TextResize).attrs({
-  textSize: 40,
+  textSize: 30,
   scaleDownForSmallDevices: true,
 })`
-  margin: 0 0 0.5vw;
-  @media (min-width: ${global.desktop.startPixels}px) {
-    margin: 0 0 10px;
-  }
+  margin: 0;
   text-align: center;
+  line-height: 0.9;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
 `;

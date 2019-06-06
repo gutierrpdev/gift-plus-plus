@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import { events } from '../services';
 import { hAtMuseumConfirmedEvent, termsAcceptedEvent } from '../event-definitions';
 
-import { GlobalStyles } from '../themes/global';
+import { GlobalStyles, global } from '../themes/global';
 import { ScreenManager } from '../components/screen-manager';
+import { TextResize } from '../components/text-resize';
 import { ScreenHeader } from '../components/screen-header';
 import { HomeIntro1 } from '../components/home/home-intro-1';
 import { HomeIntro2 } from '../components/home/home-intro-2';
@@ -27,6 +29,27 @@ import {
  * Component that manages the home intro sequence
  * All screen state logic is in here, with the layout in the components
  */
+
+export const MainTitle = styled(TextResize).attrs({
+  textSize: 320,
+})`
+  z-index: 1;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.black};
+  margin: 2vh 0 0;
+`;
+
+export const MuseumName = styled(TextResize).attrs({
+  textSize: 40,
+})`
+  z-index: 1;
+  width: 90%;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
+  line-height: 0.9;
+`;
 
 // Current status of this screen
 type Status =
@@ -157,29 +180,14 @@ export const HomeScreen: React.FC = () => {
       <GlobalStyles />
 
       {/* Header */}
-      {homeHeader &&
-        <ScreenHeader
-          padding={'small'}
-          title={`Gift`}
-          postTitle={`at ${museumName}`}
-          titleSize={'big'}
-          titleWeight={'black'}
-          museumName={museumName}
-          onTermsAccepted={handleTermsAccepted}
-        />
-      }
-      {!homeHeader &&
-        <ScreenHeader
-          padding={'medium'}
-          bottomPadding={'none'}
-          title={`Gift`}
-          postTitle={`at ${museumName}`}
-          titleSize={'very-big'}
-          titleWeight={'black'}
-          museumName={museumName}
-          onTermsAccepted={handleTermsAccepted}
-        />
-      }
+      <ScreenHeader
+        onTermsAccepted={handleTermsAccepted}
+      />
+
+      {/* Title */}
+      <MainTitle>Gift</MainTitle>
+      <MuseumName>{`at ${museumName}`}</MuseumName>
+
 
       {/* Content */}
         {status === 'intro1' && !termsAccepted && <HomeIntro1 />}

@@ -22,9 +22,9 @@ import { TermsContent } from './information/terms';
 
 // Texts wrapper
 const HeaderTexts = styled.div`
-  width: 80%;
+  width: 70%;
   position: relative;
-  left: 10%;
+  left: 15%;
 `;
 
 type Padding =
@@ -87,10 +87,10 @@ const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
     padding-top: 30%;
     // Smaller padding on smaller ratio screens
     @media (min-aspect-ratio: ${global.aspectRatio.iPhone5}) {
-      padding: 15% 10% 5%;
+      padding: 15% 0% 5%;
     }
     @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {
-      padding: 10% 6% 3%;
+      padding: 10% 0% 3%;
     }
   `}
   ${(props) => props.background === 'white' && `
@@ -109,8 +109,8 @@ interface Props {
   postSubTitle?: string; // Text after the sub title
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
-  museumName: string; // For terms dialog
-  titleSize?: 'normal' | 'big' | 'very-big';  // Title text size
+  museumName?: string; // For terms dialog
+  titleSize?: number;  // Title text size
   titleWeight?: 'bold' | 'black'; // Title weight
   padding?: Padding; // Padding to apply
   bottomPadding?: BottomPadding; // Bottom only padding
@@ -154,7 +154,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     <ScreenHeaderStyle
       padding={props.padding}
       bottomPadding={props.bottomPadding}
-      museumName={props.museumName}
+      museumName={props.museumName || ''}
       background={props.background}
     >
 
@@ -182,7 +182,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
           return (
             <ScreenTitle
               key={key}
-              titleSize={props.titleSize || 'normal'}
+              titleSize={props.titleSize}
               titleWeight={props.titleWeight}
               marginBottom={screenTitleMarginBottom}
             >
@@ -222,7 +222,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     {/* == Terms == */}
     {termsModalIsOpen &&
       <TermsModal
-        museumName={props.museumName}
+        museumName={props.museumName || ''}
         onAgreeClick={handleAgreeTerms}
         onShowTerms={() => {setPrivacyIsOpen(true); }}
       />
@@ -236,6 +236,7 @@ ScreenHeader.defaultProps = {
   showMenuBurger: true,
   showCloseButton: false,
   showGradient: 'none',
+  titleSize: 82,
 };
 
 

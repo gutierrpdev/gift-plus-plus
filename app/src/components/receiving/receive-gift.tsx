@@ -1,12 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { assertNever } from '../../utils/helpers';
 import { events } from '../../services';
 import { rAtMuseumConfirmedEvent, rOpenPressedEvent } from '../../event-definitions';
 
 import { Gift } from '../../domain';
-import { GlobalStyles } from '../../themes/global';
+import { GlobalStyles, global } from '../../themes/global';
 import { ScreenManager } from '../screen-manager';
+import { TextResize } from '../text-resize';
 import { ScreenHeader } from '../screen-header';
 import { GiftPartsManager } from './gift-parts-manager';
 import { ChooseLocation, RecipientLocation } from '../choose-location';
@@ -25,6 +27,26 @@ import history from '../../utils/router-history';
 /**
  * Gift Receive screen top level component
  */
+
+export const MainTitle = styled(TextResize).attrs({
+  textSize: 40,
+})`
+  z-index: 1;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.black};
+  margin: 5vh 0 0;
+`;
+
+export const MuseumName = styled(TextResize).attrs({
+  textSize: 150,
+})`
+  z-index: 1;
+  width: 90%;
+  text-align: center;
+  font-family: ${global.fonts.title.family};
+  font-weight: ${global.fonts.title.bold};
+`;
 
 // Current status of this screen
 type ReceiveGiftStatus = 'Welcome' | 'SelectLocation' | 'OpenOrSave' | 'ShowingParts';
@@ -165,8 +187,8 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
     // The header size is based on our current state
     const headerSize = compactHeader ? 'compact'
-      : status === 'Welcome' || status === 'SelectLocation' || status === 'OpenOrSave'
-      ? 'big' : 'small';
+      : status === 'Welcome' || status === 'SelectLocation' || status === 'OpenOrSave' ? 'big'
+      : 'small';
 
     // Only include museum name for personal gift
     const museumName = this.props.gift.kind === 'PersonalGift'
@@ -179,16 +201,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
         <GlobalStyles />
 
         {headerSize === 'big' &&
+        <>
           <ScreenHeader
-            postSubTitle={`Here's your gift from`}
-            title={this.props.gift.senderName}
-            titleSize={'big'}
-            postTitle={museumName}
             showLogo={false}
-            padding='large'
-            bottomPadding='none'
-            museumName={museumName}
           />
+          <MainTitle>Here's your gift from</MainTitle>
+          <MuseumName>{this.props.museumName}</MuseumName>
+        </>
         }
         {headerSize === 'small' &&
           <ScreenHeader
