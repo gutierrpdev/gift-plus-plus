@@ -207,7 +207,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             showLogo={false}
           />
           <MainTitle>Here's your gift from</MainTitle>
-          <MuseumName>{this.props.museumName}</MuseumName>
+          <MuseumName>{this.props.gift.senderName}</MuseumName>
         </>
         }
         {headerSize === 'small' &&
@@ -225,7 +225,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             showLogo={false}
-            museumName={museumName}
           />
         }
 
