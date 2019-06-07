@@ -34,7 +34,7 @@ export const MainTitle = styled(TextResize).attrs({
   z-index: 1;
   text-align: center;
   font-family: ${global.fonts.title.family};
-  font-weight: ${global.fonts.title.black};
+  font-weight: ${global.fonts.title.bold};
   margin: 5vh 0 0;
 `;
 
