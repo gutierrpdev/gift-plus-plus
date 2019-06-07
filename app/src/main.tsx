@@ -63,8 +63,7 @@ export const Main: React.FC = () => {
           <HomeScreen />
         </Route>
 
-        {/* no exact match to ensure child routes are caught */}
-        <Route exact={false} path='/create-gift'>
+        <Route exact={true} path='/create-gift'>
           <CreateGiftScreen />
         </Route>
 

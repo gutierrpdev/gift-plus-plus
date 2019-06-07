@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import history from '../../utils/router-history';
 import styled from 'styled-components';
 
 import { LocalFile, InProgressGift, InProgressGiftPart } from '../../domain';
@@ -61,6 +59,9 @@ const PartContentStyle = styled(Panel)<PartContentStyleProps>`
 `;
 
 type Status =
+  | 'first-message'
+  | 'second-message'
+  | 'take-photo'
   | 'pre-record-message'
   | 'record-message'
   | 'check-message'
@@ -87,7 +88,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   const [parts, setParts] = useState<InProgressGiftPart[]>([]); // TODO: clean the state up -- separate out
   const [currentPart, setCurrentPart] = useState<Partial<InProgressGiftPart>>({});
 
-  const [status, setStatus] = useState<Status>('pre-record-message');
+  const [status, setStatus] = useState<Status>('first-message');
   const [firstAudioHasPlayed, setFirstAudioHasPlayed] = useState(false);
   const [secondAudioHasPlayed, setSecondAudioHasPlayed] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState('');
@@ -120,7 +121,6 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
     // Use this image as the background of the component
     setBackgroundImage(file.url);
     setStatus('pre-record-message');
-    history.push('/create-gift/part/record-message');
   }
 
   function handleAudioRecordFinished(file: LocalFile) {
@@ -186,10 +186,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
     resetState();
     setGiftPartIndex(1);
 
-    // Prep status for latter part
-    setStatus('pre-record-message');
-    // Note no first message for part 2, jump to second message
-    history.push('/create-gift/part/second-message');
+    // Note no first message for part 2, jump to second section
+    setStatus('second-message');
 
   }
 
@@ -202,11 +200,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
     resetState();
     setGiftPartIndex(2);
 
-    // Prep status for latter part
-    setStatus('pre-record-message');
-    // Note no first message for part 3, jump to second message
-    history.push('/create-gift/part/second-message');
-
+    // Note no first message for part 3, jump to second section
+    setStatus('second-message');
   }
 
 
@@ -220,12 +215,12 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
             <PanelPrompt
               text={`Thanks! Time to choose your first object for ${recipientName}`}
               background={'transparent-black'}
-              onClick={() => { history.push('/create-gift/part/second-message'); }}
+              onClick={() => { setStatus('second-message'); }}
             />
           }
           <WaitThen
             wait={defaultWait}
-            andThen={() => { history.push('/create-gift/part/second-message'); }}
+            andThen={() => { setStatus('second-message'); }}
           />
         </PanelContent>
       </>
@@ -269,14 +264,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         </PanelContent>
         <PanelButtons>
           {firstAudioHasPlayed &&
-            <Button
-              onClick={() => {
-                history.push('/create-gift/part/photo');
-              }}
-              primary={true}
-            >
-              Continue
-            </Button>
+            <Button onClick={() => {setStatus('take-photo'); }} primary={true}>Continue</Button>
           }
         </PanelButtons>
       </>
@@ -561,7 +549,6 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   }
 
   return (
-
     <>
       {showingEnterClue &&
         <TextAreaModal
@@ -586,38 +573,17 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
       }
 
       <PartContentStyle backgroundImage={backgroundImage} showWhiteOverlay={true}>
-
-        <Switch>
-
-          {/* first message */}
-          <Route exact={true} path='/create-gift/part/first-message'>
-            {renderFirstMessage()}
-          </Route>
-
-          {/* second message */}
-          <Route exact={true} path='/create-gift/part/second-message'>
-            {renderSecondMessage()}
-          </Route>
-
-          {/* photo */}
-          <Route exact={true} path='/create-gift/part/photo'>
-            {renderTakePhoto()}
-          </Route>
-
-          {/* record message */}
-          <Route exact={true} path='/create-gift/part/record-message'>
-            {status === 'pre-record-message' && renderPreRecordMessage()}
-            {status === 'record-message' && renderRecordMessage()}
-            {status === 'check-message' && renderCheckMessage()}
-            {status === 'pre-clue-message1' && renderPreClueMessage1()}
-            {status === 'pre-clue-message2' && renderPreClueMessage2()}
-            {status === 'finish-message1' && renderFinishMessage1()}
-            {status === 'finish-message2' && renderFinishMessage2()}
-            {status === 'send-or-add-more' && renderSendOrAddMore()}
-          </Route>
-
-        </Switch>
-
+        {status === 'first-message' && renderFirstMessage()}
+        {status === 'second-message' && renderSecondMessage()}
+        {status === 'take-photo' && renderTakePhoto()}
+        {status === 'pre-record-message' && renderPreRecordMessage()}
+        {status === 'record-message' && renderRecordMessage()}
+        {status === 'check-message' && renderCheckMessage()}
+        {status === 'pre-clue-message1' && renderPreClueMessage1()}
+        {status === 'pre-clue-message2' && renderPreClueMessage2()}
+        {status === 'finish-message1' && renderFinishMessage1()}
+        {status === 'finish-message2' && renderFinishMessage2()}
+        {status === 'send-or-add-more' && renderSendOrAddMore()}
       </PartContentStyle>
 
     </>

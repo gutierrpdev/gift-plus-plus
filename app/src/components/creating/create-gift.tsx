@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import history from '../../utils/router-history';
-
 import styled from 'styled-components';
 import uuidv4 from 'uuid/v4';
 import uuidv5 from 'uuid/v5';
@@ -52,6 +49,9 @@ export const MainTitle = styled(TextResize).attrs({
 
 // Current status of this screen
 type Status =
+  | 'intro'
+  | 'choose-recipient'
+  | 'creating-part'
   | 'sign-gift'
   | 'save-gift'
   | 'share-gift'
@@ -64,7 +64,7 @@ interface Props {
 
 export const CreateGift: React.FC<Props> = ({ museumName }) => {
 
-  const [status, setStatus] = useState<Status>('sign-gift');
+  const [status, setStatus] = useState<Status>('intro');
   const [newGift, setNewGift] = useState<Gift | null>(null); // TODO: TEMP: refactor
 
   const [gift, setGift] = useState<InProgressGift>({
@@ -76,6 +76,11 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
   useEffect(() => {
     events.track(cNewGiftStartedEvent(gift.id));
   }, []);
+
+  const headerState = (status === 'intro' || status === 'choose-recipient')
+                    ? 'name-unknown'
+                    : 'named-small';
+
 
   // Shall we allow navigation away based on the current state
   function canNavigateAway() {
@@ -94,133 +99,106 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
       />
 
       {/* Header */}
+      {headerState === 'name-unknown' &&
+      <>
+        <ScreenHeader
+          museumName={museumName}
+        />
+        <MainTitle>Creating<br/>
+          a gift...</MainTitle>
+      </>
+      }
 
-      <Switch>
+      {headerState === 'named-small' &&
+       <ScreenHeader
+         preSubTitle={`Creating a gift for`}
+         subTitle={gift.recipientName}
+         background={'white'}
+         museumName={museumName}
+         showGradient={'small'}
+       />
+      }
 
-        {/* intro */}
-        <Route exact={true} path='/create-gift'>
 
-          <HeaderCreating museumName={museumName} />
+      {/* Content */}
+      {status === 'intro' &&
+        <CreateGiftIntro
+          onComplete={() => {
+            events.track(cIntroCompletedEvent(gift.id));
+            setStatus('choose-recipient');
+          }}
+        />
+      }
 
-          <CreateGiftIntro
-            onComplete={() => {
-              events.track(cIntroCompletedEvent(gift.id));
-              history.push('/create-gift/choose');
-            }}
-          />
-        </Route>
+      {status === 'choose-recipient' &&
+        <CreateGiftChooseRecipient
+          giftId={gift.id}
+          onComplete={(recipientName) => {
+            events.track(cRecipientNameEnteredEvent(gift.id));
+            setGift({...gift, recipientName });
+            setStatus('creating-part');
+          }}
+        />
+      }
 
-        {/* choose */}
-        <Route exact={true} path='/create-gift/choose'>
+      {status === 'creating-part' && gift.recipientName !== undefined &&
+       <CreatingPartContent
+         gift={gift}
+         recipientName={gift.recipientName}
+         onComplete={(parts) => {
+           setGift({...gift, parts });
+           setStatus('sign-gift');
+         }}
+       />
+      }
 
-          <HeaderCreating museumName={museumName} />
+      {status === 'sign-gift' &&
+       <SignGift
+         onComplete={(senderName) => {
+           events.track(cSigningCompletedEvent(gift.id));
+           setGift({...gift, senderName });
+           setStatus('save-gift');
+         }}
+       />
+      }
 
-          <CreateGiftChooseRecipient
-            giftId={gift.id}
-            onComplete={(recipientName) => {
-              events.track(cRecipientNameEnteredEvent(gift.id));
-              setGift({...gift, recipientName });
-              history.push('/create-gift/part/first-message');
-            }}
-          />
+      {status === 'save-gift' &&
+       <SaveGift
+         gift={gift}
+         onComplete={(newlyCreatedGift) => {
+           setNewGift(newlyCreatedGift);
+           setStatus('share-gift');
+         }}
+       />
+      }
 
-        </Route>
+      {status === 'share-gift' && newGift &&
+       <ShareGift
+         senderName={newGift.senderName}
+         recipientName={newGift.recipientName}
+         museumName={museumName}
+         url={mkShareLink(newGift)}
+         onChannelClicked={(channel) => {
+           events.track(cSharingChannelChosenEvent(gift.id, channel));
+         }}
+         onComplete={() => {
+           events.track(cSharingCompletedEvent(gift.id));
+           setStatus('outro');
+         }}
+       />
+      }
 
-        {/* content part */}
-        <Route exact={false} path='/create-gift/part'>
-
-          <HeaderCreatingGiftFor museumName={museumName} recipientName={gift.recipientName || ''} />
-
-          <CreatingPartContent
-            gift={gift}
-            recipientName={gift.recipientName || ''}
-            onComplete={(parts) => {
-              setGift({...gift, parts });
-              history.push('/create-gift/sign');
-            }}
-          />
-
-        </Route>
-
-        {/* sign and finish */}
-        <Route exact={false} path='/create-gift/sign'>
-
-          <HeaderCreatingGiftFor museumName={museumName} recipientName={gift.recipientName || ''} />
-
-          {status === 'sign-gift' &&
-          <SignGift
-            onComplete={(senderName) => {
-              events.track(cSigningCompletedEvent(gift.id));
-              setGift({...gift, senderName });
-              setStatus('save-gift');
-            }}
-          />
-          }
-
-          {status === 'save-gift' &&
-          <SaveGift
-            gift={gift}
-            onComplete={(newlyCreatedGift) => {
-              setNewGift(newlyCreatedGift);
-              setStatus('share-gift');
-            }}
-          />
-          }
-
-          {status === 'share-gift' && newGift &&
-          <ShareGift
-            senderName={newGift.senderName}
-            recipientName={newGift.recipientName}
-            museumName={museumName}
-            url={mkShareLink(newGift)}
-            onChannelClicked={(channel) => {
-              events.track(cSharingChannelChosenEvent(gift.id, channel));
-            }}
-            onComplete={() => {
-              events.track(cSharingCompletedEvent(gift.id));
-              setStatus('outro');
-            }}
-          />
-          }
-
-          {status === 'outro' &&
-          <CreatingOutro
-            gift={gift}
-          />
-          }
-
-        </Route>
-
-      </Switch>
+      {status === 'outro' &&
+       <CreatingOutro
+         gift={gift}
+       />
+      }
 
     </ScreenManager>
   );
 
 };
 
-const HeaderCreating: React.FC<Props> = ({ museumName }) => (
-  <>
-    <ScreenHeader
-      museumName={museumName}
-    />
-    <MainTitle>Creating<br/>
-      a gift...</MainTitle>
-  </>
-);
-
-interface HeaderCreatingGiftForProps {
-  recipientName: string;
-  museumName: string;
-}
-const HeaderCreatingGiftFor: React.FC<HeaderCreatingGiftForProps> = ({ recipientName, museumName }) => (
-  <ScreenHeader
-    preSubTitle={`Creating a gift for`}
-    subTitle={recipientName}
-    background={'white'}
-    museumName={museumName}
-    showGradient={'small'}
-  />
-);
 
 // TODO!!!
 function mkShareLink(gift: Gift) {
