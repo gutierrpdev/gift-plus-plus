@@ -19,7 +19,7 @@ const TermsContent: React.FC = () => (
     <p>Here are the headlines:</p>
     <h3>1. Play nice</h3>
     <p>
-      Please refrain from submitting abusive, offensive, or otherwise inappropriate content. { /*<a href='#conduct'>Read more</a>*/ }
+      Please refrain from submitting abusive, offensive, or otherwise inappropriate content. {/*<a href='#conduct'>Read more</a>*/}
     </p>
     <h3>2. Follow the rules of the museum</h3>
     <p>
@@ -27,11 +27,11 @@ const TermsContent: React.FC = () => (
     </p>
     <h3>3. Be aware of what you share</h3>
     <p>
-      We will never share personal information with third parties without your consent. { /*<a href='#privacy'>Read more</a> */ }
+      We will never share personal information with third parties without your consent. {/*<a href='#privacy'>Read more</a> */}
     </p>
     <p>
       However, gifts that you create can be shared publicly by those that you send them to. Your contributions may also be used - in an anonymised form - to document the project and for research.
-     { /* <a href='#content'>Read more</a> */ }
+     {/* <a href='#content'>Read more</a> */}
     </p>
 
     {/* <a name='terms'></a> */}
@@ -355,8 +355,8 @@ const TermsContent: React.FC = () => (
       features we make available on our Website.
     </p>
     <p>
-      Where User Content discloses full names, addresses or other personal 
-      identification information that User Content is treated as 
+      Where User Content discloses full names, addresses or other personal
+      identification information that User Content is treated as
       Personal Information.
     </p>
     <h4>Non-personal information</h4>
@@ -367,7 +367,7 @@ const TermsContent: React.FC = () => (
       about the Website's use.
     </p>
     <p>
-      Where User Content is deemed not to disclose Personal Information, 
+      Where User Content is deemed not to disclose Personal Information,
       for the purposes of this policy, it is treated as non-personal Usage Data.
     </p>
     <h3>2. How we use your data</h3>
@@ -442,8 +442,8 @@ const TermsContent: React.FC = () => (
     </p>
     <h3>5. Deletion of Personal Information</h3>
     <p>
-      Personal Information will be stored as long as the services provided by 
-      the Website are available and will be deleted no more than 6 months after 
+      Personal Information will be stored as long as the services provided by
+      the Website are available and will be deleted no more than 6 months after
       these services are terminated.
     </p>
    <h3>6. Your acceptance of these terms</h3>
