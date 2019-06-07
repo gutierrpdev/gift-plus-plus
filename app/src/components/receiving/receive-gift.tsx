@@ -152,7 +152,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       <Panel>
         <PanelContent>
           <PanelPrompt
-            text={`Would you like to save the gift for when you're at the museum or open it anyway?`}
+            text={`Save your gift for when you're at the museum or open it anyway?`}
             background={'transparent-black'}
           />
         </PanelContent>

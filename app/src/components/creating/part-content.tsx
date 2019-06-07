@@ -213,7 +213,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Thanks! Time to choose your first object for ${recipientName}`}
+              text={`Thanks! Now time to choose your first object for ${recipientName}`}
               background={'transparent-black'}
               onClick={() => { setStatus('second-message'); }}
             />
@@ -290,9 +290,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 1 &&
             <PhotoCapture
-              text={`Have a wander to find the second object for ${recipientName}.
-                Why not visit another part of the museum?
-                When you’ve found it take a photo to show them`}
+              text={`Have a wander to find your second object for ${recipientName}.
+                When you’ve found it take a photo for them`}
               textSize={42}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
@@ -336,7 +335,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 1 &&
             <AudioPlayer
-                message={`Tell them why you chose this...`}
+                message={`OK. Time for your next message...`}
                 src={assetStore.assets.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -346,7 +345,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 2 &&
             <AudioPlayer
-                message={`And record your final message...`}
+                message={`Great. Time to record your final message...`}
                 src={assetStore.assets.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -431,7 +430,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   function renderPreClueMessage2() {
 
     const text = (giftPartIndex === 0)
-      ? `Mention the gallery you’re in... or something they can ask museum staff if they get really stuck`
+      ? `Mention the room you’re in... or something they can ask museum staff if they get stuck`
       : `Now write a clue to help ${recipientName} find the object`;
 
     const next = () => { setShowingEnterClue(true); };

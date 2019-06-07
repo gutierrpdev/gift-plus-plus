@@ -37,7 +37,7 @@ export const SignGift: React.FC<Props> = ({ onComplete }) => {
         <PanelSubTitle>Sign it</PanelSubTitle>
         <PanelContent>
           <PanelPrompt
-            text={'Now say who the gift is from'}
+            text={'Now say who your gift is from...'}
             background={'transparent-black'}
             onClick={() => { setShowingEnterName(true); }}
           />

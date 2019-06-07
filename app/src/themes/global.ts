@@ -147,6 +147,11 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1.5em;
   }
 
+  h5 {
+    font-weight: 700;
+    margin-bottom: 0.7vh;
+  }
+
   p {
     margin-bottom: 1em;
   }

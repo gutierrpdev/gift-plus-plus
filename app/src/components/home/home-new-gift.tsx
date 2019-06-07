@@ -73,7 +73,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
           onClick={handleCreateYourOwn}
           to='/create-gift'
         >
-          Create your own
+          Create my own
         </ButtonLink>
       </PanelButtons>
 

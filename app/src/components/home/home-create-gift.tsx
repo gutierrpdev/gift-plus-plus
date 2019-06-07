@@ -15,7 +15,7 @@ import SvgGift from '../svg/gift';
  */
 
 const GiftImg = styled.div`
-  width: 50%;
+  width: 70%;
   position: relative;
 `;
 
@@ -55,9 +55,9 @@ const HomeCreateGift: React.FC<Props> = ({ onMoreClick }) => {
           onClick={handleCreateClick}
           to='/create-gift'
         >
-          Create gift
+          Create a gift
         </ButtonLink>
-        <Button onClick={handleMoreClick}>More</Button>
+        <Button onClick={handleMoreClick}>More...</Button>
       </PanelButtons>
 
     </Panel>
