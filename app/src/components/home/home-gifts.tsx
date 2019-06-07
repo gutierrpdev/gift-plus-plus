@@ -44,7 +44,7 @@ const OpenMuseumGiftSvg = styled.div`
 `;
 const OpenYourGift = styled.div`
   line-height: 1.3;
-  margin-bottom: 11%;
+  margin-bottom: 18%;
 `;
 
 const PlusStyle = styled.div`
@@ -89,6 +89,10 @@ const SectionTitle = styled(PanelTitle)`
   margin-bottom: 2%;
 `;
 
+const FeedbackSection = styled.div`
+  margin: 5vh 0 15vh;
+`;
+
 /**
  * Home screen gifts top level component
  */
@@ -107,8 +111,10 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
   const giftsSent: Gift[] = getSentGifts();
 
   // Prep for render
-  const hasReceivedGifts = giftsReceived.length > 0;
-  const hasSentGifts = giftsSent.length > 0;
+  // const hasReceivedGifts = giftsReceived.length > 0;
+  const hasReceivedGifts = false;
+  // const hasSentGifts = giftsSent.length > 0;
+  const hasSentGifts = false;
   const atMuseum = getSessionRecipientLocation() === 'at-museum';
 
   return (
@@ -151,10 +157,10 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
         }
         {!hasSentGifts &&
           <GiftsNotSent>
-            <TextResize textSize={50}>
+            {/* <TextResize textSize={50}>
               You've not sent any gifts<br/>
               Make one now?
-            </TextResize>
+            </TextResize> */}
             <Link
               onClick={() => events.track(hGiftsCreatePressedEvent())}
               to='/create-gift'
@@ -202,6 +208,16 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
           </Link>
         </OpenMuseumGift>
+
+        <LineSpacer />
+
+        <FeedbackSection>
+          <ReadMoreLink>
+            <TextResize textSize={42}>
+              <a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Tell us what you thought...</a>
+            </TextResize>
+          </ReadMoreLink>
+        </FeedbackSection>
 
       </HomeContent>
 
