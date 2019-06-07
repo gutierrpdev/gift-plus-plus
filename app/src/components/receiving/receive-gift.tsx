@@ -214,7 +214,6 @@ class ReceiveGift extends React.PureComponent<Props, State> {
           <ScreenHeader
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
-            postTitle={museumName}
             showLogo={false}
             background='white'
             museumName={museumName}
@@ -225,6 +224,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             showLogo={false}
+            museumName={museumName}
           />
         }
 
