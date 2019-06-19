@@ -37,7 +37,7 @@ const MainText = styled(TextResize)`
   line-height: 1.2;
 `;
 
-const TermsLink = styled(TextResize)`
+const TermsButton = styled.button`
   margin-bottom: 2%;
   color: ${global.colour.darkRed};
   opacity: 0.7;
@@ -74,9 +74,9 @@ const TermsModal: React.FC<Props> = ({ museumName, onAgreeClick, onShowTerms }) 
             We will never share your personal information without your consent.
             Please press agree to continue.  If you'd like to learn more:
           </MainText>
-          <TermsLink textSize={40} onClick={handleShowTermsClick}>Read our terms &amp; privacy</TermsLink>
-
-
+          <TermsButton onClick={handleShowTermsClick}>
+            <TextResize textSize={40}>Read our terms &amp; privacy</TextResize>
+          </TermsButton>
 
         </Texts>
 
