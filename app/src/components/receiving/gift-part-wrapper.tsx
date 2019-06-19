@@ -48,7 +48,6 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
   align-items: flex-start;
   overflow: hidden;
   position: relative;
-  z-index: 1;
   background-color: ${global.colour.blurBackground};
 
   /* Background image as :before to apply blur */
@@ -62,7 +61,6 @@ const StyledGiftPart = styled.div<StyledGiftPartProps>`
     background-image: url(${(props) => props.imageSrc});
     background-position: center;
     background-size: cover;
-    z-index: -1;
     ${(props) => props.blurImage && `
       filter: blur(5px);
       opacity: 0.8;
