@@ -156,6 +156,12 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 1em;
   }
 
+  button {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+  }
+
 `;
 
 // Convert a decimal number to a roman numeral

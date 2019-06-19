@@ -80,7 +80,6 @@ const ReadMoreLink = styled.button`
   margin: 2% 0 0;
   font-style: italic;
   color: ${global.colour.darkGrey};
-  border: none;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.normal};
 `;

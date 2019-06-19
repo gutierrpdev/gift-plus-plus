@@ -60,8 +60,6 @@ const buttonStyles = css<ButtonProps>`
   font-style: italic;
   flex-grow: 1;
   flex-basis: 0;
-  border: none;
-  cursor: pointer;
   opacity: 0.95;
   /* Ensure we style associated anchor */
   &, a {
@@ -163,10 +161,7 @@ const ButtonAnchor: React.FC<ButtonAchorProps> = ({ colour = 'white', href, chil
  * Base button has active state
  */
 const BaseControlButton = styled.button`
-  cursor: pointer;
   opacity: 0.8;
-  padding: 0;
-  border: none;
   &:active {
     opacity: 1;
   }

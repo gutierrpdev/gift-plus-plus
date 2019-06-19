@@ -17,8 +17,6 @@ const CloseButton = styled.button`
   position: absolute;
   cursor: pointer;
   z-index: 10;
-  border: none;
-  padding: 0;
 `;
 
 // Close circle

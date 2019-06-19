@@ -24,9 +24,6 @@ const MenuBurgerStyle = styled.button`
   position: absolute;
   top: 3.3vh;
   left: 5%;
-  cursor: pointer;
-  border: none;
-  padding: 0;
 `;
 
 interface MenuBurgerProps {
@@ -44,11 +41,9 @@ const MenuBurger: React.FC<MenuBurgerProps> = ({onClick}) => (
 // Menu item
 const MenuItemStyle = styled.button`
   padding: 6% 0;
-  cursor: pointer;
   color: ${global.colour.lightGreyText};
   display: block;
   width: 100%;
-  border: none;
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
   &:not(:last-child) {
@@ -61,7 +56,6 @@ const CloseMenuItem = styled.button`
   padding: 3% 0;
   display: block;
   width: 100%;
-  border: none;
   opacity: 0.5;
 `;
 
