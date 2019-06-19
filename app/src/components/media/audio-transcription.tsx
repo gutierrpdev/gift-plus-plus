@@ -16,9 +16,9 @@ import SvgButtonTranscript from '../svg/button-transcript';
 
 const Icon = styled.button`
   position: absolute;
-  top: 2.5%;
-  right: 2%;
-  width: 15%;
+  top: 3%;
+  right: 5%;
+  width: 12%;
 `;
 
 

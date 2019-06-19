@@ -11,16 +11,21 @@ import {
   rPartFound,
   rOutroCompletedEvent,
 } from '../../../event-definitions';
+import history from '../../../utils/router-history';
 
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
 import { PanelButtons } from '../../panel-buttons';
 import { Button } from '../../buttons';
 import { AudioPlayer } from '../../media/audio-player';
+import { AudioTranscription } from '../../media/audio-transcription';
+import { ROutroRemotePersonalTranscript } from '../../audio-transcription/r-outro-remote-personal';
+import { ROutroRemoteMuseumTranscript } from '../../audio-transcription/r-outro-remote-museum';
+import { ROutroLocalPersonalTranscript } from '../../audio-transcription/r-outro-local-personal';
+import { ROutroLocalMuseumTranscript } from '../../audio-transcription/r-outro-local-museum';
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen, WaitThenShow } from '../../utils/wait-then';
-import history from '../../../utils/router-history';
 
 /**
  * Show the gift part content, prompting for clues, etc.
@@ -401,12 +406,31 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         : assetStore.assets.rOutroNotAtMuseumPersonalGift;
   }
 
+  function getOutroAudioTranscript() {
+    return atMuseum
+      ? museumGift
+        ? ROutroLocalMuseumTranscript
+        : ROutroLocalPersonalTranscript
+      // not at museum
+      : museumGift
+        ? ROutroRemoteMuseumTranscript
+        : ROutroRemotePersonalTranscript;
+  }
+
   // Locals
   const defaultWait = 5;
 
   // Use an index to advance to next statge
   return (
     <Panel isParent={false}>
+
+      <AudioTranscription
+        giftId={props.gift.id}
+        audioReference={`r-part${props.giftPartIndex + 1}-outro`}
+      >
+        {getOutroAudioTranscript()}
+      </AudioTranscription>
+
 
       <PanelContent>
 

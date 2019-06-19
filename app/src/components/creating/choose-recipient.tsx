@@ -6,6 +6,8 @@ import { Panel, PanelContent } from '../panel';
 import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
+import { AudioTranscription } from '../media/audio-transcription';
+import { CStartGiftTranscript } from '../audio-transcription/c-start-gift';
 import { TextInputModal } from '../modals/text-input-modal';
 
 /**
@@ -35,6 +37,13 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ giftId, onComplete 
       }
 
       <Panel>
+
+        <AudioTranscription
+          giftId={giftId}
+          audioReference={'c-choose-recipient'}
+        >
+          <CStartGiftTranscript />
+        </AudioTranscription>
 
         <PanelContent>
 

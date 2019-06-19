@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { assetStore } from '../../services';
 
@@ -6,6 +6,8 @@ import { Panel, PanelContent } from '../panel';
 import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
+import { AudioTranscription } from '../media/audio-transcription';
+import { CShareTranscript } from '../audio-transcription/c-share';
 import { InProgressGift } from '../../domain';
 import history from '../../utils/router-history';
 
@@ -40,6 +42,13 @@ const CreatingOutro: React.FC<Props> = ({ gift }) => {
 
   return (
     <Panel>
+
+      <AudioTranscription
+        giftId={gift.id}
+        audioReference={'c-outro'}
+      >
+        <CShareTranscript />
+      </AudioTranscription>
 
       <PanelContent>
         <AudioPlayer

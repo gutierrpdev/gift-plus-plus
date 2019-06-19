@@ -18,6 +18,13 @@ import { PanelPrompt } from '../panel-prompt';
 import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { AudioPlayer } from '../media/audio-player';
+import { AudioTranscription } from '../media/audio-transcription';
+import { CChoosePart1 } from '../audio-transcription/c-choose-part-1';
+import { CChoosePart2 } from '../audio-transcription/c-choose-part-2';
+import { CChoosePart3 } from '../audio-transcription/c-choose-part-3';
+import { CLetThemKnowPart1Transcript } from '../audio-transcription/c-let-them-know-part-1';
+import { CLetThemKnowPart2Transcript } from '../audio-transcription/c-let-them-know-part-2';
+import { CLetThemKnowPart3Transcript } from '../audio-transcription/c-let-them-know-part-3';
 import { WaitThen } from '../utils/wait-then';
 import { PhotoCapture } from '../media/photo-capture';
 import { TextAreaModal } from '../../components/modals/text-area-modal';
@@ -230,6 +237,32 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   function renderSecondMessage() {
     return (
       <>
+        {/* Audio transcriptions live outside of the PanelContent for layout purposes */}
+        {giftPartIndex === 0 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part1-look'}
+          >
+            <CChoosePart1 />
+          </AudioTranscription>
+        }
+        {giftPartIndex === 1 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part2-look'}
+          >
+            <CChoosePart2 />
+          </AudioTranscription>
+        }
+        {giftPartIndex === 2 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part3-look'}
+          >
+            <CChoosePart3 />
+          </AudioTranscription>
+        }
+
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
@@ -322,6 +355,32 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
   function renderPreRecordMessage() {
     return (
       <>
+        {/* Audio transcriptions live outside of the PanelContent for layout purposes */}
+        {giftPartIndex === 0 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part1-tell-them-why'}
+          >
+            <CLetThemKnowPart1Transcript />
+          </AudioTranscription>
+        }
+        {giftPartIndex === 1 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part2-tell-them-why'}
+          >
+            <CLetThemKnowPart2Transcript />
+          </AudioTranscription>
+        }
+        {giftPartIndex === 2 &&
+          <AudioTranscription
+            giftId={gift.id}
+            audioReference={'r-part3-tell-them-why'}
+          >
+            <CLetThemKnowPart3Transcript />
+          </AudioTranscription>
+        }
+
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
