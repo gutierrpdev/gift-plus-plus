@@ -112,7 +112,7 @@ interface Props {
   postSubTitle?: string; // Text after the sub title
   title?: string; // The main Title text
   postTitle?: string; // Text after the main title
-  museumName?: string; // For terms dialog
+  museumName: string; // For terms dialog
   titleSize?: number;  // Title text size
   titleWeight?: 'bold' | 'black'; // Title weight
   padding?: Padding; // Padding to apply
@@ -157,7 +157,7 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     <ScreenHeaderStyle
       padding={props.padding}
       bottomPadding={props.bottomPadding}
-      museumName={props.museumName || ''}
+      museumName={props.museumName}
       background={props.background}
     >
 

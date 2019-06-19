@@ -205,6 +205,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
         <>
           <ScreenHeader
             showLogo={false}
+            museumName={museumName}
           />
           <MainTitle>Here's your gift from</MainTitle>
           <MuseumName>{this.props.gift.senderName}</MuseumName>

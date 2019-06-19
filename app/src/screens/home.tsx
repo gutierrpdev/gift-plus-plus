@@ -206,6 +206,7 @@ export const HomeScreen: React.FC = () => {
       <ScreenHeader
         padding='none'
         onTermsAccepted={handleTermsAccepted}
+        museumName={museumName}
       />
 
       {/* Title */}
