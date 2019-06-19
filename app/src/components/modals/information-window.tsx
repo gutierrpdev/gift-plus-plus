@@ -9,14 +9,20 @@ import SvgCloseCircle from '../svg/close-circle';
  * Used for showing information such as Privacy
  */
 
-// Close circle
-const SvgCloseCircleStyled = styled(SvgCloseCircle)`
+ // Close button
+const CloseButton = styled.button`
   width: 8%;
   top: 2.5%;
   right: 2%;
   position: absolute;
   cursor: pointer;
   z-index: 10;
+  border: none;
+  padding: 0;
+`;
+
+// Close circle
+const SvgCloseCircleStyled = styled(SvgCloseCircle)`
 `;
 
 const Outer = styled(BaseModalWindow)`
@@ -50,7 +56,9 @@ const InformationWindow: React.FC<Props> = (props) => {
 
   return (
     <Outer>
-      <SvgCloseCircleStyled onClick={handleClose} />
+      <CloseButton onClick={handleClose} aria-label='close'>
+        <SvgCloseCircleStyled />
+      </CloseButton>
       <Inner>
         {props.children}
       </Inner>
