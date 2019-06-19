@@ -107,7 +107,7 @@ const Menu: React.FC<MenuProps> = (props) => (
     <MenuItem onClick={props.openHelp}>Help</MenuItem>
     <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
     <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
-    <CloseMenuItem onClick={props.onCloseClick}><CloseArrowUp /></CloseMenuItem>
+    <CloseMenuItem onClick={props.onCloseClick} aria-label='close'><CloseArrowUp /></CloseMenuItem>
   </MenuStyle>
 );
 
