@@ -1,14 +1,22 @@
 import * as React from 'react';
 
+/* tslint:disable */
 const SvgButtonAudioSkip = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox='0 0 60 60' {...props}>
+  <svg id='button-audio-skip_svg__working' viewBox='0 0 60 60' {...props}>
+    <defs>
+      <style>
+        {
+          '.button-audio-skip_svg__cls-1{fill:#999;stroke:#999;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}'
+        }
+      </style>
+    </defs>
     <circle cx={30} cy={30} r={30} />
     <path
-      // tslint:disable-next-line
-      d='M36.08 18.3v10.34L18.91 18.16a.6.6 0 0 0-.91.51v22.66a.6.6 0 0 0 .91.51l17.17-10.47V41.7a.29.29 0 0 0 .3.3h5.32a.29.29 0 0 0 .3-.3V18.3a.3.3 0 0 0-.3-.3h-5.32a.3.3 0 0 0-.3.3z'
-      fill='#999'
+      className='button-audio-skip_svg__cls-1'
+      d='M28.14 30.14l-13.83 7.95V22.18l13.83 7.96zM42.65 29.86l-13.83 7.96V21.91l13.83 7.95zM43.01 21.91h2.43v16.18h-2.43z'
     />
   </svg>
 );
 
 export default SvgButtonAudioSkip;
+/* tslint:enable */
