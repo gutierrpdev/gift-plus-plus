@@ -46,6 +46,11 @@ const OpenYourGift = styled.div`
   line-height: 1.3;
   margin-bottom: 18%;
 `;
+const OpenYourGiftText = styled(TextResize)`
+  margin: 0 auto;
+  max-width: 70%;
+`;
+
 
 const PlusStyle = styled.div`
   margin: 4% auto 0;
@@ -68,6 +73,11 @@ const GiftsNotSent = styled.div`
   div {
     line-height: 1.3;
   }
+`;
+
+const CreateAGiftOfYourOwn = styled(TextResize)`
+  margin: 0 auto;
+  max-width: 70%;
 `;
 
 const LineSpacer = styled.div`
@@ -164,10 +174,9 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
               onClick={() => events.track(hGiftsCreatePressedEvent())}
               to='/create-gift'
             >
-              <TextResize textSize={42}>
-                Create a new gift of<br/>
-                your own
-              </TextResize>
+              <CreateAGiftOfYourOwn textSize={42}>
+                Create a new gift of your own
+              </CreateAGiftOfYourOwn>
               <PlusStyle>
                 <SvgAddCircle />
               </PlusStyle>
@@ -199,10 +208,9 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
             </OpenMuseumGiftSvg>
 
             <OpenYourGift>
-              <TextResize textSize={42}>
-                Show the gift from<br/>
-                {museumName}
-              </TextResize>
+              <OpenYourGiftText textSize={42}>
+                Show the gift from {museumName}
+              </OpenYourGiftText>
             </OpenYourGift>
 
           </Link>
