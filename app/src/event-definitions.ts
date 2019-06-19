@@ -108,3 +108,4 @@ export const aPlayerPausePressedEvent = (giftId: string, audioReference: string)
 export const aPlayerSkipPressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-skip-pressed', payload: { giftId, audioReference } });
 export const aPlayerStepBackwardsPressedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-step-backwards-pressed', payload: { giftId, audioReference } });
 export const aPlayerAudioCompletedEvent = (giftId: string, audioReference: string) => ({ name: 'audio-player-audio-completed', payload: { giftId, audioReference } });
+export const aPlayerTranscriptOpened = (giftId: string, audioReference: string) => ({ name: 'audio-player-transcript-opened', payload: { giftId, audioReference } });

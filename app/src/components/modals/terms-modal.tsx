@@ -45,7 +45,7 @@ const TermsButton = styled.button`
 
 interface Props {
   museumName: string; // Museum name to show in the wording
-  onAgreeClick: () => void; // Callback when the agreen button is clicked
+  onAgreeClick: () => void; // Callback when the agree button is clicked
   onShowTerms: () => void; // Callback when the show terms button is clicked
 }
 

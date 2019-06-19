@@ -56,7 +56,6 @@ interface ScreenHeaderStyleProps {
 const ScreenHeaderStyle = styled.div<ScreenHeaderStyleProps>`
   width: 100%;
   padding: 5% 2% 3%;
-  z-index: 2000; /* high to aid the menu */
   position: relative;
   /* Smaller padding on tablets */
   @media (min-aspect-ratio: ${global.aspectRatio.iPad}) {

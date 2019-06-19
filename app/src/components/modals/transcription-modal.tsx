@@ -5,8 +5,7 @@ import { BaseModalWindow } from './base-modal-window';
 import SvgCloseCircle from '../svg/close-circle';
 
 /**
- * Popover Information component.
- * Used for showing information such as Privacy
+ * Transcription Modal
  */
 
 // Close button
@@ -19,13 +18,10 @@ const CloseButton = styled.button`
   z-index: 10;
 `;
 
-// Close circle
-const SvgCloseCircleStyled = styled(SvgCloseCircle)`
-`;
-
 const Outer = styled(BaseModalWindow)`
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 12000;
+  position: fixed;
 `;
 
 const Inner = styled.div`
@@ -37,33 +33,40 @@ const Inner = styled.div`
   padding: 10% 10% 10% 8%;
   overflow: scroll;
   box-sizing: border-box;
+  color: white;
+  h5 {
+    margin-bottom: 3vh;
+  }
+  p {
+    line-height: 1.3;
+  }
 `;
 
 interface Props {
   onClose: () => void;
 }
 
-// Info Popover component
-const InformationWindow: React.FC<Props> = (props) => {
+const TranscriptionModal: React.FC<Props> = ({ onClose, children }) => {
 
   function handleClose() {
-    if (props.onClose) {
-      props.onClose();
+    if (onClose) {
+      onClose();
     }
   }
 
   return (
     <Outer>
       <CloseButton onClick={handleClose} aria-label='close'>
-        <SvgCloseCircleStyled />
+        <SvgCloseCircle />
       </CloseButton>
       <Inner>
-        {props.children}
+        <h2>Audio transcription</h2>
+        {children}
       </Inner>
     </Outer>
   );
 };
 
 export {
-  InformationWindow,
+  TranscriptionModal,
 };

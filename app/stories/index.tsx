@@ -32,6 +32,7 @@ import { PhotoCapture } from '../src/components/media/photo-capture';
 import { TextAreaInput } from '../src/components/inputs/textarea-input';
 import { TextInput } from '../src/components/inputs/text-input';
 import { InformationWindow } from '../src/components/modals/information-window';
+import { AudioTranscription } from '../src/components/media/audio-transcription';
 import { WorkingModal } from '../src/components/modals/working-modal';
 import { MessageModal } from '../src/components/modals/message-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
@@ -606,6 +607,10 @@ storiesOf('Components/Media', module)
     <>
       <div style={bgImg}>
         <GlobalStyles />
+        <AudioTranscription
+          giftId={'123'}
+          audioReference={'r-intro-start-here'}
+        />
         <p>Skip forward button</p>
         <AudioPlayer
           message={'Lorem ipsum'}
