@@ -385,16 +385,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
   }
 
-  function getOutroAudioPlayerReference() {
-    return atMuseum
-      ? museumGift
-        ? 'receiving-outro-at-museum-museum-gift'
-        : 'receiving-outro-at-museum-personal-gift'
-      : museumGift
-        ? 'receiving-outro-not-at-museum-museum-gift'
-        : 'receiving-outro-not-at-museum-personal-gift';
-  }
-
   function getOutroAudioFile() {
     return atMuseum
       ? museumGift
@@ -409,12 +399,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   function getOutroAudioTranscript() {
     return atMuseum
       ? museumGift
-        ? ROutroLocalMuseumTranscript
-        : ROutroLocalPersonalTranscript
+        ? <ROutroLocalMuseumTranscript />
+        : <ROutroLocalPersonalTranscript />
       // not at museum
       : museumGift
-        ? ROutroRemoteMuseumTranscript
-        : ROutroRemotePersonalTranscript;
+        ? <ROutroRemoteMuseumTranscript />
+        : <ROutroRemotePersonalTranscript />;
   }
 
   // Locals
