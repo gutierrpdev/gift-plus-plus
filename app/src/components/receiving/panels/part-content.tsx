@@ -424,13 +424,15 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   return (
     <Panel isParent={false}>
 
+      {/* Audio transcriptions live outside of the PanelContent for layout purposes */}
+      {section === 'outro' &&
       <AudioTranscription
         giftId={props.gift.id}
         audioReference={`r-part${props.giftPartIndex + 1}-outro`}
       >
         {getOutroAudioTranscript()}
       </AudioTranscription>
-
+      }
 
       <PanelContent>
 
