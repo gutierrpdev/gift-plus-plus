@@ -70,6 +70,14 @@ const GlobalStyles = createGlobalStyle`
       transform:translateY(0);
     }
   }
+  @keyframes slideDownMenu {
+    0% {
+      top: -100vh;
+    }
+    100% {
+      top: 0;
+    }
+  }
 
   /* Reset */
   html, body, div, span, applet, object, iframe,
@@ -188,6 +196,12 @@ const fadeInUp = css`
   animation-duration: 0.2s;
 `;
 
+const slideDownMenu = css`
+  transition-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation: slideDownMenu 0.2s forwards;
+`;
+
 // Convert a decimal number to a roman numeral
 function romanNumeralFromDecimal(decimal: number) {
   switch (decimal) {
@@ -215,6 +229,7 @@ function calcDesktopTextSize( size: number ) {
 export {
   GlobalStyles,
   fadeInUp,
+  slideDownMenu,
   global,
   romanNumeralFromDecimal,
   calcMobileTextSize,
