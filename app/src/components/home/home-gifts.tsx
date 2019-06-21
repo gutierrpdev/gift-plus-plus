@@ -125,6 +125,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
   // const hasSentGifts = giftsSent.length > 0;
   const hasSentGifts = false;
   const atMuseum = getSessionRecipientLocation() === 'at-museum';
+  const showGiftText = `Show the gift from ${museumName}`;
 
   return (
 
@@ -208,9 +209,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
             </OpenMuseumGiftSvg>
 
             <OpenYourGift>
-              <OpenYourGiftText textSize={42}>
-                Show the gift from {museumName}
-              </OpenYourGiftText>
+              <OpenYourGiftText textSize={42}>{showGiftText}</OpenYourGiftText>
             </OpenYourGift>
 
           </Link>
