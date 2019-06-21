@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { global } from '../themes/global';
+import { global, fadeInUp } from '../themes/global';
 
 /***
  * Consitent round shape
@@ -29,9 +29,9 @@ const PanelRound = styled.div<Props>`
   padding: 5%;
   margin: 0 auto;
   display: flex;
-  // align-items: center;
-  // flex-direction: column;
   z-index: 0;
+  animation: ${fadeInUp};
+
 
   ${(props: Props) =>
     props.border === 'none' && `

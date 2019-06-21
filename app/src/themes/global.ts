@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 const global = {
   aspectRatio: {
@@ -52,11 +52,26 @@ const global = {
 
 const GlobalStyles = createGlobalStyle`
 
-  // Fonts
+  /* Fonts */
   @import url('https://fonts.googleapis.com/css?family=Nunito:300,400');
   @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900&display=swap');
 
-  // Reset
+  /* Animation keyframes */
+  @keyframes fadeInOpacity {
+    0% {
+      opacity: 0;
+      transform:translateY(20px);
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+      transform:translateY(0);
+    }
+  }
+
+  /* Reset */
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -84,7 +99,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: transparent;
   }
 
-  /* text areas */
+  /* Text areas */
   input[type="text"], input[type="email"], input[type="password"], textarea {
     font-family: 'Nunito', sans-serif;
     width: 100%;
@@ -101,23 +116,23 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  /* single line inputs */
+  /* Single line inputs */
   input[type="text"], input[type="email"], input[type="password"] {
     margin-bottom: 2vh;
   }
 
-  // Limit the maximum width of all screens
+  /* Global styles */
   html {
     background-color: #eee;
     margin: 0 auto;
-    // Over desktop
+    /* Limit the maximum width of all screens */
+    /* Desktop */
     @media (min-width: ${global.desktop.startPixels}px) {
-      // Force a mobile like aspect ratio
-      max-width: 60vh; // Force aspect ratio
+      /* Force a mobile like aspect ratio */
+      max-width: 60vh; /* Force aspect ratio */
     }
   }
 
-  // Global styles
   body {
     font-family: 'Nunito', sans-serif;
     background-color: ${global.colour.darkGrey};
@@ -127,7 +142,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
   }
 
-  // Make anchors neutral to allow components to style
+  /* Reset anchors to allow components to style */
   a {
     color: inherit;
     text-decoration: none;
@@ -164,6 +179,15 @@ const GlobalStyles = createGlobalStyle`
 
 `;
 
+// Animations
+const fadeInUp = css`
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.2s;
+`;
+
 // Convert a decimal number to a roman numeral
 function romanNumeralFromDecimal(decimal: number) {
   switch (decimal) {
@@ -190,6 +214,7 @@ function calcDesktopTextSize( size: number ) {
 
 export {
   GlobalStyles,
+  fadeInUp,
   global,
   romanNumeralFromDecimal,
   calcMobileTextSize,
