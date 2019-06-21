@@ -50,7 +50,7 @@ const AudioTranscription: React.FC<Props> = ({ giftId, audioReference, children 
         </TranscriptionModal>
       }
 
-      <Icon onClick={openWindow}>
+      <Icon onClick={openWindow} aria-label='Read audio transcript'>
         <SvgButtonTranscript />
       </Icon>
 
