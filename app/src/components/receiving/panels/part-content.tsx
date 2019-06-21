@@ -59,7 +59,7 @@ type Section =
 
 const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
-  const [section, setSection] = useState<Section>(getInitialSection());
+  const [section, setSection] = useState<Section>('start');
   const [audioPlaybackComplete, setAudioPlaybackComplete] = useState(false);
   const [outroAudioPlaybackFinished, setOutroAudioPlaybackFinished] = useState(false);
 
@@ -73,22 +73,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   // Our audio player has finished
   function handleAudioPlaybackFinished() {
     setAudioPlaybackComplete(true);
-  }
-
-  // Return the initial section index
-  // Differs based on user location
-  function getInitialSection(): Section {
-
-    // When at the museum start at the beginning
-    if (props.recipientLocation === 'at-museum') {
-      return 'start';
-    }
-
-    // If not at the museum jump straight to the reveal
-    if (props.revealBackgroundImage) {
-      props.revealBackgroundImage();
-    }
-    return 'reveal-full';
   }
 
   // Show the preview image circle
@@ -140,10 +124,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     setSection('play-audio');
   }
 
-  // function gotoGiveClueFound() {
-  //   setSection(9);
-  // }
-
   function gotoOutro() {
     setSection('unwrapped');
   }
@@ -181,7 +161,17 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   // Advanced to the next status/screen
   function handleContinue() {
 
-    if (section === 'start') { setSection('reveal-preview'); }
+    if (section === 'start') {
+      if (atMuseum) {
+        revealPreviewImage();
+      } else {
+        // If not at the museum jump straight to the reveal
+        if (props.revealBackgroundImage) {
+          props.revealBackgroundImage();
+        }
+        setSection('reveal-full');
+      }
+    }
     if (section === 'reveal-preview') { setSection('do-you-know'); }
     if (section === 'do-you-know') { setSection('wander'); }
     if (section === 'wander') { setSection('reveal-preview2'); }
@@ -302,19 +292,36 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function getIntroText() {
-    switch (props.giftPartIndex) {
-      case 0 :
-        // Text changes based on gift count
-        return giftPartCount === 1
-          ? 'This is a sneak peek of your gift'
-          : 'This is a sneak peek of the first object in your gift';
-      case 1 :
-        return 'Here’s a look at the second object in your gift...';
-      case 2 :
-        return 'Here’s a glimpse of your last object...';
-      default :
-        return '';
+
+    // Show different text if at museum
+
+    if (atMuseum) {
+      switch (props.giftPartIndex) {
+        case 0 :
+          // Text changes based on gift count
+          return giftPartCount === 1
+            ? 'This is a sneak peek of your gift'
+            : 'This is a sneak peek of the first object in your gift';
+        case 1 :
+          return 'Here’s a look at the second object in your gift...';
+        case 2 :
+          return 'Here’s a glimpse of your last object...';
+        default :
+          return '';
+      }
+    } else  {
+
+      // Not at museum
+
+      const part =
+        props.giftPartIndex === 0 ? 'first' :
+        props.giftPartIndex === 1 ? 'second' :
+        props.giftPartIndex === 2 ? 'third' :
+        '';
+
+      return `Here’s the ${part} object that ${giftSenderName} chose for you`;
     }
+
   }
 
   function getDoYouNeedaClueText() {
@@ -331,7 +338,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   }
 
   function getLookAroundText() {
-    // todo: review with NT
     switch (props.giftPartIndex) {
       case 0 :
         return 'Wander round until you find it';
@@ -410,7 +416,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
   // Locals
   const defaultWait = 5;
 
-  // Use an index to advance to next statge
   return (
     <Panel isParent={false}>
 
@@ -431,11 +436,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getIntroText()}
               background={'transparent-black'}
-              onClick={revealPreviewImage}
+              onClick={handleContinue}
             />
             <WaitThen
               wait={defaultWait}
-              andThen={revealPreviewImage}
+              andThen={handleContinue}
             />
           </>
         }
