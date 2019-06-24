@@ -7,14 +7,12 @@ import { hGiftsCreatePressedEvent, hGiftsOpenMuseumGiftPressedEvent } from '../.
 
 import { config } from '../../config';
 import { global } from '../../themes/global';
-import { Gift } from '../../domain';
-import { getSessionRecipientLocation, getSentGifts, getReceivedGifts } from '../../utils/local';
+import { getSessionRecipientLocation } from '../../utils/local';
 
 import { InformationWindow } from '../modals/information-window';
 import { HelpContent } from '../information/help';
 import { PanelTitle } from '../panel-title';
 import { TextResize } from '../text-resize';
-import { GiftPile } from '../gift-pile';
 import SvgAddCircle from '../svg/add-circle';
 import SvgGift from '../svg/gift';
 
@@ -115,15 +113,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
   // State
   const [helpIsOpen, setHelpIsOpen] = useState(false);
 
-  // Get local values
-  const giftsReceived: Gift[] = getReceivedGifts();
-  const giftsSent: Gift[] = getSentGifts();
-
   // Prep for render
-  // const hasReceivedGifts = giftsReceived.length > 0;
-  const hasReceivedGifts = false;
-  // const hasSentGifts = giftsSent.length > 0;
-  const hasSentGifts = false;
   const atMuseum = getSessionRecipientLocation() === 'at-museum';
   const showGiftText = `Show the gift from ${museumName}`;
 
@@ -156,46 +146,25 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
         {!atMuseum && <SectionTitle textSize={42}>If you're at the museum now...</SectionTitle>}
 
-        {hasSentGifts &&
-          <>
-            <PanelTitle textSize={50}>Gifts you've sent...</PanelTitle>
-            <GiftPile
-              gifts={giftsSent}
-              source={'sent'}
-            />
-          </>
-        }
-        {!hasSentGifts &&
-          <GiftsNotSent>
-            {/* <TextResize textSize={50}>
-              You've not sent any gifts<br/>
-              Make one now?
-            </TextResize> */}
-            <Link
-              onClick={() => events.track(hGiftsCreatePressedEvent())}
-              to='/create-gift'
-            >
-              <CreateAGiftOfYourOwn textSize={42}>
-                Create a new gift of your own
-              </CreateAGiftOfYourOwn>
-              <PlusStyle>
-                <SvgAddCircle />
-              </PlusStyle>
-            </Link>
-          </GiftsNotSent>
-        }
+        <GiftsNotSent>
+          {/* <TextResize textSize={50}>
+            You've not sent any gifts<br/>
+            Make one now?
+          </TextResize> */}
+          <Link
+            onClick={() => events.track(hGiftsCreatePressedEvent())}
+            to='/create-gift'
+          >
+            <CreateAGiftOfYourOwn textSize={42}>
+              Create a new gift of your own
+            </CreateAGiftOfYourOwn>
+            <PlusStyle>
+              <SvgAddCircle />
+            </PlusStyle>
+          </Link>
+        </GiftsNotSent>
 
         <LineSpacer />
-
-        {hasReceivedGifts &&
-          <>
-            <PanelTitle textSize={50}>Gifts you've been given...</PanelTitle>
-            <GiftPile
-              gifts={giftsReceived}
-              source={'received'}
-            />
-          </>
-        }
 
         <OpenMuseumGift>
 
