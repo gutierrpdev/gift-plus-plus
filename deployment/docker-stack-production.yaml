@@ -29,13 +29,25 @@ services:
         - 'traefik.domain=thegift.app'
         - 'traefik.frontend.rule=Host:thegift.app'
 
+  app-munch:
+    image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
+    volumes:
+      - './nginx-app.conf:/etc/nginx/nginx.conf'
+    deploy:
+      replicas: 2
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.port=80'
+        - 'traefik.domain=munchgift.com'
+        - 'traefik.frontend.rule=Host:munchgift.com'
+
   api:
     image: registry.gitlab.com/blasttheory/gift/gift-api:latest
     environment:
       ENVIRONMENT: 'production'
       DEBUG: '(INFO|WARN|ERROR):*'
       SQL_URI: 'postgresql://gift:gift@db/gift'
-      CORS_ALLOWED_ORIGINS: 'https://thegift.app'
+      CORS_ALLOWED_ORIGINS: 'https://thegift.app, https://munchgift.com'
       AWS_BUCKET: 'bt-gift'
       AWS_REGION: 'eu-west-2'
     deploy:

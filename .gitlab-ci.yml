@@ -88,6 +88,7 @@ deploy-frontend-to-staging:
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
     - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app --image $APP_IMAGE:$STAGING_TAG
+    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app-munch --image $APP_IMAGE:$STAGING_TAG
     - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_storybook --image $STORYBOOK_IMAGE:$STAGING_TAG
   environment:
     name: staging
@@ -113,6 +114,7 @@ deploy-frontend-to-production:
     - chmod 700 ~/.ssh
     - ssh-keyscan -H thegift.app >> ~/.ssh/known_hosts
     - ssh -i deploy-key root@thegift.app -C docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
+    - ssh -i deploy-key root@thegift.app -C docker service update gift_app-munch --image $APP_IMAGE:$PRODUCTION_TAG
   environment:
     name: production
   only:
