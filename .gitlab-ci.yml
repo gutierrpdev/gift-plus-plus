@@ -17,7 +17,7 @@ variables:
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
   # Need a full-featured version of tar, rather than busybox one
-  - apk --no-cache add --virtual tar
+  - apk --no-cache add 'tar=1.32-r0'
 
 
 # ========
