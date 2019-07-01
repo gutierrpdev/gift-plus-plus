@@ -38,8 +38,17 @@ class Api extends JsonApi<Api.StateT, Api.CustomT> {
     this.context.lib = config.lib;
 
     // Enable CORS
+    const allowedOrigins = config.corsAllowedOrigins
+      .split(',')
+      .map((s) => s.trim().toLowerCase());
+
     this.use(cors({
-      origin: config.corsAllowedOrigins,
+      origin: (ctx) => {
+        const requestOrigin = ctx.get('Origin') || '';
+        if (allowedOrigins.includes(requestOrigin.toLowerCase())) return requestOrigin;
+        if (allowedOrigins.includes('*')) return requestOrigin;
+        return '';
+      },
       keepHeadersOnError: false,
       allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
       maxAge: 60 * 60 * 24,
