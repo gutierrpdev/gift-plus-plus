@@ -45,3 +45,9 @@ export interface InProgressGift {
   recipientName?: string;
   parts: InProgressGiftPart[];
 }
+
+export interface Museum {
+  id: MuseumId;
+  name: string;
+  curatedGiftId: GiftId;
+}

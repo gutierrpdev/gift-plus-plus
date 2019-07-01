@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { events } from '../../services';
 import { hShowMuseumGiftPressedEvent, hCreateOwnPressedEvent } from '../../event-definitions';
 
-import { config } from '../../config';
 import { setHasUnopenedMuseumGift } from '../../utils/local';
 
 import { Panel, PanelContent } from '../panel';
@@ -26,9 +25,10 @@ const GiftImg = styled.div`
 
 interface Props {
   museumName: string;
+  curatedGiftId: string;
 }
 
-const HomeNewGift: React.FC<Props> = ({ museumName }) => {
+const HomeNewGift: React.FC<Props> = ({ museumName, curatedGiftId }) => {
 
   function handleOpenGift() {
     events.track(hShowMuseumGiftPressedEvent());
@@ -71,7 +71,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName }) => {
 
         <ButtonLink
           onClick={handleOpenGift}
-          to={`/gift/${config.curatedMuseumGiftId}`}
+          to={`/gift/${curatedGiftId}`}
         >
           Show museum's
         </ButtonLink>

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { events } from '../../services';
 import { hGiftsCreatePressedEvent, hGiftsOpenMuseumGiftPressedEvent } from '../../event-definitions';
 
-import { config } from '../../config';
 import { global } from '../../themes/global';
 import { getSessionRecipientLocation } from '../../utils/local';
 
@@ -106,9 +105,10 @@ const FeedbackSection = styled.div`
 
 interface HomeGiftProps {
   museumName: string;
+  curatedGiftId: string;
 }
 
-const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
+const HomeGifts: React.FC<HomeGiftProps> = ({ museumName, curatedGiftId }) => {
 
   // State
   const [helpIsOpen, setHelpIsOpen] = useState(false);
@@ -170,7 +170,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName }) => {
 
           <Link
             onClick={() => events.track(hGiftsOpenMuseumGiftPressedEvent())}
-            to={`/gift/${config.curatedMuseumGiftId}`}
+            to={`/gift/${curatedGiftId}`}
           >
 
             <OpenMuseumGiftSvg>

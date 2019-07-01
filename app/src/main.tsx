@@ -5,7 +5,7 @@ import history from './utils/router-history';
 import { useAsync } from './utils/use-async';
 
 import { config } from './config';
-import { assetStore, events } from './services';
+import { api, assetStore, events } from './services';
 import { appStartedEvent, locationChangedEvent } from './event-definitions';
 
 import { NotFound } from './screens/not-found';
@@ -38,21 +38,28 @@ export const Main: React.FC = () => {
     };
   }, []);
 
+  const [getMuseumTask] = useAsync(() => api.getMuseum(config.museumId), [config.museumId]);
   const [assetPreload] = useAsync(() => assetStore.preload(), []);
 
-  if (assetPreload.kind === 'running') { return (
+  if (assetPreload.kind === 'running' || getMuseumTask.kind === 'running') { return (
     <Router history={history}>
       <LandscapeMessage />
       <WorkingProgress text='Gift is loading...' />
     </Router>
   ); }
 
-  if (assetPreload.kind === 'failure') { return (
+  if ( assetPreload.kind === 'failure'
+    || getMuseumTask.kind === 'failure'
+    || getMuseumTask.result.kind !== 'ok'
+  ) { return (
     <Router history={history}>
       <LandscapeMessage />
       <ErrorMessage message="Sorry, we couldn't load the Gift assets." />
     </Router>
   ); }
+
+
+  const curatedGiftId = getMuseumTask.result.data.curatedGiftId;
 
   return (
     <Router history={history}>
@@ -69,7 +76,7 @@ export const Main: React.FC = () => {
 
         {/* "Promo" link: direct access to museum gift */}
         <Route exact={true} path='/bhqr'>
-          <Redirect to={`/gift/${config.curatedMuseumGiftId}`} />
+          <Redirect to={`/gift/${curatedGiftId}`} />
         </Route>
 
         <Route path='/gift/:giftId'>

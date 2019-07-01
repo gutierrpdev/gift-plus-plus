@@ -7,6 +7,9 @@ import {
   GetGiftResponse,
   getGiftResponseSchema,
 
+  GetMuseumResponse,
+  getMuseumResponseSchema,
+
   CreatePreparedUploadRequest,
   CreatePreparedUploadResponse,
   createPreparedUploadResponseSchema,
@@ -14,12 +17,13 @@ import {
   SubmitEventsRequest,
 } from '../common/api-schema';
 
-import { preparedGifts } from './prepared-data';
+import { preparedGifts, preparedMuseums } from './prepared-data';
 
 
 // We re-export any types the Api is responsible for from here.
 export type CreateGiftResponse = CreateGiftResponse;
 export type GetGiftResponse = GetGiftResponse;
+export type GetMuseumResponse = GetMuseumResponse;
 export type CreatePreparedUploadResponse = CreatePreparedUploadResponse;
 
 
@@ -50,6 +54,20 @@ export class Api {
   public constructor(
     private apiUrl: string,
   ) {}
+
+
+  /**
+   * Retrieve a museum by id
+   */
+  public async getMuseum(museumId: string): Promise<ApiResult<GetMuseumResponse>> {
+    if (preparedMuseums.has(museumId)) {
+      return { kind: 'ok', data: preparedMuseums.get(museumId)! };
+    }
+
+    const url = `${this.apiUrl}/museum/${museumId}`;
+    const request = new Request(url);
+    return getApiResult<GetMuseumResponse>(request, getMuseumResponseSchema);
+  }
 
 
   /**

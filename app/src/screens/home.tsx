@@ -180,26 +180,25 @@ export const HomeScreen: React.FC = () => {
 
 
       {/* Content */}
-        {status === 'intro1' && !termsAccepted && <HomeIntro1 />}
-        {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
+      {status === 'intro1' && !termsAccepted && <HomeIntro1 />}
+      {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
 
-        {status === 'intro2' &&
-          <HomeIntro2 onComplete={() => {showNextScreen('got-new-gift'); }} />
-        }
+      {status === 'intro2' &&
+        <HomeIntro2 onComplete={() => {showNextScreen('got-new-gift'); }} />
+      }
 
-        {status === 'got-new-gift' &&
-          <HomeNewGift museumName={museumName} />
-        }
+      {status === 'got-new-gift' &&
+        <HomeNewGift museumName={museumName} curatedGiftId={''} />
+      }
 
-        {status === 'create-gift' &&
-          <HomeCreateGift onMoreClick={() => {setStatus('show-gifts'); }} />
-        }
+      {status === 'create-gift' &&
+        <HomeCreateGift onMoreClick={() => {setStatus('show-gifts'); }} />
+      }
 
-        {status === 'show-gifts' &&
-          <HomeGifts museumName={museumName} />
-        }
+      {status === 'show-gifts' &&
+       <HomeGifts museumName={museumName} curatedGiftId={''} />
+      }
 
     </ScreenManager>
-
   );
 };
