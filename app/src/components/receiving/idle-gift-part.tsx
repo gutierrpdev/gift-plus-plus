@@ -73,7 +73,7 @@ const IdleGiftPart: React.FC<Props> = (props) => {
   return (
     <IdleGiftPartStyle displaySize={props.displaySize} isDisabled={props.isDisabled} onClick={handleOnClick}>
       <Gradient position='top' size='big' />
-      <GiftPartBackground imageUrl={'https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg'}>
+      <GiftPartBackground imageUrl={props.part.photo}>
         <AccordionTitle
           textSize={props.displaySize}
           textColour={props.textColour}
