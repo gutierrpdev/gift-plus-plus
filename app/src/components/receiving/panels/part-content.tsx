@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { assetStore } from '../../../services';
 import { events } from '../../../services';
@@ -15,6 +16,7 @@ import history from '../../../utils/router-history';
 
 import { Panel, PanelContent } from '../../panel';
 import { PanelPrompt } from '../../panel-prompt';
+import { PanelText } from '../../panel-text';
 import { PanelButtons } from '../../panel-buttons';
 import { Button } from '../../buttons';
 import { AudioPlayer } from '../../media/audio-player';
@@ -26,11 +28,16 @@ import { ROutroLocalMuseumTranscript } from '../../audio-transcription/r-outro-l
 import { RecipientLocation } from '../../choose-location';
 import { Gift, GiftPart } from '../../../domain';
 import { WaitThen, WaitThenShow } from '../../utils/wait-then';
+import SvgIconDone from '../../svg/icon-done';
 
 /**
  * Show the gift part content, prompting for clues, etc.
  */
 
+const DoneIconWrap = styled.div`
+  width: 70%;
+  position: relative;
+`;
 
 export interface PartContentProps {
   gift: Gift; // The gift in question, as we need some other info (part count, sender name)
@@ -524,9 +531,16 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         {section === 'unwrapped' &&
         <>
           <PanelPrompt
-            text='You’ve unwrapped the whole gift'
             background={'transparent-black'}
-          />
+          >
+            <DoneIconWrap>
+              <SvgIconDone />
+            </DoneIconWrap>
+
+            <PanelText>You’ve unwrapped the whole gift</PanelText>
+
+          </PanelPrompt>
+
           <WaitThen
             wait={defaultWait}
             andThen={handleContinue}

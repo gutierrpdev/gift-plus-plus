@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { BrowserRouter, Router, Route, Link, Switch } from 'react-router-dom';
 
@@ -15,9 +16,10 @@ import { GlobalStyles } from '../src/themes/global';
 import { GiftPartsManager } from '../src/components/receiving/gift-parts-manager';
 import { IdleGiftPart } from '../src/components/receiving/idle-gift-part';
 import { GiftPartWrapper } from '../src/components/receiving/gift-part-wrapper';
-import { Panel } from '../src/components/panel';
+import { PanelContent, Panel } from '../src/components/panel';
 import { PanelPrompt } from '../src/components/panel-prompt';
 import { PanelRound } from '../src/components/panel-round';
+import { PanelText } from '../src/components/panel-text';
 import { PanelImageReveal } from '../src/components/panel-image-reveal';
 import { Button, Buttons, ButtonLink, ButtonAnchor } from '../src/components/buttons';
 import { ScreenManager } from '../src/components/screen-manager';
@@ -48,6 +50,7 @@ import { TermsModal } from '../src/components/modals/terms-modal';
 import { BgSvgFullScreen } from '../src/components/svg/bg';
 import { ProgressBar } from '../src/components/progress-bar';
 import { SavingInProgress } from '../src/components/creating/save-gift';
+import SvgIconDone from '../src/components/svg/icon-done';
 
 // Screens
 import { ReceiveGift } from '../src/components/receiving/receive-gift';
@@ -893,7 +896,39 @@ storiesOf('Components/Receiving', module)
   .add('Reply', () => (
     <ReceiveReply gift={giftThreeParts} />
   ))
-;
+  .add('Done Icon', () => {
+
+    const DoneIconWrap = styled.div`
+      width: 25%;
+      position: relative;
+      margin-bottom: 2vh;
+    `;
+
+    return (
+      <ScreenManager>
+        <BgSvgFullScreen />
+        <GlobalStyles />
+        <ScreenHeader
+          padding={'medium'}
+          title={`Making a gift...`}
+          museumName={'Blast Theory'}
+          background='white'
+        />
+        <Panel isParent={false}>
+          <PanelContent>
+            <PanelPrompt
+              background={'transparent-black'}
+            >
+              <DoneIconWrap>
+                <SvgIconDone />
+              </DoneIconWrap>
+              <PanelText>You’ve unwrapped the whole gift</PanelText>
+            </PanelPrompt>
+          </PanelContent>
+        </Panel>
+      </ScreenManager>
+    );
+  });
 
 // Creating components
 storiesOf('Components/Creating', module)
