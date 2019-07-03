@@ -11,6 +11,7 @@ import {
 } from '../../event-definitions';
 
 
+import { fadeInUp } from '../../themes/global';
 import { ProgressBar } from '../progress-bar';
 import { PanelText } from '../panel-text';
 import { PanelRound } from '../panel-round';
@@ -32,6 +33,7 @@ const AudioPlayerStyle = styled.div`
   padding: 15% 5% 25%;
   margin: 0 auto;
   width: 100%;
+  animation: ${fadeInUp};
 `;
 
 const AudioPanelText = styled(PanelText)`

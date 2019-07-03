@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { fadeInUp } from '../themes/global';
 import { PanelText } from './panel-text';
 import { PanelRound, PanelRoundBackgroundStyle, PanelRoundBorderStyle } from './panel-round';
 
@@ -19,6 +20,7 @@ const PanelPromptStyle = styled.div<StyleProps>`
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  animation: ${fadeInUp};
 `;
 
 interface Props {

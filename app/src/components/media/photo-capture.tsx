@@ -10,6 +10,7 @@ import { setImageOrientation,
   resizeImage,
 } from '../../utils/image';
 
+import { fadeInUp } from '../../themes/global';
 import { PanelText } from '../panel-text';
 import { PanelRound } from '../panel-round';
 import { BaseControlButton } from '../buttons';
@@ -26,16 +27,18 @@ const PhotoCaptureStyle = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  animation: ${fadeInUp};
 `;
 
 const PhotoCaptureText = styled(PanelText)`
-  height: 80%;
+  height: 65%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 5% 10%;
   text-align: center;
+  margin-top: 5%;
 `;
 
 const Controls = styled.div`
