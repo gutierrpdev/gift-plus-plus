@@ -75,6 +75,16 @@ const MenuItem: React.FC<MenuItemProps> = (props) => (
   </MenuItemStyle>
 );
 
+// Menu wrapper
+const MenuWrap = styled.div`
+  background-color: rgba(0,0,0,0.6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+`;
 
 // Menu
 const MenuStyle = styled.div`
@@ -86,7 +96,7 @@ const MenuStyle = styled.div`
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
   text-align: center;
-  z-index: 20;
+  /* z-index: 20; */
 `;
 
 interface MenuProps {
@@ -96,13 +106,15 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = (props) => (
-  <MenuStyle>
-    <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
-    <MenuItem onClick={props.openHelp}>Help</MenuItem>
-    <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-    <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
-    <CloseMenuItem onClick={props.onCloseClick} aria-label='close menu'><CloseArrowUp /></CloseMenuItem>
-  </MenuStyle>
+  <MenuWrap onClick={props.onCloseClick}>
+    <MenuStyle>
+      <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
+      <MenuItem onClick={props.openHelp}>Help</MenuItem>
+      <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
+      <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
+      <CloseMenuItem onClick={props.onCloseClick} aria-label='close menu'><CloseArrowUp /></CloseMenuItem>
+    </MenuStyle>
+  </MenuWrap>
 );
 
 export {
