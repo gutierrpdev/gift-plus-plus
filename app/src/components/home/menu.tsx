@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { global } from '../../themes/global';
+import { global, slideDownMenu } from '../../themes/global';
 import { TextResize } from '../text-resize';
 import SvgArrowUp from '../svg/arrow-up';
 
@@ -98,6 +98,8 @@ const MenuStyle = styled.div`
   text-align: center;
   /* z-index: 20; */
 `;
+
+// animation: ${slideDownMenu};
 
 interface MenuProps {
   openPrivacy: () => void; // Callback to open privacy
