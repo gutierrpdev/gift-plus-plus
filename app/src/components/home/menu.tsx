@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -86,6 +86,8 @@ const MenuWrap = styled.div`
   z-index: 100;
 `;
 
+const animationTime = 0.3;
+
 // Menu
 const MenuStyle = styled.div`
   position: absolute;
@@ -96,7 +98,16 @@ const MenuStyle = styled.div`
   font-family: ${global.fonts.title.family};
   font-weight: ${global.fonts.title.bold};
   text-align: center;
-  animation: ${slideDownMenu};
+  /* animation: ${slideDownMenu}; */
+
+  overflow: hidden;
+  overflow-y: scroll;
+  /* height:100%; */
+  transition: transform ${animationTime}s ease;
+  transform: translate(0, -100%);
+  &.opened {
+    transform: translate(0, 0%);
+  }
 `;
 
 
@@ -106,17 +117,40 @@ interface MenuProps {
   onCloseClick: () => void; // Callback when the close button is clicked
 }
 
-const Menu: React.FC<MenuProps> = (props) => (
-  <MenuWrap onClick={props.onCloseClick}>
-    <MenuStyle>
-      <MenuItem><Link onClick={props.onCloseClick} to='/'>Home</Link></MenuItem>
-      <MenuItem onClick={props.openHelp}>Help</MenuItem>
-      <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-      <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
-      <CloseMenuItem onClick={props.onCloseClick} aria-label='close menu'><CloseArrowUp /></CloseMenuItem>
-    </MenuStyle>
-  </MenuWrap>
-);
+const Menu: React.FC<MenuProps> = (props) => {
+
+  // State
+  const [menuOpenedClass, setMenuOpenedClass] = useState(''); // Class used to determine opened state
+
+  function handleCloseClick() {
+
+    // Remove class to trigger css animation
+    setMenuOpenedClass('');
+
+    // Wait before closing to ensure CSS animation complete
+    setTimeout(() => {
+      if (props.onCloseClick) {
+        props.onCloseClick();
+      }
+    }, animationTime * 1000);
+
+  }
+
+  // Initial menu animation class setup
+  useEffect(() => { setMenuOpenedClass('opened'); }, []);
+
+  return (
+    <MenuWrap onClick={handleCloseClick}>
+      <MenuStyle className={menuOpenedClass}>
+        <MenuItem><Link onClick={handleCloseClick} to='/'>Home</Link></MenuItem>
+        <MenuItem onClick={props.openHelp}>Help</MenuItem>
+        <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
+        <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
+        <CloseMenuItem onClick={handleCloseClick} aria-label='close menu'><CloseArrowUp /></CloseMenuItem>
+      </MenuStyle>
+    </MenuWrap>
+  );
+};
 
 export {
   Menu,
