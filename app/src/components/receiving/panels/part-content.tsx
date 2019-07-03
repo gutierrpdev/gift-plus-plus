@@ -35,7 +35,7 @@ import SvgIconDone from '../../svg/icon-done';
  */
 
 const DoneIconWrap = styled.div`
-  width: 70%;
+  width: 20%;
   position: relative;
 `;
 

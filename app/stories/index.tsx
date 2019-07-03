@@ -899,7 +899,7 @@ storiesOf('Components/Receiving', module)
   .add('Done Icon', () => {
 
     const DoneIconWrap = styled.div`
-      width: 25%;
+      width: 20%;
       position: relative;
       margin-bottom: 2vh;
     `;
