@@ -42,10 +42,6 @@ const IdleGiftPartStyle = styled.div<StyleProps>`
     min-height: 10vw;
   `}
 
-  /* medium - Fill gaps */
-  ${(props) => props.displaySize === 'medium' && `
-  `}
-
   /* Dark overlay when disabled */
   ${(props) => props.isDisabled && `
     &:before {
@@ -77,7 +73,7 @@ const IdleGiftPart: React.FC<Props> = (props) => {
   return (
     <IdleGiftPartStyle displaySize={props.displaySize} isDisabled={props.isDisabled} onClick={handleOnClick}>
       <Gradient position='top' size='big' />
-      <GiftPartBackground imageUrl={props.part.photo}>
+      <GiftPartBackground imageUrl={'https://www.blasttheory.co.uk/wp-content/uploads/2019/04/IMG_8846-1440x1080.jpg'}>
         <AccordionTitle
           textSize={props.displaySize}
           textColour={props.textColour}
