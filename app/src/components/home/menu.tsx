@@ -75,6 +75,8 @@ const MenuItem: React.FC<MenuItemProps> = (props) => (
   </MenuItemStyle>
 );
 
+const animationTime = 0.3;
+
 // Menu wrapper
 const MenuWrap = styled.div`
   background-color: rgba(0,0,0,0.6);
@@ -84,9 +86,12 @@ const MenuWrap = styled.div`
   width: 100%;
   height: 100vh;
   z-index: 100;
+  opacity: 0;
+  transition: opacity ${animationTime}s ease;
+  &.opened {
+    opacity: 1;
+  }
 `;
-
-const animationTime = 0.3;
 
 // Menu
 const MenuStyle = styled.div`
@@ -140,7 +145,7 @@ const Menu: React.FC<MenuProps> = (props) => {
   useEffect(() => { setMenuOpenedClass('opened'); }, []);
 
   return (
-    <MenuWrap onClick={handleCloseClick}>
+    <MenuWrap className={menuOpenedClass} onClick={handleCloseClick}>
       <MenuStyle className={menuOpenedClass}>
         <MenuItem><Link onClick={handleCloseClick} to='/'>Home</Link></MenuItem>
         <MenuItem onClick={props.openHelp}>Help</MenuItem>
