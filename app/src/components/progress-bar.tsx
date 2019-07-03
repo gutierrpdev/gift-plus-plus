@@ -23,7 +23,7 @@ const ProgressBarInner = styled.div<Props>`
     background-color: ${global.colour.lightGrey};
   `}
 
-  // Optional progress bar
+  /* Optional progress bar */
   ${(props) => props.showPositionBar && `
     &:after {
       content: '';
