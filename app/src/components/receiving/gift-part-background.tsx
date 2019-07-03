@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
-import { GiftPart } from '../../domain';
-
 /***
  * Applies a gift part photo as a background
  * This is done as a seperate :before layer as the blur effects needs to be seperate from the content
  */
 interface Props {
-  giftPart: GiftPart;
+  imageUrl: string;
 }
 
 const GiftPartBackground = styled.div<Props>`
@@ -19,7 +17,7 @@ const GiftPartBackground = styled.div<Props>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${(props) => props.giftPart.photo});
+    background-image: url(${(props) => props.imageUrl});
     background-position: center;
     background-size: cover;
     z-index: -1;

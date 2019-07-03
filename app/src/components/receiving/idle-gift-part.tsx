@@ -10,16 +10,21 @@ import { Gradient } from '../gradient';
 /***
  * Renders an idle gift part
  */
-interface IdleGiftPartProps {
+interface Props {
   part: GiftPart;
   displaySize: 'small' | 'medium' | 'big';
   textColour: 'light' | 'white';
   showOpenPrompt: boolean;
   isDisabled: boolean;
-  onClick: () => void;
+  onClick: () => void; // Callback when clicked
 }
 
-const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
+interface StyleProps {
+  displaySize: 'small' | 'medium' | 'big';
+  isDisabled: boolean;
+}
+
+const IdleGiftPartStyle = styled.div<StyleProps>`
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -31,17 +36,17 @@ const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
   justify-content: center;
   background-color: ${global.colour.blurBackground};
 
-  // small - Occupy a small space
+  /* small - Occupy a small space */
   ${(props) => props.displaySize === 'small' && `
     flex-grow: 0;
     min-height: 10vw;
   `}
 
-  // medium - Fill gaps
+  /* medium - Fill gaps */
   ${(props) => props.displaySize === 'medium' && `
   `}
 
-  // Dark overlay when disabled
+  /* Dark overlay when disabled */
   ${(props) => props.isDisabled && `
     &:before {
       filter: grayscale(60%) blur(5px);
@@ -60,7 +65,7 @@ const IdleGiftPartStyle = styled.div<IdleGiftPartProps>`
 `;
 
 
-const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
+const IdleGiftPart: React.FC<Props> = (props) => {
 
   // Only allow the onClick when appropriate
   function handleOnClick() {
@@ -70,9 +75,9 @@ const IdleGiftPart: React.FC<IdleGiftPartProps> = (props) => {
   }
 
   return (
-    <IdleGiftPartStyle {...props} onClick={handleOnClick}>
+    <IdleGiftPartStyle displaySize={props.displaySize} isDisabled={props.isDisabled} onClick={handleOnClick}>
       <Gradient position='top' size='big' />
-      <GiftPartBackground giftPart={props.part}>
+      <GiftPartBackground imageUrl={props.part.photo}>
         <AccordionTitle
           textSize={props.displaySize}
           textColour={props.textColour}
