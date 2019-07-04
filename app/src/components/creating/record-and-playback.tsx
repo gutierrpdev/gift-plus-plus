@@ -162,7 +162,7 @@ const PlaybackPanel: React.FC<{
         <AudioPlayer
           message={playbackMessage}
           src={url}
-          forwardButtonType={'skip-seconds'}
+          forwardButtonType={'go-to-end'}
           giftId={giftId}
           audioReference={`c-part${giftPartIndex + 1}-playback-recorded-message`}
           onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
