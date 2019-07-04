@@ -46,3 +46,24 @@ export function isMobileDevice(): boolean {
   /* tslint:disable-next-line max-line-length */
   return !!(/Android|webOS|iPhone|iPad|iPod|BB10|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(navigator.userAgent || ''));
 }
+
+
+/**
+ * Parse query params and return as an object
+ */
+export const getQueryParams = () => window.location.search
+  .slice(1)
+  .split('&')
+  .map((s) => s.trim())
+  .reduce(
+    (params, val) => {
+      try {
+        const [k, v] = val.split('=', 2).map(decodeURIComponent);
+        if (k !== '') params[k] = v;
+      } catch {}
+      return params;
+    },
+    {} as QueryParams,
+  );
+
+export type QueryParams = Partial<{ [index: string]: string | undefined }>;

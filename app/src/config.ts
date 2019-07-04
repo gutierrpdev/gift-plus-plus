@@ -24,10 +24,11 @@ export interface Config {
 export const config: Config = {
   environment: readAsString(process.env.ENVIRONMENT),
   apiUri: readAsString(process.env.API_URI),
-  museumOverride: (process.env.MUSEUM_ID === 'brigton') ? 'brighton'
-                : (process.env.MUSEUM_ID === 'munch') ? 'munch'
+  museumOverride: (process.env.MUSEUM_OVERRIDE === 'brighton') ? 'brighton'
+                : (process.env.MUSEUM_OVERRIDE === 'munch') ? 'munch'
                 : undefined,
 };
+
 
 // =====================================================================
 
