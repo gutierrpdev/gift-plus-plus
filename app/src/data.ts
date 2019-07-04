@@ -10,6 +10,7 @@ import { Museum } from './domain';
  */
 const brighton: Museum = {
   id: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
+  slug: 'brighton',
   name: 'Brighton Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   assets: {
@@ -40,6 +41,7 @@ const brighton: Museum = {
  */
 const munch: Museum = {
   id: uuidv5('https://api.thegift.app/museum/munch-museum', uuidv5.URL),
+  slug: 'munch',
   name: 'Munch Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
   assets: {

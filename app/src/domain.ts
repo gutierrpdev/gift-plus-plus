@@ -49,6 +49,7 @@ export interface InProgressGift {
 
 export interface Museum {
   id: MuseumId;
+  slug: 'brighton' | 'munch';
   name: string;
   curatedGiftId: GiftId;
   assets: {

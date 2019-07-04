@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
-import { events } from '../../services';
-import { pTermsPrivacyOpenedEvent, pTermsPrivacyClosedEvent } from '../../event-definitions';
+import React from 'react';
 
 /**
  * Terms content
  */
 
 // tslint:disable max-line-length
-const TermsContent: React.FC = () => (
+export const TermsContent: React.FC = () => (
   <>
     <h1>Terms &amp; Privacy</h1>
     <p>
@@ -493,17 +491,3 @@ const TermsContent: React.FC = () => (
     </p>
   </>
 );
-
-
-const TermsContentWithEvents: React.FC = () => {
-  useEffect(() => {
-    events.track(pTermsPrivacyOpenedEvent());
-    return () => events.track(pTermsPrivacyClosedEvent());
-  }, []);
-
-  return <TermsContent />;
-};
-
-export {
-  TermsContentWithEvents as TermsContent,
-};

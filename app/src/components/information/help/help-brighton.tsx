@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
-import { events } from '../../services';
-import { pHelpOpenedEvent, pHelpClosedEvent } from '../../event-definitions';
+import React from 'react';
 
 /**
  * Help content included in the menu/header
  */
 
 // tslint:disable max-line-length
-const HelpContent: React.FC = () => (
+export const HelpContent: React.FC = () => (
   <>
     <h1>Help</h1>
     <h5>What is Gift?</h5>
@@ -125,17 +123,3 @@ const HelpContent: React.FC = () => (
     </p>
   </>
 );
-
-
-const HelpContentWithEvents: React.FC = () => {
-  useEffect(() => {
-    events.track(pHelpOpenedEvent());
-    return () => events.track(pHelpClosedEvent());
-  }, []);
-
-  return <HelpContent />;
-};
-
-export {
-  HelpContentWithEvents as HelpContent,
-};
