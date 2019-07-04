@@ -156,6 +156,9 @@ const PlaybackPanel: React.FC<{
 
   const [recordedAudioHasPlayedBack, setRecordedAudioHasPlayedBack] = useState(false);
 
+  // Show the buttons always for parts 2 and 3, and only if played back on part 1, #165
+  const showButtons = recordedAudioHasPlayedBack || giftPartIndex > 0;
+
   return (
     <Panel>
       <PanelContent>
@@ -168,7 +171,7 @@ const PlaybackPanel: React.FC<{
           onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
         />
       </PanelContent>
-      {recordedAudioHasPlayedBack &&
+      {showButtons &&
       <PanelButtons>
         <Button onClick={onReRecordClicked}>Try again</Button>
         <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
