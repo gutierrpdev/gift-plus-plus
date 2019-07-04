@@ -36,7 +36,7 @@ const HomeIntro1: React.FC<Props> = ({ onComplete }) => {
       <PanelContent topPosition='top-quarter'>
         <PanelPrompt
           text='Ever made
-            a playlist?'
+            a mixtape?'
           textColor='black'
           textSize={80}
           background='solid-white'
