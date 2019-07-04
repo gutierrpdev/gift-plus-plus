@@ -307,8 +307,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         case 0 :
           // Text changes based on gift count
           return giftPartCount === 1
-            ? 'This is a sneak peek of your gift'
-            : 'This is a sneak peek of the first object in your gift';
+            ? `This is a sneak peek \n of your gift`
+            : 'This is a sneak peek \n of the first object in your gift';
         case 1 :
           return 'Here’s a look at the second object in your gift...';
         case 2 :

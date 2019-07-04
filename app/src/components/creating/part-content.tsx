@@ -315,8 +315,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <PhotoCapture
-              text={`If you’ve found
-                your first object, take a photo so they can see what you’ve chosen`}
+              text={`If you’ve \n found your first object, take a photo so they can see what you’ve chosen`}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
@@ -327,8 +326,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           {giftPartIndex === 1 &&
             <PhotoCapture
               text={`Look for
-                your second object for ${recipientName}.
-                When you’ve found it take a photo for them`}
+                your second object for ${recipientName}. When you’ve found it take a photo for them`}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
