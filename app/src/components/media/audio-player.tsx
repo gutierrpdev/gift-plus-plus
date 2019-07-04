@@ -309,6 +309,7 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     return (
       <PanelRound background={'transparent-black'}>
         <AudioPlayerStyle role='region' aria-label='audio player'>
+
           <audio
             src={this.props.src}
             controls={false}
@@ -319,7 +320,14 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
           >
             {incompatibilityMessage}
           </audio>
-          <AudioPanelText>{this.props.message}</AudioPanelText>
+
+          {/* support line breaks */}
+          <AudioPanelText>
+            {this.props.message && this.props.message.split('\n').map((item) => {
+              return <>{item}<br /></>;
+            })}
+          </AudioPanelText>
+
           <ProgressBar
             percent={this.state.playbackPercentage}
             theme={'white-on-black'}
@@ -327,6 +335,7 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
             height={'0.7vh'}
             /*onSeek={this.onSeek}*/
           />
+
           <Controls>
 
             <SkipBack onClick={this.skipBackward} aria-label='Skip back' tabIndex={2}>

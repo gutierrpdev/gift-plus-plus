@@ -122,7 +122,12 @@ class PhotoCapture extends React.PureComponent<Props> {
     return (
       <PanelRound background={'transparent-black'}>
         <PhotoCaptureStyle>
-          <PhotoCaptureText textSize={this.props.textSize}>{this.props.text}</PhotoCaptureText>
+          {/* support line breaks */}
+          <PhotoCaptureText textSize={this.props.textSize}>
+            {this.props.text && this.props.text.split('\n').map((item) => {
+              return <>{item}<br /></>;
+            })}
+          </PhotoCaptureText>
           <Controls>
             <CaptureButton>
               <SvgIconCamera onClick={this.showCamera} />
