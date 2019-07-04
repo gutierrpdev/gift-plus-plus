@@ -46,8 +46,27 @@ export interface InProgressGift {
   parts: InProgressGiftPart[];
 }
 
+
 export interface Museum {
   id: MuseumId;
   name: string;
   curatedGiftId: GiftId;
+  assets: {
+    cChoosePart1: string,
+    cChoosePart2: string,
+    cChoosePart3: string,
+    cLetThemKnowPart1: string,
+    cLetThemKnowPart2: string,
+    cLetThemKnowPart3: string,
+    cStart: string,
+    cShare: string,
+    rIntroContentAtMuseumMuseumGift: string,
+    rIntroContentAtMuseumPersonalGift: string,
+    rIntroContentNotAtMuseumMuseumGift: string,
+    rIntroContentNotAtMuseumPersonalGift: string,
+    rOutroAtMuseumMuseumGift: string,
+    rOutroAtMuseumPersonalGift: string,
+    rOutroNotAtMuseumMuseumGift: string,
+    rOutroNotAtMuseumPersonalGift: string,
+  };
 }

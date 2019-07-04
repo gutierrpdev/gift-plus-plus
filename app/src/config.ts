@@ -17,14 +17,16 @@ class ConfigError extends Error {
 export interface Config {
   environment: string;
   apiUri: string;
-  museumId: string;
+  museumOverride?: 'brighton' | 'munch';
 }
 
 
 export const config: Config = {
   environment: readAsString(process.env.ENVIRONMENT),
   apiUri: readAsString(process.env.API_URI),
-  museumId: readAsString(process.env.MUSEUM_ID),
+  museumOverride: (process.env.MUSEUM_ID === 'brigton') ? 'brighton'
+                : (process.env.MUSEUM_ID === 'munch') ? 'munch'
+                : undefined,
 };
 
 // =====================================================================

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { museum } from '../data';
 import { events } from '../services';
 import { termsAcceptedEvent } from '../event-definitions';
 
@@ -90,8 +91,10 @@ export const HomeScreen: React.FC = () => {
   // Default to the stored state
   const [termsAccepted, setTermsAccepted] = useState<boolean>(getUserHasAgreedTerms());
 
-  //  Todo: We need to pass in the gift object/details about the default gift, and remove BH wording
-  const museumName = 'Brighton Museum';
+
+  const museumName = museum.name;
+  const curatedGiftId = museum.curatedGiftId;
+
 
   // Takes the desired status and takes the user to the correct point
   // They have have seen the desired panel, so push forward to the next one
@@ -188,7 +191,7 @@ export const HomeScreen: React.FC = () => {
       }
 
       {status === 'got-new-gift' &&
-        <HomeNewGift museumName={museumName} curatedGiftId={''} />
+        <HomeNewGift museumName={museumName} curatedGiftId={curatedGiftId} />
       }
 
       {status === 'create-gift' &&
@@ -196,7 +199,7 @@ export const HomeScreen: React.FC = () => {
       }
 
       {status === 'show-gifts' &&
-       <HomeGifts museumName={museumName} curatedGiftId={''} />
+       <HomeGifts museumName={museumName} curatedGiftId={curatedGiftId} />
       }
 
     </ScreenManager>

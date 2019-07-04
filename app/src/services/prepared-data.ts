@@ -1,38 +1,9 @@
 import uuidv5 from 'uuid/v5';
-import { GetGiftResponse, GetMuseumResponse } from '../common/api-schema';
+import { GetGiftResponse } from '../common/api-schema';
 
-export const preparedMuseums = new Map<string, GetMuseumResponse>();
 export const preparedGifts = new Map<string, GetGiftResponse>();
 
 /* tslint:disable max-line-length */
-
-
-// =======
-// MUSEUMS
-// =======
-
-/**
- * Brighton Museum
- *
- * ID: 95d5128f-e6b3-5b07-8c98-6c9876a27481
- */
-preparedMuseums.set(uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL), {
-  id: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
-  name: 'Brighton Museum',
-  curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
-});
-
-
-/**
- * Munch Museum
- *
- * ID: dc640fed-634c-5a18-9580-a0a615403f62
- */
-preparedMuseums.set(uuidv5('https://api.thegift.app/museum/munch-museum', uuidv5.URL), {
-  id: uuidv5('https://api.thegift.app/museum/munch-museum', uuidv5.URL),
-  name: 'Munch Museum',
-  curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
-});
 
 
 // =====

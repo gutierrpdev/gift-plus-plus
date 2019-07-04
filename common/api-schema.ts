@@ -50,37 +50,6 @@ export const createPreparedUploadResponseSchema = {
 
 
 // =====================================================================
-//                              Museum
-// =====================================================================
-// (Client side only atm)
-
-// ----------
-// Get Museum
-// ----------
-
-export interface GetMuseumResponse {
-  id: string;
-  name: string;
-  curatedGiftId: string;
-}
-
-export const getMuseumResponseSchema = {
-  type: 'object',
-  properties: {
-    id: { type: 'string', format: 'uuid' },
-    name: { type: 'string', minLength: 1 },
-    curatedGiftId: { type: 'string', format: 'uuid' },
-  },
-  required: [
-    'id',
-    'name',
-    'curatedGiftId',
-  ],
-};
-
-
-
-// =====================================================================
 //                              Gift
 // =====================================================================
 
