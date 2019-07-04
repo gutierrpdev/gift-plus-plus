@@ -73,7 +73,9 @@ export const CreateGiftIntro: React.FC<Props> = ({ onComplete }) => {
         <PanelContent>
 
           <PanelPrompt
-            text={`It might take two minutes. It might take twenty.
+            text={`It might
+              take two minutes.
+              It might take twenty.
               It’s up to you`}
             background={'transparent-black'}
             onClick={onComplete}

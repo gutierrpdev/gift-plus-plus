@@ -616,7 +616,9 @@ storiesOf('Components/Media', module)
         />
         <p>Skip forward button</p>
         <AudioPlayer
-          message={'Lorem ipsum'}
+          message={`Lorem
+            ipsum
+            lorem ipsum`}
           forwardButtonType={'skip-seconds'}
           giftId={''}
           audioReference={'lorem'}
@@ -659,7 +661,8 @@ storiesOf('Components/Media', module)
       <img id='photo-capture-img' style={{maxWidth: '200px'}} />
       {/* <PhotoCapture text={'take a photo'}/> */}
       <PhotoCapture
-        text={`Have a wander to find the second object for Nick.
+        text={`Have a wander
+          to find the second object for Nick.
           Why not visit another part of the museum?
           When you’ve found it take a photo to show them.`}
         textSize={42}

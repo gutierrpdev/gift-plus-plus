@@ -220,7 +220,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Thanks! Now time to choose your first object for ${recipientName}`}
+              text={`Thanks.
+                Now time to choose your first object for ${recipientName}`}
               background={'transparent-black'}
               onClick={() => { setStatus('second-message'); }}
             />
@@ -266,7 +267,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-              message={'Listen while you look for your first object...'}
+              message={`Listen while
+                you look for your first object...`}
               src={assetStore.assets.cChoosePart1}
               forwardButtonType={'go-to-end'}
               giftId={gift.id}
@@ -313,7 +315,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <PhotoCapture
-              text={`If you’ve found your first object, take a photo so they can see what you’ve chosen`}
+              text={`If you’ve found
+                your first object, take a photo so they can see what you’ve chosen`}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
@@ -323,9 +326,9 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 1 &&
             <PhotoCapture
-              text={`Have a wander to find your second object for ${recipientName}.
+              text={`Look for
+                your second object for ${recipientName}.
                 When you’ve found it take a photo for them`}
-              textSize={42}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
@@ -335,7 +338,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 2 &&
             <PhotoCapture
-              text={`Choose your last object and take a photo`}
+              text={`Choose
+                your last object and take a photo`}
               onPhotoTaken={(file) => {
                 events.track(cPartPhotoCompletedEvent(gift.id, partNumber));
                 handlePhotoTaken(file);
@@ -384,7 +388,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <AudioPlayer
-                message={`Great. Here's the next step...`}
+                message={`Great.
+                  Here's the next step...`}
                 src={assetStore.assets.cLetThemKnowPart1}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -394,7 +399,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 1 &&
             <AudioPlayer
-                message={`OK. Time for your next message...`}
+                message={`Great.
+                  Time for your next message...`}
                 src={assetStore.assets.cLetThemKnowPart2}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -404,7 +410,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           }
           {giftPartIndex === 2 &&
             <AudioPlayer
-                message={`Great. Time to record your final message...`}
+                message={`Great.
+                  Time to record your final message...`}
                 src={assetStore.assets.cLetThemKnowPart3}
                 forwardButtonType={'go-to-end'}
                 giftId={gift.id}
@@ -536,7 +543,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
     };
 
     const text = giftPartIndex === 0
-      ? `Great, you’ve made part one of your gift for ${recipientName}`
+      ? `Great.
+          You’ve made part one of your gift for ${recipientName}`
       : `Done!`;
 
     return (
@@ -582,13 +590,16 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
         <PanelContent>
           {giftPartIndex === 0 &&
             <PanelPrompt
-              text={`Do you want to add another object or send it as it is? You can choose up to three`}
+              text={`Do you want
+                to add another object or send it as it is?
+                You can choose up to three`}
               background={'transparent-black'}
             />
           }
           {giftPartIndex === 1 &&
             <PanelPrompt
-              text={`Do you want to add a final object or send it as it is?`}
+              text={`Do you want
+                to add a final object or send it as it is?`}
               background={'transparent-black'}
             />
           }
