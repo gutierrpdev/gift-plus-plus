@@ -105,7 +105,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
           museumName={museumName}
         />
         <MainTitle>Creating<br/>
-          a gift...</MainTitle>
+          a gift</MainTitle>
       </>
       }
 
