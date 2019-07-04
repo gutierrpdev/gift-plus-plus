@@ -87,9 +87,11 @@ deploy-frontend-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app --image $APP_IMAGE:$STAGING_TAG
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_app-munch --image $APP_IMAGE:$STAGING_TAG
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_storybook --image $STORYBOOK_IMAGE:$STAGING_TAG
+    - ssh -i deploy-key root@staging.gift.blasttheory.com <<ENDSSH
+        docker service update gift_app --image $APP_IMAGE:$STAGING_TAG
+        docker service update gift_app-munch --image $APP_IMAGE:$STAGING_TAG
+        docker service update gift_storybook --image $STORYBOOK_IMAGE:$STAGING_TAG
+      ENDSSH
   environment:
     name: staging
   only:
@@ -113,8 +115,10 @@ deploy-frontend-to-production:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H thegift.app >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@thegift.app -C docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
-    - ssh -i deploy-key root@thegift.app -C docker service update gift_app-munch --image $APP_IMAGE:$PRODUCTION_TAG
+    - ssh -i deploy-key root@staging.gift.blasttheory.com <<ENDSSH
+        docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
+        docker service update gift_app-munch --image $APP_IMAGE:$PRODUCTION_TAG
+      ENDSSH
   environment:
     name: production
   only:
@@ -216,7 +220,7 @@ deploy-backend-to-staging:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H staging.gift.blasttheory.com >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@staging.gift.blasttheory.com -C docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@staging.gift.blasttheory.com docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
   environment:
     name: staging
   only:
@@ -240,7 +244,7 @@ deploy-backend-to-production:
     - mkdir ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan -H thegift.app >> ~/.ssh/known_hosts
-    - ssh -i deploy-key root@thegift.app -C docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
+    - ssh -i deploy-key root@thegift.app docker service update gift_api --image $API_RELEASE_IMAGE:$CI_COMMIT_SHORT_SHA
   environment:
     name: production
   only:
