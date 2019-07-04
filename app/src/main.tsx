@@ -70,7 +70,7 @@ export const Main: React.FC = () => {
         </Route>
 
         {/* "Promo" link: direct access to museum gift */}
-        <Route exact={true} path='/bhqr'>
+        <Route exact={true} path={`${museum.promoLink}`} >
           <Redirect to={`/gift/${museum.curatedGiftId}`} />
         </Route>
 

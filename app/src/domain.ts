@@ -52,6 +52,7 @@ export interface Museum {
   slug: 'brighton' | 'munch';
   name: string;
   curatedGiftId: GiftId;
+  promoLink: string;
   assets: {
     cChoosePart1: string,
     cChoosePart2: string,
