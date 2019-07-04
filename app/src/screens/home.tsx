@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { events } from '../services';
-import { hAtMuseumConfirmedEvent, termsAcceptedEvent } from '../event-definitions';
+import { termsAcceptedEvent } from '../event-definitions';
 
 import { GlobalStyles, global } from '../themes/global';
 import { ScreenManager } from '../components/screen-manager';
@@ -15,12 +15,10 @@ import { HomeCreateGift } from '../components/home/home-create-gift';
 import { HomeGifts } from '../components/home/home-gifts';
 
 import { BgSvgFullScreen } from '../components/svg/bg';
-import { ChooseLocation, RecipientLocation } from '../components/choose-location';
 import {
     getHasSeenHomeIntro,
     setHasSeenHomeIntro,
     getHasUnopenedMuseumGift,
-    getSessionRecipientLocation,
     setSessionRecipientLocation,
     getUserHasAgreedTerms,
 } from '../utils/local';
@@ -79,7 +77,6 @@ type Status =
   | 'intro1'
   | 'intro2'
   | 'how-about'
-  | 'choose-location'
   | 'got-new-gift'
   | 'create-gift'
   | 'show-gifts'
@@ -93,14 +90,6 @@ export const HomeScreen: React.FC = () => {
   // Default to the stored state
   const [termsAccepted, setTermsAccepted] = useState<boolean>(getUserHasAgreedTerms());
 
-  // Default to stored recipientLocation value
-  const [recipientLocation, setRecipientLocation] = useState<RecipientLocation>(getSessionRecipientLocation);
-
-  // Listen for change on location, and re-trigger showNextScreen when selected
-  useEffect(() => {
-    showNextScreen(status);
-  }, [recipientLocation]);
-
   //  Todo: We need to pass in the gift object/details about the default gift, and remove BH wording
   const museumName = 'Brighton Museum';
 
@@ -111,7 +100,7 @@ export const HomeScreen: React.FC = () => {
     if (nextStatus === 'intro1') {
 
       // Have we already seen the intro?
-      getHasSeenHomeIntro() ? showNextScreen('choose-location') : setStatus('intro1');
+      getHasSeenHomeIntro() ? showNextScreen('got-new-gift') : setStatus('intro1');
 
     } else if (nextStatus === 'intro2') {
 
@@ -121,42 +110,20 @@ export const HomeScreen: React.FC = () => {
 
       setStatus('how-about');
 
-    } else if (nextStatus === 'choose-location') {
+    } else if (nextStatus === 'got-new-gift') {
 
       setHasSeenHomeIntro(true);
 
-      if (recipientLocation === 'unknown') {
+      // Do we have a new museum gift?
+      if (getHasUnopenedMuseumGift()) {
 
-        // Show the choose location screen
-        setStatus('choose-location');
+        // Go to start
+        setStatus('got-new-gift');
 
       } else {
 
-        showNextScreen('got-new-gift');
-
-      }
-
-    } else if (nextStatus === 'got-new-gift') {
-
-      if (recipientLocation === 'at-museum') {
-
-        // Do we have a new museum gift?
-        if (getHasUnopenedMuseumGift()) {
-
-          // Go to start
-          setStatus('got-new-gift');
-
-        } else {
-
-          // Go to the home screen
-          setStatus('create-gift');
-
-        }
-
-      } else if (recipientLocation === 'not-at-museum') {
-
         // Go to the home screen
-        setStatus('show-gifts');
+        setStatus('create-gift');
 
       }
 
@@ -167,21 +134,6 @@ export const HomeScreen: React.FC = () => {
 
   }
 
-
-  // Handle the location set
-  function handleSetLocation(location: RecipientLocation): void {
-    if (location === 'at-museum') events.track(hAtMuseumConfirmedEvent(true));
-    if (location === 'not-at-museum') events.track(hAtMuseumConfirmedEvent(false));
-
-    // Store in session
-    setSessionRecipientLocation(location);
-
-    // Set state
-    setRecipientLocation(location);
-
-    // Note: No need to update state/status/UI as useEffect will do this based on setRecipientLocation update
-
-  }
 
   // Start, default to first screen
   if (status === 'none') {
@@ -196,6 +148,9 @@ export const HomeScreen: React.FC = () => {
     events.track(termsAcceptedEvent());
     setTermsAccepted(true);
   }
+
+  // Set that the visitor is at the museum
+  setSessionRecipientLocation('at-museum');
 
   return (
     <ScreenManager allowScroll={allowScroll}>
@@ -229,14 +184,7 @@ export const HomeScreen: React.FC = () => {
         {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
 
         {status === 'intro2' &&
-          <HomeIntro2 onComplete={() => {showNextScreen('choose-location'); }} />
-        }
-
-        {status === 'choose-location' &&
-          <ChooseLocation
-            museumName={museumName}
-            onLocationSelected={handleSetLocation}
-          />
+          <HomeIntro2 onComplete={() => {showNextScreen('got-new-gift'); }} />
         }
 
         {status === 'got-new-gift' &&
