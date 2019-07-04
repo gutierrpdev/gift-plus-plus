@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4';
+import { museum } from '../../data';
 import {
   getLocalItem,
   setLocalItem,
@@ -20,6 +21,7 @@ interface EventContext {
   deviceId: string;
   sessionId: string;
   instanceId: string;
+  museumId: string;
 }
 
 export interface HydratedEvent {
@@ -84,6 +86,7 @@ export class EventService {
       deviceId,
       sessionId,
       instanceId: uuidv4(),
+      museumId: museum.id,
     };
 
     return this.context;
