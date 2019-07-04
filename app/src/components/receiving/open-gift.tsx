@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { global } from '../../themes/global';
+import { global, fadeInUp } from '../../themes/global';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelRound } from '../panel-round';
@@ -22,6 +22,7 @@ const OpenPanel = styled.div`
   text-align: center;
   margin: 0 auto;
   width: 100%;
+  animation: ${fadeInUp};
 `;
 
 const OpenText = styled(TextResize).attrs({
