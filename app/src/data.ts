@@ -44,7 +44,7 @@ const brighton: Museum = {
 const munch: Museum = {
   id: uuidv5('https://api.thegift.app/museum/munch-museum', uuidv5.URL),
   slug: 'munch',
-  name: 'Munch Museum',
+  name: 'the Munch Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
   promoLink: '/mmqr',
   assets: {
