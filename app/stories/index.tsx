@@ -525,6 +525,9 @@ storiesOf('Components/Modals', module)
       <InformationWindow onClose={doNothing}>
         <h1>Privacy</h1>
         <h2>Sub heading</h2>
+        <h3>Sub heading</h3>
+        <h4>Sub heading</h4>
+        <h5>Sub heading</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Sollicitudin tempor id eu nisl nunc mi ipsum.
         Semper feugiat nibh sed pulvinar proin.</p>
