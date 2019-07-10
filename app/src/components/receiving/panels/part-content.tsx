@@ -221,6 +221,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <Button onClick={gotoHereYouGo} primary={true}>Found it</Button>
           </>
         );
+
       case 'show-clue-search':
         return (
           <>
@@ -249,12 +250,13 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         );
       case 'reveal-full':
 
-        // If not at museum wait 3 seconds before showing the continue button
-        const wait = atMuseum ? 0 : 3;
+        // If at the museum, auto continue, therefore no buttons
+        if (props.recipientLocation === 'at-museum') return null;
 
+        // If not at the museum show the buttons
         return (
           <WaitThenShow
-            wait={wait}
+            wait={1}
           >
             <Button onClick={handleContinue} primary={true}>Continue</Button>
           </WaitThenShow>
@@ -481,6 +483,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             <PanelPrompt
               text={getLookAroundText()}
               background={'transparent-black'}
+              onClick={handleContinue}
             />}
             <WaitThen
               wait={defaultWait}
@@ -511,6 +514,14 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               andThen={gotoFound}
             />
           </>
+        }
+
+        {/* auto continue if at the museum */}
+        {section === 'reveal-full' && (props.recipientLocation === 'at-museum') &&
+          <WaitThen
+            wait={1}
+            andThen={gotoFoundAudio}
+          />
         }
 
         {section === 'play-audio' &&
