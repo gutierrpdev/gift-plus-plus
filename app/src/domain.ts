@@ -53,6 +53,7 @@ export interface Museum {
   name: string;
   curatedGiftId: GiftId;
   promoLink: string;
+  feedbackUrl: string;
   assets: {
     cChoosePart1: string,
     cChoosePart2: string,
