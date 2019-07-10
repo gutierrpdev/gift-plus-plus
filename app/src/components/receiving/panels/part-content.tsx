@@ -50,9 +50,6 @@ export interface PartContentProps {
 
 type Section =
   | 'start'
-  | 'reveal-preview'
-  | 'do-you-know'
-  | 'wander'
   | 'reveal-preview2'
   | 'show-clue-search'
   | 'need-help'
@@ -91,11 +88,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     }
 
     // Set our section
-    setSection('reveal-preview');
+    setSection('reveal-preview2');
   }
 
-  function gotoFindObject() {
-    setSection('wander');
+  function gotoSneakPeek() {
+    setSection('start');
   }
 
   function gotoGiveClueSearch() {
@@ -179,9 +176,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         setSection('reveal-full');
       }
     }
-    if (section === 'reveal-preview') { setSection('do-you-know'); }
-    if (section === 'do-you-know') { setSection('wander'); }
-    if (section === 'wander') { setSection('reveal-preview2'); }
 
     if (section === 'reveal-preview2') {
 
@@ -225,7 +219,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       case 'show-clue-search':
         return (
           <>
-            <Button onClick={gotoFindObject} primary={true}>OK</Button>
+            <Button onClick={gotoSneakPeek} primary={true}>OK</Button>
             <Button
               onClick={() => {
                 events.track(rPartHelpPressedEvent(props.gift.id, props.giftPartIndex + 1));
@@ -241,7 +235,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           <Button
             onClick={() => {
               events.track(rPartHelpDismissedEvent(props.gift.id, props.giftPartIndex + 1));
-              gotoFindObject();
+              gotoSneakPeek();
             }}
             primary={true}
           >
@@ -310,11 +304,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           // Text changes based on gift count
           return giftPartCount === 1
             ? `This is a sneak peek \n of your gift`
-            : 'This is a sneak peek \n of the first object in your gift';
+            : `This is a sneak peek \n of the first object in your gift.\nDo you know where to look?`;
         case 1 :
-          return 'Here’s a look at the second object in your gift...';
+          return 'Here’s a look at the second object in your gift.\nTake a wander to look for it';
         case 2 :
-          return 'Here’s a glimpse of your last object...';
+          return 'Here’s a glimpse of your last object.\nTime to see if you can track it down';
         default :
           return '';
       }
@@ -331,32 +325,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       return `Here’s the ${part} object that ${giftSenderName} chose for you`;
     }
 
-  }
-
-  function getDoYouNeedaClueText() {
-    switch (props.giftPartIndex) {
-      case 0 :
-        return 'Do you know where to look?';
-      case 1 :
-        return 'Any ideas?';
-      case 2 :
-        return 'Time to see if you can track it down';
-      default :
-        return '';
-    }
-  }
-
-  function getLookAroundText() {
-    switch (props.giftPartIndex) {
-      case 0 :
-        return 'Wander round until you find it';
-      case 1 :
-        return 'Take a wander to look for it';
-      case 2 :
-        return ''; // nothing on 3
-      default :
-        return '';
-    }
   }
 
   function getNeedHelpText() {
@@ -447,44 +415,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               background={'transparent-black'}
               onClick={handleContinue}
             />
-            <WaitThen
-              wait={defaultWait}
-              andThen={handleContinue}
-            />
-          </>
-        }
-
-        {section === 'reveal-preview' &&
-          <>
-            <WaitThen
-              wait={defaultWait}
-              andThen={handleContinue}
-            />
-          </>
-        }
-
-        {section === 'do-you-know' &&
-          <>
-            <PanelPrompt
-              text={getDoYouNeedaClueText()}
-              background={'transparent-black'}
-              onClick={handleContinue}
-            />
-            <WaitThen
-              wait={defaultWait}
-              andThen={handleContinue}
-            />
-          </>
-        }
-
-        {section === 'wander' &&
-          <>
-            {props.giftPartIndex < 2 &&
-            <PanelPrompt
-              text={getLookAroundText()}
-              background={'transparent-black'}
-              onClick={handleContinue}
-            />}
             <WaitThen
               wait={defaultWait}
               andThen={handleContinue}
