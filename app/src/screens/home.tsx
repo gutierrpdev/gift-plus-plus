@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { museum } from '../data';
@@ -14,6 +14,7 @@ import { HomeIntro2 } from '../components/home/home-intro-2';
 import { HomeNewGift } from '../components/home/home-new-gift';
 import { HomeCreateGift } from '../components/home/home-create-gift';
 import { HomeGifts } from '../components/home/home-gifts';
+import { FeedbackModal } from '../components/modals/feedback-modal';
 
 import { BgSvgFullScreen } from '../components/svg/bg';
 import {
@@ -87,18 +88,41 @@ export const HomeScreen: React.FC = () => {
 
   // State
   const [status, setStatus] = useState<Status>('none');
+  const [showFeedback, setShowFeedback] = useState(false);
 
   // Default to the stored state
   const [termsAccepted, setTermsAccepted] = useState<boolean>(getUserHasAgreedTerms());
 
-
+  // Locals
   const museumName = museum.name;
   const curatedGiftId = museum.curatedGiftId;
+  let feedbackTimer: number;
 
+  function hideFeedbackModal() {
+    setShowFeedback(false);
+  }
+
+  // Clear the timeout on unmount
+  useEffect( () => {
+    return () => { window.clearTimeout(feedbackTimer); };
+  }, []);
+
+  // Resets the timer used to show the feedback dialog if we have a time of inactivity
+  function resetFeedbackTimer() {
+
+    window.clearTimeout(feedbackTimer);
+    feedbackTimer = window.setTimeout(() => {
+      setShowFeedback(true);
+    }, 2 * 60 * 1000);
+  }
 
   // Takes the desired status and takes the user to the correct point
   // They have have seen the desired panel, so push forward to the next one
   function showNextScreen(nextStatus: Status) {
+
+    // Reset the feedback timer on each change, to ensure it only appears after inactivity
+    // Only reset after the terms have been accepted
+    if (termsAccepted) resetFeedbackTimer();
 
     if (nextStatus === 'intro1') {
 
@@ -150,6 +174,7 @@ export const HomeScreen: React.FC = () => {
   function handleTermsAccepted() {
     events.track(termsAcceptedEvent());
     setTermsAccepted(true);
+    resetFeedbackTimer();
   }
 
   // Set that the visitor is at the museum
@@ -199,7 +224,11 @@ export const HomeScreen: React.FC = () => {
       }
 
       {status === 'show-gifts' &&
-       <HomeGifts museumName={museumName} curatedGiftId={curatedGiftId} />
+        <HomeGifts museumName={museumName} curatedGiftId={curatedGiftId} />
+      }
+
+      {showFeedback &&
+        <FeedbackModal feedbackUrl={museum.feedbackUrl} onFinished={hideFeedbackModal} />
       }
 
     </ScreenManager>

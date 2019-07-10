@@ -37,6 +37,7 @@ import { InformationWindow } from '../src/components/modals/information-window';
 import { AudioTranscription } from '../src/components/media/audio-transcription';
 import { WorkingModal } from '../src/components/modals/working-modal';
 import { MessageModal } from '../src/components/modals/message-modal';
+import { FeedbackModal } from '../src/components/modals/feedback-modal';
 import { canUseAudioRecorder } from '../src/utils/use-audio-recorder';
 import { PageChangeDetect } from '../src/components/messages/page-change-detect';
 import { isIosDeviceUsingChrome } from '../src/utils/helpers';
@@ -573,6 +574,15 @@ storiesOf('Components/Modals', module)
     <ScreenManager>
       <GlobalStyles />
       <TermsModal museumName='British Museum' onAgreeClick={doNothing} onShowTerms={doNothing} />
+    </ScreenManager>
+  ))
+  .add('Feedback Modal', () => (
+    <ScreenManager>
+      <GlobalStyles />
+      <p style={whiteText}>Wait then show the modal</p>
+      <WaitThenShow wait={5}>
+        <FeedbackModal feedbackUrl='http://www.google.com/' onFinished={() => {alert('finished'); }} />
+      </WaitThenShow>
     </ScreenManager>
   ));
 

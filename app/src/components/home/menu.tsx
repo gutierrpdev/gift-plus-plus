@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { museum } from '../../data';
 import { global, slideDownMenu } from '../../themes/global';
 import { TextResize } from '../text-resize';
 import SvgArrowUp from '../svg/arrow-up';
@@ -150,7 +151,7 @@ const Menu: React.FC<MenuProps> = (props) => {
         <MenuItem><Link onClick={handleCloseClick} to='/'>Home</Link></MenuItem>
         <MenuItem onClick={props.openHelp}>Help</MenuItem>
         <MenuItem onClick={props.openPrivacy}>Privacy</MenuItem>
-        <MenuItem><a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Feedback</a></MenuItem>
+        <MenuItem><a href={museum.feedbackUrl} target='_blank'>Feedback</a></MenuItem>
         <CloseMenuItem onClick={handleCloseClick} aria-label='close menu'><CloseArrowUp /></CloseMenuItem>
       </MenuStyle>
     </MenuWrap>

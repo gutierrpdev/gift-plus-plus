@@ -4,7 +4,6 @@ import { Router, Route, Redirect, Switch } from 'react-router-dom';
 import history from './utils/router-history';
 import { useAsync } from './utils/use-async';
 
-import { config } from './config';
 import { museum } from './data';
 import { assetStore, events } from './services';
 import { appStartedEvent, locationChangedEvent } from './event-definitions';

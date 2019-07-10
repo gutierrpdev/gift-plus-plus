@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { events } from '../../services';
 import { hGiftsCreatePressedEvent, hGiftsOpenMuseumGiftPressedEvent } from '../../event-definitions';
 
+import { museum } from '../../data';
 import { global } from '../../themes/global';
 import { getSessionRecipientLocation } from '../../utils/local';
 
@@ -189,7 +190,7 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName, curatedGiftId }) => {
         <FeedbackSection>
           <ReadMoreLink>
             <TextResize textSize={42}>
-              <a href='https://www.surveymonkey.co.uk/r/S3FPSJB' target='_blank'>Tell us what you thought...</a>
+              <a href={museum.feedbackUrl} target='_blank'>Tell us what you thought...</a>
             </TextResize>
           </ReadMoreLink>
         </FeedbackSection>

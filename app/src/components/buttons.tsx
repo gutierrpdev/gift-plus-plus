@@ -46,7 +46,6 @@ type ButtonColour =
  */
 const buttonStyles = css<ButtonProps>`
   font-family: ${global.fonts.title.family};
-  /* background-color: ${(props) => props.colour === 'white' ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'}; */
   background-color: ${(props) =>
     props.colour === 'white' ? 'rgba(255, 255, 255, 0.7)' :
     props.colour === 'black' ? 'rgba(0, 0, 0, 0.7)' :
@@ -141,6 +140,8 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({ colour = 'white', to, onClick, 
 export interface ButtonAchorProps {
   colour?: ButtonColour; // Colour scheme for this button
   href: string;
+  target?: string;
+  onClick?: () => void;
 }
 
 // Button link styles
@@ -148,9 +149,9 @@ const ButtonAnchorStyle = styled.a<ButtonAchorProps>`
   ${buttonStyles};
 `;
 
-const ButtonAnchor: React.FC<ButtonAchorProps> = ({ colour = 'white', href, children }) => {
+const ButtonAnchor: React.FC<ButtonAchorProps> = ({ colour = 'white', href, target = '', onClick, children }) => {
   return (
-    <ButtonAnchorStyle colour={colour} href={href}>
+    <ButtonAnchorStyle colour={colour} href={href} target={target} onClick={onClick}>
       <TextResize textSize={50}>{children}</TextResize>
     </ButtonAnchorStyle>
   );

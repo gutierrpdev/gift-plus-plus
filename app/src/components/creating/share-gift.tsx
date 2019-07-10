@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { global } from '../../themes/global';
 import { isIosDevice } from '../../utils/helpers';
+import { museum } from '../../data';
 
 import { Panel, PanelContent } from '../panel';
 import { PanelTitle } from '../panel-title';
 import { PanelButtons } from '../panel-buttons';
 import { Button } from '../buttons';
 import { TextResize } from '../text-resize';
+import { FeedbackModal } from '../modals/feedback-modal';
+import { WaitThen } from '../utils/wait-then';
 
 import SvgIconSms from '../svg/icon-sms';
 import SvgIconEmail from '../svg/icon-email';
@@ -106,6 +109,9 @@ export const ShareGift: React.FC<ShareGiftProps> = ({
   onComplete,
 }) => {
 
+  // State
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
   // String templates
   const shareText = `Here's a gift that I made for you at ${museumName}... `;
   const emailText = `mailto:?subject=A gift from me at ${museumName}...&body=Dear ${recipientName},
@@ -128,6 +134,11 @@ export const ShareGift: React.FC<ShareGiftProps> = ({
 
   return (
     <Panel>
+
+      <WaitThen wait={2 * 60 * 1000} andThen={() => {setShowFeedbackModal(true); }} />
+      {showFeedbackModal &&
+        <FeedbackModal feedbackUrl={museum.feedbackUrl} onFinished={() => {setShowFeedbackModal(false); }} />
+      }
 
       <PanelTitle>Send your gift</PanelTitle>
 
