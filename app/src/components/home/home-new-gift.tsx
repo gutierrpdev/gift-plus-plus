@@ -66,7 +66,7 @@ const HomeNewGift: React.FC<Props> = ({ museumName, curatedGiftId }) => {
           onClick={handleCreateYourOwn}
           to='/create-gift'
         >
-          Create a gift
+          Create my own
         </ButtonLink>
 
         <ButtonLink
