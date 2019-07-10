@@ -16,6 +16,7 @@ const brighton: Museum = {
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   promoLink: '/bhqr',
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/S3FPSJB',
+  homeScreenStartPoint: 'ever-made-a-mixtape',
   assets: {
     cChoosePart1: require('./assets/audio/c-choose-part-1.m4a') as string,
     cChoosePart2: require('./assets/audio/c-choose-part-2.m4a') as string,
@@ -49,6 +50,7 @@ const munch: Museum = {
   curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
   promoLink: '/mmqr',
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/S3FPSJB',
+  homeScreenStartPoint: 'new-gift',
   assets: {
     cChoosePart1: require('./assets/audio/c-choose-part-1.m4a') as string,
     cChoosePart2: require('./assets/audio/c-choose-part-2.m4a') as string,

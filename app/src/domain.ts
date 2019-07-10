@@ -54,6 +54,7 @@ export interface Museum {
   curatedGiftId: GiftId;
   promoLink: string;
   feedbackUrl: string;
+  homeScreenStartPoint: 'ever-made-a-mixtape' | 'new-gift';
   assets: {
     cChoosePart1: string,
     cChoosePart2: string,

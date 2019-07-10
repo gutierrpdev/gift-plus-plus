@@ -109,7 +109,6 @@ export const HomeScreen: React.FC = () => {
 
   // Resets the timer used to show the feedback dialog if we have a time of inactivity
   function resetFeedbackTimer() {
-
     window.clearTimeout(feedbackTimer);
     feedbackTimer = window.setTimeout(() => {
       setShowFeedback(true);
@@ -164,7 +163,12 @@ export const HomeScreen: React.FC = () => {
 
   // Start, default to first screen
   if (status === 'none') {
-    showNextScreen('intro1');
+
+    // Set start point based on museum
+    museum.homeScreenStartPoint === 'ever-made-a-mixtape' ? showNextScreen('intro1')
+    : museum.homeScreenStartPoint === 'new-gift' ? showNextScreen('got-new-gift')
+    : noop();
+
   }
 
   // Determine header style
@@ -234,3 +238,5 @@ export const HomeScreen: React.FC = () => {
     </ScreenManager>
   );
 };
+
+const noop = () => {};
