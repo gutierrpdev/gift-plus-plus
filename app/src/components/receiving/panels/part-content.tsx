@@ -390,9 +390,6 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
         : <ROutroRemotePersonalTranscript />;
   }
 
-  // Locals
-  const defaultWait = 5;
-
   return (
     <Panel isParent={false}>
 
@@ -415,10 +412,8 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               background={'transparent-black'}
               onClick={handleContinue}
             />
-            <WaitThen
-              wait={defaultWait}
-              andThen={handleContinue}
-            />
+            {props.recipientLocation === 'at-museum' && <WaitThen wait={4} andThen={handleContinue}/>}
+            {props.recipientLocation !== 'at-museum' && <WaitThen wait={3} andThen={handleContinue}/>}
           </>
         }
 
@@ -440,7 +435,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               onClick={gotoFound}
             />
             <WaitThen
-              wait={defaultWait}
+              wait={1}
               andThen={gotoFound}
             />
           </>
@@ -483,7 +478,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           </PanelPrompt>
 
           <WaitThen
-            wait={defaultWait}
+            wait={5}
             andThen={handleContinue}
           />
         </>
