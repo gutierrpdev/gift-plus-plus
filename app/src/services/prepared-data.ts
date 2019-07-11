@@ -55,17 +55,17 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.U
   parts: [
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-1-photo.7046a68f.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-1-note.d5ff803e.m4a',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-1-note.d5ff803e.m4a+',
       clue: 'In the opening room of the exhibition, towards the back corner',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-2-photo.a046a68e.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-2-note.ffaa803f.m4a',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-2-note.ffaa803f.m4a+',
       clue: 'In the first room of the exhibition, on the lefthand wall as you enter',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-3-photo.d046a68e.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-3-note.6gff805e.m4a',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/munch-31f26acd/part-3-note.6gff805e.m4a+',
       clue: 'In the final room of the exhibition, on the back wall',
     },
   ],
