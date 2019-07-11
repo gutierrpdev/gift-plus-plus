@@ -7,6 +7,7 @@ import { usePreload, totalProgress } from '../utils/use-preload';
 import { api } from '../services';
 import { GetGiftResponse } from '../services/api';
 
+import { museum } from '../data';
 import { ReceiveGift } from '../components/receiving/receive-gift';
 import { WorkingProgress } from '../components/messages/working-progress';
 import { ErrorMessage } from '../components/messages/error-message';
@@ -53,7 +54,7 @@ export const ReceiveGiftScreen: React.FC = () => {
   const giftResponse = apiResult.data;
   const preloadedAssetGift = substituteAssetUrls(giftResponse, preloadState.urlData);
 
-  return <ReceiveGift gift={preloadedAssetGift} museumName={'Brighton Museum'} />;
+  return <ReceiveGift gift={preloadedAssetGift} museumName={museum.name} />;
 };
 
 
