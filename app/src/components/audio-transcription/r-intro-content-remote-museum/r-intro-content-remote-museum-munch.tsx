@@ -4,7 +4,7 @@ import React from 'react';
 const RIntroContentRemoteMuseumTranscriptionMunch: React.FC = () => (
   <>
     <h5>Introduction</h5>
-    <p>Hey. So... this gift has been made for you. I’ll explain. Someone at the museum wanted to share the objects in this gift with you and recorded messages for each one. Tap continue and I’ll see you on the other side.</p>
+    <p>Hey. So... this gift has been made for you. I’ll explain. Someone at the museum wanted to share the objects in this gift with you and recorded messages for each one. Tap continue and I’ll see you on the other side.</p>
   </>
 );
 
