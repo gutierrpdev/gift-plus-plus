@@ -31,7 +31,7 @@ const Outer = styled(BaseModalWindow)`
   h2 {
     margin: 20px 0 20px 0;
     font-family: ${global.fonts.title.family};
-    font-weight: ${global.fonts.title.black};
+    font-weight: ${global.fonts.title.bold};
     color: #555555;
   }
   h3,
