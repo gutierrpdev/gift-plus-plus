@@ -17,7 +17,7 @@ import { ReceivingOpenGift } from './open-gift';
 import { Panel, PanelContent } from '../panel';
 import { PanelButtons } from '../panel-buttons';
 import { PanelPrompt } from '../panel-prompt';
-import { BgSvgFullScreen } from '../svg/bg';
+import { BackgroundSvg } from '../background-svg';
 import {
   getSessionRecipientLocation,
   setSessionRecipientLocation,
@@ -198,7 +198,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
 
     return (
       <ScreenManager>
-        <BgSvgFullScreen />
+        <BackgroundSvg />
         <GlobalStyles />
 
         {headerSize === 'big' &&

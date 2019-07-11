@@ -16,7 +16,7 @@ import { HomeCreateGift } from '../components/home/home-create-gift';
 import { HomeGifts } from '../components/home/home-gifts';
 import { FeedbackModal } from '../components/modals/feedback-modal';
 
-import { BgSvgFullScreen } from '../components/svg/bg';
+import { BackgroundSvg } from '../components/background-svg';
 import {
     getHasSeenHomeIntro,
     setHasSeenHomeIntro,
@@ -186,7 +186,7 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <ScreenManager allowScroll={allowScroll}>
-      <BgSvgFullScreen />
+      <BackgroundSvg />
       <GlobalStyles />
 
       {/* Header */}

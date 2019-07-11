@@ -17,7 +17,7 @@ import {
 
 import { PageChangeDetect } from '../messages/page-change-detect';
 import { GlobalStyles, global } from '../../themes/global';
-import { BgSvgFullScreen } from '../svg/bg';
+import { BackgroundSvg } from '../background-svg';
 import { ScreenManager } from '../screen-manager';
 import { ScreenHeader } from '../screen-header';
 import { TextResize } from '../text-resize';
@@ -91,7 +91,7 @@ export const CreateGift: React.FC<Props> = ({ museumName }) => {
   return (
 
     <ScreenManager>
-      <BgSvgFullScreen />
+      <BackgroundSvg />
       <GlobalStyles />
       <PageChangeDetect
         enabled={!canNavigateAway()}
