@@ -109,9 +109,6 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
     events.track(cPartStartedEvent(gift.id, partNumber));
   }, [giftPartIndex]);
 
-  // Defaults
-  const defaultWait = 5;
-
   // Sets all state to initial values
   function resetState() {
     setFirstAudioHasPlayed(false);
@@ -227,7 +224,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
             />
           }
           <WaitThen
-            wait={defaultWait}
+            wait={4}
             andThen={() => { setStatus('second-message'); }}
           />
         </PanelContent>
@@ -483,7 +480,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
             onClick={next}
           />
           <WaitThen
-            wait={defaultWait}
+            wait={4}
             andThen={next}
           />
         </PanelContent>
@@ -545,6 +542,8 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
           You’ve made part one of your gift for ${recipientName}`
       : `Done!`;
 
+    const wait = giftPartIndex === 0 ? 3 : 1;
+
     return (
       <>
         <PanelContent>
@@ -554,7 +553,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
             onClick={next}
           />
           <WaitThen
-            wait={defaultWait}
+            wait={wait}
             andThen={next}
           />
         </PanelContent>
@@ -574,7 +573,7 @@ export const CreatingPartContent: React.FC<Props> = ({ recipientName, gift, onCo
             />
           }
           <WaitThen
-            wait={defaultWait}
+            wait={2}
             andThen={() => { setStatus('send-or-add-more'); }}
           />
         </PanelContent>
