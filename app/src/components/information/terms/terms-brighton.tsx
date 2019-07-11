@@ -12,7 +12,7 @@ export const TermsContent: React.FC = () => (
       <em>Last updated: June 7, 2019</em>
     </p>
     <p>
-      Welcome to Gift. This document sets out the <a href='#terms'>terms</a> for using the Gift website and how we handle <a href='#privacy'>your data</a>. Please read this document and if you have any questions then please do <a href='#contact'>get in touch</a>.
+      Welcome to Gift. This document sets out the terms for using the Gift website and how we handle your data. Please read this document and if you have any questions then please do get in touch.
     </p>
     <p>Here are the headlines:</p>
     <h3>1. Play nice</h3>
@@ -38,7 +38,7 @@ export const TermsContent: React.FC = () => (
 
     <p>
       This document forms the Terms of Use (the 'Agreement') for the services provided by Blast Theory ('we', 'our') as part of the Gift website (the
-      'Website'). By accessing or using the Website in any way or by creating an account users ('User', 'Users', 'you', 'your') agree to abide by this Agreement.
+      'Website'). By accessing or using the Website in any way, users ('User', 'Users', 'you', 'your') agree to abide by this Agreement.
     </p>
 
     <p>
@@ -61,76 +61,59 @@ export const TermsContent: React.FC = () => (
 
     {/* <a name='conduct'></a> */}
     <h3>2. User conduct</h3>
-    <ul>
-      <li>
+    <p>
         You are solely responsible for your conduct on the Website, and for any
         content, including but not limited to text, audio and photos
         (collectively, 'User Content'), that you contribute in the Website.
-      </li>
-      <li>
-        You may not users the Website to abuse, harass, threaten, impersonate or
+    </p>
+    <p>
+        You may not use the Website to abuse, harass, threaten, impersonate or
         intimidate others or to create or submit unwanted email or other
         messages.
-      </li>
-      <li>
+    </p>
+    <p>
         You may not use the Website for any illegal or unauthorized purpose.
         International Users agree to comply with all local laws regarding
         conduct and acceptable content.
-      </li>
-      <li>
+    </p>
+    <p>
         You may not collect or harvest any personally identifiable information
         from the Website.
-      </li>
-      <li>
+    </p>
+    <p>
         You may not use the Website to upload, transmit or link to Prohibited
         Content. Generally, Prohibited Content includes content or other
         material that we believe:
-      </li>
-      <ul>
-        <li>
-          is abusive, deceptive, pornographic, obscene, defamatory, slanderous,
-          offensive, encourages conduct that would violate or violates any law,
-          harassing, hateful, racially or ethnically offensive, or otherwise
-          inappropriate;
-        </li>
-        <li>
-          comprises material that is copyrighted or protected by trade secret or
-          otherwise subject to third party proprietary rights, including privacy
-          and publicity rights, unless express written permission of the owner
-          is obtained to use the material and to grant all of the license rights
-          granted herein;
-        </li>
-        <li>violates or otherwise encroaches on the rights of others;</li>
-        <li>advocates illegal activity;</li>
-        <li>harms anyone, including minors; or</li>
-        <li>provides a link to any of the above.</li>
-      </ul>
+    </p>
+    <ul>
       <li>
-        In order to use some features of the Website, you will need to create a
-        Member account. The information you provide for your Member account you
-        must be true, accurate, current, and complete, including a correct email
-        address.
+        is abusive, deceptive, pornographic, obscene, defamatory, slanderous,
+        offensive, encourages conduct that would violate or violates any law,
+        harassing, hateful, racially or ethnically offensive, or otherwise
+        inappropriate;
       </li>
       <li>
-        You are responsible for any activity that occurs through your use of the
-        website or under your account.
+        comprises material that is copyrighted or protected by trade secret or
+        otherwise subject to third party proprietary rights, including privacy
+        and publicity rights, unless express written permission of the owner
+        is obtained to use the material and to grant all of the license rights
+        granted herein;
       </li>
-      <li>
-        You may not transfer your account and you are responsible for keeping
-        your account secure.
-      </li>
-      <li>
-        You are respoonsible for notifying us immediately of any breach of
-        security or unauthorized use of your Member account using the
-        <a href='#contact'>contact below</a>.
-      </li>
-      <li>
-        You are responsible for maintaining the confidentiality of any personal
-        or personally identifiable data you upload and are responsible for
-        complying with all applicable laws governing collection, storage,
-        processing, use and transfer of such information.
-      </li>
+      <li>violates or otherwise encroaches on the rights of others;</li>
+      <li>advocates illegal activity;</li>
+      <li>harms anyone, including minors; or</li>
+      <li>provides a link to any of the above.</li>
     </ul>
+    <p>
+      You are responsible for any activity that occurs through your use of the
+      Website.
+    </p>
+    <p>
+      You are responsible for maintaining the confidentiality of any personal
+      or personally identifiable data you upload and are responsible for
+      complying with all applicable laws governing collection, storage,
+      processing, use and transfer of such information.
+    </p>
     <p>
       Blast Theory has the sole discretion to determine whether Content is
       Prohibited Content, and any Content submitted to the Website may be
@@ -486,8 +469,8 @@ export const TermsContent: React.FC = () => (
     </p>
     <p>
       Email:
-      {/* <a name='contact' href='mailto:help@blasttheory.co.uk'> */}
-      <a href='mailto:help@blasttheory.co.uk'>help@blasttheory.co.uk</a>
+      {/* <a name='contact' href='mailto:gift@blasttheory.co.uk'> */}
+      <a href='mailto:gift@blasttheory.co.uk'>gift@blasttheory.co.uk</a>
     </p>
   </>
 );
