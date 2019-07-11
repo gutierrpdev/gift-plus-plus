@@ -20,7 +20,7 @@ export const HelpContent: React.FC = () => (
     <p>To take part in the museum, you will need a smart phone or tablet.</p>
     <h5>What devices can I use?</h5>
     <p>Gift is designed to run on most modern smart phones. It has been tested on devices running Android 6.0 or newer and in Safari on iOS11 or newer.</p>
-    <p>You can also open gifts (but not create gifts) on a laptop or desktop computer or in Safari on iOS9+10.</p>
+    <p>You can also open gifts (but not create gifts) on a laptop or desktop computer.</p>
     <h5>What devices and browsers are not supported?</h5>
     <p>Chrome on iOS is not currently supported. Older budget Android devices may also have problems loading Gift.</p>
     <h5>Do I need to install an app?</h5>
@@ -75,7 +75,7 @@ export const HelpContent: React.FC = () => (
     <h5>How much data do gifts use?</h5>
     <p>Gifts are generally less than 10MB each.</p>
     <h5>How long do you store my gifts for? Will you delete them?</h5>
-    <p>Gift is planned to run at Brighton Museum from June 1-30, 2019. Gifts created by visitors will only be accessible during this time. Gifts may also be deleted at the request of users (see below). Please read our terms and privacy for details of storing and deleting your data.</p>
+    <p>Gift is planned to run at Brighton Museum until October, 2019. Gifts created by visitors will only be accessible during this time. Gifts may also be deleted at the request of users (see below). Please read our terms and privacy for details of storing and deleting your data.</p>
     <h5>How can I report abuse or request to delete a gift or my data?</h5>
     <p>Please email Blast Theory at gift@blasttheory.co.uk or choose 'Feedback' from the main menu.</p>
     <hr/>
@@ -83,7 +83,7 @@ export const HelpContent: React.FC = () => (
     <h5>Does Gift have sound?</h5>
     <p>Yes. Gifts you receive include audio messages from the sender. The website also has a narrator that guides you through creating and opening gifts.</p>
     <h5>I have a hearing impairment. Can I still use Gift?</h5>
-    <p>Gifts contain audio messages that you will need to listen to when they open gifts. When creating gifts you need to record audio messages to accompany each object using your phone. The narrator’s audio throughout the experience may be optionally skipped.</p>
+    <p>Gifts contain audio messages that you will need to listen to when they open gifts. When creating gifts you need to record audio messages to accompany each object using your phone. Transcripts of the narrator’s audio are provided throughout.</p>
     <h5>I have a vision impairment. Can I still use Gift?</h5>
     <p>Photos are used in the interface to identify the objects in gifts. These are shown alongside text clues to help locate the objects. You are advised in the interface to ask a member of staff if you cannot find an object in your gift. When creating gifts, you are also asked to take photos of the objects you would like to choose.</p>
     <h5>I have problems using Gift. How can I tell you about them?</h5>
