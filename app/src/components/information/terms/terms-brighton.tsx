@@ -9,7 +9,7 @@ export const TermsContent: React.FC = () => (
   <>
     <h1>Terms &amp; Privacy</h1>
     <p>
-      <em>Last updated: June 7, 2019</em>
+      <em>Last updated: July 11, 2019</em>
     </p>
     <p>
       Welcome to Gift. This document sets out the terms for using the Gift website and how we handle your data. Please read this document and if you have any questions then please do get in touch.
