@@ -3,6 +3,7 @@ import React from 'react';
 import { isIosDeviceUsingChrome } from '../utils/helpers';
 import { canUseAudioRecorder } from '../utils/use-audio-recorder';
 
+import { museum } from '../data';
 import { UnsupportedDevice } from '../components/messages/unsupported-device';
 import { CreateGift } from '../components/creating/create-gift';
 
@@ -29,7 +30,7 @@ const CreateGiftScreen: React.FC = () => {
   }
 
   // Show
-  return <CreateGift museumName={'Brighton Museum'} />;
+  return <CreateGift museumName={museum.name} />;
 };
 
 export {
