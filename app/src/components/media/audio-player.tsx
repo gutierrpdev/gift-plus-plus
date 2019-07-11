@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import { events } from '../../services';
@@ -323,8 +323,8 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
 
           {/* support line breaks */}
           <AudioPanelText>
-            {this.props.message && this.props.message.split('\n').map((item) => {
-              return <>{item}<br /></>;
+            {this.props.message && this.props.message.split('\n').map((item, key) => {
+              return <Fragment key={key}>{item}<br /></Fragment>;
             })}
           </AudioPanelText>
 
