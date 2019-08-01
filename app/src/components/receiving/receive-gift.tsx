@@ -152,13 +152,13 @@ class ReceiveGift extends React.PureComponent<Props, State> {
       <Panel>
         <PanelContent>
           <PanelPrompt
-            text={`Save your gift for when you're at the museum or open it anyway?`}
+            text={`Open it now or save your gift for when you're at the museum?`}
             background={'transparent-black'}
           />
         </PanelContent>
         <PanelButtons>
+          <Button onClick={this.handleOpenAnywayClicked} primary={true}>Open it now</Button>
           <Button onClick={this.handleSaveForLaterClicked}>Save it</Button>
-          <Button onClick={this.handleOpenAnywayClicked} primary={true}>Open it anyway</Button>
         </PanelButtons>
       </Panel>
     );
