@@ -52,6 +52,9 @@ const ShareLinkIcon = styled.div`
   width: 15%;
   height: auto;
   opacity: 0.7;
+  svg { /* hack to prevent cutoff on iPhone7 */
+    width: 99%;
+  }
 `;
 
 const ShareLinkText = styled.div`
