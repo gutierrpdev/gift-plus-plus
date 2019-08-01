@@ -225,6 +225,7 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
             showLogo={false}
+            background='white'
             museumName={museumName}
           />
         }
