@@ -21,6 +21,7 @@ import {
     getHasSeenHomeIntro,
     setHasSeenHomeIntro,
     getHasUnopenedMuseumGift,
+    getSessionRecipientLocation,
     setSessionRecipientLocation,
     getUserHasAgreedTerms,
 } from '../utils/local';
@@ -181,8 +182,10 @@ export const HomeScreen: React.FC = () => {
     resetFeedbackTimer();
   }
 
-  // Set that the visitor is at the museum
-  setSessionRecipientLocation('at-museum');
+  // If visitor location has not been set, set default to at the museum
+  if ( getSessionRecipientLocation() === 'unknown' ) {
+    setSessionRecipientLocation('at-museum');
+  }
 
   return (
     <ScreenManager allowScroll={allowScroll}>
