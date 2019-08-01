@@ -317,6 +317,7 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
       // Not at museum
 
       const part =
+        giftPartCount === 1 ? '' : // Nothing for one part gift
         props.giftPartIndex === 0 ? 'first' :
         props.giftPartIndex === 1 ? 'second' :
         props.giftPartIndex === 2 ? 'third' :
