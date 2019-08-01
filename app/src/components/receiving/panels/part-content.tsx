@@ -304,11 +304,11 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
           // Text changes based on gift count
           return giftPartCount === 1
             ? `This is a sneak peek \n of your gift`
-            : `This is a sneak peek \n of the first object in your gift.\nDo you know where to look?`;
+            : `This is a sneak peek \n of the first object in your gift. Do you know where to look?`;
         case 1 :
-          return 'Here’s a look at the second object in your gift.\nTake a wander to look for it';
+          return 'Here’s a look \n at the second object in your gift. Take a wander to find it';
         case 2 :
-          return 'Here’s a glimpse of your last object.\nTime to see if you can track it down';
+          return 'Here’s a glimpse of your last object. Time to see if you can track it down';
         default :
           return '';
       }
