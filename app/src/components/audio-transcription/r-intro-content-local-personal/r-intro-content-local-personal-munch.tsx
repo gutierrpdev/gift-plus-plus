@@ -4,7 +4,7 @@ import React from 'react';
 const RIntroContentLocalPersonalTranscriptionMunch: React.FC = () => (
   <>
     <h5>Introduction</h5>
-    <p>Hey. So you’re the one getting the gift. Lucky. I know someone has been thinking about you. If you want to just start walking, slowly, in any direction, I’ll explain. Ok? Someone you know has visited the museum. You were the lens for everything they looked at. They searched out things they thought you would care about and they took photos and made messages. When you open a part, walk around and see if you can find it. I’ll see you on the other side.</p>
+    <p>Hey. So you’re the one getting the gift. Lucky. Someone you know has visited the museum. You were the lens for everything they looked at. They searched out things they thought you would care about and they took photos and made messages. When you open a part, walk around and see if you can find it. I’ll see you on the other side.</p>
   </>
 );
 
