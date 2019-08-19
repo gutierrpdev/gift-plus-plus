@@ -27,7 +27,9 @@ services:
         - 'traefik.enable=true'
         - 'traefik.port=80'
         - 'traefik.domain=thegift.app'
-        - 'traefik.frontend.rule=Host:thegift.app'
+        - 'traefik.frontend.rule=Host:thegift.app,www.thegift.app'
+        - 'traefik.frontend.redirect.regex=^https://thegift.app/(.*)$$'
+        - 'traefik.frontend.redirect.replacement=https://www.thegift.app/$$1'
 
   app-munch:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
