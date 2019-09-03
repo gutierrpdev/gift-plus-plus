@@ -157,6 +157,7 @@ const PlaybackPanel: React.FC<{
   const [recordedAudioHasPlayedBack, setRecordedAudioHasPlayedBack] = useState(false);
 
   // Show the buttons always for parts 2 and 3, and only if played back on part 1, #165
+  // Note: Show the buttons when the Play button is clicked to ensure a failed recording can be re-recorded
   const showButtons = recordedAudioHasPlayedBack || giftPartIndex > 0;
 
   return (
@@ -168,7 +169,7 @@ const PlaybackPanel: React.FC<{
           forwardButtonType={'go-to-end'}
           giftId={giftId}
           audioReference={`c-part${giftPartIndex + 1}-playback-recorded-message`}
-          onPlaybackComplete={() => {setRecordedAudioHasPlayedBack(true); }}
+          onPlaybackStarted={() => {setRecordedAudioHasPlayedBack(true); }}
         />
       </PanelContent>
       {showButtons &&
