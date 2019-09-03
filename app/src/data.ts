@@ -49,7 +49,7 @@ const munch: Museum = {
   slug: 'munch',
   name: 'the Munch Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
-  promoLink: '/mmqr',
+  promoLink: '/pcqr',
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/3ZSHXWD',
   homeScreenStartPoint: 'new-gift',
   assets: {
