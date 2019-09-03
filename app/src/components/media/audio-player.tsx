@@ -103,7 +103,7 @@ export class AudioPlayer extends React.PureComponent<Props, State> {
     if (this.audio) {
 
       // Ended
-      // todo: this doesnt seem to work now
+      // todo: this doesn't seem to work now
       this.audio.addEventListener('ended', () => {
         if (this.audio) {
           // Update the UI
