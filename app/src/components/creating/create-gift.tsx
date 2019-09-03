@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import uuidv4 from 'uuid/v4';
-import uuidv5 from 'uuid/v5';
 
-import { InProgressGift, Gift } from '../../domain';
+import { InProgressGift, Gift, MuseumId } from '../../domain';
 
 import { events } from '../../services';
 import {
@@ -60,16 +59,17 @@ type Status =
 
 interface Props {
   museumName: string;
+  museumId: MuseumId;
 }
 
-export const CreateGift: React.FC<Props> = ({ museumName }) => {
+export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
 
   const [status, setStatus] = useState<Status>('intro');
   const [newGift, setNewGift] = useState<Gift | null>(null); // TODO: TEMP: refactor
 
   const [gift, setGift] = useState<InProgressGift>({
     id: uuidv4(),
-    museumId: uuidv5('https://api.thegift.app/museum/brighton-museum', uuidv5.URL),
+    museumId,
     parts: [],
   });
 

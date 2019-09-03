@@ -135,7 +135,7 @@ storiesOf('Creating', module)
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <CreateGift museumName={'Blast Theory Museum of Art'} />
+        <CreateGift museumName={'Blast Theory Museum of Art'} museumId={'123'} />
       </BrowserRouter>
     </>
   ))

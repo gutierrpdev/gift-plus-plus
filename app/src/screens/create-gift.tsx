@@ -30,7 +30,7 @@ const CreateGiftScreen: React.FC = () => {
   }
 
   // Show
-  return <CreateGift museumName={museum.name} />;
+  return <CreateGift museumName={museum.name} museumId={museum.id} />;
 };
 
 export {
