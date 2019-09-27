@@ -68,9 +68,9 @@ export const Main: React.FC = () => {
           <CreateGiftScreen />
         </Route>
 
-        {/* "Promo" link: direct access to museum gift */}
+        {/* "Promo" link: direct access to museum gift, root, or other path */}
         <Route exact={true} path={`${museum.promoLink}`} >
-          <Redirect to={`/gift/${museum.curatedGiftId}`} />
+          <Redirect to={museum.promoDestination} />
         </Route>
 
         <Route path='/gift/:giftId'>

@@ -53,6 +53,7 @@ export interface Museum {
   name: string;
   curatedGiftId: GiftId;
   promoLink: string;
+  promoDestination: string;
   feedbackUrl: string;
   homeScreenStartPoint: 'ever-made-a-mixtape' | 'new-gift';
   assets: {

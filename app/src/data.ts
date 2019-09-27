@@ -16,6 +16,7 @@ const brighton: Museum = {
   name: 'Brighton Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   promoLink: '/bhqr',
+  get promoDestination() { return `/gift/${this.curatedGiftId}`; },
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/S3FPSJB',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   assets: {
@@ -50,6 +51,7 @@ const munch: Museum = {
   name: 'the Munch Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.URL),
   promoLink: '/pcqr',
+  promoDestination: '/',
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/3ZSHXWD',
   homeScreenStartPoint: 'new-gift',
   assets: {
