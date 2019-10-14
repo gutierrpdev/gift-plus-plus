@@ -2,9 +2,10 @@
 # BASE
 # ====
 
-FROM node:12-alpine as base
+FROM node:12 as base
 
-RUN adduser -D -g '' -h /app app
+RUN adduser --gecos '' --disabled-password --disabled-login --home /app app
+
 USER app:app
 WORKDIR /app
 
