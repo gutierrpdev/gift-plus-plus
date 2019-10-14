@@ -5,7 +5,7 @@ This
 # Dependencies
 
 PostrgeSQL 11+
-NodeJS 11+
+NodeJS 12+
 FFmpeg 3.4+
 
 

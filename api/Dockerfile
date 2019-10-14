@@ -2,7 +2,7 @@
 # BASE
 # ====
 
-FROM node:11 as base
+FROM node:12 as base
 
 RUN apt-get update; \
     apt-get install -y --no-install-recommends \

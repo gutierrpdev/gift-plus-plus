@@ -2,7 +2,7 @@
 # BASE
 # ====
 
-FROM node:11-alpine as base
+FROM node:12-alpine as base
 
 RUN adduser -D -g '' -h /app app
 USER app:app
