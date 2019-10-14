@@ -1,3 +1,4 @@
+# IGNORE_ME: bump-001
 image: docker:stable
 
 stages:
