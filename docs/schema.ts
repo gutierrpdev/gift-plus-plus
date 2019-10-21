@@ -20,10 +20,3 @@ interface GiftPart {
   note: AudioRecordingUrl;
   clue: string;
 }
-
-
-interface Museum {
-  id: MuseumId;
-  name: string;
-  appAssets: {};
-}
