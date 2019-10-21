@@ -200,43 +200,43 @@ export const HomeScreen: React.FC = () => {
       />
 
       {/* Title */}
-      {homeHeader &&
+      {homeHeader && (
         <>
           <MainTitleSmall>Gift</MainTitleSmall>
           <MuseumNameSmall>{`at ${museumName}`}</MuseumNameSmall>
         </>
-      }
-      {!homeHeader &&
+      )}
+      {!homeHeader && (
         <>
           <MainTitle>Gift</MainTitle>
           <MuseumName>{`at ${museumName}`}</MuseumName>
         </>
-      }
+      )}
 
 
       {/* Content */}
       {status === 'intro1' && !termsAccepted && <HomeIntro1 />}
       {status === 'intro1' && termsAccepted && <HomeIntro1 onComplete={() => {setStatus('intro2'); }} />}
 
-      {status === 'intro2' &&
+      {status === 'intro2' && (
         <HomeIntro2 onComplete={() => {showNextScreen('got-new-gift'); }} />
-      }
+      )}
 
-      {status === 'got-new-gift' &&
+      {status === 'got-new-gift' && (
         <HomeNewGift museumName={museumName} curatedGiftId={curatedGiftId} />
-      }
+      )}
 
-      {status === 'create-gift' &&
+      {status === 'create-gift' && (
         <HomeCreateGift onMoreClick={() => {setStatus('show-gifts'); }} />
-      }
+      )}
 
-      {status === 'show-gifts' &&
+      {status === 'show-gifts' && (
         <HomeGifts museumName={museumName} curatedGiftId={curatedGiftId} />
-      }
+      )}
 
-      {showFeedback &&
+      {showFeedback && (
         <FeedbackModal feedbackUrl={museum.feedbackUrl} onFinished={hideFeedbackModal} />
-      }
+      )}
 
     </ScreenManager>
   );

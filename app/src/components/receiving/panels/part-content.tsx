@@ -263,10 +263,12 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
 
         return (
           <>
-            {audioPlaybackComplete && furtherPart &&
-              <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>}
-            {audioPlaybackComplete && !furtherPart &&
-              <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>}
+            {audioPlaybackComplete && furtherPart && (
+              <Button onClick={gotoEndOfGiftPart} primary={true}>{openPartText}</Button>
+            )}
+            {audioPlaybackComplete && !furtherPart && (
+              <Button onClick={gotoEndOfGiftPart} primary={true}>Done</Button>
+            )}
           </>
         );
       case 'show-clue-found':
@@ -395,18 +397,18 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
     <Panel isParent={false}>
 
       {/* Audio transcriptions live outside of the PanelContent for layout purposes */}
-      {section === 'outro' &&
-      <AudioTranscription
-        giftId={props.gift.id}
-        audioReference={`r-part${props.giftPartIndex + 1}-outro`}
-      >
-        {getOutroAudioTranscript()}
-      </AudioTranscription>
-      }
+      {section === 'outro' && (
+        <AudioTranscription
+          giftId={props.gift.id}
+          audioReference={`r-part${props.giftPartIndex + 1}-outro`}
+        >
+          {getOutroAudioTranscript()}
+        </AudioTranscription>
+      )}
 
       <PanelContent>
 
-        {section === 'start' &&
+        {section === 'start' && (
           <>
             <PanelPrompt
               text={getIntroText()}
@@ -416,19 +418,19 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             {props.recipientLocation === 'at-museum' && <WaitThen wait={4} andThen={handleContinue}/>}
             {props.recipientLocation !== 'at-museum' && <WaitThen wait={3} andThen={handleContinue}/>}
           </>
-        }
+        )}
 
         {/* reveal-preview2 - nothing to show */}
 
-        {section === 'show-clue-search' &&
+        {section === 'show-clue-search' && (
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
-        }
+        )}
 
-        {section === 'need-help' &&
+        {section === 'need-help' && (
           <PanelPrompt text={getNeedHelpText()} background={'transparent-black'} />
-        }
+        )}
 
-        {section === 'help-is-here' &&
+        {section === 'help-is-here' && (
           <>
             <PanelPrompt
               text={getPreFindText()}
@@ -440,17 +442,17 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
               andThen={gotoFound}
             />
           </>
-        }
+        )}
 
         {/* auto continue if at the museum */}
-        {section === 'reveal-full' && (props.recipientLocation === 'at-museum') &&
+        {section === 'reveal-full' && (props.recipientLocation === 'at-museum') && (
           <WaitThen
             wait={1}
             andThen={gotoFoundAudio}
           />
-        }
+        )}
 
-        {section === 'play-audio' &&
+        {section === 'play-audio' && (
           <AudioPlayer
             message={getPlaySendersMessage()}
             src={giftPart.note}
@@ -459,43 +461,43 @@ const ReceivingPartContent: React.FC<PartContentProps> = (props) => {
             audioReference={`r-part${props.giftPartIndex + 1}-play-sender-message`}
             onPlaybackComplete={handleAudioPlaybackFinished}
           />
-        }
+        )}
 
-        {section === 'show-clue-found' &&
+        {section === 'show-clue-found' && (
           <PanelPrompt text={giftPart.clue} background={'transparent-black'} />
-        }
+        )}
 
-        {section === 'unwrapped' &&
-        <>
-          <PanelPrompt
-            background={'transparent-black'}
-          >
-            <DoneIconWrap>
-              <SvgIconDone />
-            </DoneIconWrap>
+        {section === 'unwrapped' && (
+          <>
+            <PanelPrompt
+              background={'transparent-black'}
+            >
+              <DoneIconWrap>
+                <SvgIconDone />
+              </DoneIconWrap>
 
-            <PanelText>You’ve unwrapped the whole gift</PanelText>
+              <PanelText>You’ve unwrapped the whole gift</PanelText>
 
-          </PanelPrompt>
+            </PanelPrompt>
 
-          <WaitThen
-            wait={5}
-            andThen={handleContinue}
-          />
-        </>
-        }
+            <WaitThen
+              wait={5}
+              andThen={handleContinue}
+            />
+          </>
+        )}
 
-        {section === 'outro' &&
-        <AudioPlayer
-          message={`Ready for
+        {section === 'outro' && (
+          <AudioPlayer
+            message={`Ready for
             the last bit?`}
-          src={getOutroAudioFile()}
-          forwardButtonType={'go-to-end'}
-          giftId={props.gift.id}
-          audioReference={`r-part${props.giftPartIndex + 1}-outro`}
-          onPlaybackComplete={() => {setOutroAudioPlaybackFinished(true); }}
-        />
-        }
+            src={getOutroAudioFile()}
+            forwardButtonType={'go-to-end'}
+            giftId={props.gift.id}
+            audioReference={`r-part${props.giftPartIndex + 1}-outro`}
+            onPlaybackComplete={() => {setOutroAudioPlaybackFinished(true); }}
+          />
+        )}
 
       </PanelContent>
 

@@ -99,17 +99,17 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
       />
 
       {/* Header */}
-      {headerState === 'name-unknown' &&
-      <>
+      {headerState === 'name-unknown' && (
+        <>
         <ScreenHeader
           museumName={museumName}
         />
         <MainTitle>Creating<br/>
           a gift</MainTitle>
       </>
-      }
+      )}
 
-      {headerState === 'named-small' &&
+      {headerState === 'named-small' && (
        <ScreenHeader
          preSubTitle={`Creating a gift for`}
          subTitle={gift.recipientName}
@@ -117,20 +117,20 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
          museumName={museumName}
          showGradient={'small'}
        />
-      }
+      )}
 
 
       {/* Content */}
-      {status === 'intro' &&
+      {status === 'intro' && (
         <CreateGiftIntro
           onComplete={() => {
             events.track(cIntroCompletedEvent(gift.id));
             setStatus('choose-recipient');
           }}
         />
-      }
+      )}
 
-      {status === 'choose-recipient' &&
+      {status === 'choose-recipient' && (
         <CreateGiftChooseRecipient
           giftId={gift.id}
           onComplete={(recipientName) => {
@@ -139,9 +139,9 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
             setStatus('creating-part');
           }}
         />
-      }
+      )}
 
-      {status === 'creating-part' && gift.recipientName !== undefined &&
+      {status === 'creating-part' && gift.recipientName !== undefined && (
        <CreatingPartContent
          gift={gift}
          recipientName={gift.recipientName}
@@ -150,9 +150,9 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
            setStatus('sign-gift');
          }}
        />
-      }
+      )}
 
-      {status === 'sign-gift' &&
+      {status === 'sign-gift' && (
        <SignGift
          onComplete={(senderName) => {
            events.track(cSigningCompletedEvent(gift.id));
@@ -160,9 +160,9 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
            setStatus('save-gift');
          }}
        />
-      }
+      )}
 
-      {status === 'save-gift' &&
+      {status === 'save-gift' && (
        <SaveGift
          gift={gift}
          onComplete={(newlyCreatedGift) => {
@@ -170,9 +170,9 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
            setStatus('share-gift');
          }}
        />
-      }
+      )}
 
-      {status === 'share-gift' && newGift &&
+      {status === 'share-gift' && newGift && (
        <ShareGift
          senderName={newGift.senderName}
          recipientName={newGift.recipientName}
@@ -186,13 +186,13 @@ export const CreateGift: React.FC<Props> = ({ museumName, museumId }) => {
            setStatus('outro');
          }}
        />
-      }
+      )}
 
-      {status === 'outro' &&
+      {status === 'outro' && (
        <CreatingOutro
          gift={gift}
        />
-      }
+      )}
 
     </ScreenManager>
   );

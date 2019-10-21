@@ -37,7 +37,7 @@ const ReceiveReply: React.FC<Props> = (props) => {
         Your reply
       </AccordionTitle>
 
-      {hasRecording &&
+      {hasRecording && (
         <AudioPlayer
           message={'Listen back to your reply...'}
           src={''}
@@ -45,10 +45,10 @@ const ReceiveReply: React.FC<Props> = (props) => {
           giftId={props.gift.id}
           audioReference={`r-reply`}
         />
-      }
-      {!hasRecording &&
+      )}
+      {!hasRecording && (
         <AudioRecorder status={'idle'} text={recordText} onClick={todo} />
-      }
+      )}
 
       {/* Should this be PanelButtons ??? */}
       <Buttons>

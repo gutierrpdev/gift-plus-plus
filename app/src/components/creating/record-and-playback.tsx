@@ -172,11 +172,12 @@ const PlaybackPanel: React.FC<{
           onPlaybackStarted={() => {setRecordedAudioHasPlayedBack(true); }}
         />
       </PanelContent>
-      {showButtons &&
-      <PanelButtons>
-        <Button onClick={onReRecordClicked}>Try again</Button>
-        <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
-      </PanelButtons>}
+      {showButtons && (
+        <PanelButtons>
+          <Button onClick={onReRecordClicked}>Try again</Button>
+          <Button primary={true} onClick={onSaveClicked}>{saveButtonText}</Button>
+        </PanelButtons>
+      )}
     </Panel>
   );
 };

@@ -156,23 +156,25 @@ class GiftPartWrapper extends React.PureComponent<Props, State> {
       case 0 :
         return (
           <>
-            {index === 0 &&
-            <ReceivingIntroContent
-              gift={this.props.gift}
-              onComplete={this.nextPanel}
-              recipientLocation={this.props.recipientLocation}
-              audioIntroPlayed={this.state.audioIntroPlayed}
-              handleAudioIntroPlayed={this.handleIntroAudioPlayed}
-            />}
-            {index === 1 &&
-            <ReceivingPartContent
-              gift={this.props.gift}
-              giftPartIndex={giftPartIndex}
-              onComplete={this.nextPanel}
-              recipientLocation={this.props.recipientLocation}
-              revealBackgroundImage={this.unBlurImage}
-              revealPreviewImage={this.showImagePreview}
-            />}
+            {index === 0 && (
+              <ReceivingIntroContent
+                gift={this.props.gift}
+                onComplete={this.nextPanel}
+                recipientLocation={this.props.recipientLocation}
+                audioIntroPlayed={this.state.audioIntroPlayed}
+                handleAudioIntroPlayed={this.handleIntroAudioPlayed}
+              />
+            )}
+            {index === 1 && (
+              <ReceivingPartContent
+                gift={this.props.gift}
+                giftPartIndex={giftPartIndex}
+                onComplete={this.nextPanel}
+                recipientLocation={this.props.recipientLocation}
+                revealBackgroundImage={this.unBlurImage}
+                revealPreviewImage={this.showImagePreview}
+              />
+            )}
           </>
         );
       case 1 :

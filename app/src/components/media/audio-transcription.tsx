@@ -42,13 +42,13 @@ const AudioTranscription: React.FC<Props> = ({ giftId, audioReference, children 
 
     <>
 
-      {windowIsOpen &&
+      {windowIsOpen && (
         <TranscriptionModal
           onClose={() => { setWindowIsOpen(false); }}
         >
           {children}
         </TranscriptionModal>
-      }
+      )}
 
       <Icon onClick={openWindow} aria-label='Read audio transcript'>
         <SvgButtonTranscript />

@@ -55,10 +55,12 @@ const ProgressLoader: React.FC<Props> = (props) => {
       </GiftIcon>
       <ProgressTitle>{props.text}</ProgressTitle>
 
-      { props.percent !== undefined && <>
-      <ProgressBar percent={props.percent} theme={theme} height='0.1rem' />
-      <ProgressTitle>{props.percent}%</ProgressTitle>
-      </>}
+      { props.percent !== undefined && (
+          <>
+            <ProgressBar percent={props.percent} theme={theme} height='0.1rem' />
+            <ProgressTitle>{props.percent}%</ProgressTitle>
+          </>
+      )}
     </StyledProgressLoader>
   );
 

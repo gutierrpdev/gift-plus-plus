@@ -201,26 +201,17 @@ class ReceiveGift extends React.PureComponent<Props, State> {
         <BackgroundSvg />
         <GlobalStyles />
 
-        {headerSize === 'big' &&
-        <>
-          <ScreenHeader
-            showLogo={false}
-            museumName={museumName}
-          />
-          <MainTitle>Here's your gift from</MainTitle>
-          <MuseumName>{this.props.gift.senderName}</MuseumName>
-        </>
-        }
-        {headerSize === 'small' &&
-          <ScreenHeader
-            postSubTitle={`Your gift from`}
-            title={this.props.gift.senderName}
-            showLogo={false}
-            background='white'
-            museumName={museumName}
-          />
-        }
-        {headerSize === 'compact' &&
+        {headerSize === 'big' && (
+          <>
+            <ScreenHeader
+              showLogo={false}
+              museumName={museumName}
+            />
+            <MainTitle>Here's your gift from</MainTitle>
+            <MuseumName>{this.props.gift.senderName}</MuseumName>
+          </>
+        )}
+        {headerSize === 'small' && (
           <ScreenHeader
             postSubTitle={`Your gift from`}
             title={this.props.gift.senderName}
@@ -228,7 +219,16 @@ class ReceiveGift extends React.PureComponent<Props, State> {
             background='white'
             museumName={museumName}
           />
-        }
+        )}
+        {headerSize === 'compact' && (
+          <ScreenHeader
+            postSubTitle={`Your gift from`}
+            title={this.props.gift.senderName}
+            showLogo={false}
+            background='white'
+            museumName={museumName}
+          />
+        )}
 
         {this.renderContent()}
       </ScreenManager>

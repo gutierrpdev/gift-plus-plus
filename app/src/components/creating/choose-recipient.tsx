@@ -28,13 +28,13 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ giftId, onComplete 
   return (
     <>
 
-      {showingEnterRecipient &&
+      {showingEnterRecipient && (
         <TextInputModal
           placeHolder='Their first name'
           onSaveClick={(recipientName) => { onComplete(recipientName); }}
           onCancelClick={() => { setShowingEnterRecipient(false); }}
         />
-      }
+      )}
 
       <Panel>
 
@@ -59,11 +59,11 @@ export const CreateGiftChooseRecipient: React.FC<Props> = ({ giftId, onComplete 
         </PanelContent>
 
         <PanelButtons>
-          {audioHasPlayed &&
+          {audioHasPlayed && (
             <Button onClick={() => { setShowingEnterRecipient(true); }} primary={true}>
               Enter their name
             </Button>
-          }
+          )}
         </PanelButtons>
 
       </Panel>

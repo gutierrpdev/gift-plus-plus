@@ -73,10 +73,11 @@ const WorkingModal: React.FC<Props> = ({ message, iconType, buttonText, onButton
 
         <Message>{message}</Message>
 
-        {buttonText &&
-        <ModalButtons>
-          <Button onClick={handleButtonClick}>{buttonText}</Button>
-        </ModalButtons>}
+        {buttonText && (
+          <ModalButtons>
+            <Button onClick={handleButtonClick}>{buttonText}</Button>
+          </ModalButtons>
+        )}
 
       </ModalDialogInner>
     </ModalDialogOuter>

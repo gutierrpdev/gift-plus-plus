@@ -24,13 +24,13 @@ export const SignGift: React.FC<Props> = ({ onComplete }) => {
   return (
     <>
 
-      {showingEnterName &&
+      {showingEnterName && (
         <TextInputModal
           placeHolder='Write your first name'
           onSaveClick={(name) => { onComplete(name); }}
           onCancelClick={() => { setShowingEnterName(false); }}
         />
-      }
+      )}
 
       <Panel>
         <PanelTitle>Finish your gift</PanelTitle>

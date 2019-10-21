@@ -160,13 +160,13 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
       background={props.background}
     >
 
-      {isMenuOpen &&
+      {isMenuOpen && (
         <Menu
           openPrivacy={() => { setPrivacyIsOpen(true); }}
           openHelp={() => { setHelpIsOpen(true); }}
           onCloseClick={() => { setIsMenuOpen(false); }}
         />
-      }
+      )}
 
       {props.showMenuBurger && !isMenuOpen && <MenuBurger onClick={toggleMenu} />}
 
@@ -197,38 +197,38 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
 
       </HeaderTexts>
 
-      {props.showGradient !== undefined && props.showGradient !== 'none' &&
+      {props.showGradient !== undefined && props.showGradient !== 'none' && (
         <Gradient position='bottom' size={props.showGradient} />
-      }
+      )}
 
     </ScreenHeaderStyle>
 
     {/* == Privacy == */}
-    {privacyIsOpen &&
+    {privacyIsOpen && (
       <InformationWindow
         onClose={() => { setPrivacyIsOpen(false); }}
       >
         <TermsContent />
       </InformationWindow>
-    }
+    )}
 
     {/* == Help == */}
-    {helpIsOpen &&
+    {helpIsOpen && (
       <InformationWindow
         onClose={() => { setHelpIsOpen(false); }}
       >
         <HelpContent />
       </InformationWindow>
-    }
+    )}
 
     {/* == Terms == */}
-    {termsModalIsOpen &&
+    {termsModalIsOpen && (
       <TermsModal
         museumName={props.museumName || ''}
         onAgreeClick={handleAgreeTerms}
         onShowTerms={() => {setPrivacyIsOpen(true); }}
       />
-    }
+    )}
 
     </>
   );

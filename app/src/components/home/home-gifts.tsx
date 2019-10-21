@@ -121,13 +121,13 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName, curatedGiftId }) => {
   return (
 
     <>
-      {helpIsOpen &&
+      {helpIsOpen && (
         <InformationWindow
           onClose={() => { setHelpIsOpen(false); }}
         >
           <HelpContent />
         </InformationWindow>
-      }
+      )}
 
       <HomeContent>
 
