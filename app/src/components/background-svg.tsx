@@ -9,9 +9,10 @@ import { BgOrangeFullScreen } from './bg-orange';
  * Return the background SVG for the current museum
  */
 
-const Background = (museum.slug === 'brighton') ? BgSvgFullScreen
-                   : (museum.slug === 'munch') ? BgOrangeFullScreen
-                   : assertNever(museum.slug);
+const Background = (museum.slug === 'demo') ? BgSvgFullScreen
+                 : (museum.slug === 'brighton') ? BgSvgFullScreen
+                 : (museum.slug === 'munch') ? BgOrangeFullScreen
+                 : assertNever(museum.slug);
 
 
 const BackgroundSvg: React.FC = () => {

@@ -5,6 +5,42 @@ import { Museum } from './domain';
 
 
 /**
+ * Demo Museum
+ *
+ * ID: fc0fb3b3-8a60-5727-ae94-f682839ac20c
+ */
+// tslint:disable max-line-length
+const demo: Museum = {
+  id: uuidv5('https://api.thegift.app/museum/demo', uuidv5.URL),
+  slug: 'demo',
+  name: 'your museum',
+  curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
+  promoLink: '/promo',
+  get promoDestination() { return `/gift/${this.curatedGiftId}`; },
+  feedbackUrl: 'https://TODO',
+  homeScreenStartPoint: 'ever-made-a-mixtape',
+  assets: {
+    cChoosePart1: require('./assets/audio/demo/c-choose-part-1.m4a') as string,
+    cChoosePart2: require('./assets/audio/demo/c-choose-part-2.m4a') as string,
+    cChoosePart3: require('./assets/audio/demo/c-choose-part-3.m4a') as string,
+    cLetThemKnowPart1: require('./assets/audio/demo/c-let-them-know-part-1.m4a') as string,
+    cLetThemKnowPart2: require('./assets/audio/demo/c-let-them-know-part-2.m4a') as string,
+    cLetThemKnowPart3: require('./assets/audio/demo/c-let-them-know-part-3.m4a') as string,
+    cStart: require('./assets/audio/demo/c-start-gift.m4a') as string,
+    cShare: require('./assets/audio/demo/c-share.m4a') as string,
+    rIntroContentAtMuseumMuseumGift: require('./assets/audio/demo/r-intro-content-local-museum.m4a') as string,
+    rIntroContentAtMuseumPersonalGift: require('./assets/audio/demo/r-intro-content-local-personal.m4a') as string,
+    rIntroContentNotAtMuseumMuseumGift: require('./assets/audio/demo/r-intro-content-remote-museum.m4a') as string,
+    rIntroContentNotAtMuseumPersonalGift: require('./assets/audio/demo/r-intro-content-remote-personal.m4a') as string,
+    rOutroAtMuseumMuseumGift: require('./assets/audio/demo/r-outro-local-museum.m4a') as string,
+    rOutroAtMuseumPersonalGift: require('./assets/audio/demo/r-outro-local-personal.m4a') as string,
+    rOutroNotAtMuseumMuseumGift: require('./assets/audio/demo/r-outro-remote-museum.m4a') as string,
+    rOutroNotAtMuseumPersonalGift: require('./assets/audio/demo/r-outro-remote-personal.m4a') as string,
+  },
+};
+
+
+/**
  * Brighton Museum
  *
  * ID: 95d5128f-e6b3-5b07-8c98-6c9876a27481
@@ -89,12 +125,14 @@ function chooseMuesum(): Museum {
   // Overridden via query param (NOT on production!!)
   if (config.environment !== 'production') {
     const params = getQueryParams();
+    if (params.museum === 'demo') return demo;
     if (params.museum === 'brighton') return brighton;
     if (params.museum === 'munch') return munch;
   }
 
   // Overridden in config (dev only!!)
   if (config.environment === 'development' && config.museumOverride) {
+    if (config.museumOverride === 'demo') return demo;
     if (config.museumOverride === 'brighton') return brighton;
     if (config.museumOverride === 'munch') return munch;
     return assertNever(config.museumOverride);
@@ -102,7 +140,7 @@ function chooseMuesum(): Museum {
 
   // Switch museum based on domain
   const domain = window.location.hostname;
-  if (domain === 'staging.gift.blasttheory.com') return brighton;
+  if (domain === 'staging.gift.blasttheory.com') return demo;
   if (domain === 'thegift.app') return brighton;
   if (domain === 'staging.munchgift.com') return munch;
   if (domain === 'munchgift.com') return munch;

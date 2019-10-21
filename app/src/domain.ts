@@ -49,7 +49,7 @@ export interface InProgressGift {
 
 export interface Museum {
   id: MuseumId;
-  slug: 'brighton' | 'munch';
+  slug: 'demo' | 'brighton' | 'munch';
   name: string;
   curatedGiftId: GiftId;
   promoLink: string;

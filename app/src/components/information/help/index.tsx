@@ -5,11 +5,13 @@ import { events } from '../../../services';
 import { pHelpOpenedEvent, pHelpClosedEvent } from '../../../event-definitions';
 
 import { museum } from '../../../data';
+import { HelpContent as HelpContentDemo } from './help-demo';
 import { HelpContent as HelpContentBrighton } from './help-brighton';
 import { HelpContent as HelpContentMunch } from './help-munch';
 
 
-const HelpContent = (museum.slug === 'brighton') ? HelpContentBrighton
+const HelpContent = (museum.slug === 'demo') ? HelpContentDemo
+                  : (museum.slug === 'brighton') ? HelpContentBrighton
                   : (museum.slug === 'munch') ? HelpContentMunch
                   : assertNever(museum.slug);
 
