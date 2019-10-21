@@ -19,6 +19,7 @@ const demo: Museum = {
   get promoDestination() { return `/gift/${this.curatedGiftId}`; },
   feedbackUrl: 'https://TODO',
   homeScreenStartPoint: 'ever-made-a-mixtape',
+  homeScreenShowCuratedGift: false,
   assets: {
     cChoosePart1: require('./assets/audio/demo/c-choose-part-1.m4a') as string,
     cChoosePart2: require('./assets/audio/demo/c-choose-part-2.m4a') as string,
@@ -55,6 +56,7 @@ const brighton: Museum = {
   get promoDestination() { return `/gift/${this.curatedGiftId}`; },
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/S3FPSJB',
   homeScreenStartPoint: 'ever-made-a-mixtape',
+  homeScreenShowCuratedGift: true,
   assets: {
     cChoosePart1: require('./assets/audio/brighton/c-choose-part-1.m4a') as string,
     cChoosePart2: require('./assets/audio/brighton/c-choose-part-2.m4a') as string,
@@ -90,6 +92,7 @@ const munch: Museum = {
   promoDestination: '/',
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/3ZSHXWD',
   homeScreenStartPoint: 'new-gift',
+  homeScreenShowCuratedGift: true,
   assets: {
     cChoosePart1: require('./assets/audio/munch/c-choose-part-1.m4a') as string,
     cChoosePart2: require('./assets/audio/munch/c-choose-part-2.m4a') as string,

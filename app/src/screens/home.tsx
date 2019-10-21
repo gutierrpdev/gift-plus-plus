@@ -141,8 +141,8 @@ export const HomeScreen: React.FC = () => {
 
       setHasSeenHomeIntro(true);
 
-      // Do we have a new museum gift?
-      if (getHasUnopenedMuseumGift()) {
+      // Do we have an unopened museum gift? (And are we supposed to show it?)
+      if (getHasUnopenedMuseumGift() && museum.homeScreenShowCuratedGift) {
 
         // Go to start
         setStatus('got-new-gift');

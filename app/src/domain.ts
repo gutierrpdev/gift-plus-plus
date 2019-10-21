@@ -56,6 +56,7 @@ export interface Museum {
   promoDestination: string;
   feedbackUrl: string;
   homeScreenStartPoint: 'ever-made-a-mixtape' | 'new-gift';
+  homeScreenShowCuratedGift: boolean;
   assets: {
     cChoosePart1: string,
     cChoosePart2: string,
