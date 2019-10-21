@@ -131,7 +131,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Global styles */
   html {
-    background-color: #eee;
+    background-color: #333;
     margin: 0 auto;
     /* Limit the maximum width of all screens */
     /* Desktop */
