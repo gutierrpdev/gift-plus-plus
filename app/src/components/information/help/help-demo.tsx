@@ -118,7 +118,6 @@ export const HelpContent: React.FC = () => (
     </p>
     <p>
       Email:
-      {/* <a name='contact' href='mailto:gift@blasttheory.co.uk'> */}
       <a href='mailto:gift@blasttheory.co.uk'>gift@blasttheory.co.uk</a>
     </p>
   </>

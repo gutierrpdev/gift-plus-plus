@@ -13,10 +13,10 @@ import { Museum } from './domain';
 const demo: Museum = {
   id: uuidv5('https://api.thegift.app/museum/demo', uuidv5.URL),
   slug: 'demo',
-  name: 'your museum',
+  name: '[museum-name]',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   promoLink: '/promo',
-  get promoDestination() { return `/gift/${this.curatedGiftId}`; },
+  promoDestination: `/gift/${uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL)}`,
   feedbackUrl: 'https://TODO',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   homeScreenShowCuratedGift: false,
@@ -53,7 +53,7 @@ const brighton: Museum = {
   name: 'Brighton Museum',
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   promoLink: '/bhqr',
-  get promoDestination() { return `/gift/${this.curatedGiftId}`; },
+  promoDestination: `/gift/${uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL)}`,
   feedbackUrl: 'https://www.surveymonkey.co.uk/r/S3FPSJB',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   homeScreenShowCuratedGift: true,
@@ -144,6 +144,7 @@ function chooseMuesum(): Museum {
   // Switch museum based on domain
   const domain = window.location.hostname;
   if (domain === 'staging.gift.blasttheory.com') return demo;
+  if (domain === 'demo.thegift.app') return demo;
   if (domain === 'thegift.app') return brighton;
   if (domain === 'staging.munchgift.com') return munch;
   if (domain === 'munchgift.com') return munch;
