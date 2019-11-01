@@ -224,7 +224,6 @@ const ScreenHeader: React.FC<Props> = (props: Props) => {
     {/* == Terms == */}
     {termsModalIsOpen && (
       <TermsModal
-        museumName={props.museumName || ''}
         onAgreeClick={handleAgreeTerms}
         onShowTerms={() => {setPrivacyIsOpen(true); }}
       />

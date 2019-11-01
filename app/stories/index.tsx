@@ -573,7 +573,7 @@ storiesOf('Components/Modals', module)
   .add('Terms Modal', () => (
     <ScreenManager>
       <GlobalStyles />
-      <TermsModal museumName='British Museum' onAgreeClick={doNothing} onShowTerms={doNothing} />
+      <TermsModal onAgreeClick={doNothing} onShowTerms={doNothing} />
     </ScreenManager>
   ))
   .add('Feedback Modal', () => (

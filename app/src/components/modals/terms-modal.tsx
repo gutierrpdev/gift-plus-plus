@@ -6,6 +6,8 @@ import { ModalDialogOuter } from './base-modal-dialog';
 import { Button, Buttons } from '../buttons';
 import { TextResize } from '../text-resize';
 
+import { museum } from '../../data';
+
 /**
  * Terms & privacy modal
  */
@@ -44,44 +46,63 @@ const TermsButton = styled.button`
 `;
 
 interface Props {
-  museumName: string; // Museum name to show in the wording
   onAgreeClick: () => void; // Callback when the agree button is clicked
   onShowTerms: () => void; // Callback when the show terms button is clicked
 }
 
-const TermsModal: React.FC<Props> = ({ museumName, onAgreeClick, onShowTerms }) => {
 
-  function handleAgreeClick() {
-    onAgreeClick();
-  }
+const DemoContent: React.FC = () => (
+  <>
+    <TopText textSize={35}>Gift at {museum.name} is produced by&nbsp;
+      <a href='https://www.blasttheory.co.uk/' target='_blank'>Blast Theory</a>
+    </TopText>
 
-  function handleShowTermsClick() {
-    onShowTerms();
-  }
+    <MainText textSize={35}>
+      Perhaps some extra info here?
+    </MainText>
+
+    <MainText textSize={35}>
+      Blast Theory store and process your data to deliver this service and to make improvements.
+      We will never share your personal information without your consent.
+      Please press agree to continue.  If you'd like to learn more:
+    </MainText>
+  </>
+);
+
+
+const StandardContent: React.FC = () => (
+  <>
+    <TopText textSize={35}>Gift at {museum.name} is produced by&nbsp;
+      <a href='https://www.blasttheory.co.uk/' target='_blank'>Blast Theory</a>
+    </TopText>
+
+    <MainText textSize={35}>
+      Blast Theory store and process your data to deliver this service and to make improvements.
+      We will never share your personal information without your consent.
+      Please press agree to continue.  If you'd like to learn more:
+    </MainText>
+  </>
+);
+
+
+const TermsModal: React.FC<Props> = ({ onAgreeClick, onShowTerms }) => {
+  const innerContent = (museum.slug === 'demo') ? (<DemoContent />) : (<StandardContent />);
 
   return (
     <ModalDialogOuter>
       <Inner>
 
         <Texts>
+          {innerContent}
 
-          <TopText textSize={35}>Gift at {museumName} is produced by&nbsp;
-            <a href='https://www.blasttheory.co.uk/' target='_blank'>Blast Theory</a>
-          </TopText>
-
-          <MainText textSize={35}>
-            Blast Theory store and process your data to deliver this service and to make improvements.
-            We will never share your personal information without your consent.
-            Please press agree to continue.  If you'd like to learn more:
-          </MainText>
-          <TermsButton onClick={handleShowTermsClick}>
+          <TermsButton onClick={onShowTerms}>
             <TextResize textSize={40}>Read our terms &amp; privacy</TextResize>
           </TermsButton>
 
         </Texts>
 
         <Buttons>
-          <Button onClick={handleAgreeClick} colour='grey'>Agree and continue</Button>
+          <Button onClick={onAgreeClick} colour='grey'>Agree and continue</Button>
         </Buttons>
 
       </Inner>
