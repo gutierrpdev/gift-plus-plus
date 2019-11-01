@@ -17,7 +17,7 @@ const demo: Museum = {
   curatedGiftId: uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL),
   promoLink: '/promo',
   promoDestination: `/gift/${uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL)}`,
-  feedbackUrl: 'https://TODO',
+  feedbackUrl: 'https://www.blasttheory.co.uk/projects/gift',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   homeScreenShowCuratedGift: false,
   assets: {
