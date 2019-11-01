@@ -120,6 +120,7 @@ deploy-frontend-to-production:
     - |
       ssh -T -i deploy-key root@thegift.app <<ENDSSH
         docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
+        docker service update gift_app-demo --image $APP_IMAGE:$PRODUCTION_TAG
         docker service update gift_app-munch --image $APP_IMAGE:$PRODUCTION_TAG
       ENDSSH
   environment:
