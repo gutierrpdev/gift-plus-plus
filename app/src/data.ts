@@ -18,6 +18,7 @@ const demo: Museum = {
   promoLink: '/promo',
   promoDestination: `/gift/${uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL)}`,
   feedbackUrl: 'https://www.blasttheory.co.uk/projects/gift',
+  feedbackText: 'Some copy that needs changing',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   homeScreenShowCuratedGift: false,
   assets: {

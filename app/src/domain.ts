@@ -55,6 +55,7 @@ export interface Museum {
   promoLink: string;
   promoDestination: string;
   feedbackUrl: string;
+  feedbackText?: string;
   homeScreenStartPoint: 'ever-made-a-mixtape' | 'new-gift';
   homeScreenShowCuratedGift: boolean;
   assets: {

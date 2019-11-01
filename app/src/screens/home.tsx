@@ -235,7 +235,11 @@ export const HomeScreen: React.FC = () => {
       )}
 
       {showFeedback && (
-        <FeedbackModal feedbackUrl={museum.feedbackUrl} onFinished={hideFeedbackModal} />
+        <FeedbackModal
+          feedbackUrl={museum.feedbackUrl}
+          feedbackText={museum.feedbackText}
+          onFinished={hideFeedbackModal}
+        />
       )}
 
     </ScreenManager>

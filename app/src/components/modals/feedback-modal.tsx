@@ -18,6 +18,7 @@ const Inner = styled.div`
   background-color: white;
   position: absolute;
   bottom: 0;
+  width: 100%;
 `;
 
 const Texts = styled.div`
@@ -43,14 +44,18 @@ const MainText = styled(TextResize)`
 
 interface Props {
   feedbackUrl: string;
+  feedbackText?: string;
   onFinished: () => void; // Callback when the modal is finished with
 }
 
-const FeedbackModal: React.FC<Props> = ({ feedbackUrl, onFinished }) => {
 
-  function handleOnFinished() {
-    onFinished();
-  }
+const FeedbackModal: React.FC<Props> = ({ feedbackUrl, feedbackText, onFinished }) => {
+
+  // Use feedbackText if provided, else fallback to default copy
+  const mainText = feedbackText || `
+    We'd love to know what you thought of Gift. If you have 5 minutes, please
+    tell us about your experience.
+  `;
 
   return (
     <Outer>
@@ -60,18 +65,16 @@ const FeedbackModal: React.FC<Props> = ({ feedbackUrl, onFinished }) => {
 
           <TopText textSize={35}>Thank you for using Gift</TopText>
 
-          <MainText textSize={35}>
-            We'd love to know what you thought of Gift. If you have 5 minutes, please tell us about your experience.
-          </MainText>
+          <MainText textSize={35}>{mainText}</MainText>
 
         </Texts>
 
         <Buttons>
-          <Button onClick={handleOnFinished} colour='grey'>No, thanks</Button>
+          <Button onClick={onFinished} colour='grey'>No, thanks</Button>
           <ButtonAnchor
             href={feedbackUrl}
             target='_blank'
-            onClick={handleOnFinished}
+            onClick={onFinished}
             colour='grey'
           >
             Continue
