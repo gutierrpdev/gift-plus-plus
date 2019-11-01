@@ -116,7 +116,10 @@ const HomeGifts: React.FC<HomeGiftProps> = ({ museumName, curatedGiftId }) => {
 
   // Prep for render
   const atMuseum = getSessionRecipientLocation() === 'at-museum';
-  const showGiftText = `Show the gift from ${museumName}`;
+  const showGiftText
+  = (museum.slug === 'demo') ? `Show example gift from Brighton Museum`
+  : `Show the gift from ${museumName}`
+  ;
 
   return (
 
