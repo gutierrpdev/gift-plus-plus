@@ -1,7 +1,3 @@
-# TODO
-
-This
-
 # Dependencies
 
 PostrgeSQL 11+

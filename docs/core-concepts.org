@@ -1,4 +1,8 @@
 * Concepts
+
+  The following high-level concepts are considered within the domain of the Gift
+  App.
+
 ** Gift
    - Collection of user-generated media / text (created at a museum)
    - Created with the intention of "giving" to others
