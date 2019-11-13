@@ -1,11 +1,11 @@
 * GIFT
 
-  This repository contains source code for the GIFT Experience App produced by
+  This repository contains source code for the GIFT App produced by
   [[https://www.blasttheory.co.uk/][Blast Theory]]. This is part of a wider project, further details of which can be
   found here:
 
   - [[https://gifting.digital/][The GIFT project]]
-  - [[https://www.blasttheory.co.uk/projects/gift/][The GIFT Experience App]]
+  - [[https://www.blasttheory.co.uk/projects/gift/][The GIFT App]]
 
 ** Getting Started
 
