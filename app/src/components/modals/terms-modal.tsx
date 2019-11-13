@@ -53,12 +53,12 @@ interface Props {
 
 const DemoContent: React.FC = () => (
   <>
-    <TopText textSize={35}>Gift at {museum.name} is produced by&nbsp;
+    <TopText textSize={35}>This demo of Gift is hosted by&nbsp;
       <a href='https://www.blasttheory.co.uk/' target='_blank'>Blast Theory</a>
     </TopText>
 
     <MainText textSize={35}>
-      Perhaps some extra info here?
+      <a href='https://gifting.digital/gift-experience/' target='_blank'>Find out more</a>
     </MainText>
 
     <MainText textSize={35}>
