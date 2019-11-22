@@ -18,7 +18,7 @@ const demo: Museum = {
   promoLink: '/promo',
   promoDestination: `/gift/${uuidv5('https://api.thegift.app/gift/brighton-museum-1', uuidv5.URL)}`,
   feedbackUrl: 'https://gifting.digital/gift-experience/',
-  feedbackText: 'Press continue to learn more about hosting gift at your museum.',
+  feedbackText: 'Press continue to learn more about hosting Gift at your museum.',
   homeScreenStartPoint: 'ever-made-a-mixtape',
   homeScreenShowCuratedGift: false,
   assets: {
