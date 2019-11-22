@@ -50,7 +50,7 @@ interface Props {
   onShowTerms: () => void; // Callback when the show terms button is clicked
 }
 
-
+// tslint:disable max-line-length
 const DemoContent: React.FC = () => (
   <>
     <TopText textSize={40}>This demo of Gift is hosted by<br/>&nbsp;
@@ -68,7 +68,7 @@ const DemoContent: React.FC = () => (
     </MainText>
   </>
 );
-
+// tslint:enable max-line-length
 
 const StandardContent: React.FC = () => (
   <>
