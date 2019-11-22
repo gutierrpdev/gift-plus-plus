@@ -53,7 +53,7 @@ const FeedbackModal: React.FC<Props> = ({ feedbackUrl, feedbackText, onFinished 
 
   // Use feedbackText if provided, else fallback to default copy
   const mainText = feedbackText || `
-    We'd love to know what you thought of Gift. If you have 5 minutes, please
+    We'd love to have your feedback to help improve Gift. If you have 5 minutes, please press continue to
     tell us about your experience.
   `;
 
