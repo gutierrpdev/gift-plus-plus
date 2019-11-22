@@ -11,7 +11,7 @@ export const HelpContent: React.FC = () => (
     <h5>What is Gift?</h5>
     <p>Gift invites you to pick someone you love and create the perfect digital gift for them on your phone. Choose beautiful objects, record a personal message for each one, then send it.</p>
     <h5>Who can make a gift?</h5>
-    <p>You can. Just bring your smart phone to Brighton Museum to begin.</p>
+    <p>You can. Just bring your smart phone to the museum to begin.</p>
     <h5>Who can I make gifts for?</h5>
     <p>You can choose anyone. Someone you wish could be with you at the museum. Or someone who’s standing next to you now. It’s up to you. </p>
     <hr/>
