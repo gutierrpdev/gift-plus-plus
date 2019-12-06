@@ -22,6 +22,7 @@
 
 *** Requirements
 
+    - Linux
     - NodeJS 12+ / Yarn
       (to build / run the project)
     - PostgreSQL (recommended) or SQLite3 database
