@@ -10,6 +10,7 @@ import { CChoosePart2Munch } from './c-choose-part-2-munch';
 const Transcript = (museum.slug === 'demo') ? CChoosePart2Demo
                  : (museum.slug === 'brighton') ? CChoosePart2Brighton
                  : (museum.slug === 'munch') ? CChoosePart2Munch
+                 : (museum.slug === 'mpu') ? CChoosePart2Demo
                  : assertNever(museum.slug);
 
 

@@ -10,6 +10,7 @@ import { ROutroLocalMuseumTranscriptMunch } from './r-outro-local-museum-munch';
 const Transcript = (museum.slug === 'demo') ? ROutroLocalMuseumTranscriptDemo
                  : (museum.slug === 'brighton') ? ROutroLocalMuseumTranscriptBrighton
                  : (museum.slug === 'munch') ? ROutroLocalMuseumTranscriptMunch
+                 : (museum.slug === 'mpu') ? ROutroLocalMuseumTranscriptDemo
                  : assertNever(museum.slug);
 
 

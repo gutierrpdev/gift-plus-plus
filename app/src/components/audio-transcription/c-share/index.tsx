@@ -10,6 +10,7 @@ import { CShareTranscriptMunch } from './c-share-munch';
 const Transcript = (museum.slug === 'demo') ? CShareTranscriptDemo
                  : (museum.slug === 'brighton') ? CShareTranscriptBrighton
                  : (museum.slug === 'munch') ? CShareTranscriptMunch
+                 : (museum.slug === 'mpu') ? CShareTranscriptDemo
                  : assertNever(museum.slug);
 
 

@@ -70,3 +70,34 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/munch-museum-1', uuidv5.U
     },
   ],
 });
+
+
+/**
+ * The Museum of Applied Art curated Gift
+ *
+ * ID: bb61f6c8-119b-5078-9152-453429f3e036
+ */
+preparedGifts.set(uuidv5('https://api.thegift.app/gift/mpu-1', uuidv5.URL), {
+  id: uuidv5('https://api.thegift.app/gift/mpu-1', uuidv5.URL),
+  kind: 'MuseumGift',
+  museumId: uuidv5('https://api.thegift.app/museum/mpu', uuidv5.URL),
+  senderName: 'Museum of Applied Art',
+  recipientName: 'visitor',
+  parts: [
+    {
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-photo.6046a68f.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-note.c4ff803e.m4a',
+      clue: 'Find the cabinet of Japanese inspired furniture',
+    },
+    {
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-photo.863ba708.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-note.cd932aee.m4a',
+      clue: 'Look among the chairs by the  entrance',
+    },
+    {
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-photo.819aeecd.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-note.2ea33504.m4a',
+      clue: 'Search for the glass case of figurines',
+    },
+  ],
+});

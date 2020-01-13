@@ -12,6 +12,7 @@ import { BgOrangeFullScreen } from './bg-orange';
 const Background = (museum.slug === 'demo') ? BgSvgFullScreen
                  : (museum.slug === 'brighton') ? BgSvgFullScreen
                  : (museum.slug === 'munch') ? BgOrangeFullScreen
+                 : (museum.slug === 'mpu') ? BgSvgFullScreen
                  : assertNever(museum.slug);
 
 

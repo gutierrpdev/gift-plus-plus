@@ -10,6 +10,7 @@ import { ROutroRemotePersonalTranscriptMunch } from './r-outro-remote-personal-m
 const Transcript = (museum.slug === 'demo') ? ROutroRemotePersonalTranscriptDemo
                  : (museum.slug === 'brighton') ? ROutroRemotePersonalTranscriptBrighton
                  : (museum.slug === 'munch') ? ROutroRemotePersonalTranscriptMunch
+                 : (museum.slug === 'mpu') ? ROutroRemotePersonalTranscriptDemo
                  : assertNever(museum.slug);
 
 
