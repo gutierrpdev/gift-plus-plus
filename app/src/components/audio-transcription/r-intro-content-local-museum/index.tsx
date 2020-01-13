@@ -10,6 +10,7 @@ import { RIntroContentLocalMuseumTranscriptionMunch } from './r-intro-content-lo
 const Transcript = (museum.slug === 'demo') ? RIntroContentLocalMuseumTranscriptionDemo
                  : (museum.slug === 'brighton') ? RIntroContentLocalMuseumTranscriptionBrighton
                  : (museum.slug === 'munch') ? RIntroContentLocalMuseumTranscriptionMunch
+                 : (museum.slug === 'mpu') ? RIntroContentLocalMuseumTranscriptionDemo
                  : assertNever(museum.slug);
 
 

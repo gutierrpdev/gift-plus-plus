@@ -10,6 +10,7 @@ import { RIntroContentRemotePersonalTranscriptionMunch } from './r-intro-content
 const Transcript = (museum.slug === 'demo') ? RIntroContentRemotePersonalTranscriptionDemo
                  : (museum.slug === 'brighton') ? RIntroContentRemotePersonalTranscriptionBrighton
                  : (museum.slug === 'munch') ? RIntroContentRemotePersonalTranscriptionMunch
+                 : (museum.slug === 'mpu') ? RIntroContentRemotePersonalTranscriptionDemo
                  : assertNever(museum.slug);
 
 

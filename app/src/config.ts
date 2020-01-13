@@ -17,7 +17,7 @@ class ConfigError extends Error {
 export interface Config {
   environment: string;
   apiUri: string;
-  museumOverride?: 'demo' | 'brighton' | 'munch';
+  museumOverride?: 'demo' | 'brighton' | 'munch' | 'mpu';
 }
 
 
@@ -27,6 +27,7 @@ export const config: Config = {
   museumOverride: (process.env.MUSEUM_OVERRIDE === 'demo') ? 'demo'
                 : (process.env.MUSEUM_OVERRIDE === 'brighton') ? 'brighton'
                 : (process.env.MUSEUM_OVERRIDE === 'munch') ? 'munch'
+                : (process.env.MUSEUM_OVERRIDE === 'mpu') ? 'mpu'
                 : undefined,
 };
 

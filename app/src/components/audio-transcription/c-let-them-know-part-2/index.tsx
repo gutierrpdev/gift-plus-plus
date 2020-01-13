@@ -10,6 +10,7 @@ import { CLetThemKnowPart2TranscriptMunch } from './c-let-them-know-part-2-munch
 const Transcript = (museum.slug === 'demo') ? CLetThemKnowPart2TranscriptDemo
                  : (museum.slug === 'brighton') ? CLetThemKnowPart2TranscriptBrighton
                  : (museum.slug === 'munch') ? CLetThemKnowPart2TranscriptMunch
+                 : (museum.slug === 'mpu') ? CLetThemKnowPart2TranscriptDemo
                  : assertNever(museum.slug);
 
 
