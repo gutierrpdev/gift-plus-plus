@@ -121,6 +121,7 @@ deploy-frontend-to-production:
         docker service update gift_app --image $APP_IMAGE:$PRODUCTION_TAG
         docker service update gift_app-demo --image $APP_IMAGE:$PRODUCTION_TAG
         docker service update gift_app-munch --image $APP_IMAGE:$PRODUCTION_TAG
+        docker service update gift_app-mpu --image $APP_IMAGE:$PRODUCTION_TAG
       ENDSSH
   environment:
     name: production
