@@ -85,18 +85,18 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/mpu-1', uuidv5.URL), {
   recipientName: 'visitor',
   parts: [
     {
-      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-photo.f3f10213.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-note.9dc4b2b6.m4a',
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-photo.6b35a49f.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-note.e53958d8.m4a',
       clue: 'Search for a large family photograph in "Tradition and Fashion" in the upper gallery',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-2-photo.4d73eb46.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-2-note.b382b6b4.m4a',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-2-note.d8f65955.m4a',
       clue: 'Look in the lower gallery in the "Fashion Silhouettes" section',
     },
     {
       photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-3-photo.44bf6d07.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-3-note.613a3a1d.m4a',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-3-note.c8713912.m4a',
       clue: 'Find this on a mannequin in "Men’s Fashion" in the lower gallery',
     },
   ],
