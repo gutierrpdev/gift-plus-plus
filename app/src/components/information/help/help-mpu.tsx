@@ -75,7 +75,7 @@ export const HelpContent: React.FC = () => (
     <h5>How much data do gifts use?</h5>
     <p>Gifts are generally less than 10MB each.</p>
     <h5>How long do you store my gifts for? Will you delete them?</h5>
-    <p>Gift is planned to run at Brighton Museum until October, 2019. Gifts created by visitors will only be accessible during this time. Gifts may also be deleted at the request of users (see below). Please read our terms and privacy for details of storing and deleting your data.</p>
+    <p>Gift is planned to run at the museum until the end of September, 2020. Gifts created by visitors will only be accessible during this time. Gifts may also be deleted at the request of users (see below). Please read our terms and privacy for details of storing and deleting your data.</p>
     <h5>How can I report abuse or request to delete a gift or my data?</h5>
     <p>Please email Blast Theory at gift@blasttheory.co.uk or choose 'Feedback' from the main menu.</p>
     <hr/>
@@ -95,7 +95,7 @@ export const HelpContent: React.FC = () => (
     <p>Visit the project website for more information: <a href='https://www.gifting.digital' target='_blank'>www.gifting.digital</a></p>
     <h5>Who are Blast Theory?</h5>
     <p>Visit our website: <a href='https://www.blasttheory.co.uk/projects/gift' target='_blank'>www.blasttheory.co.uk</a></p>
-    <h5>Why is Gift at Brighton Museum?</h5>
+    <h5>Why is Gift at the Museum of Applied Art?</h5>
     <p>Gift gives you a new pathway through museums, one that takes you off the beaten track onto a pathway of your own. It is a new way of experiencing museums through the eyes of someone special to you.</p>
     <h5>How do I feedback on my experience of Gift?</h5>
     <p>To let us know about your experience,  choose 'Feedback' from the main menu.</p>
