@@ -85,19 +85,19 @@ preparedGifts.set(uuidv5('https://api.thegift.app/gift/mpu-1', uuidv5.URL), {
   recipientName: 'visitor',
   parts: [
     {
-      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-photo.6046a68f.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-1-note.c4ff803e.m4a',
-      clue: 'Find the cabinet of Japanese inspired furniture',
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-photo.f3f10213.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-1-note.9dc4b2b6.m4a',
+      clue: 'Search for a large family photograph in "Tradition and Fashion" in the upper gallery',
     },
     {
-      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-photo.863ba708.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-2-note.cd932aee.m4a',
-      clue: 'Look among the chairs by the  entrance',
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-2-photo.4d73eb46.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-2-note.b382b6b4.m4a',
+      clue: 'Look in the lower gallery in the "Fashion Silhouettes" section',
     },
     {
-      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-photo.819aeecd.jpg',
-      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/brighton-032bd8ddd/part-3-note.2ea33504.m4a',
-      clue: 'Search for the glass case of figurines',
+      photo: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-3-photo.44bf6d07.jpg',
+      note: 'https://bt-gift.s3.eu-west-2.amazonaws.com/static-content/curated/mpu-bb61f6c8/part-3-note.613a3a1d.m4a',
+      clue: 'Find this on a mannequin in "Men’s Fashion" in the lower gallery',
     },
   ],
 });
