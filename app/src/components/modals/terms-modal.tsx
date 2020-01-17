@@ -31,6 +31,7 @@ const TopText = styled(TextResize)`
   color: black;
   font-weight: 500;
   margin-bottom: 3%;
+  line-height: 1.2;
 `;
 
 const MainText = styled(TextResize)`
