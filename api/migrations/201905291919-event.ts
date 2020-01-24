@@ -22,7 +22,7 @@ export const up = async (knex: Knex): Promise<void> => {
       .text('name')
       .notNullable();
     table
-      .json('payload')
+      .jsonb('payload')
       .notNullable();
     table
       .timestamp('occurred_at')

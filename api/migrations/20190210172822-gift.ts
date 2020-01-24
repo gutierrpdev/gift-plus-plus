@@ -38,7 +38,7 @@ export const up = async (knex: Knex): Promise<void> => {
       .text('recipient_name')
       .notNullable();
     table
-      .json('parts')
+      .jsonb('parts')
       .notNullable();
     table
       .timestamp('created_at')
