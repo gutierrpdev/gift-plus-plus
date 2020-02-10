@@ -28,8 +28,8 @@ services:
         - 'traefik.port=80'
         - 'traefik.domain=thegift.app'
         - 'traefik.frontend.rule=Host:thegift.app,www.thegift.app'
-        - 'traefik.frontend.redirect.regex=^https://www.thegift.app/(.*)$$'
-        - 'traefik.frontend.redirect.replacement=https://thegift.app/$$1'
+        - 'traefik.frontend.redirect.regex=.*'
+        - 'traefik.frontend.redirect.replacement=https://www.blasttheory.co.uk/projects/gift/'
 
   app-demo:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
