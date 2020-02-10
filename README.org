@@ -10,7 +10,7 @@
   with IT University Copenhagen, University of Nottingham, University of
   Uppsala, Blast Theory, Next Game, the Europeana Foundation and Culture24.
 
-  Further details of can be found here:
+  Further details can be found here:
 
   - [[https://gifting.digital/][The GIFT project]]
   - [[https://www.blasttheory.co.uk/projects/gift/][The GIFT App]]
