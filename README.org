@@ -1,8 +1,16 @@
 * GIFT
 
-  This repository contains source code for the GIFT App produced by
-  [[https://www.blasttheory.co.uk/][Blast Theory]]. This is part of a wider project, further details of which can be
-  found here:
+  This repository contains source code for the GIFT App.
+
+** Info
+
+  Gift is made by the artist group, [[https://www.blasttheory.co.uk/][Blast Theory]] as part of a three year
+  research project funded by the European Union’s Horizon 2020 research and
+  innovation programme under grant agreement No 727040. It is a collaboration
+  with IT University Copenhagen, University of Nottingham, University of
+  Uppsala, Blast Theory, Next Game, the Europeana Foundation and Culture24.
+
+  Further details of can be found here:
 
   - [[https://gifting.digital/][The GIFT project]]
   - [[https://www.blasttheory.co.uk/projects/gift/][The GIFT App]]

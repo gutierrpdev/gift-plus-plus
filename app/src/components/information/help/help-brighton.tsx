@@ -92,7 +92,7 @@ export const HelpContent: React.FC = () => (
     <h2>Who made the work and why?</h2>
     <h5>Who made Gift?</h5>
     <p>Gift is made by the artist group, Blast Theory as part of a three year research project funded by the European Union’s Horizon 2020 research and innovation programme under grant agreement No 727040. It is a collaboration with IT University Copenhagen, University of Nottingham, University of Uppsala, Blast Theory, Next Game, the Europeana Foundation and Culture24.</p>
-    <p>Visit the project website for more information: <a href='https://www.gifting.digital' target='_blank'>www.gifting.digital</a></p>
+    <p>Visit the project website for more information: <a href='https://gifting.digital' target='_blank'>gifting.digital</a></p>
     <h5>Who are Blast Theory?</h5>
     <p>Visit our website: <a href='https://www.blasttheory.co.uk/projects/gift' target='_blank'>www.blasttheory.co.uk</a></p>
     <h5>Why is Gift at Brighton Museum?</h5>
