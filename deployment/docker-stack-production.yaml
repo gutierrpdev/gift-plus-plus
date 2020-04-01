@@ -17,6 +17,7 @@ services:
       - './traefik.toml:/traefik.toml'
       - 'proxy-data:/data'
 
+  # Currently redirecting to project page
   app:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
     volumes:
@@ -43,6 +44,7 @@ services:
         - 'traefik.domain=demo.thegift.app'
         - 'traefik.frontend.rule=Host:demo.thegift.app'
 
+  # Currently redirecting to project page (existing gifts still accessible)
   app-munch:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
     volumes:
@@ -53,7 +55,10 @@ services:
         - 'traefik.enable=true'
         - 'traefik.port=80'
         - 'traefik.domain=munchgift.com'
-        - 'traefik.frontend.rule=Host:munchgift.com'
+        - 'traefik.redirect_homepage.frontend.rule=Host:munchgift.com; Path:/'
+        - 'traefik.redirect_homepage.frontend.redirect.regex=.*'
+        - 'traefik.redirect_homepage.frontend.redirect.replacement=https://www.blasttheory.co.uk/projects/gift/'
+        - 'traefik.allow_others.frontend.rule=Host:munchgift.com'
 
   app-mpu:
     image: registry.gitlab.com/blasttheory/gift/gift-app:latest-production
