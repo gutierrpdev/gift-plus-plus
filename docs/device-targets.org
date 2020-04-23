@@ -62,3 +62,11 @@
 *** OnePlus 5T (Android 8.1)
     - Modern Firefox
     - Modern Chrome
+    
+*** Huawei P30 Lite (Android 9)
+    - Modern Firefox
+    - Modern Chrome
+    - Huawei Browser
+    - UC Browser (NOTE: No gift creation support)
+    - QQ Browser (Untested, see issue #225) 
+    - WeChat webview (Untested, see issue #225)
