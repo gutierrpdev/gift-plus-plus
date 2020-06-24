@@ -113,3 +113,107 @@
 *** =/app/src/components/information/help/=
 
     Contains copy for the help / FAQs.
+
+** AWS S3 Media Storage
+
+   There are a few requirements when setting up an AWS S3 bucket for use as the
+   media storage for gift. First, you will need a bucket. We'll assume you've
+   created a bucket called =my-gift-assets=.
+
+   Gift will use the following paths in this bucket:
+
+   (Note that ={environment}= will correspond to the =ENVIRONMENT= config value
+   specified for the API. E.g. =production=.)
+
+*** =/{environment}/uploads/=
+
+    Raw media uploaded by the user via the app. Files in here are not publicly
+    accessible. The app retrieves a signed-request (=PreparedUpload=) from the
+    api to obtain temporary permission to upload a file here.
+
+*** =/{environment}/assets/{gift-id}/=
+
+    Publicly accessible media for each gift. Files in here have been transcoded
+    by the api from the raw uploaded media files in =/{environment}/uploads= and
+    made publicly accessible with long cache-headers.
+
+*** Bucket Permissions
+
+    The bucket should be set to allow some public access (by ACL).  To set these go to:
+
+    ~S3 > your-bucket > permissions > Block public access~
+
+    The following restrictions should NOT be turned on:
+
+    - [OFF] Block all public access
+    - [OFF] Block public access to buckets and objects granted through new access control lists (ACLs)
+    - [OFF] Block public access to buckets and objects granted through any access control lists (ACLs)
+
+    See the following screenshot for appropriate settings:
+
+    [[file:docs/gift-bucket-permissions.png][Bucket Public Access]]
+
+*** CORS Setup
+
+    In order for the app to upload and retrieve media from the bucket, it must
+    have an appropriate CORS config.
+
+    To set this go to:
+
+    ~S3 > your-bucket > permissions > CORS configuration~
+
+    And add the following:
+
+    #+begin_src xml
+      <?xml version="1.0" encoding="UTF-8"?>
+      <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+      <CORSRule>
+          <AllowedOrigin>*</AllowedOrigin>
+          <AllowedMethod>GET</AllowedMethod>
+          <AllowedMethod>POST</AllowedMethod>
+      </CORSRule>
+      </CORSConfiguration>
+    #+end_src
+
+*** Access Token (AWS IAM credentials)
+
+    The API needs to be provided with valid AWS credentials to allow it use the
+    S3 bucket. These are passed to the api in the environment / config variables
+    =AWS_ACCESS_KEY= and =AWS_SECRET_ACCESS_KEY=
+
+    The credentials you provide will need to be attached to a user / role with
+    the following policy:
+
+    #+begin_src json
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                      "s3:PutObject",
+                      "s3:GetObjectAcl",
+                      "s3:GetObject",
+                      "s3:AbortMultipartUpload",
+                      "s3:PutObjectVersionAcl",
+                      "s3:GetObjectTagging",
+                      "s3:PutObjectAcl"
+                  ],
+                  "Resource": "arn:aws:s3:::my-gift-bucket/*"
+              }
+          ]
+      }
+    #+end_src
+
+    Note, =my-gift-bucket= should be the name of the bucket you created at the
+    beginning. If you would like to limit the access further by environment, you
+    can restrict the resource field to e.g.
+    ="Resource": "arn:aws:s3:::my-gift-bucket/production/*"= instead.
+
+*** Avoiding AWS
+
+    If you'd rather avoid AWS S3 completely. You could try something like [[https://min.io/][MinIO]]
+    which provides a compatibility with S3 (though this is entirely untested).
+    Or you could create an alternative [[file:api/src/lib/services/storage.ts][StorageService]] which, for example uses
+    the local filesystem instead.
